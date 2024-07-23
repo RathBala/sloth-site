@@ -1,0 +1,23 @@
+.blue-background {
+  background-color: #0b1930;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.item-centre {
+  align-items: center;
+}
+
+.text-centre {
+  text-align: center;
+}
+
+.white-text {
+  color: white;
+}
