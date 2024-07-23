@@ -2,6 +2,29 @@
   background-color: #0b1930;
 }
 
+.button-primary {
+  background: linear-gradient(to bottom, #04bf68 0%, #04bf68 100%);
+  color: #f3f4f6;
+  padding: 11px 14px;
+  box-shadow: 0px 1px 0px rgba(80, 89, 103, 0.3);
+  border-radius: 6px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.button-primary:hover,
+.button-primary:focus {
+  background: linear-gradient(to bottom, #96f294 0%, #04bf68 100%);
+  color: #ffffff;
+}
+
+.button-primary:active {
+  background: linear-gradient(to bottom, #04bf68 0%, #04bf68 100%);
+  color: #ffffff;
+}
+
 .flex {
   display: flex;
 }
@@ -12,6 +35,11 @@
 
 .item-centre {
   align-items: center;
+}
+
+.scale-50 {
+  transform: scale(0.5);
+  margin-top: -200px;
 }
 
 .text-centre {
