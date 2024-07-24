@@ -1,3 +1,30 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-family: "Merriweather Sans", sans-serif;
+  font-weight: 700;
+  font-size: 92px;
+  line-height: 110%;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 140%;
+}
+
 .blue-background {
   background-color: #0b1930;
 }
@@ -33,8 +60,28 @@
   flex-direction: column;
 }
 
+.max-w-600px {
+  max-width: 600px;
+}
+
 .item-centre {
   align-items: center;
+}
+
+.mt-150 {
+  margin-top: 1.5rem;
+}
+
+.mt-200 {
+  margin-top: 2rem;
+}
+
+.nav_placeholder {
+  height: 71px;
+}
+
+.pt-1000 {
+  padding-top: 10rem;
 }
 
 .scale-50 {
