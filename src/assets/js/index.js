@@ -1,16 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const gemsContainer = document.querySelector(".gems-container");
-  const numberOfGems = 20; // Define how many gems you want
-
-  for (let i = 0; i < numberOfGems; i++) {
-    const gem = document.createElement("img");
-    gem.src = "assets/images/gem.svg"; // Path to your SVG image
-    gem.classList.add("gem");
-    gem.alt = "Gem Icon";
-    gem.style.opacity = 0; // Start hidden
-    gem.style.transform = `rotate(${Math.random() * 360}deg)`; // Apply a random rotation
-    gemsContainer.appendChild(gem);
-  }
+  const heroImage = document.getElementById("hero-image");
+  const numberOfGems = 50;
+  const imagePath = "assets/images/gem.svg";
 
   const observerOptions = {
     root: null,
@@ -18,25 +10,30 @@ document.addEventListener("DOMContentLoaded", () => {
     threshold: 0.5,
   };
 
-  const observer = new IntersectionObserver(handleIntersect, observerOptions);
-  observer.observe(document.querySelector(".emergency-pot")); // Adjust this selector as needed
-
-  function handleIntersect(entries, observer) {
+  const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        animateGems();
-        observer.unobserve(entry.target); // Stop observing after animation
+        console.log("Intersecting");
+        gemsContainer.style.display = "block";
+        generateGems();
+        observer.unobserve(entry.target);
       }
     });
-  }
+  }, observerOptions);
 
-  function animateGems() {
-    const gems = document.querySelectorAll(".gem");
-    gems.forEach((gem, index) => {
+  observer.observe(heroImage);
+
+  function generateGems() {
+    for (let i = 0; i < numberOfGems; i++) {
       setTimeout(() => {
-        gem.style.opacity = 1;
-        gem.style.transform += ` translateY(${Math.random() * 50 - 25}px)`; // Add translateY keeping the rotation
-      }, 100 * index); // Stagger the animation
-    });
+        // Use setTimeout to stagger the creation of gems
+        const gem = document.createElement("img");
+        gem.src = imagePath;
+        gem.classList.add("gem");
+        gem.alt = "Gem Icon";
+        gem.style.left = `${Math.random() * 100}%`; // Randomize initial horizontal position
+        gemsContainer.appendChild(gem);
+      }, i * 100); // Stagger the creation times by 100ms increments
+    }
   }
 });
