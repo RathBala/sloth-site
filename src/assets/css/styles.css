@@ -1,28 +1,17 @@
-body {
-  font-family: "Roboto", sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-}
-
-h1 {
-  font-family: "Merriweather Sans", sans-serif;
-  font-weight: 700;
-  font-size: 92px;
-  line-height: 110%;
-}
-
-h2 {
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 140%;
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    @apply m-0;
+  }
 }
 
 @keyframes fall {
@@ -37,10 +26,6 @@ h2 {
     transform: translateY(100vh);
     opacity: 0;
   }
-}
-
-.blue-background {
-  background-color: #0b1930;
 }
 
 .button-primary {
@@ -65,14 +50,14 @@ h2 {
   background: linear-gradient(to bottom, #04bf68 0%, #04bf68 100%);
   color: #ffffff;
 }
-
+/* 
 .flex {
   display: flex;
 }
 
 .flex-col {
   flex-direction: column;
-}
+} */
 
 .gem {
   width: 20px;
@@ -122,26 +107,26 @@ h2 {
   z-index: 5; /* Lower than gems-container to be beneath the gems */
 }
 
-.max-w-700px {
+/* .max-w-700px {
   max-width: 700px;
-}
+} */
 
-.item-centre {
+/* .item-centre {
   align-items: center;
-}
-
+} */
+/* 
 .mt-150 {
   margin-top: 1.5rem;
 }
 
 .mt-200 {
   margin-top: 2rem;
-}
+} */
 
 .nav_placeholder {
   height: 71px;
 }
-
+/* 
 .pt-1000 {
   padding-top: 10rem;
 }
@@ -149,12 +134,12 @@ h2 {
 .scale-50 {
   transform: scale(0.5);
   margin-top: -200px;
-}
-
+} */
+/* 
 .text-centre {
   text-align: center;
-}
+} */
 
-.white-text {
+/* .white-text {
   color: white;
-}
+} */
