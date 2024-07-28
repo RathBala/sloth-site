@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const gemsContainer = document.querySelector(".gems-container");
   const heroImage = document.getElementById("hero-image");
-  const numberOfGems = 50;
+  const numberOfGems = 20;
   const imagePath = "assets/images/gem.svg";
 
   const observerOptions = {
     root: null,
     rootMargin: "0px",
-    threshold: 0.5,
+    threshold: 0.7,
   };
 
   const observer = new IntersectionObserver((entries, observer) => {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         gemsContainer.appendChild(gem);
-      }, i * 100); // Stagger the creation times by 100ms increments
+      }, i * 200);
     }
   }
 });
