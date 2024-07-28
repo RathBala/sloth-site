@@ -15,7 +15,7 @@
   </head>
   <body class="flex flex-col bg-blue-dark text-white font-serif">
     <main>
-      <header class="nav_placeholder"></header>
+      <header class="h-12"></header>
 
       <section class="flex flex-col items-center pt-10rem">
         <h1 class="font-sans text-8xl/[110%] font-bold text-center">
@@ -31,12 +31,18 @@
         </h2>
 
         <div>
-          <a href="#" class="button-primary mt-200">Start for free</a>
+          <a
+            href="#"
+            class="inline-block mt-200 bg-gradient-to-b-green py-3 px-4 rounded-md text-white text-center hover:bg-gradient-to-b from-green-light to-green focus:bg-gradient-to-b-green"
+            >Start for free</a
+          >
         </div>
 
-        <div class="glow">
-          <div class="gems-container"></div>
-          <div id="hero-image" class="scale-50">
+        <div class="glow relative bg-blue-dark overflow-hidden">
+          <div
+            class="gems-container hidden absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none w-1/2 h-1/2vh z-20"
+          ></div>
+          <div id="hero-image" class="scale-50 relative z-10">
             <img
               src="assets/images/map view - combined.png"
               alt="a financial roadmap for one's saving goals"

@@ -14,6 +14,12 @@
   }
 }
 
+@layer utilities {
+  .animate-fall {
+    animation: fall 5s infinite linear;
+  }
+}
+
 @keyframes fall {
   0% {
     transform: translateY(-100px); /* Start above the viewport */
@@ -28,118 +34,12 @@
   }
 }
 
-.button-primary {
-  background: linear-gradient(to bottom, #04bf68 0%, #04bf68 100%);
-  color: #f3f4f6;
-  padding: 11px 14px;
-  box-shadow: 0px 1px 0px rgba(80, 89, 103, 0.3);
-  border-radius: 6px;
-  text-align: center;
-  display: inline-block;
-  text-decoration: none;
-  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-}
-
-.button-primary:hover,
-.button-primary:focus {
-  background: linear-gradient(to bottom, #96f294 0%, #04bf68 100%);
-  color: #ffffff;
-}
-
-.button-primary:active {
-  background: linear-gradient(to bottom, #04bf68 0%, #04bf68 100%);
-  color: #ffffff;
-}
-/* 
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  flex-direction: column;
-} */
-
-.gem {
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  opacity: 0;
-  z-index: 11; /* Gems are set above the container's z-index */
-  animation: fall 5s infinite linear; /* Adjust timing as necessary */
-}
-
-.gems-container {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  width: 50%;
-  height: 50vh;
-  z-index: 10;
-}
-
-.glow {
-  position: relative;
-  background: #0b1930;
-  color: white;
-  overflow: hidden;
-}
-
 .glow::before {
   content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  @apply absolute inset-0 pointer-events-none;
   background: linear-gradient(
     to top,
     rgba(58, 123, 213, 0.75) 0%,
     transparent 100%
   );
-  pointer-events: none;
 }
-
-#hero-image {
-  position: relative; /* Ensuring position is set for z-index to take effect */
-  z-index: 5; /* Lower than gems-container to be beneath the gems */
-}
-
-/* .max-w-700px {
-  max-width: 700px;
-} */
-
-/* .item-centre {
-  align-items: center;
-} */
-/* 
-.mt-150 {
-  margin-top: 1.5rem;
-}
-
-.mt-200 {
-  margin-top: 2rem;
-} */
-
-.nav_placeholder {
-  height: 71px;
-}
-/* 
-.pt-1000 {
-  padding-top: 10rem;
-}
-
-.scale-50 {
-  transform: scale(0.5);
-  margin-top: -200px;
-} */
-/* 
-.text-centre {
-  text-align: center;
-} */
-
-/* .white-text {
-  color: white;
-} */

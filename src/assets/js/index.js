@@ -32,6 +32,17 @@ document.addEventListener("DOMContentLoaded", () => {
         gem.classList.add("gem");
         gem.alt = "Gem Icon";
         gem.style.left = `${Math.random() * 100}%`; // Randomize initial horizontal position
+
+        gem.classList.add(
+          "absolute",
+          "top-0",
+          "transform",
+          "-translate-x-1/2",
+          "opacity-0",
+          "z-30",
+          "animate-fall"
+        );
+
         gemsContainer.appendChild(gem);
       }, i * 100); // Stagger the creation times by 100ms increments
     }
