@@ -37,6 +37,7 @@ module.exports = {
       },
       width: {
         "[8%]": "8%",
+        "[1vw]": "1vw",
       },
     },
   },
