@@ -27,6 +27,7 @@ module.exports = {
         "max-w-700px": "700px",
       },
       spacing: {
+        "20vh": "20vh",
         "10rem": "10rem",
         150: "1.5rem",
         200: "2rem",
