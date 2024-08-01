@@ -584,10 +584,6 @@ h1,
   top: 55%;
 }
 
-.-top-20vh {
-  top: -20vh;
-}
-
 .z-10 {
   z-index: 10;
 }
@@ -628,6 +624,10 @@ h1,
   width: 8%;
 }
 
+.max-w-\[375px\] {
+  max-width: 375px;
+}
+
 .-translate-x-\[185\%\] {
   --tw-translate-x: -185%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -636,6 +636,12 @@ h1,
 .scale-50 {
   --tw-scale-x: .5;
   --tw-scale-y: .5;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.scale-75 {
+  --tw-scale-x: .75;
+  --tw-scale-y: .75;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -708,8 +714,8 @@ h1,
   font-family: Roboto, serif;
 }
 
-.text-8xl\/\[110\%\] {
-  font-size: 6rem;
+.text-\[56px\]\/\[110\%\] {
+  font-size: 56px;
   line-height: 110%;
 }
 
@@ -730,26 +736,6 @@ h1,
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-
-/* @layer utilities {
-  .animate-fall {
-    animation: fall 5s infinite linear;
-  }
-}
-
-@keyframes fall {
-  0% {
-    transform: translateY(-100px);
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(12vh);
-    opacity: 0;
-  }
-} */
 
 .gem {
   position: absolute;
@@ -782,8 +768,30 @@ h1,
   background-image: linear-gradient(to bottom, #04bf68 0%, #04bf68 100%);
 }
 
+@media (min-width: 768px) {
+  .md\:max-w-\[624px\] {
+    max-width: 624px;
+  }
+}
+
 @media (min-width: 1024px) {
   .lg\:-top-20vh {
     top: -20vh;
+  }
+
+  .lg\:scale-50 {
+    --tw-scale-x: .5;
+    --tw-scale-y: .5;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .lg\:text-\[22px\]\/\[140\%\] {
+    font-size: 22px;
+    line-height: 140%;
+  }
+
+  .lg\:text-\[92px\]\/\[110\%\] {
+    font-size: 92px;
+    line-height: 110%;
   }
 }

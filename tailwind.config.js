@@ -16,15 +16,21 @@ module.exports = {
         sans: ["Merriweather Sans", "sans-serif"],
         serif: ["Roboto", "serif"],
       },
+      fontSize: {
+        "[22px]": "22px",
+        "[56px]": "56px",
+        "[92px]": "92px",
+      },
       height: {
         "1/2vh": "50vh",
       },
       lineHeight: {
-        "[115%]": "115%",
+        "[110%]": "110%",
         "[140%]": "140%",
       },
       maxWidth: {
-        "max-w-700px": "700px",
+        "[375px]": "375px",
+        "[624px]": "624px",
       },
       spacing: {
         "20vh": "20vh",

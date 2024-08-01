@@ -14,26 +14,6 @@
   }
 }
 
-/* @layer utilities {
-  .animate-fall {
-    animation: fall 5s infinite linear;
-  }
-}
-
-@keyframes fall {
-  0% {
-    transform: translateY(-100px);
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(12vh);
-    opacity: 0;
-  }
-} */
-
 .gem {
   position: absolute;
   width: 1vw; /* Example size, adjust as needed */
