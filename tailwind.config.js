@@ -33,10 +33,13 @@ module.exports = {
         "[624px]": "624px",
       },
       spacing: {
+        "[7px]": "7px",
+        "[15px]": "15px",
         "20vh": "20vh",
+        "1rem": "1rem",
+        "1.5rem": "1.5rem",
+        "2rem": "2rem",
         "10rem": "10rem",
-        150: "1.5rem",
-        200: "2rem",
         "[55%]": "55%",
       },
       translate: {
