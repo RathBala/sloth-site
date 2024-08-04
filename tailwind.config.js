@@ -16,38 +16,15 @@ module.exports = {
         sans: ["Merriweather Sans", "sans-serif"],
         serif: ["Roboto", "serif"],
       },
-      fontSize: {
-        "[22px]": "22px",
-        "[56px]": "56px",
-        "[92px]": "92px",
-      },
       height: {
         "1/2vh": "50vh",
       },
-      lineHeight: {
-        "[110%]": "110%",
-        "[140%]": "140%",
-      },
-      maxWidth: {
-        "[375px]": "375px",
-        "[624px]": "624px",
-      },
       spacing: {
-        "[7px]": "7px",
-        "[15px]": "15px",
         "20vh": "20vh",
         "1rem": "1rem",
         "1.5rem": "1.5rem",
         "2rem": "2rem",
         "10rem": "10rem",
-        "[55%]": "55%",
-      },
-      translate: {
-        "[185%]": "185%",
-      },
-      width: {
-        "[8%]": "8%",
-        "[1vw]": "1vw",
       },
     },
   },

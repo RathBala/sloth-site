@@ -10,29 +10,33 @@
       rel="stylesheet"
     />
     <link href="./output.css" rel="stylesheet" />
+    <link rel="icon" href="assets/images/sloth logo black.svg" type="image/svg">
     <!-- <script src="./assets/js/index.js" defer></script> -->
     <title>Sloth Money: Your savings roadmap</title>
   </head>
   <body class="flex flex-col bg-blue-dark text-white font-serif">
     <main>
-      <header
-        class="border-b border-opacity-100 bg-opacity-100 bg-blue-dark border-white sticky top-0 z-10"
-      >
+      <header class="bg-opacity-100 bg-blue-dark sticky top-0 z-30">
         <div class="w-full px-1rem">
-          <nav class="pt-2 pb-[7px] lg:pt-4 lg:pb-[15px]">
+          <nav class="py-2">
             <div class="flex items-center justify-between">
               <div class="flex items-center">
                 <a class="cursor-pointer" href="/"
                   ><img
-                    class="h-9"
+                    class="h-14"
                     src="assets/images/sloth_money_logo_white.png"
                     alt="sloth money logo"
                     loading="lazy"
                 /></a>
               </div>
-              <div>
+              <div class="flex gap-x-3 items-center justify-center">
                 <a
-                  class="inline-flex justify-center items-center mt-2rem bg-gradient-to-b-green py-3 px-4 rounded-md text-white text-center hover:bg-gradient-to-b from-green-light to-green focus:bg-gradient-to-b-green"
+                  class="justify-center items-center bg-blue-dark border border-white py-[7px] px-4 rounded-[0.6rem] text-white text-center hover:border-green"
+                  href="#"
+                  >Sign in</a
+                >
+                <a
+                  class="justify-center items-center bg-gradient-to-b-green border border-green py-[7px] px-4 rounded-[0.6rem] text-white text-center hover:bg-gradient-to-b from-green-light to-green focus:bg-gradient-to-b-green"
                   href="#"
                   >Start for free</a
                 >
@@ -42,7 +46,7 @@
         </div>
       </header>
 
-      <section class="flex flex-col items-center pt-10rem">
+      <section id="hero" class="flex flex-col items-center pt-10rem">
         <div class="max-w-[375px] flex flex-col items-center md:max-w-[624px]">
           <h1
             class="font-sans font-bold text-center text-[56px]/[110%] lg:text-[92px]/[110%]"
@@ -52,7 +56,7 @@
             roadmap
           </h1>
 
-          <h2
+          <span
             class="mt-1.5rem text-xl/[140%] font-normal text-center lg:text-[22px]/[140%]"
           >
             Apply scenario planning to set, track, and reach your savings
@@ -61,7 +65,7 @@
 
           <div>
             <a
-              class="inline-block mt-2rem bg-gradient-to-b-green py-3 px-4 rounded-md text-white text-center hover:bg-gradient-to-b from-green-light to-green focus:bg-gradient-to-b-green"
+              class="inline-block mt-2rem bg-gradient-to-b-green border border-green py-3 px-4 rounded-[0.6rem] text-white text-center hover:bg-gradient-to-b from-green-light to-green focus:bg-gradient-to-b-green"
               href="#"
               >Start for free</a
             >
@@ -81,9 +85,19 @@
               alt="a financial roadmap for one's saving goals"
               loading="lazy"
               class="hero-background"
-            />
+            >
           </div>
         </div>
+      </section>
+      <section id="benefits" class="flex flex-col items-center pt-10rem">
+        <h2 class="font-sans font-bold text-center text-[32px]/[110%] lg:text-[56px]/[110%]">All your saving goals in one place</h2>
+        <img
+              src="assets/images/saving goals.png"
+              alt="sloth money table view with saving goals"
+              loading="lazy"
+            >
+        <h3>Add all of your goals to keep track of your progress towards achieving them.</h3>
+      </section>
       </section>
     </main>
   </body>
