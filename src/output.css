@@ -604,8 +604,7 @@ h1,
   z-index: 30;
 }
 
-.my-\[2rem\] {
-  margin-top: 2rem;
+.mb-8 {
   margin-bottom: 2rem;
 }
 
@@ -621,24 +620,8 @@ h1,
   margin-top: 2rem;
 }
 
-.mt-\[3rem\] {
-  margin-top: 3rem;
-}
-
-.mt-\[2rem\] {
-  margin-top: 2rem;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
-}
-
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mb-10rem {
-  margin-bottom: 10rem;
 }
 
 .block {
@@ -682,21 +665,15 @@ h1,
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.scale-75 {
-  --tw-scale-x: .75;
-  --tw-scale-y: .75;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .scale-100 {
   --tw-scale-x: 1;
   --tw-scale-y: 1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.scale-150 {
-  --tw-scale-x: 1.5;
-  --tw-scale-y: 1.5;
+.scale-75 {
+  --tw-scale-x: .75;
+  --tw-scale-y: .75;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -811,10 +788,6 @@ h1,
   padding-top: 10rem;
 }
 
-.pt-\[5rem\] {
-  padding-top: 5rem;
-}
-
 .pt-\[4rem\] {
   padding-top: 4rem;
 }
@@ -829,6 +802,11 @@ h1,
 
 .font-serif {
   font-family: Roboto, serif;
+}
+
+.text-\[24px\]\/\[110\%\] {
+  font-size: 24px;
+  line-height: 110%;
 }
 
 .text-\[32px\]\/\[110\%\] {
@@ -846,22 +824,33 @@ h1,
   line-height: 140%;
 }
 
-.text-\[24px\]\/\[110\%\] {
-  font-size: 24px;
-  line-height: 110%;
+.text-\[20px\]\/\[150\%\] {
+  font-size: 20px;
+  line-height: 150%;
 }
 
 .font-bold {
   font-weight: 700;
 }
 
-.font-normal {
-  font-weight: 400;
-}
-
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .gem {
@@ -901,14 +890,6 @@ h1,
 }
 
 @media (min-width: 768px) {
-  .md\:top-\[\] {
-    top: ;
-  }
-
-  .md\:top-\[50px\] {
-    top: 50px;
-  }
-
   .md\:max-w-\[624px\] {
     max-width: 624px;
   }
@@ -925,27 +906,6 @@ h1,
     top: -20vh;
   }
 
-  .lg\:top-20vh {
-    top: 20vh;
-  }
-
-  .lg\:top-\[100px\] {
-    top: 100px;
-  }
-
-  .lg\:my-\[3rem\] {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-  }
-
-  .lg\:mt-\[3rem\] {
-    margin-top: 3rem;
-  }
-
-  .lg\:mt-16 {
-    margin-top: 4rem;
-  }
-
   .lg\:mb-10rem {
     margin-bottom: 10rem;
   }
@@ -954,27 +914,26 @@ h1,
     margin-top: 8rem;
   }
 
-  .lg\:scale-50 {
-    --tw-scale-x: .5;
-    --tw-scale-y: .5;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  }
-
-  .lg\:scale-100 {
-    --tw-scale-x: 1;
-    --tw-scale-y: 1;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  }
-
   .lg\:scale-150 {
     --tw-scale-x: 1.5;
     --tw-scale-y: 1.5;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
+  .lg\:scale-50 {
+    --tw-scale-x: .5;
+    --tw-scale-y: .5;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
   .lg\:text-\[22px\]\/\[140\%\] {
     font-size: 22px;
     line-height: 140%;
+  }
+
+  .lg\:text-\[32px\]\/\[110\%\] {
+    font-size: 32px;
+    line-height: 110%;
   }
 
   .lg\:text-\[56px\]\/\[110\%\] {
@@ -987,8 +946,8 @@ h1,
     line-height: 110%;
   }
 
-  .lg\:text-\[32px\]\/\[110\%\] {
-    font-size: 32px;
-    line-height: 110%;
+  .lg\:text-\[20px\]\/\[150\%\] {
+    font-size: 20px;
+    line-height: 150%;
   }
 }
