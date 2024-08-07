@@ -804,9 +804,9 @@ h1,
   font-family: Roboto, serif;
 }
 
-.text-\[24px\]\/\[110\%\] {
-  font-size: 24px;
-  line-height: 110%;
+.text-\[20px\]\/\[150\%\] {
+  font-size: 20px;
+  line-height: 150%;
 }
 
 .text-\[32px\]\/\[110\%\] {
@@ -824,23 +824,8 @@ h1,
   line-height: 140%;
 }
 
-.text-\[20px\]\/\[150\%\] {
-  font-size: 20px;
-  line-height: 150%;
-}
-
 .font-bold {
   font-weight: 700;
-}
-
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-gray-400 {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .text-gray-300 {
@@ -848,9 +833,9 @@ h1,
   color: rgb(209 213 219 / var(--tw-text-opacity));
 }
 
-.text-gray-200 {
+.text-white {
   --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .gem {
@@ -926,14 +911,14 @@ h1,
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
+  .lg\:text-\[20px\]\/\[150\%\] {
+    font-size: 20px;
+    line-height: 150%;
+  }
+
   .lg\:text-\[22px\]\/\[140\%\] {
     font-size: 22px;
     line-height: 140%;
-  }
-
-  .lg\:text-\[32px\]\/\[110\%\] {
-    font-size: 32px;
-    line-height: 110%;
   }
 
   .lg\:text-\[56px\]\/\[110\%\] {
@@ -944,10 +929,5 @@ h1,
   .lg\:text-\[92px\]\/\[110\%\] {
     font-size: 92px;
     line-height: 110%;
-  }
-
-  .lg\:text-\[20px\]\/\[150\%\] {
-    font-size: 20px;
-    line-height: 150%;
   }
 }
