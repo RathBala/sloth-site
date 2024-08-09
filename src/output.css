@@ -783,6 +783,11 @@ h1,
   padding-bottom: 0.75rem;
 }
 
+.py-\[48px\] {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
 .py-\[7px\] {
   padding-top: 7px;
   padding-bottom: 7px;
@@ -837,6 +842,16 @@ h1,
   font-weight: 700;
 }
 
+.text-blue-light {
+  --tw-text-opacity: 1;
+  color: rgb(75 146 254 / var(--tw-text-opacity));
+}
+
+.text-blue-really-light {
+  --tw-text-opacity: 1;
+  color: rgb(173 216 230 / var(--tw-text-opacity));
+}
+
 .text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
@@ -845,11 +860,6 @@ h1,
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-blue-light {
-  --tw-text-opacity: 1;
-  color: rgb(75 146 254 / var(--tw-text-opacity));
 }
 
 .gem {
@@ -893,10 +903,9 @@ h1,
     max-width: 624px;
   }
 
-  .md\:scale-125 {
-    --tw-scale-x: 1.25;
-    --tw-scale-y: 1.25;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  .md\:py-\[140px\] {
+    padding-top: 140px;
+    padding-bottom: 140px;
   }
 }
 
