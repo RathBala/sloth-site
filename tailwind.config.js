@@ -13,6 +13,7 @@ module.exports = {
         'blue-really-light': '#ADD8E6',
         'green-light': '#96f294',
         green: '#04bf68',
+        gray: '#778899',
       },
       fontFamily: {
         sans: ['Merriweather Sans', 'sans-serif'],

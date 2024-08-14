@@ -16,7 +16,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: #e5e7eb;
+  border-color: currentColor;
   /* 2 */
 }
 
@@ -604,10 +604,6 @@ h1,
   z-index: 30;
 }
 
-.m-1 {
-  margin: 0.25rem;
-}
-
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -660,20 +656,28 @@ h1,
   height: 3.5rem;
 }
 
-.h-\[32px\] {
-  height: 32px;
+.h-5 {
+  height: 1.25rem;
 }
 
-.h-8 {
-  height: 2rem;
+.h-6 {
+  height: 1.5rem;
 }
 
 .h-full {
   height: 100%;
 }
 
-.w-\[32px\] {
-  width: 32px;
+.w-5 {
+  width: 1.25rem;
+}
+
+.w-6 {
+  width: 1.5rem;
+}
+
+.w-\[12rem\] {
+  width: 12rem;
 }
 
 .w-\[8\%\] {
@@ -682,26 +686,6 @@ h1,
 
 .w-full {
   width: 100%;
-}
-
-.w-80 {
-  width: 20rem;
-}
-
-.w-40 {
-  width: 10rem;
-}
-
-.w-60 {
-  width: 15rem;
-}
-
-.w-\[12rem\] {
-  width: 12rem;
-}
-
-.w-8 {
-  width: 2rem;
 }
 
 .max-w-\[375px\] {
@@ -769,10 +753,6 @@ h1,
   flex-direction: column;
 }
 
-.items-start {
-  align-items: flex-start;
-}
-
 .items-center {
   align-items: center;
 }
@@ -783,10 +763,6 @@ h1,
 
 .justify-between {
   justify-content: space-between;
-}
-
-.gap-\[16px\] {
-  gap: 16px;
 }
 
 .gap-4 {
@@ -815,10 +791,6 @@ h1,
   border-radius: 0.6rem;
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-
 .border {
   border-width: 1px;
 }
@@ -836,11 +808,6 @@ h1,
 .bg-blue-dark {
   --tw-bg-opacity: 1;
   background-color: rgb(11 25 48 / var(--tw-bg-opacity));
-}
-
-.bg-gray-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-100 {
@@ -866,17 +833,8 @@ h1,
      object-fit: contain;
 }
 
-.p-\[3px\] {
-  padding: 3px;
-}
-
 .p-4 {
   padding: 1rem;
-}
-
-.px-16 {
-  padding-left: 4rem;
-  padding-right: 4rem;
 }
 
 .px-1rem {
@@ -976,6 +934,10 @@ h1,
   font-weight: 700;
 }
 
+.font-medium {
+  font-weight: 500;
+}
+
 .font-normal {
   font-weight: 400;
 }
@@ -994,28 +956,14 @@ h1,
   color: rgb(173 216 230 / var(--tw-text-opacity));
 }
 
-.text-gray-300 {
+.text-gray {
   --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity));
+  color: rgb(119 136 153 / var(--tw-text-opacity));
 }
 
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.transition-colors {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-.duration-200 {
-  transition-duration: 200ms;
-}
-
-.ease-out {
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 .scrollbar-hide {
@@ -1064,8 +1012,12 @@ h1,
 }
 
 @media (min-width: 768px) {
-  .md\:w-60 {
-    width: 15rem;
+  .md\:w-\[17rem\] {
+    width: 17rem;
+  }
+
+  .md\:w-\[18rem\] {
+    width: 18rem;
   }
 
   .md\:max-w-\[624px\] {
