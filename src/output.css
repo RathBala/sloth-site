@@ -604,6 +604,11 @@ h1,
   z-index: 30;
 }
 
+.my-2rem {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -805,10 +810,6 @@ h1,
   overflow-x: auto;
 }
 
-.rounded {
-  border-radius: 0.25rem;
-}
-
 .rounded-\[0\.6rem\] {
   border-radius: 0.6rem;
 }
@@ -840,6 +841,16 @@ h1,
 .bg-green-dark {
   --tw-bg-opacity: 1;
   background-color: rgb(3 140 115 / var(--tw-bg-opacity));
+}
+
+.bg-gray {
+  --tw-bg-opacity: 1;
+  background-color: rgb(119 136 153 / var(--tw-bg-opacity));
+}
+
+.bg-green-really-dark {
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 38 25 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-100 {
@@ -907,6 +918,10 @@ h1,
   padding-bottom: 1rem;
 }
 
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+
 .pt-10rem {
   padding-top: 10rem;
 }
@@ -921,10 +936,6 @@ h1,
 
 .pt-\[4rem\] {
   padding-top: 4rem;
-}
-
-.pb-5 {
-  padding-bottom: 1.25rem;
 }
 
 .text-left {
@@ -988,6 +999,48 @@ h1,
   line-height: 140%;
 }
 
+.text-\[32px\]\/\[120\%\] {
+  font-size: 32px;
+  line-height: 120%;
+}
+
+.text-\[56px\]\/\[130\%\] {
+  font-size: 56px;
+  line-height: 130%;
+}
+
+.text-\[56px\]\/\[150\%\] {
+  font-size: 56px;
+  line-height: 150%;
+}
+
+.text-\[56px\]\/\[140\%\] {
+  font-size: 56px;
+  line-height: 140%;
+}
+
+.text-\[32px\]\/\[140\%\] {
+  font-size: 32px;
+  line-height: 140%;
+}
+
+.text-\[32px\] {
+  font-size: 32px;
+}
+
+.text-\[5px\] {
+  font-size: 5px;
+}
+
+.text-\[56px\] {
+  font-size: 56px;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1034,11 +1087,6 @@ h1,
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-green {
-  --tw-text-opacity: 1;
-  color: rgb(4 191 104 / var(--tw-text-opacity));
-}
-
 .opacity-50 {
   opacity: 0.5;
 }
@@ -1078,11 +1126,6 @@ h1,
 .hover\:border-green:hover {
   --tw-border-opacity: 1;
   border-color: rgb(4 191 104 / var(--tw-border-opacity));
-}
-
-.hover\:bg-blue-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-white:hover {
@@ -1147,6 +1190,14 @@ h1,
     margin-top: 8rem;
   }
 
+  .lg\:mb-16 {
+    margin-bottom: 4rem;
+  }
+
+  .lg\:mb-8 {
+    margin-bottom: 2rem;
+  }
+
   .lg\:block {
     display: block;
   }
@@ -1186,5 +1237,15 @@ h1,
   .lg\:text-\[92px\]\/\[110\%\] {
     font-size: 92px;
     line-height: 110%;
+  }
+
+  .lg\:text-\[56px\]\/\[120\%\] {
+    font-size: 56px;
+    line-height: 120%;
+  }
+
+  .lg\:text-\[56px\]\/\[140\%\] {
+    font-size: 56px;
+    line-height: 140%;
   }
 }
