@@ -1,65 +1,103 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const gemsContainer = document.querySelector(".gems-container");
-  const heroImage = document.getElementById("hero-image");
+document.addEventListener('DOMContentLoaded', () => {
+  const gemsContainer = document.querySelector('.gems-container')
+  const heroImage = document.getElementById('hero-image')
+  let cachedBottomBoundary = null
+  let resizeTimer = null
+  let gemGenerationInterval = null
 
-  function logMetrics() {
-    const bottomBoundary = heroImage.getBoundingClientRect().bottom;
-    console.log("Hero Bottom Boundary:", bottomBoundary);
-    console.log("Window Inner Height:", window.innerHeight);
+  function getBottomBoundary() {
+    if (cachedBottomBoundary === null) {
+      cachedBottomBoundary = heroImage.getBoundingClientRect().bottom
+    }
+    return cachedBottomBoundary
+  }
+
+  function updateBottomBoundary() {
+    cachedBottomBoundary = heroImage.getBoundingClientRect().bottom
+  }
+
+  function logBoundaries() {
+    console.log('Hero Bottom Boundary:', getBottomBoundary())
+    console.log('Window Inner Height:', window.innerHeight)
+  }
+
+  function createGem() {
+    const imagePath = 'assets/images/gem.svg'
+    const bottomBoundary = getBottomBoundary()
+
+    const gem = document.createElement('img')
+    gem.src = imagePath
+    gem.classList.add('gem')
+    gem.alt = 'Gem Icon'
+    gem.style.left = `${Math.random() * 100}%`
+
+    const keyframes = [
+      { transform: `translateY(-100px)`, opacity: 1 },
+      { transform: `translateY(${bottomBoundary - 10}px)`, opacity: 1 },
+      { transform: `translateY(${bottomBoundary}px)`, opacity: 0 },
+    ]
+
+    gem.animate(keyframes, {
+      duration: 5000,
+      iterations: Infinity,
+      easing: 'linear',
+    })
+
+    gemsContainer.appendChild(gem)
   }
 
   function generateGems() {
-    const numberOfGems = 20;
-    const imagePath = "assets/images/gem.svg";
-    const bottomBoundary = heroImage.getBoundingClientRect().bottom;
-
-    for (let i = 0; i < numberOfGems; i++) {
-      setTimeout(() => {
-        const gem = document.createElement("img");
-        gem.src = imagePath;
-        gem.classList.add("gem");
-        gem.alt = "Gem Icon";
-        gem.style.left = `${Math.random() * 100}%`;
-
-        const keyframes = [
-          { transform: `translateY(-100px)`, opacity: 1 }, // Starts above the viewport
-          { transform: `translateY(${bottomBoundary - 10}px)`, opacity: 1 }, // Moves to just above the bottom of the heroImage
-          { transform: `translateY(${bottomBoundary}px)`, opacity: 0 }, // Ends at the bottom of the heroImage
-        ];
-
-        gem.animate(keyframes, {
-          duration: 5000,
-          iterations: Infinity,
-          easing: "linear",
-        });
-
-        gemsContainer.appendChild(gem);
-      }, i * 200);
+    // Clear existing gems
+    while (gemsContainer.firstChild) {
+      gemsContainer.removeChild(gemsContainer.firstChild)
     }
+
+    // Clear any existing interval
+    if (gemGenerationInterval) {
+      clearInterval(gemGenerationInterval)
+    }
+
+    // Start generating gems at intervals
+    let gemsCreated = 0
+    gemGenerationInterval = setInterval(() => {
+      if (gemsCreated < 20) {
+        createGem()
+        gemsCreated++
+      } else {
+        clearInterval(gemGenerationInterval)
+      }
+    }, 200)
   }
 
   const observerOptions = {
     root: null,
-    rootMargin: "0px",
+    rootMargin: '0px',
     threshold: 0.7,
-  };
+  }
 
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        gemsContainer.style.display = "block";
-        generateGems();
-        observer.unobserve(entry.target);
+        gemsContainer.style.display = 'block'
+        updateBottomBoundary()
+        generateGems()
+        observer.unobserve(entry.target)
       }
-    });
-  }, observerOptions);
+    })
+  }, observerOptions)
 
-  observer.observe(heroImage);
-  window.addEventListener("resize", () => {
-    logMetrics(); // Log metrics separately when window resizes
-    generateGems(); // Regenerate gems with the new boundary
-  });
+  observer.observe(heroImage)
 
-  // Optional: Log metrics on initial load or specific user actions
-  logMetrics(); // Call this to log on page load
-});
+  // Debounced resize event handler
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(() => {
+      updateBottomBoundary()
+      generateGems()
+      logBoundaries()
+    }, 250) // Adjust this delay as needed
+  })
+
+  updateBottomBoundary()
+  logBoundaries()
+})
