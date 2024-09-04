@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const gemsContainer = document.querySelector('.gems-container')
+  const gemsContainer = document.getElementById('gemsContainer')
   const heroImage = document.getElementById('hero-image')
   let cachedBottomBoundary = null
   let resizeTimer = null
@@ -21,9 +21,23 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Window Inner Height:', window.innerHeight)
   }
 
+  function updateGemsContainerPosition() {
+    const heroRect = heroImage.getBoundingClientRect()
+
+    // Position the container approximately where the emergency pot circle is
+    const topPosition = heroRect.top + heroRect.height * 0 // Adjust this value as needed
+
+    gemsContainer.style.top = `${topPosition}px`
+    gemsContainer.style.height = `${heroRect.bottom - topPosition}px`
+
+    updateBottomBoundary()
+    logBoundaries()
+  }
+
   function createGem() {
     const imagePath = 'assets/images/gem.svg'
-    const bottomBoundary = getBottomBoundary()
+    const containerRect = gemsContainer.getBoundingClientRect()
+    const containerHeight = containerRect.height
 
     const gem = document.createElement('img')
     gem.src = imagePath
@@ -32,9 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
     gem.style.left = `${Math.random() * 100}%`
 
     const keyframes = [
-      { transform: `translateY(-100px)`, opacity: 1 },
-      { transform: `translateY(${bottomBoundary - 10}px)`, opacity: 1 },
-      { transform: `translateY(${bottomBoundary}px)`, opacity: 0 },
+      { transform: 'translateY(0)', opacity: 1 },
+      { transform: `translateY(${containerHeight - 10}px)`, opacity: 1 },
+      { transform: `translateY(${containerHeight}px)`, opacity: 0 },
     ]
 
     gem.animate(keyframes, {
@@ -69,6 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 200)
   }
 
+  function init() {
+    updateGemsContainerPosition()
+    gemsContainer.classList.remove('hidden')
+    generateGems()
+  }
+
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(() => {
+      updateBottomBoundary()
+      generateGems()
+      logBoundaries()
+    }, 250)
+  })
+
   const observerOptions = {
     root: null,
     rootMargin: '0px',
@@ -79,24 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         gemsContainer.style.display = 'block'
-        updateBottomBoundary()
-        generateGems()
+        init()
         observer.unobserve(entry.target)
       }
     })
   }, observerOptions)
 
   observer.observe(heroImage)
-
-  // Debounced resize event handler
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer)
-    resizeTimer = setTimeout(() => {
-      updateBottomBoundary()
-      generateGems()
-      logBoundaries()
-    }, 250) // Adjust this delay as needed
-  })
 
   updateBottomBoundary()
   logBoundaries()

@@ -564,6 +564,40 @@ h1,
   --tw-contain-style:  ;
 }
 
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
@@ -590,6 +624,34 @@ h1,
 
 .top-\[55\%\] {
   top: 55%;
+}
+
+.left-\[38\%\] {
+  left: 38%;
+}
+
+.top-\[28\%\] {
+  top: 28%;
+}
+
+.left-\[27\%\] {
+  left: 27%;
+}
+
+.top-\[27\%\] {
+  top: 27%;
+}
+
+.left-\[27\.5\%\] {
+  left: 27.5%;
+}
+
+.top-\[27\.\%\] {
+  top: 27.%;
+}
+
+.top-\[27\.5\%\] {
+  top: 27.5%;
 }
 
 .z-10 {
@@ -681,6 +743,10 @@ h1,
   height: 100%;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -703,6 +769,14 @@ h1,
 
 .w-full {
   width: 100%;
+}
+
+.w-\[24\%\] {
+  width: 24%;
+}
+
+.w-\[9\%\] {
+  width: 9%;
 }
 
 .max-w-\[375px\] {
@@ -1131,6 +1205,14 @@ h1,
     top: -20vh;
   }
 
+  .lg\:left-\[38\%\] {
+    left: 38%;
+  }
+
+  .lg\:top-\[28\%\] {
+    top: 28%;
+  }
+
   .lg\:mb-10rem {
     margin-bottom: 10rem;
   }
@@ -1141,6 +1223,10 @@ h1,
 
   .lg\:mt-\[8rem\] {
     margin-top: 8rem;
+  }
+
+  .lg\:w-\[24\%\] {
+    width: 24%;
   }
 
   .lg\:scale-150 {
