@@ -15,7 +15,8 @@
       href="assets/images/sloth logo black.svg"
       type="image/svg"
     />
-    <script src="./assets/js/index.js" defer></script>
+    <!-- <script src="./assets/js/index.js" defer></script> -->
+    <script src="./assets/js/archetype-selector.js" defer></script>
     <title>Sloth Money: Your savings roadmap</title>
   </head>
   <body class="flex flex-col bg-blue-dark text-white font-serif">
@@ -93,6 +94,7 @@
             />
             <svg
               class="absolute top-[27.5%] left-[27.5%] w-[8%] h-auto"
+              id="emergencyPotLarge"
               viewBox="0 0 100 100"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -103,8 +105,8 @@
                 text-anchor="middle"
                 fill="white"
                 font-size="12"
-                font-family="Merriweather Sans, sans-serif"
-                font-weight="light"
+                font-family="Roboto, serif"
+                font-weight="300"
               >
                 Emergency pot
               </text>
@@ -114,8 +116,8 @@
                 text-anchor="middle"
                 fill="white"
                 font-size="16"
-                font-family="Merriweather Sans, sans-serif"
-                font-weight="bold"
+                font-family="Roboto, serif"
+                font-weight="500"
               >
                 £6,000
               </text>
@@ -260,7 +262,7 @@
                 <div class="w-6 h-6 flex-shrink-0">
                   <img
                     class="w-full h-full object-contain"
-                    src="assets/images/umbrella.png"
+                    src="assets/images/umbrella white.png"
                     alt="umbrella with rain"
                     loading="lazy"
                   />
@@ -340,16 +342,18 @@
             </button>
           </div>
         </div>
-        <div class="max-w-[375px] pt-[48px] md:max-w-[624px] md:pt-[140px]">
+        <div
+          class="archetype-images max-w-[375px] pt-[48px] md:max-w-[624px] md:pt-[140px]"
+        >
           <div class="relative scale-100 lg:scale-150 transform-gpu">
             <img
-              class="hidden w-full"
+              class="w-full"
               src="assets/images/rainy day - before.png"
               alt="rainy day archetype"
               loading="lazy"
             />
             <img
-              class="w-full"
+              class="hidden w-full"
               src="assets/images/holiday - after.png"
               alt="holiday archetype"
               loading="lazy"

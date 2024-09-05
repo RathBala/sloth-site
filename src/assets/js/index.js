@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const gemsContainer = document.getElementById('gemsContainer')
   const heroImage = document.getElementById('hero-image')
+  const emergencyPotCircle = heroImage.getElementById('emergencyPotLarge')
   let cachedBottomBoundary = null
   let resizeTimer = null
   let gemGenerationInterval = null
@@ -21,14 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Window Inner Height:', window.innerHeight)
   }
 
+  function getEmergencyPotPosition() {
+    const heroRect = heroImage.getBoundingClientRect()
+    const circleBBox = emergencyPotCircle.getBBox()
+    const circleBottom = circleBBox.y + circleBBox.height
+
+    return {
+      left: heroRect.left + circleBBox.x + circleBBox.width / 2,
+      bottom: heroRect.top + circleBottom,
+    }
+  }
+
   function updateGemsContainerPosition() {
     const heroRect = heroImage.getBoundingClientRect()
+    const potPosition = getEmergencyPotPosition()
 
-    // Position the container approximately where the emergency pot circle is
-    const topPosition = heroRect.top + heroRect.height * 0 // Adjust this value as needed
-
-    gemsContainer.style.top = `${topPosition}px`
-    gemsContainer.style.height = `${heroRect.bottom - topPosition}px`
+    gemsContainer.style.position = 'absolute'
+    gemsContainer.style.left = `${potPosition.left}px`
+    gemsContainer.style.top = `${potPosition.bottom}px`
+    gemsContainer.style.height = `${heroRect.bottom - potPosition.bottom}px`
 
     updateBottomBoundary()
     logBoundaries()
@@ -43,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     gem.src = imagePath
     gem.classList.add('gem')
     gem.alt = 'Gem Icon'
-    gem.style.left = `${Math.random() * 100}%`
+    gem.style.position = 'absolute'
+    gem.style.left = `${Math.random() * 80 - 40}%` // Spread gems around the center
 
     const keyframes = [
       { transform: 'translateY(0)', opacity: 1 },
@@ -92,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer)
     resizeTimer = setTimeout(() => {
+      updateGemsContainerPosition()
       updateBottomBoundary()
       generateGems()
       logBoundaries()
