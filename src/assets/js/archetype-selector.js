@@ -3,7 +3,7 @@ console.log('Archetype selector script loaded')
 const archetypeButtons = document.querySelectorAll('[id^="archetype-"]')
 
 const archetypeImages = {
-  'rainy-day': 'assets/images/rainy day - before.png',
+  'rainy-day': 'assets/images/Save for a rainy day.png',
   holiday: 'assets/images/holiday - after.png',
   home: 'assets/images/home deposit - after.png',
   wedding: 'assets/images/wedding - before.png',
