@@ -14,6 +14,21 @@
   }
 }
 
+@layer utilities {
+  .transition-opacity {
+    transition-property: opacity;
+  }
+  .duration-2000 {
+    transition-duration: 2000ms;
+  }
+  .opacity-0 {
+    opacity: 0;
+  }
+  .opacity-100 {
+    opacity: 1;
+  }
+}
+
 .gem {
   position: absolute;
   width: 1vw; /* Example size, adjust as needed */
@@ -24,7 +39,7 @@
 }
 
 .glow::before {
-  content: "";
+  content: '';
   @apply absolute inset-0 pointer-events-none;
   background: linear-gradient(
     to top,
