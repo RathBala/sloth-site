@@ -87,13 +87,19 @@
             id="hero-image"
             class="relative scale-75 z-10 lg:scale-50 lg:-top-20vh"
           >
-            <img
-              class="hero-background"
-              src="assets/images/map view - combined - no gems.png"
-              alt="a financial roadmap for one's saving goals"
-              loading="lazy"
-            />
-            <svg
+            <picture>
+              <source
+                media="(min-width: 768px)"
+                srcset="assets/images/map view - combined - no gems.png"
+              />
+              <img
+                class="w-full"
+                src="assets/images/Map view mobile - no gems.png"
+                alt="a financial roadmap for one's saving goals"
+                loading="lazy"
+              />
+            </picture>
+            <!-- <svg
               class="absolute top-[27.5%] left-[27.5%] w-[8%] h-auto"
               id="emergencyPotLarge"
               viewBox="0 0 100 100"
@@ -122,7 +128,7 @@
               >
                 £6,000
               </text>
-            </svg>
+            </svg> -->
           </div>
         </div>
       </section>
