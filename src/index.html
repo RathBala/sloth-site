@@ -22,19 +22,38 @@
   <body class="flex flex-col bg-blue-dark text-white font-serif">
     <main>
       <header class="bg-opacity-100 bg-blue-dark sticky top-0 z-30">
-        <div class="w-full px-8">
+        <div class="w-full px-4 md:px-8">
           <nav class="py-2">
             <div class="flex items-center justify-between">
               <div class="flex items-center">
-                <a class="cursor-pointer" href="/"
-                  ><img
+                <a class="cursor-pointer" href="/">
+                  <img
                     class="h-14"
                     src="assets/images/sloth_money_logo_white.png"
                     alt="sloth money logo"
                     loading="lazy"
-                /></a>
+                  />
+                </a>
               </div>
-              <div class="flex gap-x-3 items-center justify-center">
+              <div class="flex gap-x-3 items-center justify-center md:hidden">
+                <button id="hamburger-menu" class="text-white">
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 6h16M4 12h16m-7 6h7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="hidden md:flex gap-x-3 items-center justify-center">
                 <a
                   class="justify-center items-center bg-blue-dark border border-white py-[7px] px-4 rounded-[0.6rem] text-white text-center hover:border-green"
                   href="#"
@@ -48,6 +67,20 @@
               </div>
             </div>
           </nav>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden">
+          <div class="px-2 pt-2 pb-3 space-y-1">
+            <a
+              class="block justify-center items-center bg-blue-dark border border-white py-[7px] px-4 rounded-[0.6rem] text-white text-center hover:border-green"
+              href="#"
+              >Sign in</a
+            >
+            <a
+              class="block justify-center items-center bg-gradient-to-b-green border border-green py-[7px] px-4 rounded-[0.6rem] text-white text-center hover:bg-gradient-to-b from-green-light to-green focus:bg-gradient-to-b-green"
+              href="#"
+              >Start for free</a
+            >
+          </div>
         </div>
       </header>
 
@@ -193,7 +226,10 @@
             Track changes based on reality
           </h2>
           <div class="relative w-full">
-            <div class="relative scale-100 lg:scale-150 transform-gpu">
+            <div
+              id="table-view-image"
+              class="relative scale-100 lg:scale-150 transform-gpu"
+            >
               <img
                 class="w-full"
                 src="assets/images/Table view - before change.png"

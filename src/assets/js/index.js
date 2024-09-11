@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const hamburgerMenu = document.getElementById('hamburger-menu')
+  const mobileMenu = document.getElementById('mobile-menu')
+
+  hamburgerMenu.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden')
+  })
   // const gemsContainer = document.getElementById('gemsContainer')
   // const heroImage = document.getElementById('hero-image')
   // const emergencyPotCircle = heroImage.getElementById('emergencyPotLarge')
@@ -96,92 +102,124 @@ document.addEventListener('DOMContentLoaded', () => {
   //   }, 200)
   // }
 
-  const scenarioFocusImage = document.getElementById('scenario-focus-image')
-  let imageB
+  function setupImageTransition(
+    containerId,
+    imageASrc,
+    imageBSrc,
+    imageAAlt,
+    imageBAlt
+  ) {
+    const container = document.getElementById(containerId)
+    let imageA, imageB
 
-  function createImageB() {
-    const imageA = scenarioFocusImage.querySelector('img')
-    imageB = imageA.cloneNode(true)
-    imageB.src = 'assets/images/Scenario focus - B.png'
-    imageB.alt = 'sloth money map view with alternate scenarios B'
-    imageB.classList.add(
-      'absolute',
-      'top-0',
-      'left-0',
-      'transition-opacity',
-      'duration-2000',
-      'opacity-0'
+    function createImages() {
+      // Create or update imageA
+      imageA = container.querySelector('img') || document.createElement('img')
+      imageA.src = imageASrc
+      imageA.alt = imageAAlt
+      imageA.classList.add('w-full', 'transition-opacity', 'duration-2000')
+      if (!container.contains(imageA)) {
+        container.appendChild(imageA)
+      }
+
+      // Create imageB
+      imageB = document.createElement('img')
+      imageB.src = imageBSrc
+      imageB.alt = imageBAlt
+      imageB.classList.add(
+        'absolute',
+        'top-0',
+        'left-0',
+        'w-full',
+        'transition-opacity',
+        'duration-2000',
+        'opacity-0'
+      )
+      container.appendChild(imageB)
+    }
+
+    let animationTimeout
+    let isAnimating = false
+
+    function startTransition() {
+      if (isAnimating) return
+      isAnimating = true
+
+      let currentImage = 'A'
+
+      function transitionCycle() {
+        animationTimeout = setTimeout(() => {
+          fadeToImage(
+            currentImage === 'A' ? imageB : imageA,
+            currentImage === 'A' ? imageA : imageB
+          )
+
+          animationTimeout = setTimeout(() => {
+            currentImage = currentImage === 'A' ? 'B' : 'A'
+            if (isAnimating) {
+              transitionCycle()
+            }
+          }, 3000) // 2s fade + 1s display
+        }, 1000) // Initial 1s display before starting fade
+      }
+
+      transitionCycle()
+    }
+
+    function stopTransition() {
+      isAnimating = false
+      clearTimeout(animationTimeout)
+    }
+
+    const imageObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log(`Image container '${containerId}' is now visible`)
+            if (!imageB) {
+              console.log(`Creating images for '${containerId}'`)
+              createImages()
+            }
+            console.log(`Starting transition for '${containerId}'`)
+            startTransition()
+          } else {
+            console.log(`Image container '${containerId}' is no longer visible`)
+            console.log(`Stopping transition for '${containerId}'`)
+            stopTransition()
+          }
+        })
+      },
+      { threshold: 0.1 }
     )
-    scenarioFocusImage.appendChild(imageB)
+
+    if (container) {
+      imageObserver.observe(container)
+    }
   }
 
   function fadeToImage(showImage, hideImage) {
-    // Start fading in the image to show
     showImage.classList.remove('opacity-0')
     showImage.classList.add('opacity-100')
-
-    // Start fading out the image to hide
     hideImage.classList.remove('opacity-100')
     hideImage.classList.add('opacity-0')
   }
 
-  let animationTimeout
-  let isAnimating = false
-
-  function startTransition() {
-    if (isAnimating) return // Prevent multiple animations from starting
-    isAnimating = true
-
-    const imageA = scenarioFocusImage.querySelector('img:first-child')
-    let currentImage = 'A'
-
-    function transitionCycle() {
-      animationTimeout = setTimeout(() => {
-        fadeToImage(
-          currentImage === 'A' ? imageB : imageA,
-          currentImage === 'A' ? imageA : imageB
-        )
-
-        animationTimeout = setTimeout(() => {
-          currentImage = currentImage === 'A' ? 'B' : 'A'
-          if (isAnimating) {
-            transitionCycle()
-          }
-        }, 3000) // 2s fade + 1s display
-      }, 1000) // Initial 1s display before starting fade
-    }
-
-    // Ensure imageA starts fully visible
-    imageA.classList.add('opacity-100')
-    imageA.classList.add('transition-opacity', 'duration-2000')
-
-    transitionCycle()
-  }
-
-  function stopTransition() {
-    isAnimating = false
-    clearTimeout(animationTimeout)
-  }
-
-  const imageObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          if (!imageB) {
-            createImageB()
-          }
-          startTransition()
-        } else {
-          stopTransition()
-        }
-      })
-    },
-    { threshold: 0.1 }
+  // Set up transitions for both image sets
+  setupImageTransition(
+    'scenario-focus-image',
+    'assets/images/Scenario focus - A.png',
+    'assets/images/Scenario focus - B.png',
+    'sloth money map view with alternate scenarios A',
+    'sloth money map view with alternate scenarios B'
   )
 
-  if (scenarioFocusImage) {
-    imageObserver.observe(scenarioFocusImage)
-  }
+  setupImageTransition(
+    'table-view-image',
+    'assets/images/Table view - before change.png',
+    'assets/images/Table view - after change.png',
+    'sloth money table view before changing deposits',
+    'sloth money table view after changing deposits'
+  )
 
   // function init() {
   //   updateGemsContainerPosition()
