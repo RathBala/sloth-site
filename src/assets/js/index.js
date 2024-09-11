@@ -1,10 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const hamburgerMenu = document.getElementById('hamburger-menu')
-  const mobileMenu = document.getElementById('mobile-menu')
-
-  hamburgerMenu.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden')
-  })
   // const gemsContainer = document.getElementById('gemsContainer')
   // const heroImage = document.getElementById('hero-image')
   // const emergencyPotCircle = heroImage.getElementById('emergencyPotLarge')
