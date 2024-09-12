@@ -78,27 +78,28 @@
           </div>
         </div>
 
-        <div class="glow relative bg-blue-dark overflow-hidden">
+        <div class="glow relative w-full bg-blue-dark overflow-hidden">
           <!-- <div
             class="gems-container hidden absolute left-1/2 -translate-x-[185%] pointer-events-none w-[8%] z-20"
             id="gemsContainer"
           ></div> -->
           <div
             id="hero-image"
-            class="relative scale-75 z-10 lg:scale-50 lg:-top-20vh"
+            class="relative scale-75 z-10 md:scale-80 md:-top-5vh"
           >
-            <picture>
-              <source
-                media="(min-width: 768px)"
-                srcset="assets/images/map view - combined - no gems.png"
-              />
-              <img
-                class="w-full"
-                src="assets/images/Map view mobile - no gems.png"
-                alt="a financial roadmap for one's saving goals"
-                loading="lazy"
-              />
-            </picture>
+            <img
+              class="w-full md:hidden"
+              src="assets/images/Map view mobile - no gems.png"
+              alt="A financial roadmap for your saving goals"
+              loading="lazy"
+            />
+            <img
+              class="w-full hidden md:block"
+              src="assets/images/map view - combined - no gems.png"
+              alt="A financial roadmap for your saving goals"
+              loading="lazy"
+            />
+
             <!-- <svg
               class="absolute top-[27.5%] left-[27.5%] w-[8%] h-auto"
               id="emergencyPotLarge"
