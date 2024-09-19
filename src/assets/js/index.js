@@ -1,100 +1,104 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // const gemsContainer = document.getElementById('gemsContainer')
-  // const heroImage = document.getElementById('hero-image')
-  // const emergencyPotCircle = heroImage.getElementById('emergencyPotLarge')
-  // let cachedBottomBoundary = null
-  // let resizeTimer = null
-  // let gemGenerationInterval = null
+  const gemsContainer = document.getElementById('gemsContainer')
+  const heroImage = document.getElementById('hero-image')
+  const emergencyPotCircle = heroImage.querySelector('#emergencyPotLarge')
+  let cachedBottomBoundary = null
+  let resizeTimer = null
+  let gemGenerationInterval = null
 
-  // function getBottomBoundary() {
-  //   if (cachedBottomBoundary === null) {
-  //     cachedBottomBoundary = heroImage.getBoundingClientRect().bottom
-  //   }
-  //   return cachedBottomBoundary
-  // }
+  function getBottomBoundary() {
+    if (cachedBottomBoundary === null) {
+      cachedBottomBoundary = heroImage.getBoundingClientRect().bottom
+    }
+    return cachedBottomBoundary
+  }
 
-  // function updateBottomBoundary() {
-  //   cachedBottomBoundary = heroImage.getBoundingClientRect().bottom
-  // }
+  function updateBottomBoundary() {
+    cachedBottomBoundary = heroImage.getBoundingClientRect().bottom
+  }
 
-  // function logBoundaries() {
-  //   console.log('Hero Bottom Boundary:', getBottomBoundary())
-  //   console.log('Window Inner Height:', window.innerHeight)
-  // }
+  function logBoundaries() {
+    console.log('Hero Bottom Boundary:', getBottomBoundary())
+    console.log('Window Inner Height:', window.innerHeight)
+  }
 
-  // function getEmergencyPotPosition() {
-  //   const heroRect = heroImage.getBoundingClientRect()
-  //   const circleBBox = emergencyPotCircle.getBBox()
-  //   const circleBottom = circleBBox.y + circleBBox.height
+  function getEmergencyPotPosition() {
+    const circleRect = emergencyPotCircle.getBoundingClientRect()
+    return {
+      left: circleRect.left + circleRect.width / 2,
+      top: circleRect.top + circleRect.height / 2,
+    }
+  }
 
-  //   return {
-  //     left: heroRect.left + circleBBox.x + circleBBox.width / 2,
-  //     bottom: heroRect.top + circleBottom,
-  //   }
-  // }
+  function updateGemsContainerPosition() {
+    const potPosition = getEmergencyPotPosition()
+    const heroRect = heroImage.getBoundingClientRect()
 
-  // function updateGemsContainerPosition() {
-  //   const heroRect = heroImage.getBoundingClientRect()
-  //   const potPosition = getEmergencyPotPosition()
+    gemsContainer.style.position = 'absolute'
+    gemsContainer.style.left = `${potPosition.left}px`
+    gemsContainer.style.top = `${potPosition.top}px`
 
-  //   gemsContainer.style.position = 'absolute'
-  //   gemsContainer.style.left = `${potPosition.left}px`
-  //   gemsContainer.style.top = `${potPosition.bottom}px`
-  //   gemsContainer.style.height = `${heroRect.bottom - potPosition.bottom}px`
+    // The height from the pot to the bottom of the hero image
+    const height = heroRect.bottom - potPosition.top
+    gemsContainer.style.height = `${height}px`
+    gemsContainer.style.width = '1px' // Since gems are positioned relative to left=0
 
-  //   updateBottomBoundary()
-  //   logBoundaries()
-  // }
+    updateBottomBoundary()
+  }
 
-  // function createGem() {
-  //   const imagePath = 'assets/images/gem.svg'
-  //   const containerRect = gemsContainer.getBoundingClientRect()
-  //   const containerHeight = containerRect.height
+  function createGem() {
+    const imagePath = 'assets/images/gem.svg'
+    const containerHeight = gemsContainer.getBoundingClientRect().height
 
-  //   const gem = document.createElement('img')
-  //   gem.src = imagePath
-  //   gem.classList.add('gem')
-  //   gem.alt = 'Gem Icon'
-  //   gem.style.position = 'absolute'
-  //   gem.style.left = `${Math.random() * 80 - 40}%` // Spread gems around the center
+    const gem = document.createElement('img')
+    gem.src = imagePath
+    gem.classList.add('gem')
+    gem.alt = 'Gem Icon'
+    gem.style.position = 'absolute'
+    gem.style.left = '0px' // Start at center
+    gem.style.top = '0px'
 
-  //   const keyframes = [
-  //     { transform: 'translateY(0)', opacity: 1 },
-  //     { transform: `translateY(${containerHeight - 10}px)`, opacity: 1 },
-  //     { transform: `translateY(${containerHeight}px)`, opacity: 0 },
-  //   ]
+    const randomOffsetX = (Math.random() - 0.5) * 80 // Random offset between -40 and +40 pixels
 
-  //   gem.animate(keyframes, {
-  //     duration: 5000,
-  //     iterations: Infinity,
-  //     easing: 'linear',
-  //   })
+    const keyframes = [
+      { transform: `translate(${randomOffsetX}px, 0px)`, opacity: 1 },
+      {
+        transform: `translate(${randomOffsetX}px, ${containerHeight}px)`,
+        opacity: 0,
+      },
+    ]
 
-  //   gemsContainer.appendChild(gem)
-  // }
+    gem.animate(keyframes, {
+      duration: 5000,
+      iterations: Infinity,
+      easing: 'linear',
+    })
 
-  // function generateGems() {
-  //   // Clear existing gems
-  //   while (gemsContainer.firstChild) {
-  //     gemsContainer.removeChild(gemsContainer.firstChild)
-  //   }
+    gemsContainer.appendChild(gem)
+  }
 
-  //   // Clear any existing interval
-  //   if (gemGenerationInterval) {
-  //     clearInterval(gemGenerationInterval)
-  //   }
+  function generateGems() {
+    // Clear existing gems
+    while (gemsContainer.firstChild) {
+      gemsContainer.removeChild(gemsContainer.firstChild)
+    }
 
-  //   // Start generating gems at intervals
-  //   let gemsCreated = 0
-  //   gemGenerationInterval = setInterval(() => {
-  //     if (gemsCreated < 20) {
-  //       createGem()
-  //       gemsCreated++
-  //     } else {
-  //       clearInterval(gemGenerationInterval)
-  //     }
-  //   }, 200)
-  // }
+    // Clear any existing interval
+    if (gemGenerationInterval) {
+      clearInterval(gemGenerationInterval)
+    }
+
+    // Start generating gems at intervals
+    let gemsCreated = 0
+    gemGenerationInterval = setInterval(() => {
+      if (gemsCreated < 20) {
+        createGem()
+        gemsCreated++
+      } else {
+        clearInterval(gemGenerationInterval)
+      }
+    }, 200)
+  }
 
   function setupImageTransition(
     containerId,
@@ -215,40 +219,40 @@ document.addEventListener('DOMContentLoaded', () => {
     'sloth money table view after changing deposits'
   )
 
-  // function init() {
-  //   updateGemsContainerPosition()
-  //   gemsContainer.classList.remove('hidden')
-  //   generateGems()
-  // }
+  function init() {
+    updateGemsContainerPosition()
+    gemsContainer.classList.remove('hidden')
+    generateGems()
+  }
 
-  // window.addEventListener('resize', () => {
-  //   clearTimeout(resizeTimer)
-  //   resizeTimer = setTimeout(() => {
-  //     updateGemsContainerPosition()
-  //     updateBottomBoundary()
-  //     generateGems()
-  //     logBoundaries()
-  //   }, 250)
-  // })
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(() => {
+      updateGemsContainerPosition()
+      updateBottomBoundary()
+      generateGems()
+      logBoundaries()
+    }, 250)
+  })
 
-  // const observerOptions = {
-  //   root: null,
-  //   rootMargin: '0px',
-  //   threshold: 0.7,
-  // }
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.7,
+  }
 
-  // const observer = new IntersectionObserver((entries, observer) => {
-  //   entries.forEach((entry) => {
-  //     if (entry.isIntersecting) {
-  //       gemsContainer.style.display = 'block'
-  //       init()
-  //       observer.unobserve(entry.target)
-  //     }
-  //   })
-  // }, observerOptions)
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        gemsContainer.style.display = 'block'
+        init()
+        observer.unobserve(entry.target)
+      }
+    })
+  }, observerOptions)
 
-  // observer.observe(heroImage)
+  observer.observe(heroImage)
 
-  // updateBottomBoundary()
-  // logBoundaries()
+  updateBottomBoundary()
+  logBoundaries()
 })

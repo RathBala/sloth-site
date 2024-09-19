@@ -31,10 +31,11 @@
 
 .gem {
   position: absolute;
-  width: 1vw; /* Example size, adjust as needed */
+  width: 20px; /* Adjust size as needed */
+  height: 20px;
   top: 0;
+  left: 0;
   transform: translateX(-50%);
-  opacity: 0; /* Start invisible, visibility controlled by JS */
   z-index: 30;
 }
 

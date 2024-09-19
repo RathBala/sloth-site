@@ -622,10 +622,6 @@ h1,
   }
 }
 
-.pointer-events-none {
-  pointer-events: none;
-}
-
 .visible {
   visibility: visible;
 }
@@ -646,10 +642,6 @@ h1,
   left: 0px;
 }
 
-.left-1\/2 {
-  left: 50%;
-}
-
 .left-\[27\.5\%\] {
   left: 27.5%;
 }
@@ -664,10 +656,6 @@ h1,
 
 .z-10 {
   z-index: 10;
-}
-
-.z-20 {
-  z-index: 20;
 }
 
 .z-30 {
@@ -793,11 +781,6 @@ h1,
 
 .shrink-0 {
   flex-shrink: 0;
-}
-
-.-translate-x-\[185\%\] {
-  --tw-translate-x: -185%;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .scale-100 {
@@ -1157,12 +1140,12 @@ h1,
 
 .gem {
   position: absolute;
-  width: 1vw;
-  /* Example size, adjust as needed */
+  width: 20px;
+  /* Adjust size as needed */
+  height: 20px;
   top: 0;
+  left: 0;
   transform: translateX(-50%);
-  opacity: 0;
-  /* Start invisible, visibility controlled by JS */
   z-index: 30;
 }
 
@@ -1241,6 +1224,11 @@ h1,
     padding-right: 0px;
   }
 
+  .md\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .md\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -1249,11 +1237,6 @@ h1,
   .md\:py-\[140px\] {
     padding-top: 140px;
     padding-bottom: 140px;
-  }
-
-  .md\:px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 
   .md\:pt-0 {
