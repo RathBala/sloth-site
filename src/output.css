@@ -654,6 +654,14 @@ h1,
   top: 27.5%;
 }
 
+.left-\[28\.5\%\] {
+  left: 28.5%;
+}
+
+.top-\[21\%\] {
+  top: 21%;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -697,10 +705,6 @@ h1,
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.block {
-  display: block;
 }
 
 .inline-block {
@@ -851,6 +855,10 @@ h1,
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-visible {
+  overflow: visible;
 }
 
 .overflow-x-auto {
@@ -1140,13 +1148,17 @@ h1,
 
 .gem {
   position: absolute;
-  width: 20px;
+  width: 15px;
   /* Adjust size as needed */
-  height: 20px;
+  height: 15px;
   top: 0;
-  left: 0;
+  left: 50%;
   transform: translateX(-50%);
   z-index: 30;
+}
+
+#gemsContainer {
+  overflow: visible;
 }
 
 .glow::before {
@@ -1185,6 +1197,22 @@ h1,
 }
 
 @media (min-width: 768px) {
+  .md\:left-\[30\%\] {
+    left: 30%;
+  }
+
+  .md\:top-\[30\%\] {
+    top: 30%;
+  }
+
+  .md\:left-\[27\.5\%\] {
+    left: 27.5%;
+  }
+
+  .md\:top-\[27\.5\%\] {
+    top: 27.5%;
+  }
+
   .md\:block {
     display: block;
   }

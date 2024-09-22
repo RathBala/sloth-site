@@ -24,26 +24,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getEmergencyPotPosition() {
     const circleRect = emergencyPotCircle.getBoundingClientRect()
+    const heroImageRect = heroImage.getBoundingClientRect()
+
+    const scaleFactor = getScaleFactor()
+
     return {
-      left: circleRect.left + circleRect.width / 2,
-      top: circleRect.top + circleRect.height / 2,
+      left:
+        (circleRect.left - heroImageRect.left) / scaleFactor +
+        heroImageRect.left +
+        circleRect.width / (2 * scaleFactor),
+      top:
+        (circleRect.bottom - heroImageRect.top) / scaleFactor +
+        heroImageRect.top,
     }
+  }
+
+  function getScaleFactor() {
+    const style = window.getComputedStyle(heroImage)
+    const transform = style.transform
+    console.log('Computed transform:', transform)
+
+    if (transform && transform !== 'none') {
+      const match = transform.match(/matrix\\(([^)]+)\\)/)
+      if (match) {
+        const values = match[1].split(', ')
+        const scaleX = parseFloat(values[0])
+        console.log('Scale factor:', scaleX)
+        return scaleX // Assuming uniform scaling
+      }
+    }
+    console.log('No scaling detected, defaulting to 1')
+    return 1 // No scaling applied
   }
 
   function updateGemsContainerPosition() {
     const potPosition = getEmergencyPotPosition()
     const heroRect = heroImage.getBoundingClientRect()
+    const glowRect = document.querySelector('.glow').getBoundingClientRect()
+
+    const gemHorizontalRange = 80 // Max horizontal movement in pixels
 
     gemsContainer.style.position = 'absolute'
-    gemsContainer.style.left = `${potPosition.left}px`
-    gemsContainer.style.top = `${potPosition.top}px`
+    gemsContainer.style.left = `${potPosition.left - glowRect.left - gemHorizontalRange / 2}px`
+    gemsContainer.style.top = `${potPosition.top - glowRect.top}px`
+    gemsContainer.style.height = `${heroRect.bottom - potPosition.top}px`
+    gemsContainer.style.width = `${gemHorizontalRange}px`
 
-    // The height from the pot to the bottom of the hero image
-    const height = heroRect.bottom - potPosition.top
-    gemsContainer.style.height = `${height}px`
-    gemsContainer.style.width = '1px' // Since gems are positioned relative to left=0
-
-    updateBottomBoundary()
+    // Apply Tailwind CSS classes for positioning
+    gemsContainer.classList.add('absolute', 'overflow-visible')
   }
 
   function createGem() {
@@ -52,30 +80,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const gem = document.createElement('img')
     gem.src = imagePath
-    gem.classList.add('gem')
     gem.alt = 'Gem Icon'
-    gem.style.position = 'absolute'
-    gem.style.left = '0px' // Start at center
-    gem.style.top = '0px'
+    gem.classList.add('gem')
 
-    const randomOffsetX = (Math.random() - 0.5) * 80 // Random offset between -40 and +40 pixels
+    const randomOffsetX = (Math.random() - 0.5) * 80
 
     const keyframes = [
-      { transform: `translate(${randomOffsetX}px, 0px)`, opacity: 1 },
       {
-        transform: `translate(${randomOffsetX}px, ${containerHeight}px)`,
+        transform: `translateX(${randomOffsetX}px) translateY(0px)`,
+        opacity: 1,
+      },
+      {
+        transform: `translateX(${randomOffsetX}px) translateY(${containerHeight * 0.7}px)`,
         opacity: 0,
       },
     ]
 
-    gem.animate(keyframes, {
+    const animation = gem.animate(keyframes, {
       duration: 5000,
-      iterations: Infinity,
+      iterations: 1, // Changed from Infinity to 1
       easing: 'linear',
     })
 
+    // Remove the gem after the animation completes
+    animation.onfinish = () => {
+      gem.remove()
+    }
+
     gemsContainer.appendChild(gem)
   }
+
+  let gemGenerationTimeout = null
 
   function generateGems() {
     // Clear existing gems
@@ -83,21 +118,28 @@ document.addEventListener('DOMContentLoaded', () => {
       gemsContainer.removeChild(gemsContainer.firstChild)
     }
 
-    // Clear any existing interval
-    if (gemGenerationInterval) {
-      clearInterval(gemGenerationInterval)
+    // Clear any existing timeout
+    if (gemGenerationTimeout) {
+      clearTimeout(gemGenerationTimeout)
     }
 
-    // Start generating gems at intervals
-    let gemsCreated = 0
-    gemGenerationInterval = setInterval(() => {
-      if (gemsCreated < 20) {
-        createGem()
-        gemsCreated++
-      } else {
-        clearInterval(gemGenerationInterval)
-      }
-    }, 200)
+    // Start generating gems at random intervals
+    scheduleNextGem()
+  }
+
+  function scheduleNextGem() {
+    // Create a gem
+    createGem()
+
+    // Generate a random interval between minInterval and maxInterval
+    const minInterval = 100 // Minimum interval in milliseconds
+    const maxInterval = 500 // Maximum interval in milliseconds
+    const randomInterval =
+      Math.random() * (maxInterval - minInterval) + minInterval
+
+    gemGenerationTimeout = setTimeout(() => {
+      scheduleNextGem()
+    }, randomInterval)
   }
 
   function setupImageTransition(
@@ -244,7 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        gemsContainer.style.display = 'block'
+        console.log('gems triggered')
+        gemsContainer.classList.remove('hidden')
         init()
         observer.unobserve(entry.target)
       }

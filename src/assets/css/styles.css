@@ -31,12 +31,16 @@
 
 .gem {
   position: absolute;
-  width: 20px; /* Adjust size as needed */
-  height: 20px;
+  width: 15px; /* Adjust size as needed */
+  height: 15px;
   top: 0;
-  left: 0;
+  left: 50%;
   transform: translateX(-50%);
   z-index: 30;
+}
+
+#gemsContainer {
+  overflow: visible;
 }
 
 .glow::before {
