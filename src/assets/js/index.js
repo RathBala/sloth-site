@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const gemsContainer = document.getElementById('gemsContainer')
+  const gemsContainerLarge = document.getElementById('gemsContainerLarge')
+  const gemsContainerSmall = document.getElementById('gemsContainerSmall')
   const heroImage = document.getElementById('hero-image')
-  const emergencyPotCircle = heroImage.querySelector('#emergencyPotLarge')
+  const emergencyPotCircleLarge = heroImage.querySelector('#emergencyPotLarge')
+  const emergencyPotCircleSmall = heroImage.querySelector('#emergencyPotSmall')
   let cachedBottomBoundary = null
   let resizeTimer = null
-  let gemGenerationInterval = null
 
   function getBottomBoundary() {
     if (cachedBottomBoundary === null) {
@@ -22,68 +23,73 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Window Inner Height:', window.innerHeight)
   }
 
-  function getEmergencyPotPosition() {
-    const circleRect = emergencyPotCircle.getBoundingClientRect()
-    const heroImageRect = heroImage.getBoundingClientRect()
-
-    const scaleFactor = getScaleFactor()
-
+  function getEmergencyPotPosition(potElement) {
+    const circleRect = potElement.getBoundingClientRect()
     return {
-      left:
-        (circleRect.left - heroImageRect.left) / scaleFactor +
-        heroImageRect.left +
-        circleRect.width / (2 * scaleFactor),
-      top:
-        (circleRect.bottom - heroImageRect.top) / scaleFactor +
-        heroImageRect.top,
+      left: circleRect.left + circleRect.width / 2,
+      top: circleRect.bottom,
     }
-  }
-
-  function getScaleFactor() {
-    const style = window.getComputedStyle(heroImage)
-    const transform = style.transform
-    console.log('Computed transform:', transform)
-
-    if (transform && transform !== 'none') {
-      const match = transform.match(/matrix\\(([^)]+)\\)/)
-      if (match) {
-        const values = match[1].split(', ')
-        const scaleX = parseFloat(values[0])
-        console.log('Scale factor:', scaleX)
-        return scaleX // Assuming uniform scaling
-      }
-    }
-    console.log('No scaling detected, defaulting to 1')
-    return 1 // No scaling applied
   }
 
   function updateGemsContainerPosition() {
-    const potPosition = getEmergencyPotPosition()
-    const heroRect = heroImage.getBoundingClientRect()
+    const potPositionLarge = getEmergencyPotPosition(emergencyPotCircleLarge)
+    const potPositionSmall = getEmergencyPotPosition(emergencyPotCircleSmall)
     const glowRect = document.querySelector('.glow').getBoundingClientRect()
+    const heroRect = heroImage.getBoundingClientRect()
 
-    const gemHorizontalRange = 80 // Max horizontal movement in pixels
+    // Get the width and height of the pots
+    const potRectLarge = emergencyPotCircleLarge.getBoundingClientRect()
+    const potRectSmall = emergencyPotCircleSmall.getBoundingClientRect()
 
-    gemsContainer.style.position = 'absolute'
-    gemsContainer.style.left = `${potPosition.left - glowRect.left - gemHorizontalRange / 2}px`
-    gemsContainer.style.top = `${potPosition.top - glowRect.top}px`
-    gemsContainer.style.height = `${heroRect.bottom - potPosition.top}px`
-    gemsContainer.style.width = `${gemHorizontalRange}px`
+    // Calculate the height from the pot to the bottom of the hero image
+    const containerHeightLarge = heroRect.bottom - potPositionLarge.top
+    const containerHeightSmall = heroRect.bottom - potPositionSmall.top
 
-    // Apply Tailwind CSS classes for positioning
-    gemsContainer.classList.add('absolute', 'overflow-visible')
+    // Update gemsContainerLarge
+    gemsContainerLarge.style.position = 'absolute'
+    gemsContainerLarge.style.left = `${potPositionLarge.left - glowRect.left - potRectLarge.width / 2}px`
+    gemsContainerLarge.style.top = `${potPositionLarge.top - glowRect.top}px`
+    gemsContainerLarge.style.height = `${containerHeightLarge}px`
+    gemsContainerLarge.style.width = `${potRectLarge.width}px` // Set width to pot's width
+    gemsContainerLarge.classList.add('absolute', 'overflow-visible')
+
+    // Update gemsContainerSmall
+    gemsContainerSmall.style.position = 'absolute'
+    gemsContainerSmall.style.left = `${potPositionSmall.left - glowRect.left - potRectSmall.width / 2}px`
+    gemsContainerSmall.style.top = `${potPositionSmall.top - glowRect.top}px`
+    gemsContainerSmall.style.height = `${containerHeightSmall}px`
+    gemsContainerSmall.style.width = `${potRectSmall.width}px` // Set width to pot's width
+    gemsContainerSmall.classList.add('absolute', 'overflow-visible')
   }
 
-  function createGem() {
+  function createGem(container) {
     const imagePath = 'assets/images/gem.svg'
-    const containerHeight = gemsContainer.getBoundingClientRect().height
+    const containerHeight = container.getBoundingClientRect().height
+    const containerWidth = container.getBoundingClientRect().width
 
     const gem = document.createElement('img')
     gem.src = imagePath
     gem.alt = 'Gem Icon'
-    gem.classList.add('gem')
 
-    const randomOffsetX = (Math.random() - 0.5) * 80
+    // Determine gem size based on container
+    let gemSize = 15 // Default size for large gems
+    if (container === gemsContainerSmall) {
+      gemSize = 7.5 // Half size for small gems
+    }
+
+    // Apply size and positioning styles to the gem
+    gem.style.width = `${gemSize}px`
+    gem.style.height = `${gemSize}px`
+    gem.style.position = 'absolute'
+    gem.style.top = '0'
+    gem.style.left = '0'
+    gem.style.zIndex = '30'
+
+    // Remove the 'gem' class if it sets size properties
+    // gem.classList.add('gem') // Remove or comment out if necessary
+
+    // Calculate random horizontal offset within the container
+    const randomOffsetX = Math.random() * containerWidth
 
     const keyframes = [
       {
@@ -98,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const animation = gem.animate(keyframes, {
       duration: 5000,
-      iterations: 1, // Changed from Infinity to 1
+      iterations: 1,
       easing: 'linear',
     })
 
@@ -107,38 +113,56 @@ document.addEventListener('DOMContentLoaded', () => {
       gem.remove()
     }
 
-    gemsContainer.appendChild(gem)
+    container.appendChild(gem)
   }
 
-  let gemGenerationTimeout = null
+  // Add these variables for separate timeouts
+  let gemGenerationTimeoutLarge = null
+  let gemGenerationTimeoutSmall = null
 
+  // Modify generateGems to handle both containers
   function generateGems() {
-    // Clear existing gems
-    while (gemsContainer.firstChild) {
-      gemsContainer.removeChild(gemsContainer.firstChild)
+    // For Large Container
+    while (gemsContainerLarge.firstChild) {
+      gemsContainerLarge.removeChild(gemsContainerLarge.firstChild)
     }
-
-    // Clear any existing timeout
-    if (gemGenerationTimeout) {
-      clearTimeout(gemGenerationTimeout)
+    if (gemGenerationTimeoutLarge) {
+      clearTimeout(gemGenerationTimeoutLarge)
     }
+    scheduleNextGemLarge()
 
-    // Start generating gems at random intervals
-    scheduleNextGem()
+    // For Small Container
+    while (gemsContainerSmall.firstChild) {
+      gemsContainerSmall.removeChild(gemsContainerSmall.firstChild)
+    }
+    if (gemGenerationTimeoutSmall) {
+      clearTimeout(gemGenerationTimeoutSmall)
+    }
+    scheduleNextGemSmall()
   }
 
-  function scheduleNextGem() {
-    // Create a gem
-    createGem()
-
-    // Generate a random interval between minInterval and maxInterval
-    const minInterval = 100 // Minimum interval in milliseconds
-    const maxInterval = 500 // Maximum interval in milliseconds
+  // Add separate scheduling functions
+  function scheduleNextGemLarge() {
+    createGem(gemsContainerLarge)
+    const minInterval = 300
+    const maxInterval = 600
     const randomInterval =
       Math.random() * (maxInterval - minInterval) + minInterval
 
-    gemGenerationTimeout = setTimeout(() => {
-      scheduleNextGem()
+    gemGenerationTimeoutLarge = setTimeout(() => {
+      scheduleNextGemLarge()
+    }, randomInterval)
+  }
+
+  function scheduleNextGemSmall() {
+    createGem(gemsContainerSmall)
+    const minInterval = 400
+    const maxInterval = 700
+    const randomInterval =
+      Math.random() * (maxInterval - minInterval) + minInterval
+
+    gemGenerationTimeoutSmall = setTimeout(() => {
+      scheduleNextGemSmall()
     }, randomInterval)
   }
 
@@ -263,7 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function init() {
     updateGemsContainerPosition()
-    gemsContainer.classList.remove('hidden')
+    gemsContainerLarge.classList.remove('hidden')
+    gemsContainerSmall.classList.remove('hidden')
     generateGems()
   }
 
@@ -287,7 +312,8 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         console.log('gems triggered')
-        gemsContainer.classList.remove('hidden')
+        gemsContainerLarge.classList.remove('hidden')
+        gemsContainerSmall.classList.remove('hidden')
         init()
         observer.unobserve(entry.target)
       }

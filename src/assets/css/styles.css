@@ -31,15 +31,13 @@
 
 .gem {
   position: absolute;
-  width: 15px; /* Adjust size as needed */
-  height: 15px;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   z-index: 30;
 }
 
-#gemsContainer {
+.gems-container {
+  position: absolute;
   overflow: visible;
 }
 

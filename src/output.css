@@ -642,20 +642,12 @@ h1,
   left: 0px;
 }
 
-.left-\[27\.5\%\] {
-  left: 27.5%;
+.left-\[28\.5\%\] {
+  left: 28.5%;
 }
 
 .top-0 {
   top: 0px;
-}
-
-.top-\[27\.5\%\] {
-  top: 27.5%;
-}
-
-.left-\[28\.5\%\] {
-  left: 28.5%;
 }
 
 .top-\[21\%\] {
@@ -668,6 +660,14 @@ h1,
 
 .z-30 {
   z-index: 30;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+.z-20 {
+  z-index: 20;
 }
 
 .mx-auto {
@@ -761,6 +761,10 @@ h1,
 
 .w-\[12rem\] {
   width: 12rem;
+}
+
+.w-\[4\.5\%\] {
+  width: 4.5%;
 }
 
 .w-\[8\%\] {
@@ -1148,16 +1152,13 @@ h1,
 
 .gem {
   position: absolute;
-  width: 15px;
-  /* Adjust size as needed */
-  height: 15px;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   z-index: 30;
 }
 
-#gemsContainer {
+.gems-container {
+  position: absolute;
   overflow: visible;
 }
 
@@ -1197,20 +1198,20 @@ h1,
 }
 
 @media (min-width: 768px) {
-  .md\:left-\[30\%\] {
-    left: 30%;
-  }
-
-  .md\:top-\[30\%\] {
-    top: 30%;
-  }
-
   .md\:left-\[27\.5\%\] {
     left: 27.5%;
   }
 
+  .md\:left-\[57\.9\%\] {
+    left: 57.9%;
+  }
+
   .md\:top-\[27\.5\%\] {
     top: 27.5%;
+  }
+
+  .md\:top-\[73\%\] {
+    top: 73%;
   }
 
   .md\:block {
