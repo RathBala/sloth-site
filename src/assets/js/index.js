@@ -161,17 +161,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }, randomInterval)
   }
 
-  function setupImageTransition(
-    containerId,
-    imageASrc,
-    imageBSrc,
-    imageAAlt,
-    imageBAlt
-  ) {
+  function setupImageTransition(containerId, imageSources, imageAlts) {
     const container = document.getElementById(containerId)
     let imageA, imageB
+    let currentImageA = null
+    let currentImageB = null
+    let isDesktop = window.matchMedia('(min-width: 768px)').matches
 
     function createImages() {
+      // Determine which images to use based on viewport size
+      const imageASrc = isDesktop
+        ? imageSources.desktop.imageA
+        : imageSources.mobile.imageA
+      const imageBSrc = isDesktop
+        ? imageSources.desktop.imageB
+        : imageSources.mobile.imageB
+      const imageAAlt = isDesktop
+        ? imageAlts.desktop.imageA
+        : imageAlts.mobile.imageA
+      const imageBAlt = isDesktop
+        ? imageAlts.desktop.imageB
+        : imageAlts.mobile.imageB
+
       // Create or update imageA
       imageA = container.querySelector('img') || document.createElement('img')
       imageA.src = imageASrc
@@ -179,9 +190,16 @@ document.addEventListener('DOMContentLoaded', () => {
       imageA.classList.add('w-full', 'transition-opacity', 'duration-2000')
       if (!container.contains(imageA)) {
         container.appendChild(imageA)
+      } else {
+        // Update the src and alt if imageA already exists
+        imageA.src = imageASrc
+        imageA.alt = imageAAlt
       }
 
-      // Create imageB
+      // Create or update imageB
+      if (currentImageB && container.contains(currentImageB)) {
+        container.removeChild(currentImageB)
+      }
       imageB = document.createElement('img')
       imageB.src = imageBSrc
       imageB.alt = imageBAlt
@@ -195,6 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'opacity-0'
       )
       container.appendChild(imageB)
+
+      currentImageA = imageA
+      currentImageB = imageB
     }
 
     let animationTimeout
@@ -209,8 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
       function transitionCycle() {
         animationTimeout = setTimeout(() => {
           fadeToImage(
-            currentImage === 'A' ? imageB : imageA,
-            currentImage === 'A' ? imageA : imageB
+            currentImage === 'A' ? currentImageB : currentImageA,
+            currentImage === 'A' ? currentImageA : currentImageB
           )
 
           animationTimeout = setTimeout(() => {
@@ -230,12 +251,48 @@ document.addEventListener('DOMContentLoaded', () => {
       clearTimeout(animationTimeout)
     }
 
+    // Function to update images when viewport changes
+    function updateImages(e) {
+      const newIsDesktop = e.matches
+      if (newIsDesktop !== isDesktop) {
+        isDesktop = newIsDesktop
+        const newImageASrc = isDesktop
+          ? imageSources.desktop.imageA
+          : imageSources.mobile.imageA
+        const newImageBSrc = isDesktop
+          ? imageSources.desktop.imageB
+          : imageSources.mobile.imageB
+        const newImageAAlt = isDesktop
+          ? imageAlts.desktop.imageA
+          : imageAlts.mobile.imageA
+        const newImageBAlt = isDesktop
+          ? imageAlts.desktop.imageB
+          : imageAlts.mobile.imageB
+
+        if (currentImageA && currentImageA.src !== newImageASrc) {
+          // Stop current transition
+          stopTransition()
+          // Remove old images
+          container.removeChild(currentImageA)
+          container.removeChild(currentImageB)
+          // Recreate images with new sources
+          createImages()
+          // Restart transition
+          startTransition()
+        }
+      }
+    }
+
+    // Listen for viewport size changes
+    const mediaQueryList = window.matchMedia('(min-width: 768px)')
+    mediaQueryList.addEventListener('change', updateImages)
+
     const imageObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             console.log(`Image container '${containerId}' is now visible`)
-            if (!imageB) {
+            if (!currentImageA || !currentImageB) {
               console.log(`Creating images for '${containerId}'`)
               createImages()
             }
@@ -263,21 +320,77 @@ document.addEventListener('DOMContentLoaded', () => {
     hideImage.classList.add('opacity-0')
   }
 
-  // Set up transitions for both image sets
+  // Set up transitions for both image sets with responsive images
   setupImageTransition(
     'scenario-focus-image',
-    'assets/images/Scenario focus - A.png',
-    'assets/images/Scenario focus - B.png',
-    'sloth money map view with alternate scenarios A',
-    'sloth money map view with alternate scenarios B'
+    {
+      mobile: {
+        imageA: 'assets/images/Scenario focus - A - mobile.png',
+        imageB: 'assets/images/Scenario focus - B - mobile.png',
+      },
+      desktop: {
+        imageA: 'assets/images/Scenario focus - A.png',
+        imageB: 'assets/images/Scenario focus - B.png',
+      },
+    },
+    {
+      mobile: {
+        imageA: 'Alternate scenarios A - mobile',
+        imageB: 'Alternate scenarios B - mobile',
+      },
+      desktop: {
+        imageA: 'Alternate scenarios A',
+        imageB: 'Alternate scenarios B',
+      },
+    }
   )
 
   setupImageTransition(
     'table-view-image',
-    'assets/images/Table view - before change.png',
-    'assets/images/Table view - after change.png',
-    'sloth money table view before changing deposits',
-    'sloth money table view after changing deposits'
+    {
+      mobile: {
+        imageA: 'assets/images/Table view - before change - mobile.png',
+        imageB: 'assets/images/Table view - after change - mobile.png',
+      },
+      desktop: {
+        imageA: 'assets/images/Table view - before change.png',
+        imageB: 'assets/images/Table view - after change.png',
+      },
+    },
+    {
+      mobile: {
+        imageA: 'Table view before change - mobile',
+        imageB: 'Table view after change - mobile',
+      },
+      desktop: {
+        imageA: 'Table view before change',
+        imageB: 'Table view after change',
+      },
+    }
+  )
+
+  setupImageTransition(
+    'map-shared',
+    {
+      mobile: {
+        imageA: 'assets/images/Map view - shared - mobile.png',
+        imageB: 'assets/images/Map view - shared - after - mobile.png',
+      },
+      desktop: {
+        imageA: 'assets/images/Map view - shared.png',
+        imageB: 'assets/images/Map view - shared - after.png',
+      },
+    },
+    {
+      mobile: {
+        imageA: 'sloth money map view with share menu on mobile',
+        imageB: 'sloth money map view with share confirmation modal on mobile',
+      },
+      desktop: {
+        imageA: 'sloth money map view with share menu',
+        imageB: 'sloth money map view with share confirmation modal',
+      },
+    }
   )
 
   function init() {
