@@ -64,18 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function createGem(container) {
     const imagePath = 'assets/images/gem.svg'
-    const containerHeight = container.getBoundingClientRect().height
-    const containerWidth = container.getBoundingClientRect().width
+    const containerRect = container.getBoundingClientRect()
+    const containerHeight = containerRect.height
+    const containerWidth = containerRect.width
 
     const gem = document.createElement('img')
     gem.src = imagePath
     gem.alt = 'Gem Icon'
 
-    // Determine gem size based on container
-    let gemSize = 15 // Default size for large gems
-    if (container === gemsContainerSmall) {
-      gemSize = 7.5 // Half size for small gems
-    }
+    // Make gem size proportional to container width
+    let gemSize = containerWidth * 0.3 // Adjust the multiplier as needed
 
     // Apply size and positioning styles to the gem
     gem.style.width = `${gemSize}px`
@@ -84,9 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
     gem.style.top = '0'
     gem.style.left = '0'
     gem.style.zIndex = '30'
-
-    // Remove the 'gem' class if it sets size properties
-    // gem.classList.add('gem') // Remove or comment out if necessary
 
     // Calculate random horizontal offset within the container
     const randomOffsetX = Math.random() * containerWidth
