@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   const gemsContainerLarge = document.getElementById('gemsContainerLarge')
   const gemsContainerSmall = document.getElementById('gemsContainerSmall')
   const heroImage = document.getElementById('hero-image')
