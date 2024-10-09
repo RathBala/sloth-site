@@ -394,11 +394,14 @@ window.addEventListener('load', () => {
   )
 
   function init() {
-    updateGemsContainerPosition()
-    gemsContainerLarge.classList.remove('hidden')
-    gemsContainerSmall.classList.remove('hidden')
-    generateGems()
+    requestAnimationFrame(() => {
+      updateGemsContainerPosition();
+      gemsContainerLarge.classList.remove('hidden');
+      gemsContainerSmall.classList.remove('hidden');
+      generateGems();
+    });
   }
+  
 
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer)
