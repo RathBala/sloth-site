@@ -4,11 +4,15 @@
   "description": "Sloth Money - The Budgeting App Built for Two",
   "scripts": {
     "dev:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --watch",
+    "dev:server": "browser-sync start --server src --index index.html --port 3000 --files 'src/**/*' --no-notify",
     "build:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --minify",
     "build": "yarn build:css",
-    "dev": "yarn dev:css"
+    "dev": "concurrently \"yarn dev:css\" \"yarn dev:server\" --names \"CSS,SERVER\" --prefix-colors \"blue,green\""
   },
   "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "concurrently": "^9.2.1",
+    "http-server": "^14.1.1",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.7"
   }
