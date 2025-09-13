@@ -146,27 +146,19 @@
             </div>
             <div class="relative">
               <div class="bg-gradient-to-br from-green/20 to-blue-light/20 rounded-3xl p-4 backdrop-blur-sm border border-white/10 overflow-hidden">
-                <!-- Mobile View (visible on mobile) -->
-                <div class="md:hidden relative h-[500px] bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <div class="absolute inset-0 animate-scroll-mobile">
-                    <img 
-                      src="assets/images/shared-mobile.png" 
-                      alt="Shared transactions mobile view showing partner payments, shared expenses, and pending items"
-                      class="w-full h-auto object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-                
-                <!-- Desktop View (visible on desktop) -->
-                <div class="hidden md:block relative h-[400px] bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <div class="absolute inset-0 animate-scroll-desktop">
-                    <img 
-                      src="assets/images/shared-desktop.png" 
-                      alt="Shared transactions desktop view showing partner payments, shared expenses, and pending items"
-                      class="w-full h-auto object-contain"
-                      loading="lazy"
-                    />
+                <div class="relative h-[500px] md:h-[400px] bg-white rounded-2xl shadow-lg overflow-hidden">
+                  <div class="absolute inset-0 animate-scroll-mobile md:animate-scroll-desktop">
+                    <picture>
+                      <source type="image/webp" media="(min-width: 768px)" srcset="assets/images/shared-desktop.webp" />
+                      <img 
+                        src="assets/images/shared-mobile.webp" 
+                        alt="Shared transactions mobile view showing partner payments, shared expenses, and pending items"
+                        class="w-full h-auto object-contain"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                      />
+                    </picture>
                   </div>
                 </div>
               </div>
@@ -194,27 +186,19 @@
             </div>
             <div class="relative lg:order-1">
               <div class="bg-gradient-to-br from-green/20 to-blue-light/20 rounded-3xl p-4 backdrop-blur-sm border border-white/10 overflow-hidden">
-                <!-- Mobile View (visible on mobile) -->
-                <div class="md:hidden relative h-[500px] bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="relative h-[500px] md:h-[400px] bg-white rounded-2xl shadow-lg overflow-hidden">
                   <div class="absolute inset-0 animate-pulse-slow">
-                    <img 
-                      src="assets/images/split-mobile.png" 
-                      alt="Balance tracking mobile view showing custom split proportions and who owes what"
-                      class="w-full h-auto object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-                
-                <!-- Desktop View (visible on desktop) -->
-                <div class="hidden md:block relative h-[400px] bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <div class="absolute inset-0 animate-pulse-slow">
-                    <img 
-                      src="assets/images/split-desktop.png" 
-                      alt="Balance tracking desktop view showing custom split proportions and who owes what"
-                      class="w-full h-auto object-contain"
-                      loading="lazy"
-                    />
+                    <picture>
+                      <source type="image/webp" media="(min-width: 768px)" srcset="assets/images/split-desktop.webp" />
+                      <img 
+                        src="assets/images/split-mobile.webp" 
+                        alt="Balance tracking mobile view showing custom split proportions and who owes what"
+                        class="w-full h-auto object-contain"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                      />
+                    </picture>
                   </div>
                 </div>
               </div>
@@ -242,27 +226,19 @@
             </div>
             <div class="relative">
               <div class="bg-gradient-to-br from-green/20 to-blue-light/20 rounded-3xl p-4 backdrop-blur-sm border border-white/10 overflow-hidden">
-                <!-- Mobile View (visible on mobile) -->
-                <div class="md:hidden relative h-[500px] bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <div class="absolute inset-0 animate-scroll-mobile">
-                    <img 
-                      src="assets/images/budget-mobile.png" 
-                      alt="Budget categories mobile view showing shared spending categories like debts, activities, eating out, and shopping with remaining amounts"
-                      class="w-full h-auto object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-                
-                <!-- Desktop View (visible on desktop) -->
-                <div class="hidden md:block relative h-[400px] bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <div class="absolute inset-0 animate-scroll-desktop">
-                    <img 
-                      src="assets/images/budget-desktop.png" 
-                      alt="Budget categories desktop view showing shared spending categories like debts, activities, eating out, and shopping with remaining amounts"
-                      class="w-full h-auto object-contain"
-                      loading="lazy"
-                    />
+                <div class="relative h-[500px] md:h-[400px] bg-white rounded-2xl shadow-lg overflow-hidden">
+                  <div class="absolute inset-0 animate-scroll-mobile md:animate-scroll-desktop">
+                    <picture>
+                      <source type="image/webp" media="(min-width: 768px)" srcset="assets/images/budget-desktop.webp" />
+                      <img 
+                        src="assets/images/budget-mobile.webp" 
+                        alt="Budget categories mobile view showing shared spending categories like debts, activities, eating out, and shopping with remaining amounts"
+                        class="w-full h-auto object-contain"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                      />
+                    </picture>
                   </div>
                 </div>
               </div>
@@ -295,27 +271,19 @@
             </div>
             <div class="relative lg:order-1">
               <div class="bg-gradient-to-br from-green/20 to-blue-light/20 rounded-3xl p-4 backdrop-blur-sm border border-white/10 overflow-hidden">
-                <!-- Mobile View (visible on mobile) -->
-                <div class="md:hidden relative h-[500px] bg-blue-dark rounded-2xl shadow-lg overflow-hidden">
+                <div class="relative h-[500px] md:h-[400px] bg-blue-dark rounded-2xl shadow-lg overflow-hidden">
                   <div class="absolute inset-0 animate-zoom-gentle">
-                    <img 
-                      src="assets/images/savings-mobile.png" 
-                      alt="Savings goals timeline mobile view showing emergency fund, car repair scenarios, and holiday savings with progress tracking over months"
-                      class="w-full h-full object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-                
-                <!-- Desktop View (visible on desktop) -->
-                <div class="hidden md:block relative h-[400px] bg-blue-dark rounded-2xl shadow-lg overflow-hidden">
-                  <div class="absolute inset-0 animate-zoom-gentle">
-                    <img 
-                      src="assets/images/savings-desktop.png" 
-                      alt="Savings goals timeline desktop view showing emergency fund, car repair scenarios, and holiday savings with progress tracking over months"
-                      class="w-full h-full object-contain"
-                      loading="lazy"
-                    />
+                    <picture>
+                      <source type="image/webp" media="(min-width: 768px)" srcset="assets/images/savings-desktop.webp" />
+                      <img 
+                        src="assets/images/savings-mobile.webp" 
+                        alt="Savings goals timeline mobile view showing emergency fund, car repair scenarios, and holiday savings with progress tracking over months"
+                        class="w-full h-full object-contain"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                      />
+                    </picture>
                   </div>
                 </div>
               </div>
