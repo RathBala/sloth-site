@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center px-6 py-3 bg-gradient-to-r from-green to-green-light text-white font-medium rounded-full hover:from-green-light hover:to-green transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green/50;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+  
+  /* Scrolling animations for app screenshots */
+  .animate-scroll-mobile {
+    animation: scrollMobile 8s ease-in-out infinite;
+  }
+  
+  .animate-scroll-desktop {
+    animation: scrollDesktop 10s ease-in-out infinite;
+  }
+  
+  /* Subtle pulse animation for balance view */
+  .animate-pulse-slow {
+    animation: pulseSlow 4s ease-in-out infinite;
+  }
+  
+  /* Horizontal scrolling animations for timeline views */
+  .animate-scroll-horizontal-mobile {
+    animation: scrollHorizontalMobile 12s ease-in-out infinite;
+  }
+  
+  .animate-scroll-horizontal-desktop {
+    animation: scrollHorizontalDesktop 15s ease-in-out infinite;
+  }
+  
+  /* Gentle zoom-in animation that shows full image */
+  .animate-zoom-gentle {
+    animation: zoomGentle 6s ease-in-out infinite;
+  }
+}
+
+/* Keyframe animations */
+@keyframes scrollMobile {
+  0%, 20% {
+    transform: translateY(0);
+  }
+  50%, 70% {
+    transform: translateY(-40%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollDesktop {
+  0%, 20% {
+    transform: translateY(0);
+  }
+  50%, 70% {
+    transform: translateY(-30%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes scrollHorizontalMobile {
+  0%, 20% {
+    transform: translateX(0);
+  }
+  55%, 80% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scrollHorizontalDesktop {
+  0%, 25% {
+    transform: translateX(0);
+  }
+  55%, 80% {
+    transform: translateX(-45%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomGentle {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.95;
+  }
+}
