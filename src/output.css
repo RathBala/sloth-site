@@ -566,10 +566,6 @@ video {
   border-width: 0;
 }
 
-.visible {
-  visibility: visible;
-}
-
 .absolute {
   position: absolute;
 }
@@ -685,10 +681,6 @@ video {
 
 .h-8 {
   height: 2rem;
-}
-
-.h-\[400px\] {
-  height: 400px;
 }
 
 .h-\[500px\] {
@@ -1197,10 +1189,6 @@ video {
   animation: scrollMobile 8s ease-in-out infinite;
 }
 
-.animate-scroll-desktop {
-  animation: scrollDesktop 10s ease-in-out infinite;
-}
-
 /* Subtle pulse animation for balance view */
 
 .animate-pulse-slow {
@@ -1409,14 +1397,6 @@ html {
 }
 
 @media (min-width: 768px) {
-  .md\:block {
-    display: block;
-  }
-
-  .md\:hidden {
-    display: none;
-  }
-
   .md\:h-\[400px\] {
     height: 400px;
   }
