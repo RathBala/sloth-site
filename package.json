@@ -1,7 +1,7 @@
 {
   "name": "sloth-money-landing",
   "version": "1.0.0",
-  "description": "Sloth Money - The Budgeting App Built for Two",
+  "description": "Sloth Money - The budgeting app built for two",
   "scripts": {
     "dev:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --watch",
     "dev:server": "browser-sync start --server src --index index.html --port 3000 --files 'src/**/*' --no-notify",
