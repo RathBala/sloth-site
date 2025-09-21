@@ -1,0 +1,4 @@
+# macOS system files
+.DS_Store
+src/assets/.DS_Store
+src/assets/images/.DS_Store
