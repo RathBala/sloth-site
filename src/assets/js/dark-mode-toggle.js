@@ -25,7 +25,7 @@
     if (storedTheme) {
       return storedTheme;
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return 'light';
   }
 
   function applyTheme(theme, withTransition = false) {
@@ -71,12 +71,6 @@
   }
 
   applyTheme(getPreferredTheme());
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!getStoredTheme()) {
-      applyTheme(e.matches ? 'dark' : 'light', true);
-    }
-  });
 
   document.addEventListener('DOMContentLoaded', function() {
     const toggleButton = document.getElementById('theme-toggle');
