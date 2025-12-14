@@ -786,6 +786,10 @@ video {
   height: 10rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .min-h-\[300px\] {
   min-height: 300px;
 }
@@ -991,6 +995,18 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
+.space-x-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.75rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .overflow-hidden {
@@ -1277,6 +1293,20 @@ video {
   padding-right: 1.25rem;
 }
 
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1317,6 +1347,11 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {
