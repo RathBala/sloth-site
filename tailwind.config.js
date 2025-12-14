@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.html'],
+  content: ['./src/**/*.html', './src/**/*.js'],
   theme: {
     extend: {
       backgroundImage: {
@@ -15,7 +15,6 @@ module.exports = {
         'green-dark': '#038C73',
         'green-really-dark': '#012619',
         green: '#04bf68',
-        gray: '#778899',
       },
       fontFamily: {
         sans: ['Merriweather Sans', 'sans-serif'],
@@ -31,20 +30,54 @@ module.exports = {
         '2rem': '2rem',
         '10rem': '10rem',
       },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'float-delayed': 'float 6s ease-in-out 2s infinite',
+        'float-slow': 'float 8s ease-in-out 1s infinite',
+        'gradient-shift': 'gradientShift 15s ease infinite',
+        'gradient-text': 'gradientText 4s ease infinite',
+        'pulse-slow': 'pulseSlow 4s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        gradientShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        gradientText: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        pulseSlow: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+        },
+      },
+      backdropBlur: {
+        xl: '24px',
+      },
     },
   },
   plugins: [
     function ({ addUtilities }) {
       const newUtilities = {
         '.scrollbar-hide': {
-          /* IE and Edge */
           '-ms-overflow-style': 'none',
-          /* Firefox */
           'scrollbar-width': 'none',
-          /* Safari and Chrome */
           '&::-webkit-scrollbar': {
             display: 'none',
           },
+        },
+        '.animate-gradient-shift': {
+          'background-size': '200% 200%',
+          'animation': 'gradientShift 15s ease infinite',
+        },
+        '.animate-gradient-text': {
+          'background-size': '200% auto',
+          'animation': 'gradientText 4s ease infinite',
         },
       }
       addUtilities(newUtilities)
