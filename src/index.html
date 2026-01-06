@@ -648,6 +648,119 @@
           </div>
         </div>
       </section>
+      <!-- Pricing Section -->
+      <section class="py-16 sm:py-20 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-10 reveal">
+            <div class="inline-flex items-center justify-center w-12 h-12 bg-green/10 dark:bg-green/20 rounded-lg mb-4">
+              <svg class="w-6 h-6 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3v1.5a1.5 1.5 0 01-3 0V11a6 6 0 1112 0v1.5a1.5 1.5 0 01-3 0V11c0-1.657-1.343-3-3-3z" />
+              </svg>
+            </div>
+            <h2 class="font-sans font-bold text-3xl sm:text-4xl text-gray-900 dark:text-white mb-3">Choose the plan that fits you</h2>
+            <p class="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+              Transparent pricing, no hidden fees. Switch or cancel anytime.
+            </p>
+          </div>
+
+          <div class="flex items-center justify-center mb-8">
+            <div class="flex items-center bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full p-1 shadow-sm">
+              <button
+                type="button"
+                data-billing-option="annual"
+                class="pricing-toggle active inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-semibold text-gray-900 dark:text-white"
+              >
+                Annual
+                <span class="text-xs font-normal text-green">Save 2 months</span>
+              </button>
+              <button
+                type="button"
+                data-billing-option="monthly"
+                class="pricing-toggle inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-semibold text-gray-600 dark:text-gray-300"
+              >
+                Monthly
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-stretch lg:flex-row lg:justify-center gap-6 lg:gap-8 reveal">
+            <div
+              class="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 sm:p-8 shadow-sm"
+              data-plan="annual"
+            >
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <p class="text-sm font-semibold text-green">Best value</p>
+                  <h3 class="font-sans font-bold text-2xl text-gray-900 dark:text-white">Annual</h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">Two months free compared to monthly.</p>
+                </div>
+                <div class="bg-green/10 text-green px-3 py-1 rounded-full text-xs font-semibold">Popular</div>
+              </div>
+              <div class="flex items-baseline gap-2 mb-4">
+                <span class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">£39.99</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">per year</span>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">£3.33 per month when billed annually.</p>
+              <ul class="space-y-3 text-gray-700 dark:text-gray-300 mb-8">
+                <li class="flex items-start gap-3"><span class="text-green mt-1">•</span><span>Full access to every feature</span></li>
+                <li class="flex items-start gap-3"><span class="text-green mt-1">•</span><span>Shared and personal workspaces for partners</span></li>
+                <li class="flex items-start gap-3"><span class="text-green mt-1">•</span><span>Priority support and roadmap input</span></li>
+              </ul>
+              <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                <a
+                  class="inline-flex items-center justify-center px-6 py-3 bg-green hover:bg-green-dark text-white font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-green/30"
+                  href="https://budget.slothmoney.app"
+                >
+                  Start for free
+                </a>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Cancel anytime, no commitment.</p>
+              </div>
+            </div>
+
+            <div
+              class="flex-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 sm:p-8 shadow-sm hidden"
+              data-plan="monthly"
+            >
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">Flexible</p>
+                  <h3 class="font-sans font-bold text-2xl text-gray-900 dark:text-white">Monthly</h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">Stay monthly while you explore.</p>
+                </div>
+              </div>
+              <div class="flex items-baseline gap-2 mb-4">
+                <span class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">£4.99</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">per month</span>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">Switch to annual anytime and keep your data.</p>
+              <ul class="space-y-3 text-gray-700 dark:text-gray-300 mb-8">
+                <li class="flex items-start gap-3"><span class="text-green mt-1">•</span><span>Unlimited goals, budgets, and scenarios</span></li>
+                <li class="flex items-start gap-3"><span class="text-green mt-1">•</span><span>Secure syncing for all your accounts</span></li>
+                <li class="flex items-start gap-3"><span class="text-green mt-1">•</span><span>Invite your partner whenever you’re ready</span></li>
+              </ul>
+              <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                <a
+                  class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white font-semibold rounded-lg hover:border-green hover:text-green dark:hover:border-green dark:hover:text-green transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-green/30"
+                  href="https://budget.slothmoney.app"
+                >
+                  Try monthly first
+                </a>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Upgrade when you’re convinced.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex flex-col items-center gap-3 text-sm text-gray-600 dark:text-gray-400 text-center reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>No ads, no hidden fees, cancel anytime</span>
+            </div>
+            <p>Both plans include dark mode, secure syncing, and partner collaboration tools.</p>
+          </div>
+        </div>
+      </section>
       <!-- Final CTA Section -->
       <section id="waitlist" class="py-20 sm:py-24 bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
@@ -741,5 +854,6 @@
     <script src="assets/js/mobile-menu.js" defer></script>
     <script src="assets/js/footer-year.js" defer></script>
     <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/pricing-toggle.js" defer></script>
   </body>
 </html>
