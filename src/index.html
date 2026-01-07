@@ -82,6 +82,11 @@
       .animate-pulse-line {
         animation: pulseLine 3s ease-in-out infinite;
       }
+
+      .hero-image-container {
+        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
+      }
     </style>
 
     <!-- Dark mode script (loaded early to prevent flash) -->
@@ -185,19 +190,32 @@
       </header>
 
       <!-- Hero Section -->
-      <section class="relative overflow-hidden py-20 sm:py-28 lg:py-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
+      <section class="relative overflow-hidden pt-8 sm:pt-12 pb-20 sm:pb-28 lg:pb-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center">
+            <!-- Hero Image -->
+            <div class="relative flex justify-center mb-0 sm:-mb-6 lg:-mb-10 reveal">
+              <div class="relative w-72 sm:w-96 lg:w-[28rem] h-56 sm:h-72 lg:h-80 hero-image-container overflow-hidden">
+                <img 
+                  src="assets/images/Sloths hero.png" 
+                  alt="Sloth couple hugging with gems representing wealth"
+                  class="w-full h-auto object-cover object-top absolute top-0 left-0"
+                  decoding="async"
+                />
+              </div>
+            </div>
+            
             <!-- Main headline -->
-            <h1 class="font-sans font-bold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-8 reveal">
-              <span class="block text-gray-900 dark:text-white">Build a clear path to</span>
-              <span class="block text-gray-900 dark:text-white mt-2">wealth,</span>
-              <span class="block text-green py-2">together</span>
+            <h1 class="font-sans font-bold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-8 reveal relative z-10 text-gray-900 dark:text-white">
+              <span class="sm:block">Build a clear path to <span class="sm:hidden">wealth,</span></span>
+              <span class="block sm:mt-2 mt-1">
+                <span class="hidden sm:inline">wealth, </span><span class="text-green">together</span><span class="text-white">.</span>
+              </span>
             </h1>
 
             <!-- Subheading -->
             <p class="max-w-3xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-10 reveal">
-              Sloth Money builds a roadmap for couples to achieve their most ambitious financial goals.
+              Sloth Money builds a roadmap for couples to achieve their ambitious financial goals.
             </p>
             
             <!-- CTA Buttons -->
@@ -217,28 +235,6 @@
               >
                 Sign in
               </a>
-            </div>
-            
-            <!-- Trust indicators -->
-            <div class="inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-3 px-8 py-5 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 reveal">
-              <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
-                <svg class="w-5 h-5 text-green" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                </svg>
-                <span class="text-sm font-medium">Free to start</span>
-              </div>
-              <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
-                <svg class="w-5 h-5 text-green" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                </svg>
-                <span class="text-sm font-medium">For couples and individuals</span>
-              </div>
-              <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
-                <svg class="w-5 h-5 text-green" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                </svg>
-                <span class="text-sm font-medium">No commitment</span>
-              </div>
             </div>
 
             <!-- Hero Image Placeholder -->
@@ -649,19 +645,19 @@
         </div>
       </section>
       <!-- Final CTA Section -->
-      <section id="waitlist" class="py-20 sm:py-24 bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
-          <h2 class="font-sans font-bold text-3xl sm:text-4xl text-gray-900 dark:text-white mb-4 leading-tight">
+      <section id="waitlist" class="py-24 sm:py-32 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-700/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+          <h2 class="font-sans font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-6 leading-tight">
             Build your long-term wealth with clarity
           </h2>
 
-          <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-xl mx-auto leading-relaxed">
-            You’re already financially conscious - you just want more clarity, less complexity, and confidence in your long-term direction. Sloth Money is built for you.
+          <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Stop guessing about your financial future. Sloth Money gives you the roadmap to achieve your most ambitious goals, together.
           </p>
           
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+          <div class="flex flex-col items-center justify-center gap-6 mb-16">
             <a 
-              class="group inline-flex items-center px-8 py-4 bg-green hover:bg-green-dark text-white font-medium text-lg rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-green/30" 
+              class="group inline-flex items-center px-10 py-5 bg-green hover:bg-green-dark text-white font-semibold text-lg rounded-xl shadow-lg shadow-green/20 transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-green/30" 
               href="https://budget.slothmoney.app"
             >
               Start for free
@@ -669,33 +665,41 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
               </svg>
             </a>
-            <a class="text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200" href="https://budget.slothmoney.app">
-              Sign in
-            </a>
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              Free to start • No credit card required • Solo or with a partner
+            </p>
           </div>
 
           <!-- Trust indicators -->
-          <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-gray-500 dark:text-gray-400">
-            <div class="flex items-center space-x-2">
-              <svg class="w-4 h-4 text-green" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-sm">Designed around your future, not just this month</span>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 pt-12 border-t border-gray-200/60 dark:border-gray-700/60">
+            <div class="space-y-3">
+              <div class="inline-flex items-center justify-center w-10 h-10 bg-green/10 dark:bg-green/20 rounded-lg">
+                <svg class="w-5 h-5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-gray-900 dark:text-white">Future focused</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Projected trajectory for your life goals over years, not months.</p>
             </div>
-            <div class="flex items-center space-x-2">
-              <svg class="w-4 h-4 text-green" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-sm">Built for shared finances</span>
+            <div class="space-y-3">
+              <div class="inline-flex items-center justify-center w-10 h-10 bg-green/10 dark:bg-green/20 rounded-lg">
+                <svg class="w-5 h-5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-gray-900 dark:text-white">Built for shared finances</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Seamlessly collaborate with your partner while maintaining privacy.</p>
             </div>
-            <div class="flex items-center space-x-2">
-              <svg class="w-4 h-4 text-green" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-sm">Simple budgeting that adapts as life changes</span>
+            <div class="space-y-3">
+              <div class="inline-flex items-center justify-center w-10 h-10 bg-green/10 dark:bg-green/20 rounded-lg">
+                <svg class="w-5 h-5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m13 13v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-gray-900 dark:text-white">Truly Flexible</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Budgeting and scenario planning that adapts as your life changes.</p>
             </div>
           </div>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">Free to start · No commitment · Solo or with your partner</p>
         </div>
       </section>
     </main>
