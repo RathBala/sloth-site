@@ -18,8 +18,7 @@ module.exports = {
         green: '#04bf68',
       },
       fontFamily: {
-        sans: ['Merriweather Sans', 'sans-serif'],
-        serif: ['Roboto', 'serif'],
+        sans: ['Manrope', 'sans-serif'],
       },
       height: {
         '1/2vh': '50vh',
