@@ -1105,10 +1105,6 @@ video {
   font-family: Manrope, sans-serif;
 }
 
-.font-serif {
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -1153,6 +1149,10 @@ video {
   font-weight: 700;
 }
 
+.font-extrabold {
+  font-weight: 800;
+}
+
 .font-medium {
   font-weight: 500;
 }
@@ -1161,8 +1161,8 @@ video {
   font-weight: 600;
 }
 
-.font-extrabold {
-  font-weight: 800;
+.leading-\[1\.1\] {
+  line-height: 1.1;
 }
 
 .leading-relaxed {
@@ -1171,10 +1171,6 @@ video {
 
 .leading-tight {
   line-height: 1.25;
-}
-
-.leading-\[1\.1\] {
-  line-height: 1.1;
 }
 
 .tracking-tight {
