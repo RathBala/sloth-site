@@ -245,12 +245,15 @@
             <!-- Hero Image Placeholder -->
             <div class="mt-16 reveal">
               <div class="relative max-w-[95rem] mx-auto">
-                <img 
-                  src="assets/images/hero asset.png" 
-                  alt="Sloth Money dashboard showing financial roadmap and forecast"
-                  class="w-full h-auto object-contain rounded-2xl shadow-xl"
-                  decoding="async"
-                />
+                <picture>
+                  <source media="(min-width: 768px)" srcset="assets/images/hero asset.png" />
+                  <img 
+                    src="assets/images/hero asset mobile.png" 
+                    alt="Sloth Money dashboard showing financial roadmap and forecast"
+                    class="w-full h-auto object-contain rounded-2xl shadow-xl"
+                    decoding="async"
+                  />
+                </picture>
               </div>
             </div>
           </div>
