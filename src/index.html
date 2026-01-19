@@ -28,7 +28,7 @@
     <meta name="twitter:image" content="/assets/images/sloth_money_logo_white.png" />
     
     <!-- Favicon -->
-    <link rel="icon" href="/assets/images/sloth logo black.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/images/sloth%20logo%20black.svg" type="image/svg+xml" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/sloth_money_logo_white.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/sloth_money_logo_white.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/sloth_money_logo_white.png" />
@@ -96,6 +96,9 @@
 
     <!-- Dark mode script (loaded early to prevent flash) -->
     <script src="assets/js/dark-mode-toggle.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DBCX3BZRZM"></script>
@@ -246,9 +249,9 @@
             <div class="mt-16 reveal">
               <div class="relative max-w-[95rem] mx-auto">
                 <picture>
-                  <source media="(min-width: 768px)" srcset="assets/images/hero asset.png" />
+                  <source media="(min-width: 640px)" srcset="assets/images/hero%20asset.png" />
                   <img 
-                    src="assets/images/hero asset mobile.png" 
+                    src="assets/images/hero%20asset%20mobile.png" 
                     alt="Sloth Money dashboard showing financial roadmap and forecast"
                     class="w-full h-auto object-contain rounded-2xl shadow-xl"
                     decoding="async"
@@ -263,29 +266,44 @@
       <section class="py-20 sm:py-28 bg-white dark:bg-gray-900">
         <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           
-          <!-- Feature 1: Custom Dashboards -->
+          <!-- Feature 1: Financial Roadmap -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal">
             <div class="space-y-6">
               <div class="inline-flex items-center justify-center w-12 h-12 bg-green/10 dark:bg-green/20 rounded-lg">
-                <svg class="w-6 h-6 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
-                </svg>
+                <i data-lucide="milestone" class="w-6 h-6 text-green"></i>
               </div>
               <h3 class="font-bold text-2xl sm:text-3xl text-gray-900 dark:text-white leading-tight">
-                See your full financial trajectory - not just your balance
+                Map out your financial future from emergencies to nest eggs
               </h3>
               <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                Understand where your money is heading over years, not just days and months. See how spending, saving, and investing compound over time - and whether you’re actually on track.
+                Sloth Money brings your financial goals into a single, evolving timeline mapped out with your savings and investments growth plan.
               </p>
-              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>No guesswork - just a clear, dynamic picture of your financial future.</span></li>
+              <ul class="space-y-4 text-gray-600 dark:text-gray-300">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>All your goals on a single roadmap stretching years, not months</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>A structured and adaptable wealth growth plan</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>Clear signals when goal dates start to drift</span>
+                </li>
               </ul>
             </div>
             <div class="relative">
               <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-lg">
                 <div class="relative h-[400px] md:h-[350px] bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
                   <picture>
-                    <source type="image/webp" media="(min-width: 768px)" srcset="assets/images/shared-desktop.webp" />
+                    <source type="image/webp" media="(min-width: 640px)" srcset="assets/images/shared-desktop.webp" />
                     <img 
                       src="assets/images/shared-mobile.webp" 
                       alt="Custom dashboard view showing flexible financial widgets and personalized layout"
@@ -298,35 +316,47 @@
             </div>
           </div>
 
-          <!-- Feature 2: All Money in One View -->
+          <!-- Feature 2: Couple Finances -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal">
             <div class="space-y-6 lg:order-2">
               <div class="inline-flex items-center justify-center w-12 h-12 bg-green/10 dark:bg-green/20 rounded-lg">
-                <svg class="w-6 h-6 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                </svg>
+                <i data-lucide="users" class="w-6 h-6 text-green"></i>
               </div>
               <h3 class="font-bold text-2xl sm:text-3xl text-gray-900 dark:text-white leading-tight">
-                Stay disciplined with spending
+                Plan together with your significant other
               </h3>
               <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                Create budgets and categories that reflect how you think about money. Spot where overspending is slowing your trajectory and adjust before it compounds.
+                Stay aligned as a couple on goals and budgets while preserving personal autonomy - making it easier to make decisions together towards financial freedom.
               </p>
-              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>Flexible, category-based budgeting</span></li>
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>Clear “remaining” and “forecast” views</span></li>
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>AI-assisted categorisation &amp; budgeting for convenience</span></li>
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>Designed to reduce leakage...and guilt!</span></li>
+              <ul class="space-y-4 text-gray-600 dark:text-gray-300">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>Shared goals and budgets to help you join forces on finances</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>Individual views to also work on your personal ambitions</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>Clear updates when either of you makes a change</span>
+                </li>
               </ul>
             </div>
             <div class="relative lg:order-1">
               <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-lg">
                 <div class="relative h-[400px] md:h-[350px] bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
                   <picture>
-                    <source type="image/webp" media="(min-width: 768px)" srcset="assets/images/split-desktop.webp" />
+                    <source type="image/webp" media="(min-width: 640px)" srcset="assets/images/split-desktop.webp" />
                     <img 
                       src="assets/images/split-mobile.webp" 
-                      alt="Unified financial view showing all connected accounts and live balances"
+                      alt="Couples financial planning view showing shared goals and individual budgets"
                       class="w-full h-full object-cover"
                       decoding="async"
                     />
@@ -340,27 +370,40 @@
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal">
             <div class="space-y-6">
               <div class="inline-flex items-center justify-center w-12 h-12 bg-green/10 dark:bg-green/20 rounded-lg">
-                <svg class="w-6 h-6 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                </svg>
+                <i data-lucide="wallet" class="w-6 h-6 text-green"></i>
               </div>
               <h3 class="font-bold text-2xl sm:text-3xl text-gray-900 dark:text-white leading-tight">
-                Turn goals into visible long-term progress
+                Budget for the now
               </h3>
               <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                Goals shouldn’t live in isolation. See how each goal fits into your wider financial path - month by month and year by year - so today’s choices move the timeline.
+                Keep the month-to-month feeling manageable with simple budgets and near-term forecasts, so small decisions don’t quietly affect bigger goals.
               </p>
-              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>Unlimited saving goals - both shared and personal</span></li>
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>Projected progress over time</span></li>
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>Timelines that update as real life changes</span></li>
+              <ul class="space-y-4 text-gray-600 dark:text-gray-300">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>Clear “budget remaining” views</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>Near-term forecasts to understand budget impact</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>AI support to adapt your budget to your goals</span>
+                </li>
               </ul>
             </div>
             <div class="relative">
               <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-lg">
                 <div class="relative h-[400px] md:h-[350px] bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
                   <picture>
-                    <source type="image/webp" media="(min-width: 768px)" srcset="assets/images/budget-desktop.webp" />
+                    <source type="image/webp" media="(min-width: 640px)" srcset="assets/images/budget-desktop.webp" />
                     <img 
                       src="assets/images/budget-mobile.webp" 
                       alt="Shared finances view showing couple budgets, expense splitting, and joint goals"
@@ -377,9 +420,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center reveal">
             <div class="space-y-6 lg:order-2">
               <div class="inline-flex items-center justify-center w-12 h-12 bg-green/10 dark:bg-green/20 rounded-lg">
-                <svg class="w-6 h-6 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                </svg>
+                <i data-lucide="git-branch" class="w-6 h-6 text-green"></i>
               </div>
               <div class="space-y-3">
                 <h3 class="font-bold text-2xl sm:text-3xl text-gray-900 dark:text-white leading-tight">
@@ -387,19 +428,34 @@
                 </h3>
               </div>
               <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                Your future isn’t a single straight line. Explore different paths, understand the trade-offs, and let clarity replace anxiety before you commit.
+                Sloth Money lets you explore future scenarios and trade-offs to see how that impacts your goal timelines, so you can plan for changes rather than waiting.
               </p>
-              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>Scenario planning to compare alternative routes</span></li>
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>Interactive timelines that visualise cause and effect</span></li>
-                <li class="flex items-start gap-2"><span class="text-green mt-1">•</span><span>AI-assisted planning to help you think through options</span></li>
+              <ul class="space-y-4 text-gray-600 dark:text-gray-300">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>Side-by-side scenario planning to see cause and effect</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>Best-case / worst-case timelines in a single view</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i data-lucide="diamond" class="w-4 h-4 text-green fill-green/20"></i>
+                  </div>
+                  <span>Simple to switch scenarios to help you quickly adapt your plans</span>
+                </li>
               </ul>
             </div>
             <div class="relative lg:order-1">
               <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-lg">
                 <div class="relative h-[400px] md:h-[350px] bg-gray-800 dark:bg-gray-700 rounded-lg overflow-hidden">
                   <picture>
-                    <source type="image/webp" media="(min-width: 768px)" srcset="assets/images/savings-desktop.webp" />
+                    <source type="image/webp" media="(min-width: 640px)" srcset="assets/images/savings-desktop.webp" />
                     <img 
                       src="assets/images/savings-mobile.webp" 
                       alt="Smart insights dashboard showing personalized financial recommendations and rebalancing suggestions"
@@ -650,5 +706,13 @@
     <script src="assets/js/mobile-menu.js" defer></script>
     <script src="assets/js/footer-year.js" defer></script>
     <script src="assets/js/animations.js" defer></script>
+    <script>
+      // Initialize Lucide icons
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      });
+    </script>
   </body>
 </html>
