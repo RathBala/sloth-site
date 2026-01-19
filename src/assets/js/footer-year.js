@@ -1,5 +1,5 @@
-const footerYearElement = document.getElementById('footer-year');
+const footerYearElement = document.getElementById('footer-year')
 
 if (footerYearElement) {
-  footerYearElement.textContent = new Date().getFullYear();
+  footerYearElement.textContent = new Date().getFullYear()
 }
