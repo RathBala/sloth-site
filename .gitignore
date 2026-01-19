@@ -2,3 +2,10 @@
 .DS_Store
 src/assets/.DS_Store
 src/assets/images/.DS_Store
+
+# Dependencies / lockfiles
+node_modules
+package-lock.json
+
+# Build output
+build
