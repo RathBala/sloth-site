@@ -31,7 +31,7 @@ module.exports = {
         '10rem': '10rem',
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
+        float: 'float 6s ease-in-out infinite',
         'float-delayed': 'float 6s ease-in-out 2s infinite',
         'float-slow': 'float 8s ease-in-out 1s infinite',
         'gradient-shift': 'gradientShift 15s ease infinite',
@@ -73,11 +73,11 @@ module.exports = {
         },
         '.animate-gradient-shift': {
           'background-size': '200% 200%',
-          'animation': 'gradientShift 15s ease infinite',
+          animation: 'gradientShift 15s ease infinite',
         },
         '.animate-gradient-text': {
           'background-size': '200% auto',
-          'animation': 'gradientText 4s ease infinite',
+          animation: 'gradientText 4s ease infinite',
         },
       }
       addUtilities(newUtilities)
