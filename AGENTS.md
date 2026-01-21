@@ -3,7 +3,7 @@
 ## Before writing any code
 
 1. State how you will verify that this change works (test, bash command, browser check etc)
-2. Write the test(s) for verification first
+2. Write the test(s) for verification first - UNLESS it's a script. Do NOT write scripts i.e. skip to code if you're thinking scripts.
 
 ## Verification - required
 
