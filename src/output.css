@@ -707,6 +707,10 @@ video {
   display: none;
 }
 
+.aspect-\[4\/5\] {
+  aspect-ratio: 4/5;
+}
+
 .h-10 {
   height: 2.5rem;
 }
@@ -1740,6 +1744,10 @@ html.theme-transition *::after {
 
   .sm\:hidden {
     display: none;
+  }
+
+  .sm\:aspect-\[16\/10\] {
+    aspect-ratio: 16/10;
   }
 
   .sm\:h-20 {
