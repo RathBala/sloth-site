@@ -7,17 +7,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Dark mode transition */
-html.theme-transition,
-html.theme-transition *,
-html.theme-transition *::before,
-html.theme-transition *::after {
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    color 0.3s ease !important;
-}
-
 /* Custom component styles */
 @layer components {
   .btn-primary {
@@ -31,21 +20,12 @@ html.theme-transition *::after {
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .dark .glass {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
   .theme-toggle {
     @apply relative inline-flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200;
   }
 
   .theme-toggle:hover {
     @apply bg-gray-100;
-  }
-
-  .dark .theme-toggle:hover {
-    @apply bg-gray-800;
   }
 }
 
