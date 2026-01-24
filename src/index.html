@@ -1,1128 +1,1077 @@
 <!doctype html>
 <html lang="en">
- <head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Sloth Money - Your Personal Finance Workspace</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sloth Money - Build a clear path to wealth, together</title>
 
- <!-- Status bar + theme colors -->
- <meta
- name="theme-color"
- content="#ffffff"
- />
- <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Status bar + theme colors -->
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
- <!-- SEO Meta Tags -->
- <meta
- name="description"
- content="A flexible personal finance workspace that lets you design your own financial views, track every account automatically, and collaborate with your partner."
- />
- <meta
- name="keywords"
- content="personal finance, finance workspace, budgeting app, couples budgeting, investment tracking, financial planning"
- />
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Sloth Money builds a roadmap for couples to achieve their ambitious financial goals. Plan together, model the future, and build long-term wealth with clarity."
+    />
+    <meta
+      name="keywords"
+      content="couples finance, financial roadmap, wealth goals, couples budgeting, financial planning, build wealth together"
+    />
 
- <!-- Open Graph Meta Tags -->
- <meta
- property="og:title"
- content="Sloth Money - Your Personal Finance Workspace"
- />
- <meta
- property="og:description"
- content="A flexible personal finance workspace that lets you design your own financial views, track every account automatically, and collaborate with your partner."
- />
- <meta property="og:type" content="website" />
- <meta property="og:url" content="https://slothmoney.app/" />
- <meta
- property="og:image"
- content="/assets/images/sloth_money_logo_white.png"
- />
+    <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Sloth Money - Build a clear path to wealth, together"
+    />
+    <meta
+      property="og:description"
+      content="Sloth Money builds a roadmap for couples to achieve their ambitious financial goals. Plan together, model the future, and build long-term wealth with clarity."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://slothmoney.app/" />
+    <meta
+      property="og:image"
+      content="/assets/images/sloth_money_logo_white.png"
+    />
 
- <!-- Twitter Card Meta Tags -->
- <meta name="twitter:card" content="summary_large_image" />
- <meta
- name="twitter:title"
- content="Sloth Money - Your Personal Finance Workspace"
- />
- <meta
- name="twitter:description"
- content="A flexible personal finance workspace that lets you design your own financial views, track every account automatically, and collaborate with your partner."
- />
- <meta
- name="twitter:image"
- content="/assets/images/sloth_money_logo_white.png"
- />
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Sloth Money - Build a clear path to wealth, together"
+    />
+    <meta
+      name="twitter:description"
+      content="Sloth Money builds a roadmap for couples to achieve their ambitious financial goals. Plan together, model the future, and build long-term wealth with clarity."
+    />
+    <meta
+      name="twitter:image"
+      content="/assets/images/sloth_money_logo_white.png"
+    />
 
- <!-- Favicon -->
- <link
- rel="icon"
- href="/assets/images/sloth%20logo%20black.svg"
- type="image/svg+xml"
- />
- <link
- rel="icon"
- type="image/png"
- sizes="32x32"
- href="/assets/images/sloth_money_logo_white.png"
- />
- <link
- rel="icon"
- type="image/png"
- sizes="16x16"
- href="/assets/images/sloth_money_logo_white.png"
- />
- <link
- rel="apple-touch-icon"
- sizes="180x180"
- href="/assets/images/sloth_money_logo_white.png"
- />
- <link rel="manifest" href="/site.webmanifest" />
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      href="/assets/images/sloth%20logo%20black.svg"
+      type="image/svg+xml"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/images/sloth_money_logo_white.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/images/sloth_money_logo_white.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/images/sloth_money_logo_white.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
 
- <!-- Fonts -->
- <link rel="preconnect" href="https://fonts.googleapis.com" />
- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
- <link
- href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
- rel="stylesheet"
- />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
- <!-- Styles -->
- <link href="./output.css" rel="stylesheet" />
+    <!-- Styles -->
+    <link href="./output.css" rel="stylesheet" />
 
- <style>
- @keyframes floatCard {
- 0%,
- 100% {
- transform: translateY(0);
- }
- 50% {
- transform: translateY(-6px);
- }
- }
+    <style>
+      @keyframes floatCard {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
 
- @keyframes slideFadeIn {
- 0% {
- opacity: 0;
- transform: translateY(16px);
- }
- 100% {
- opacity: 1;
- transform: translateY(0);
- }
- }
+      @keyframes slideFadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
- @keyframes pulseLine {
- 0% {
- width: 30%;
- }
- 50% {
- width: 85%;
- }
- 100% {
- width: 45%;
- }
- }
+      @keyframes pulseLine {
+        0% {
+          width: 30%;
+        }
+        50% {
+          width: 85%;
+        }
+        100% {
+          width: 45%;
+        }
+      }
 
- .animate-float-card {
- animation: floatCard 8s ease-in-out infinite;
- }
+      .animate-float-card {
+        animation: floatCard 8s ease-in-out infinite;
+      }
 
- .animate-slide-fade {
- animation: slideFadeIn 0.9s ease both;
- }
+      .animate-slide-fade {
+        animation: slideFadeIn 0.9s ease both;
+      }
 
- .animate-pulse-line {
- animation: pulseLine 3s ease-in-out infinite;
- }
+      .animate-pulse-line {
+        animation: pulseLine 3s ease-in-out infinite;
+      }
 
- .hero-image-container {
- -webkit-mask-image: linear-gradient(
- to bottom,
- black 0%,
- black 65%,
- transparent 100%
- );
- mask-image: linear-gradient(
- to bottom,
- black 0%,
- black 65%,
- transparent 100%
- );
- }
- </style>
+      .hero-image-container {
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          black 0%,
+          black 65%,
+          transparent 100%
+        );
+        mask-image: linear-gradient(
+          to bottom,
+          black 0%,
+          black 65%,
+          transparent 100%
+        );
+      }
+    </style>
 
- <!-- Lucide Icons -->
- <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
- <!-- Google Analytics -->
- <script
- async
- src="https://www.googletagmanager.com/gtag/js?id=G-DBCX3BZRZM"
- ></script>
- <script>
- window.dataLayer = window.dataLayer || []
- function gtag() {
- dataLayer.push(arguments)
- }
- gtag('js', new Date())
- gtag('config', 'G-DBCX3BZRZM')
- </script>
- </head>
- <body
- class="bg-white text-gray-900 font-sans antialiased"
- >
- <main>
- <!-- Header -->
- <header
- class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-sm"
- >
- <div
- class="max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
- >
- <nav class="flex items-center justify-between h-16 sm:h-20">
- <a href="/" class="flex items-center gap-3">
- <img
- class="h-10 w-auto"
- src="assets/images/sloth_money_logo_white.png"
- style="filter: brightness(0) saturate(100%)"
- alt="Sloth Money"
- />
- <span class="font-bold text-xl text-gray-900"
- >Sloth Money</span
- >
- </a>
- <div class="flex items-center gap-2 sm:gap-4">
- <a
- class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
- href="https://budget.slothmoney.app"
- >
- Sign in
- </a>
- <a
- class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
- href="https://budget.slothmoney.app"
- >
- Start for free
- </a>
- <button
- id="mobile-menu-toggle"
- type="button"
- class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green sm:hidden"
- aria-controls="mobile-menu"
- aria-expanded="false"
- >
- <span class="sr-only">Toggle navigation</span>
- <svg
- id="mobile-menu-open-icon"
- class="w-5 h-5"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M4 6h16M4 12h16M4 18h16"
- ></path>
- </svg>
- <svg
- id="mobile-menu-close-icon"
- class="w-5 h-5 hidden"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M6 18L18 6M6 6l12 12"
- ></path>
- </svg>
- </button>
- </div>
- </nav>
- <div
- id="mobile-menu"
- class="sm:hidden hidden border-t border-gray-100 mt-3 pt-4 pb-6"
- >
- <div
- class="rounded-2xl border border-gray-200 bg-white/90 shadow-lg p-4 space-y-3"
- >
- <div
- class="text-sm font-medium tracking-wide text-gray-500"
- >
- Get started
- </div>
- <div class="space-y-3">
- <a
- class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-xl shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
- href="https://budget.slothmoney.app"
- >
- Start for free
- </a>
- <a
- class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-medium tracking-wide text-gray-800 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:text-gray-900 hover:border-gray-300 transition"
- href="https://budget.slothmoney.app"
- >
- Sign in
- </a>
- </div>
- </div>
- </div>
- </div>
- </header>
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-DBCX3BZRZM"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-DBCX3BZRZM')
+    </script>
+  </head>
+  <body class="bg-white text-gray-900 font-sans antialiased">
+    <main>
+      <!-- Header -->
+      <header
+        class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-sm"
+      >
+        <div
+          class="max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
+        >
+          <nav class="flex items-center justify-between h-16 sm:h-20">
+            <a href="/" class="flex items-center gap-3">
+              <img
+                class="h-10 w-auto"
+                src="assets/images/sloth_money_logo_white.png"
+                style="filter: brightness(0) saturate(100%)"
+                alt="Sloth Money"
+              />
+              <span class="font-bold text-xl text-gray-900">Sloth Money</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+              <a
+                class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
+                href="https://budget.slothmoney.app"
+              >
+                Sign in
+              </a>
+              <a
+                class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
+                href="https://budget.slothmoney.app"
+              >
+                Start for free
+              </a>
+              <button
+                id="mobile-menu-toggle"
+                type="button"
+                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green sm:hidden"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+              >
+                <span class="sr-only">Toggle navigation</span>
+                <svg
+                  id="mobile-menu-open-icon"
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  ></path>
+                </svg>
+                <svg
+                  id="mobile-menu-close-icon"
+                  class="w-5 h-5 hidden"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </nav>
+          <div
+            id="mobile-menu"
+            class="sm:hidden hidden border-t border-gray-100 mt-3 pt-4 pb-6"
+          >
+            <div
+              class="rounded-2xl border border-gray-200 bg-white/90 shadow-lg p-4 space-y-3"
+            >
+              <div class="text-sm font-medium tracking-wide text-gray-500">
+                Get started
+              </div>
+              <div class="space-y-3">
+                <a
+                  class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-xl shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
+                  href="https://budget.slothmoney.app"
+                >
+                  Start for free
+                </a>
+                <a
+                  class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-medium tracking-wide text-gray-800 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:text-gray-900 hover:border-gray-300 transition"
+                  href="https://budget.slothmoney.app"
+                >
+                  Sign in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
 
- <!-- Hero Section -->
- <section
- class="relative overflow-hidden pt-8 sm:pt-12 pb-20 sm:pb-28 lg:pb-32 bg-gradient-to-b from-gray-50 to-white"
- >
- <div
- class="relative max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12"
- >
- <div class="text-center">
- <!-- Hero Image -->
- <div
- class="relative flex justify-center mb-0 sm:-mb-6 lg:-mb-10 reveal"
- >
- <div
- class="relative w-72 sm:w-96 lg:w-[28rem] h-28 sm:h-36 lg:h-40 hero-image-container overflow-hidden"
- >
- <img
- src="assets/images/Gems.png"
- alt="Sloth couple hugging with gems representing wealth"
- class="w-full h-auto object-cover object-top absolute top-0 left-0"
- decoding="async"
- />
- </div>
- </div>
+      <!-- Hero Section -->
+      <section
+        class="relative overflow-hidden pt-8 sm:pt-12 pb-20 sm:pb-28 lg:pb-32 bg-gradient-to-b from-gray-50 to-white"
+      >
+        <div
+          class="relative max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12"
+        >
+          <div class="text-center">
+            <!-- Hero Image -->
+            <div
+              class="relative flex justify-center mb-0 sm:-mb-6 lg:-mb-10 reveal"
+            >
+              <div
+                class="relative w-72 sm:w-96 lg:w-[28rem] h-28 sm:h-36 lg:h-40 hero-image-container overflow-hidden"
+              >
+                <img
+                  src="assets/images/Gems.png"
+                  alt="Sloth couple hugging with gems representing wealth"
+                  class="w-full h-auto object-cover object-top absolute top-0 left-0"
+                  decoding="async"
+                />
+              </div>
+            </div>
 
- <!-- Main headline -->
- <h1
- class="font-extrabold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight leading-[1.1] mb-6 sm:mb-8 reveal relative z-10 text-gray-900"
- >
- <span class="sm:block"
- >Build a clear path to
- <span class="sm:hidden">wealth,</span></span
- >
- <span class="block sm:mt-2 mt-1">
- <span class="hidden sm:inline">wealth, </span
- ><span class="text-green">together</span
- ><span class="text-gray-900">.</span>
- </span>
- </h1>
+            <!-- Main headline -->
+            <h1
+              class="font-extrabold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight leading-[1.1] mb-6 sm:mb-8 reveal relative z-10 text-gray-900"
+            >
+              <span class="sm:block"
+                >Build a clear path to
+                <span class="sm:hidden">wealth,</span></span
+              >
+              <span class="block sm:mt-2 mt-1">
+                <span class="hidden sm:inline">wealth, </span
+                ><span class="text-green">together</span
+                ><span class="text-gray-900">.</span>
+              </span>
+            </h1>
 
- <!-- Subheading -->
- <p
- class="max-w-5xl mx-auto text-lg sm:text-xl text-gray-600 leading-relaxed mb-6 sm:mb-8 reveal"
- >
- Sloth Money builds a roadmap for couples to achieve their
- ambitious financial goals.
- </p>
+            <!-- Subheading -->
+            <p
+              class="max-w-5xl mx-auto text-lg sm:text-xl text-gray-600 leading-relaxed mb-6 sm:mb-8 reveal"
+            >
+              Sloth Money builds a roadmap for couples to achieve their
+              ambitious financial goals.
+            </p>
 
- <!-- CTA Buttons -->
- <div
- class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-10 reveal"
- >
- <a
- class="group inline-flex items-center px-8 py-4 bg-green hover:bg-green-dark text-white font-medium tracking-wide text-lg rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-green/30"
- href="https://budget.slothmoney.app"
- >
- Start for free
- <svg
- class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M17 8l4 4m0 0l-4 4m4-4H3"
- ></path>
- </svg>
- </a>
- <a
- class="text-lg font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
- href="https://budget.slothmoney.app"
- >
- Sign in
- </a>
- </div>
+            <!-- CTA Buttons -->
+            <div
+              class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-10 reveal"
+            >
+              <a
+                class="group inline-flex items-center px-8 py-4 bg-green hover:bg-green-dark text-white font-medium tracking-wide text-lg rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-green/30"
+                href="https://budget.slothmoney.app"
+              >
+                Start for free
+                <svg
+                  class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                class="text-lg font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
+                href="https://budget.slothmoney.app"
+              >
+                Sign in
+              </a>
+            </div>
 
- <!-- Hero Image Placeholder -->
- <div class="mt-16 reveal">
- <div class="relative max-w-[95rem] mx-auto">
- <picture>
- <source
- media="(min-width: 640px)"
- srcset="assets/images/hero%20asset.png"
- />
- <img
- src="assets/images/hero%20asset%20mobile.png"
- alt="Sloth Money dashboard showing financial roadmap and forecast"
- class="w-full h-auto object-contain rounded-2xl shadow-xl"
- decoding="async"
- />
- </picture>
- </div>
- </div>
- </div>
- </div>
- </section>
- <!-- Features Section -->
- <section class="py-20 sm:py-28 bg-white">
- <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
- <!-- Feature 1: Financial Roadmap -->
- <div
- class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
- >
- <div class="space-y-6">
- <h3
- class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
- >
- Map out your financial future from emergencies to nest eggs
- </h3>
- <p
- class="text-lg text-gray-600 leading-relaxed"
- >
- Sloth Money brings your financial goals into a single, evolving
- timeline mapped out with your savings and investments growth
- plan.
- </p>
- <ul class="space-y-4 text-gray-600">
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span
- >All your goals on a single roadmap stretching years, not
- months</span
- >
- </li>
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span>A structured and adaptable wealth growth plan</span>
- </li>
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span>Clear signals when goal dates start to drift</span>
- </li>
- </ul>
- </div>
- <div class="relative">
- <div
- class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
- >
- <div
- class="relative bg-white rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
- >
- <picture>
- <source
- media="(min-width: 640px)"
- srcset="assets/images/benefit%20one.png"
- />
- <img
- src="assets/images/benefit%20one%20-%20mobile.png"
- alt="Custom dashboard view showing flexible financial widgets and personalized layout"
- class="w-full h-full object-contain sm:object-cover object-center"
- decoding="async"
- />
- </picture>
- </div>
- </div>
- </div>
- </div>
+            <!-- Hero Image Placeholder -->
+            <div class="mt-16 reveal">
+              <div class="relative max-w-[95rem] mx-auto">
+                <picture>
+                  <source
+                    media="(min-width: 640px)"
+                    srcset="assets/images/hero%20asset.png"
+                  />
+                  <img
+                    src="assets/images/hero%20asset%20mobile.png"
+                    alt="Sloth Money dashboard showing financial roadmap and forecast"
+                    class="w-full h-auto object-contain rounded-2xl shadow-xl"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Features Section -->
+      <section class="py-20 sm:py-28 bg-white">
+        <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <!-- Feature 1: Financial Roadmap -->
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
+          >
+            <div class="space-y-6">
+              <h3
+                class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
+              >
+                Map out your financial future from emergencies to nest eggs
+              </h3>
+              <p class="text-lg text-gray-600 leading-relaxed">
+                Sloth Money brings your financial goals into a single, evolving
+                timeline mapped out with your savings and investments growth
+                plan.
+              </p>
+              <ul class="space-y-4 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span
+                    >All your goals on a single roadmap stretching years, not
+                    months</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>A structured and adaptable wealth growth plan</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Clear signals when goal dates start to drift</span>
+                </li>
+              </ul>
+            </div>
+            <div class="relative">
+              <div
+                class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
+              >
+                <div
+                  class="relative bg-white rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
+                >
+                  <picture>
+                    <source
+                      media="(min-width: 640px)"
+                      srcset="assets/images/benefit%20one.png"
+                    />
+                    <img
+                      src="assets/images/benefit%20one%20-%20mobile.png"
+                      alt="Custom dashboard view showing flexible financial widgets and personalized layout"
+                      class="w-full h-full object-contain sm:object-cover object-center"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
+              </div>
+            </div>
+          </div>
 
- <!-- Feature 2: Couple Finances -->
- <div
- class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
- >
- <div class="space-y-6 lg:order-2">
- <h3
- class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
- >
- Plan together with your significant other
- </h3>
- <p
- class="text-lg text-gray-600 leading-relaxed"
- >
- Stay aligned as a couple on goals and budgets while preserving
- personal autonomy - making it easier to make decisions together
- towards financial freedom.
- </p>
- <ul class="space-y-4 text-gray-600">
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span
- >Shared goals and budgets to help you join forces on
- finances</span
- >
- </li>
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span
- >Individual views to also work on your personal
- ambitions</span
- >
- </li>
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span>Clear updates when either of you makes a change</span>
- </li>
- </ul>
- </div>
- <div class="relative lg:order-1">
- <div
- class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
- >
- <div
- class="relative bg-white rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
- >
- <picture>
- <source
- media="(min-width: 640px)"
- srcset="assets/images/benefit%20two.png"
- />
- <img
- src="assets/images/benefit%20two%20-%20mobile.png"
- alt="Couples financial planning view showing shared goals and individual budgets"
- class="w-full h-full object-contain sm:object-cover object-center"
- decoding="async"
- />
- </picture>
- </div>
- </div>
- </div>
- </div>
+          <!-- Feature 2: Couple Finances -->
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
+          >
+            <div class="space-y-6 lg:order-2">
+              <h3
+                class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
+              >
+                Plan together with your significant other
+              </h3>
+              <p class="text-lg text-gray-600 leading-relaxed">
+                Stay aligned as a couple on goals and budgets while preserving
+                personal autonomy - making it easier to make decisions together
+                towards financial freedom.
+              </p>
+              <ul class="space-y-4 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span
+                    >Shared goals and budgets to help you join forces on
+                    finances</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span
+                    >Individual views to also work on your personal
+                    ambitions</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Clear updates when either of you makes a change</span>
+                </li>
+              </ul>
+            </div>
+            <div class="relative lg:order-1">
+              <div
+                class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
+              >
+                <div
+                  class="relative bg-white rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
+                >
+                  <picture>
+                    <source
+                      media="(min-width: 640px)"
+                      srcset="assets/images/benefit%20two.png"
+                    />
+                    <img
+                      src="assets/images/benefit%20two%20-%20mobile.png"
+                      alt="Couples financial planning view showing shared goals and individual budgets"
+                      class="w-full h-full object-contain sm:object-cover object-center"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
+              </div>
+            </div>
+          </div>
 
- <!-- Feature 3: Couple Finances -->
- <div
- class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
- >
- <div class="space-y-6">
- <h3
- class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
- >
- Budget for the now
- </h3>
- <p
- class="text-lg text-gray-600 leading-relaxed"
- >
- Keep the month-to-month feeling manageable with simple budgets
- and near-term forecasts, so small decisions don’t quietly affect
- bigger goals.
- </p>
- <ul class="space-y-4 text-gray-600">
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span>Clear “budget remaining” views</span>
- </li>
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span>Near-term forecasts to understand budget impact</span>
- </li>
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span>AI support to adapt your budget to your goals</span>
- </li>
- </ul>
- </div>
- <div class="relative">
- <div
- class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
- >
- <div
- class="relative bg-white rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
- >
- <picture>
- <source
- media="(min-width: 640px)"
- srcset="assets/images/benefit%20three.png"
- />
- <img
- src="assets/images/benefit%20three%20-%20mobile.png"
- alt="Shared finances view showing couple budgets, expense splitting, and joint goals"
- class="w-full h-full object-contain sm:object-cover object-center"
- decoding="async"
- />
- </picture>
- </div>
- </div>
- </div>
- </div>
+          <!-- Feature 3: Couple Finances -->
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
+          >
+            <div class="space-y-6">
+              <h3
+                class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
+              >
+                Budget for the now
+              </h3>
+              <p class="text-lg text-gray-600 leading-relaxed">
+                Keep the month-to-month feeling manageable with simple budgets
+                and near-term forecasts, so small decisions don’t quietly affect
+                bigger goals.
+              </p>
+              <ul class="space-y-4 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Clear “budget remaining” views</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Near-term forecasts to understand budget impact</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>AI support to adapt your budget to your goals</span>
+                </li>
+              </ul>
+            </div>
+            <div class="relative">
+              <div
+                class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
+              >
+                <div
+                  class="relative bg-white rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
+                >
+                  <picture>
+                    <source
+                      media="(min-width: 640px)"
+                      srcset="assets/images/benefit%20three.png"
+                    />
+                    <img
+                      src="assets/images/benefit%20three%20-%20mobile.png"
+                      alt="Shared finances view showing couple budgets, expense splitting, and joint goals"
+                      class="w-full h-full object-contain sm:object-cover object-center"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
+              </div>
+            </div>
+          </div>
 
- <!-- Feature 4: Smart Insights -->
- <div
- class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center reveal"
- >
- <div class="space-y-6 lg:order-2">
- <div class="space-y-3">
- <h3
- class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
- >
- Model the future before it happens
- </h3>
- </div>
- <p
- class="text-lg text-gray-600 leading-relaxed"
- >
- Sloth Money lets you explore future scenarios and trade-offs to
- see how that impacts your goal timelines, so you can plan for
- changes rather than waiting.
- </p>
- <ul class="space-y-4 text-gray-600">
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span
- >Side-by-side scenario planning to see cause and
- effect</span
- >
- </li>
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span>Best-case / worst-case timelines in a single view</span>
- </li>
- <li class="flex items-start gap-3">
- <div class="mt-1 flex-shrink-0">
- <i
- data-lucide="diamond"
- class="w-4 h-4 text-green fill-green/20"
- ></i>
- </div>
- <span
- >Simple to switch scenarios to help you quickly adapt your
- plans</span
- >
- </li>
- </ul>
- </div>
- <div class="relative lg:order-1">
- <div
- class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
- >
- <div
- class="relative bg-gray-800 rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
- >
- <picture>
- <source
- media="(min-width: 640px)"
- srcset="assets/images/benefit%20four.png"
- />
- <img
- src="assets/images/benefit%20four%20-%20mobile.png"
- alt="Smart insights dashboard showing personalized financial recommendations and rebalancing suggestions"
- class="w-full h-full object-contain sm:object-cover object-center"
- decoding="async"
- />
- </picture>
- </div>
- </div>
- </div>
- </div>
- </div>
- </section>
+          <!-- Feature 4: Smart Insights -->
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center reveal"
+          >
+            <div class="space-y-6 lg:order-2">
+              <div class="space-y-3">
+                <h3
+                  class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
+                >
+                  Model the future before it happens
+                </h3>
+              </div>
+              <p class="text-lg text-gray-600 leading-relaxed">
+                Sloth Money lets you explore future scenarios and trade-offs to
+                see how that impacts your goal timelines, so you can plan for
+                changes rather than waiting.
+              </p>
+              <ul class="space-y-4 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span
+                    >Side-by-side scenario planning to see cause and
+                    effect</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Best-case / worst-case timelines in a single view</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span
+                    >Simple to switch scenarios to help you quickly adapt your
+                    plans</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="relative lg:order-1">
+              <div
+                class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
+              >
+                <div
+                  class="relative bg-gray-800 rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
+                >
+                  <picture>
+                    <source
+                      media="(min-width: 640px)"
+                      srcset="assets/images/benefit%20four.png"
+                    />
+                    <img
+                      src="assets/images/benefit%20four%20-%20mobile.png"
+                      alt="Smart insights dashboard showing personalized financial recommendations and rebalancing suggestions"
+                      class="w-full h-full object-contain sm:object-cover object-center"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
- <!-- Couples Section -->
- <section
- class="py-16 sm:py-20 bg-white border-t border-gray-100"
- >
- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
- <div class="text-center mb-12 reveal">
- <h2
- class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3"
- >
- Built for couples planning a future together
- </h2>
- <p class="max-w-2xl mx-auto text-gray-600">
- Big goals rarely happen in isolation. They shift, compete, and get
- tested by real life.
- </p>
- </div>
+      <!-- Couples Section -->
+      <section class="py-16 sm:py-20 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div class="text-center mb-12 reveal">
+            <h2 class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3">
+              Built for couples planning a future together
+            </h2>
+            <p class="max-w-2xl mx-auto text-gray-600">
+              Big goals rarely happen in isolation. They shift, compete, and get
+              tested by real life.
+            </p>
+          </div>
 
- <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
- <div
- class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm animate-slide-fade"
- >
- <div class="flex items-start gap-4">
- <div
- class="w-12 h-12 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0"
- >
- <i data-lucide="palmtree" class="w-6 h-6 text-green"></i>
- </div>
- <div>
- <h3
- class="text-lg font-semibold text-gray-900 mb-1"
- >
- Saving for a holiday
- </h3>
- <p class="text-sm text-gray-600">
- Know exactly what you can afford - and what it means for
- your other goals.
- </p>
- </div>
- </div>
- </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
+            <div
+              class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm animate-slide-fade"
+            >
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0"
+                >
+                  <i data-lucide="palmtree" class="w-6 h-6 text-green"></i>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                    Saving for a holiday
+                  </h3>
+                  <p class="text-sm text-gray-600">
+                    Know exactly what you can afford - and what it means for
+                    your other goals.
+                  </p>
+                </div>
+              </div>
+            </div>
 
- <div
- class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm animate-slide-fade"
- style="animation-delay: 0.15s"
- >
- <div class="flex items-start gap-4">
- <div
- class="w-12 h-12 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0"
- >
- <i data-lucide="wrench" class="w-6 h-6 text-green"></i>
- </div>
- <div>
- <h3
- class="text-lg font-semibold text-gray-900 mb-1"
- >
- An unexpected expense
- </h3>
- <p class="text-sm text-gray-600">
- A car breaks down. You dip into your emergency fund.
- Instantly see how that changes your timelines - and what
- needs to adjust.
- </p>
- </div>
- </div>
- </div>
+            <div
+              class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm animate-slide-fade"
+              style="animation-delay: 0.15s"
+            >
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0"
+                >
+                  <i data-lucide="wrench" class="w-6 h-6 text-green"></i>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                    An unexpected expense
+                  </h3>
+                  <p class="text-sm text-gray-600">
+                    A car breaks down. You dip into your emergency fund.
+                    Instantly see how that changes your timelines - and what
+                    needs to adjust.
+                  </p>
+                </div>
+              </div>
+            </div>
 
- <div
- class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm animate-slide-fade"
- style="animation-delay: 0.3s"
- >
- <div class="flex items-start gap-4">
- <div
- class="w-12 h-12 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0"
- >
- <i data-lucide="milestone" class="w-6 h-6 text-green"></i>
- </div>
- <div>
- <h3
- class="text-lg font-semibold text-gray-900 mb-1"
- >
- Planning a major milestone
- </h3>
- <p class="text-sm text-gray-600">
- A wedding, a house deposit, or a growing family. Understand
- how new priorities fit into your long-term plan.
- </p>
- </div>
- </div>
- </div>
+            <div
+              class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm animate-slide-fade"
+              style="animation-delay: 0.3s"
+            >
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0"
+                >
+                  <i data-lucide="milestone" class="w-6 h-6 text-green"></i>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                    Planning a major milestone
+                  </h3>
+                  <p class="text-sm text-gray-600">
+                    A wedding, a house deposit, or a growing family. Understand
+                    how new priorities fit into your long-term plan.
+                  </p>
+                </div>
+              </div>
+            </div>
 
- <div
- class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm animate-slide-fade"
- style="animation-delay: 0.45s"
- >
- <div class="flex items-start gap-4">
- <div
- class="w-12 h-12 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0"
- >
- <i data-lucide="trending-up" class="w-6 h-6 text-green"></i>
- </div>
- <div>
- <h3
- class="text-lg font-semibold text-gray-900 mb-1"
- >
- Building a long-term nest egg
- </h3>
- <p class="text-sm text-gray-600">
- See how consistent saving and investing compounds over
- years, not just months.
- </p>
- </div>
- </div>
- </div>
- </div>
- </div>
- </section>
- <!-- Data & Privacy Section -->
- <section
- class="py-16 sm:py-20 bg-gray-50 border-t border-gray-100"
- >
- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
- <div class="text-center mb-10 reveal">
- <h2
- class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3"
- >
- Your data, fully under your control
- </h2>
- <p class="max-w-xl mx-auto text-gray-600">
- Built with privacy and trust as non-negotiables.
- </p>
- </div>
+            <div
+              class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm animate-slide-fade"
+              style="animation-delay: 0.45s"
+            >
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0"
+                >
+                  <i data-lucide="trending-up" class="w-6 h-6 text-green"></i>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                    Building a long-term nest egg
+                  </h3>
+                  <p class="text-sm text-gray-600">
+                    See how consistent saving and investing compounds over
+                    years, not just months.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Data & Privacy Section -->
+      <section class="py-16 sm:py-20 bg-gray-50 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div class="text-center mb-10 reveal">
+            <h2 class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3">
+              Your data, fully under your control
+            </h2>
+            <p class="max-w-xl mx-auto text-gray-600">
+              Built with privacy and trust as non-negotiables.
+            </p>
+          </div>
 
- <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 reveal">
- <div
- class="bg-white rounded-xl p-5 text-center border border-gray-200"
- >
- <div
- class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
- >
- <svg
- class="w-5 h-5 text-green"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
- ></path>
- </svg>
- </div>
- <p
- class="text-gray-900 font-medium tracking-wide text-sm mb-1"
- >
- Bank-level encryption
- </p>
- <p class="text-xs text-gray-500">
- Protecting every connection.
- </p>
- </div>
- <div
- class="bg-white rounded-xl p-5 text-center border border-gray-200"
- >
- <div
- class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
- >
- <svg
- class="w-5 h-5 text-green"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
- ></path>
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
- ></path>
- </svg>
- </div>
- <p
- class="text-gray-900 font-medium tracking-wide text-sm mb-1"
- >
- Read-only account access
- </p>
- <p class="text-xs text-gray-500">
- We can’t move your money.
- </p>
- </div>
- <div
- class="bg-white rounded-xl p-5 text-center border border-gray-200"
- >
- <div
- class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
- >
- <svg
- class="w-5 h-5 text-green"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
- ></path>
- </svg>
- </div>
- <p
- class="text-gray-900 font-medium tracking-wide text-sm mb-1"
- >
- No selling your data
- </p>
- <p class="text-xs text-gray-500">
- Your information stays yours.
- </p>
- </div>
- <div
- class="bg-white rounded-xl p-5 text-center border border-gray-200"
- >
- <div
- class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
- >
- <svg
- class="w-5 h-5 text-green"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
- ></path>
- </svg>
- </div>
- <p
- class="text-gray-900 font-medium tracking-wide text-sm mb-1"
- >
- Delete everything at any time
- </p>
- <p class="text-xs text-gray-500">
- Full control over your footprint.
- </p>
- </div>
- </div>
- </div>
- </section>
- <!-- Final CTA Section -->
- <section
- id="waitlist"
- class="py-24 sm:py-32 bg-gray-50 border-t border-gray-100"
- >
- <div
- class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 text-center reveal"
- >
- <h2
- class="font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 mb-6 leading-tight"
- >
- Build your long-term wealth with clarity
- </h2>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+            <div
+              class="bg-white rounded-xl p-5 text-center border border-gray-200"
+            >
+              <div
+                class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
+              >
+                <svg
+                  class="w-5 h-5 text-green"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                Bank-level encryption
+              </p>
+              <p class="text-xs text-gray-500">Protecting every connection.</p>
+            </div>
+            <div
+              class="bg-white rounded-xl p-5 text-center border border-gray-200"
+            >
+              <div
+                class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
+              >
+                <svg
+                  class="w-5 h-5 text-green"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                Read-only account access
+              </p>
+              <p class="text-xs text-gray-500">We can’t move your money.</p>
+            </div>
+            <div
+              class="bg-white rounded-xl p-5 text-center border border-gray-200"
+            >
+              <div
+                class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
+              >
+                <svg
+                  class="w-5 h-5 text-green"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                No selling your data
+              </p>
+              <p class="text-xs text-gray-500">Your information stays yours.</p>
+            </div>
+            <div
+              class="bg-white rounded-xl p-5 text-center border border-gray-200"
+            >
+              <div
+                class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
+              >
+                <svg
+                  class="w-5 h-5 text-green"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                Delete everything at any time
+              </p>
+              <p class="text-xs text-gray-500">
+                Full control over your footprint.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Final CTA Section -->
+      <section
+        id="waitlist"
+        class="py-24 sm:py-32 bg-gray-50 border-t border-gray-100"
+      >
+        <div
+          class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 text-center reveal"
+        >
+          <h2
+            class="font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 mb-6 leading-tight"
+          >
+            Build your long-term wealth with clarity
+          </h2>
 
- <p
- class="text-lg sm:text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
- >
- Stop guessing about your financial future. Sloth Money gives you the
- roadmap to achieve your most ambitious goals, together.
- </p>
+          <p
+            class="text-lg sm:text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
+          >
+            Stop guessing about your financial future. Sloth Money gives you the
+            roadmap to achieve your most ambitious goals, together.
+          </p>
 
- <div class="flex flex-col items-center justify-center gap-6 mb-16">
- <a
- class="group inline-flex items-center px-10 py-5 bg-green hover:bg-green-dark text-white font-medium tracking-wide text-lg rounded-xl shadow-lg shadow-green/20 transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-green/30"
- href="https://budget.slothmoney.app"
- >
- Start for free
- <svg
- class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M17 8l4 4m0 0l-4 4m4-4H3"
- ></path>
- </svg>
- </a>
- <p
- class="text-sm font-medium tracking-wide text-gray-500"
- >
- Free to start • No credit card required • Solo or with a partner
- </p>
- </div>
+          <div class="flex flex-col items-center justify-center gap-6 mb-16">
+            <a
+              class="group inline-flex items-center px-10 py-5 bg-green hover:bg-green-dark text-white font-medium tracking-wide text-lg rounded-xl shadow-lg shadow-green/20 transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-green/30"
+              href="https://budget.slothmoney.app"
+            >
+              Start for free
+              <svg
+                class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                ></path>
+              </svg>
+            </a>
+            <p class="text-sm font-medium tracking-wide text-gray-500">
+              Free to start • No credit card required • Solo or with a partner
+            </p>
+          </div>
 
- <!-- Trust indicators -->
- <div
- class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 pt-12 border-t border-gray-200/60"
- >
- <div class="space-y-3">
- <div
- class="inline-flex items-center justify-center w-10 h-10 bg-green/10 rounded-lg"
- >
- <svg
- class="w-5 h-5 text-green"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
- ></path>
- </svg>
- </div>
- <h3 class="text-base font-bold text-gray-900">
- Future focused
- </h3>
- <p class="text-sm text-gray-500">
- Projected trajectory for your life goals over years, not months.
- </p>
- </div>
- <div class="space-y-3">
- <div
- class="inline-flex items-center justify-center w-10 h-10 bg-green/10 rounded-lg"
- >
- <svg
- class="w-5 h-5 text-green"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
- ></path>
- </svg>
- </div>
- <h3 class="text-base font-bold text-gray-900">
- Built for shared finances
- </h3>
- <p class="text-sm text-gray-500">
- Seamlessly collaborate with your partner while maintaining
- privacy.
- </p>
- </div>
- <div class="space-y-3">
- <div
- class="inline-flex items-center justify-center w-10 h-10 bg-green/10 rounded-lg"
- >
- <svg
- class="w-5 h-5 text-green"
- fill="none"
- stroke="currentColor"
- viewBox="0 0 24 24"
- >
- <path
- stroke-linecap="round"
- stroke-linejoin="round"
- stroke-width="2"
- d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m13 13v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
- ></path>
- </svg>
- </div>
- <h3 class="text-base font-bold text-gray-900">
- Truly Flexible
- </h3>
- <p class="text-sm text-gray-500">
- Budgeting and scenario planning that adapts as your life
- changes.
- </p>
- </div>
- </div>
- </div>
- </section>
- </main>
+          <!-- Trust indicators -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 pt-12 border-t border-gray-200/60"
+          >
+            <div class="space-y-3">
+              <div
+                class="inline-flex items-center justify-center w-10 h-10 bg-green/10 rounded-lg"
+              >
+                <svg
+                  class="w-5 h-5 text-green"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-gray-900">Future focused</h3>
+              <p class="text-sm text-gray-500">
+                Projected trajectory for your life goals over years, not months.
+              </p>
+            </div>
+            <div class="space-y-3">
+              <div
+                class="inline-flex items-center justify-center w-10 h-10 bg-green/10 rounded-lg"
+              >
+                <svg
+                  class="w-5 h-5 text-green"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-gray-900">
+                Built for shared finances
+              </h3>
+              <p class="text-sm text-gray-500">
+                Seamlessly collaborate with your partner while maintaining
+                privacy.
+              </p>
+            </div>
+            <div class="space-y-3">
+              <div
+                class="inline-flex items-center justify-center w-10 h-10 bg-green/10 rounded-lg"
+              >
+                <svg
+                  class="w-5 h-5 text-green"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m13 13v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-gray-900">Truly Flexible</h3>
+              <p class="text-sm text-gray-500">
+                Budgeting and scenario planning that adapts as your life
+                changes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
- <!-- Footer -->
- <footer
- class="bg-white border-t border-gray-100"
- >
- <div
- class="max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-8"
- >
- <div
- class="flex flex-col sm:flex-row items-center justify-between gap-4"
- >
- <!-- Logo and tagline -->
- <div class="flex items-center space-x-3">
- <img class="h-7 w-auto" src="assets/images/sloth_money_logo_white.png" style="filter: brightness(0) saturate(100%)" alt="Sloth Money" />
- <span
- class="text-sm font-medium tracking-wide text-gray-500"
- >Embrace financial peace of mind.</span
- >
- </div>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100">
+      <div
+        class="max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-8"
+      >
+        <div
+          class="flex flex-col sm:flex-row items-center justify-between gap-4"
+        >
+          <!-- Logo and tagline -->
+          <div class="flex items-center space-x-3">
+            <img
+              class="h-7 w-auto"
+              src="assets/images/sloth_money_logo_white.png"
+              style="filter: brightness(0) saturate(100%)"
+              alt="Sloth Money"
+            />
+            <span class="text-sm font-medium tracking-wide text-gray-500"
+              >Embrace financial peace of mind.</span
+            >
+          </div>
 
- <!-- Social + Copyright -->
- <div
- class="flex items-center space-x-6 text-sm font-medium tracking-wide text-gray-400"
- >
- <span>&copy; <span id="footer-year"></span> Sloth Money</span>
- <a
- href="https://www.instagram.com/slothmoneyapp"
- target="_blank"
- rel="noopener noreferrer"
- class="text-gray-400 hover:text-green transition-colors duration-200"
- aria-label="Instagram"
- >
- <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
- <path
- fill-rule="evenodd"
- d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
- clip-rule="evenodd"
- />
- </svg>
- </a>
- </div>
- </div>
- </div>
- </footer>
- <script src="assets/js/mobile-menu.js" defer></script>
- <script src="assets/js/footer-year.js" defer></script>
- <script src="assets/js/animations.js" defer></script>
- <script>
- // Initialize Lucide icons
- document.addEventListener('DOMContentLoaded', () => {
- if (typeof lucide !== 'undefined') {
- lucide.createIcons()
- }
- })
- </script>
- </body>
+          <!-- Social + Copyright -->
+          <div
+            class="flex items-center space-x-6 text-sm font-medium tracking-wide text-gray-400"
+          >
+            <span>&copy; <span id="footer-year"></span> Sloth Money</span>
+            <a
+              href="https://www.instagram.com/slothmoneyapp"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-400 hover:text-green transition-colors duration-200"
+              aria-label="Instagram"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  fill-rule="evenodd"
+                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="assets/js/mobile-menu.js" defer></script>
+    <script src="assets/js/footer-year.js" defer></script>
+    <script src="assets/js/animations.js" defer></script>
+    <script>
+      // Initialize Lucide icons
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons()
+        }
+      })
+    </script>
+  </body>
 </html>
