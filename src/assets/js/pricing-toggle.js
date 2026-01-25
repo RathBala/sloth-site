@@ -9,23 +9,49 @@ function setPricing(plan) {
   if (plan === 'yearly') {
     amount.textContent = '£39.99'
     period.textContent = '/ year'
-    
+
     // Update button styles
-    btnYearly.classList.add('bg-white', 'text-gray-900', 'shadow-sm')
-    btnYearly.classList.remove('text-gray-500', 'hover:text-gray-700')
-    
-    btnMonthly.classList.remove('bg-white', 'text-gray-900', 'shadow-sm')
-    btnMonthly.classList.add('text-gray-500', 'hover:text-gray-700')
+    btnYearly.classList.add('bg-white', 'text-green', 'shadow-md', 'font-bold')
+    btnYearly.classList.remove(
+      'text-gray-600',
+      'hover:text-gray-900',
+      'font-medium'
+    )
+
+    btnMonthly.classList.remove(
+      'bg-white',
+      'text-green',
+      'shadow-md',
+      'font-bold'
+    )
+    btnMonthly.classList.add(
+      'text-gray-600',
+      'hover:text-gray-900',
+      'font-medium'
+    )
   } else {
     amount.textContent = '£4.99'
     period.textContent = '/ month'
-    
+
     // Update button styles
-    btnMonthly.classList.add('bg-white', 'text-gray-900', 'shadow-sm')
-    btnMonthly.classList.remove('text-gray-500', 'hover:text-gray-700')
-    
-    btnYearly.classList.remove('bg-white', 'text-gray-900', 'shadow-sm')
-    btnYearly.classList.add('text-gray-500', 'hover:text-gray-700')
+    btnMonthly.classList.add('bg-white', 'text-green', 'shadow-md', 'font-bold')
+    btnMonthly.classList.remove(
+      'text-gray-600',
+      'hover:text-gray-900',
+      'font-medium'
+    )
+
+    btnYearly.classList.remove(
+      'bg-white',
+      'text-green',
+      'shadow-md',
+      'font-bold'
+    )
+    btnYearly.classList.add(
+      'text-gray-600',
+      'hover:text-gray-900',
+      'font-medium'
+    )
   }
 }
 

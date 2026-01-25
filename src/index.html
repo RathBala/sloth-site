@@ -898,31 +898,46 @@
               Invest in your future, together
             </h2>
             <p class="max-w-2xl mx-auto text-lg text-gray-600">
-              One plan. Two people. A shared roadmap to the life you're building.
+              One plan. Two people. A shared roadmap to the life you're
+              building.
             </p>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch reveal">
+          <div
+            class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch reveal"
+          >
             <!-- Free Trial / CTA Card -->
-            <div class="lg:col-span-3 bg-gray-50 rounded-3xl p-8 sm:p-12 border border-gray-200 shadow-sm flex flex-col justify-between">
+            <div
+              class="lg:col-span-3 bg-gray-50 rounded-3xl p-8 sm:p-12 border border-gray-200 shadow-sm flex flex-col justify-between"
+            >
               <div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Start your shared journey</h3>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                  Start your shared journey
+                </h3>
                 <p class="text-gray-600 text-lg mb-8 max-w-md">
-                  Get value immediately by building your own roadmap. Invite your partner whenever you're ready to unlock joint goals and shared budgeting.
+                  Get value immediately by building your own roadmap. Invite
+                  your partner whenever you're ready to unlock joint goals and
+                  shared budgeting.
                 </p>
-                
+
                 <ul class="space-y-4 mb-10">
                   <li class="flex items-center gap-3">
                     <i data-lucide="check" class="w-5 h-5 text-green"></i>
-                    <span class="text-gray-700">Map out your personal goals today</span>
+                    <span class="text-gray-700"
+                      >Map out your personal goals today</span
+                    >
                   </li>
                   <li class="flex items-center gap-3">
                     <i data-lucide="check" class="w-5 h-5 text-green"></i>
-                    <span class="text-gray-700">Unlock partner features when you're ready</span>
+                    <span class="text-gray-700"
+                      >Unlock partner features when you're ready</span
+                    >
                   </li>
                   <li class="flex items-center gap-3">
                     <i data-lucide="check" class="w-5 h-5 text-green"></i>
-                    <span class="text-gray-700">Full access for 14 days, on us</span>
+                    <span class="text-gray-700"
+                      >Full access for 14 days, on us</span
+                    >
                   </li>
                 </ul>
               </div>
@@ -951,7 +966,9 @@
             </div>
 
             <!-- Info / Pricing Card -->
-            <div class="lg:col-span-2 bg-white rounded-3xl p-8 sm:p-10 border border-gray-200 shadow-sm flex flex-col items-center justify-center text-center">
+            <div
+              class="lg:col-span-2 bg-white rounded-3xl p-8 sm:p-10 border border-gray-200 shadow-sm flex flex-col items-center justify-center text-center"
+            >
               <div class="w-full">
                 <div class="flex items-baseline justify-center gap-1 mb-2">
                   <span
@@ -963,25 +980,46 @@
                     >/ month</span
                   >
                 </div>
-                <p class="text-sm text-gray-400 mb-10">
+                <div class="flex flex-col gap-1 mb-6">
+                  <div
+                    class="flex items-center justify-center gap-1.5 text-sm font-medium text-green"
+                  >
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                    <span>Cancel anytime</span>
+                  </div>
+                  <div
+                    class="flex items-center justify-center gap-1.5 text-sm font-medium text-green"
+                  >
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                    <span>No card required for trial</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-400 mb-8">
                   One subscription, two accounts
                 </p>
 
                 <!-- Pricing Toggle -->
-                <div class="inline-flex items-center p-1 bg-gray-50 rounded-xl border border-gray-200 mb-8">
-                  <button 
+                <div
+                  class="inline-flex items-center p-1 bg-gray-100 rounded-xl border border-gray-200 mb-8"
+                >
+                  <button
                     id="btn-monthly"
-                    class="px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200 bg-white text-gray-900 shadow-sm"
+                    class="px-4 py-2 text-sm font-bold rounded-lg transition-all duration-200 bg-white text-green shadow-md"
                     onclick="setPricing('monthly')"
                   >
                     Monthly
                   </button>
-                  <button 
+                  <button
                     id="btn-yearly"
-                    class="px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200 text-gray-500 hover:text-gray-700"
+                    class="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-gray-600 hover:text-gray-900 flex items-center"
                     onclick="setPricing('yearly')"
                   >
                     Yearly
+                    <span
+                      class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-green/10 text-green uppercase tracking-wider"
+                    >
+                      Save 33%
+                    </span>
                   </button>
                 </div>
 
