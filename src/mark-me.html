@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mark Me as Rath</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="status">Marking you as Rath...</h1>
+    <script>
+      fetch('/.netlify/functions/mark-me')
+        .then((response) => {
+          if (response.ok) {
+            document.getElementById('status').innerText =
+              'You are now marked as Rath. No more alerts for you.'
+          } else {
+            document.getElementById('status').innerText =
+              'Error marking you as Rath.'
+          }
+        })
+        .catch((error) => {
+          console.warn('[mark-me] Error marking as Rath:', error)
+          document.getElementById('status').innerText =
+            'Error marking you as Rath.'
+        })
+    </script>
+  </body>
+</html>
