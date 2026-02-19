@@ -32,6 +32,7 @@ exports.handler = async (event) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
+          message_thread_id: 4,
           text: message,
           parse_mode: 'Markdown',
         }),
