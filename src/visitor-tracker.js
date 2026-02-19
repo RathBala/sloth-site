@@ -6,33 +6,30 @@
   }
 
   const isRath = getCookie('rath_visitor') === 'true'
-  const alreadyAlerted = sessionStorage.getItem('alerted') === '1'
+  const alreadyAlerted = getCookie('sm_alerted') === '1'
 
   if (!isRath && !alreadyAlerted) {
     const data = {
       page: window.location.href,
       userAgent: navigator.userAgent,
       referrer: document.referrer,
-      ip: '', // IP will be populated by Netlify on backend, or we can just leave it for now.
+      ip: '',
     }
 
     fetch('/.netlify/functions/track-visit', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
       .then((response) => {
         if (response.ok) {
-          sessionStorage.setItem('alerted', '1')
+          // Set 24h cookie so repeat visits don't re-alert
+          const expires = new Date(Date.now() + 86400000).toUTCString()
+          document.cookie = `sm_alerted=1; expires=${expires}; path=/; SameSite=Lax`
         }
       })
       .catch((error) => {
-        console.warn(
-          '[visitor-tracker] Error sending visit notification:',
-          error
-        )
+        console.warn('[visitor-tracker] Error sending visit notification:', error)
       })
   }
 })()
