@@ -1,0 +1,99 @@
+;(function () {
+  const cfg = window.__SLOTH_POSTHOG__ || {}
+  const apiKey = typeof cfg.apiKey === 'string' ? cfg.apiKey : ''
+  const apiHost =
+    typeof cfg.apiHost === 'string' && cfg.apiHost
+      ? cfg.apiHost
+      : 'https://eu.i.posthog.com'
+
+  if (!apiKey || !apiKey.startsWith('phc_')) {
+    console.warn(
+      '[posthog-analytics] PostHog disabled: set window.__SLOTH_POSTHOG__.apiKey to your project API key (phc_...) in index.html.'
+    )
+    return
+  }
+
+  if (typeof window.posthog === 'undefined' || !window.posthog.init) {
+    console.warn(
+      '[posthog-analytics] PostHog stub missing: include the PostHog loader snippet in the page head before this script.'
+    )
+    return
+  }
+
+  function paramValue(params, key) {
+    const v = params.get(key)
+    return v === null || v === undefined ? '' : String(v)
+  }
+
+  function buildSharedProperties() {
+    const params = new URLSearchParams(window.location.search)
+    return {
+      utm_source: paramValue(params, 'utm_source'),
+      utm_medium: paramValue(params, 'utm_medium'),
+      utm_campaign: paramValue(params, 'utm_campaign'),
+      utm_content: paramValue(params, 'utm_content'),
+      creative_id: paramValue(params, 'creative_id'),
+      pain_angle: paramValue(params, 'pain_angle'),
+      audience: paramValue(params, 'audience'),
+      landing_variant: paramValue(params, 'landing_variant'),
+      device_type: getDeviceType(),
+    }
+  }
+
+  function getDeviceType() {
+    const ua = navigator.userAgent || ''
+    if (
+      /tablet|ipad/i.test(ua) ||
+      (/\bAndroid\b/i.test(ua) && !/Mobile/i.test(ua))
+    ) {
+      return 'tablet'
+    }
+    if (/Mobile|Android|iPhone|iPod|webOS|BlackBerry|IEMobile/i.test(ua)) {
+      return 'mobile'
+    }
+    return 'desktop'
+  }
+
+  const shared = buildSharedProperties()
+
+  window.posthog.init(apiKey, {
+    api_host: apiHost,
+    defaults: '2026-01-30',
+    autocapture: true,
+    capture_pageview: true,
+    loaded: function (ph) {
+      ph.register(shared)
+      ph.capture('landing_view')
+    },
+    before_send: function (event) {
+      if (!event || typeof event !== 'object') return event
+      event.properties = event.properties || {}
+      Object.assign(event.properties, shared)
+      return event
+    },
+  })
+
+  window.posthog.register(shared)
+
+  document.addEventListener(
+    'click',
+    function (event) {
+      const target = event.target
+      if (!target || typeof target.closest !== 'function') return
+      const anchor = target.closest('a[data-analytics-cta]')
+      if (
+        !anchor ||
+        !window.posthog ||
+        typeof window.posthog.capture !== 'function'
+      )
+        return
+      const placement = anchor.getAttribute('data-analytics-cta') || ''
+      const label = (anchor.textContent || '').trim().replace(/\s+/g, ' ')
+      window.posthog.capture('cta_clicked', {
+        cta_placement: placement,
+        cta_label: label.slice(0, 200),
+      })
+    },
+    true
+  )
+})()

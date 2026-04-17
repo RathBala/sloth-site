@@ -29,7 +29,10 @@
         }
       })
       .catch((error) => {
-        console.warn('[visitor-tracker] Error sending visit notification:', error)
+        console.warn(
+          '[visitor-tracker] Error sending visit notification:',
+          error
+        )
       })
   }
 })()

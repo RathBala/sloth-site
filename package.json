@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "description": "Sloth Money - The Budgeting App Built for Two",
   "scripts": {
+    "posthog:config": "node ./scripts/generate-posthog-config.mjs",
     "dev:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --watch",
     "dev:server": "browser-sync start --server src --index index.html --port 3000 --files 'src/**/*' --no-notify",
     "build:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --minify",
-    "build": "yarn build:css",
-    "dev": "concurrently \"yarn dev:css\" \"yarn dev:server\" --names \"CSS,SERVER\" --prefix-colors \"blue,green\"",
+    "build": "yarn posthog:config && yarn build:css",
+    "dev": "yarn posthog:config && concurrently \"yarn dev:css\" \"yarn dev:server\" --names \"CSS,SERVER\" --prefix-colors \"blue,green\"",
     "lint": "prettier --check .",
     "typecheck": "node ./scripts/typecheck.mjs"
   },
   "devDependencies": {
+    "dotenv": "^16.4.7",
     "browser-sync": "^3.0.4",
     "concurrently": "^9.2.1",
     "http-server": "^14.1.1",

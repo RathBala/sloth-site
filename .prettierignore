@@ -1,3 +1,4 @@
 node_modules
 build
 src/output.css
+src/assets/js/posthog-config.js

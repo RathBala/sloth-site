@@ -7,5 +7,12 @@ src/assets/images/.DS_Store
 node_modules
 package-lock.json
 
+# Local secrets (see .env.example)
+.env
+.env.local
+
 # Build output
 build
+
+# Generated from root .env / CI env (see docs/posthog.md)
+src/assets/js/posthog-config.js

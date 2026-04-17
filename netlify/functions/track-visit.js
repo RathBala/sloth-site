@@ -41,13 +41,18 @@ exports.handler = async (event) => {
 
     if (!response.ok) {
       const errorText = await response.text()
-      console.warn(`[track-visit] Telegram error: ${response.status} ${errorText}`)
+      console.warn(
+        `[track-visit] Telegram error: ${response.status} ${errorText}`
+      )
       return { statusCode: 502, body: 'Bad Gateway' }
     }
 
     return { statusCode: 200, body: JSON.stringify({ sent: true }) }
   } catch (error) {
     console.warn('[track-visit] Error:', error)
-    return { statusCode: 500, body: JSON.stringify({ error: 'Internal Server Error' }) }
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Internal Server Error' }),
+    }
   }
 }
