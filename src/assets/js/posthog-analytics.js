@@ -1,4 +1,76 @@
 ;(function () {
+  const BUDGET_APP_HOST = 'budget.slothmoney.app'
+
+  /** Forward landing-page attribution and CTA context onto app URLs (runs even if PostHog is disabled). */
+  function augmentBudgetAppCtaLinks() {
+    const keysToForward = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_content',
+      'creative_id',
+      'pain_angle',
+      'audience',
+      'landing_variant',
+    ]
+
+    function intentFromPlacement(placement) {
+      if (!placement) return 'signup'
+      return placement.indexOf('sign-in') !== -1 ? 'signin' : 'signup'
+    }
+
+    try {
+      const pageParams = new URLSearchParams(window.location.search || '')
+      const anchors = document.querySelectorAll(
+        'a[data-analytics-cta][href*="' + BUDGET_APP_HOST + '"]'
+      )
+
+      anchors.forEach(function (a) {
+        if (!a || !a.getAttribute) return
+        var href = a.getAttribute('href')
+        if (!href) return
+
+        var url
+        try {
+          url = new URL(href, window.location.origin)
+        } catch (e) {
+          return
+        }
+
+        if (url.hostname !== BUDGET_APP_HOST) return
+
+        keysToForward.forEach(function (key) {
+          var v = pageParams.get(key)
+          if (v && !url.searchParams.get(key)) {
+            url.searchParams.set(key, v)
+          }
+        })
+
+        var placement = a.getAttribute('data-analytics-cta') || ''
+        var intent = intentFromPlacement(placement)
+        if (!url.searchParams.get('entry_point')) {
+          url.searchParams.set('entry_point', placement)
+        }
+        if (!url.searchParams.get('intent')) {
+          url.searchParams.set('intent', intent)
+        }
+        if (!url.searchParams.get('cta_id')) {
+          url.searchParams.set('cta_id', placement)
+        }
+
+        a.setAttribute('href', url.toString())
+      })
+    } catch (err) {
+      console.warn('[posthog-analytics] augmentBudgetAppCtaLinks failed:', err)
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', augmentBudgetAppCtaLinks)
+  } else {
+    augmentBudgetAppCtaLinks()
+  }
+
   const cfg = window.__SLOTH_POSTHOG__ || {}
   const apiKey = typeof cfg.apiKey === 'string' ? cfg.apiKey : ''
   const apiHost =

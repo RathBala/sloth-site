@@ -47,6 +47,19 @@ CTA placements use `data-analytics-cta` values: `header-sign-in`, `header-start`
 
 `cta_clicked` also includes `cta_placement` and `cta_label` (trimmed link text).
 
+## App handoff (query string)
+
+On page load, [`src/assets/js/posthog-analytics.js`](../src/assets/js/posthog-analytics.js) rewrites each tracked CTA link to `https://budget.slothmoney.app` so the budget app receives:
+
+| Param                                                               | Purpose                                                                                       |
+| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `utm_*`, `creative_id`, `pain_angle`, `audience`, `landing_variant` | Copied from the **current landing URL** when missing on the CTA (preserves campaign context). |
+| `entry_point`                                                       | The `data-analytics-cta` value (e.g. `hero-start`).                                           |
+| `intent`                                                            | `signin` when the placement id contains `sign-in`; otherwise `signup` (primary CTAs).         |
+| `cta_id`                                                            | Same as `entry_point` for downstream funnels.                                                 |
+
+This runs **even when PostHog is disabled** (missing API key) so attribution still reaches the app. The budget app stores first-touch values in `sessionStorage` — see its `docs/features/posthog-analytics.md`.
+
 ## Properties on every event
 
 These are merged onto **all** captured events (custom + autocapture + pageviews) via `before_send` and `register`:
