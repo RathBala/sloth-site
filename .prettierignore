@@ -2,3 +2,4 @@ node_modules
 build
 src/output.css
 src/assets/js/posthog-config.js
+src/assets/js/meta-pixel-config.js

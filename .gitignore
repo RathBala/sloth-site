@@ -16,3 +16,5 @@ build
 
 # Generated from root .env / CI env (see docs/posthog.md)
 src/assets/js/posthog-config.js
+# Generated from root .env / CI env (see docs/meta-pixel.md)
+src/assets/js/meta-pixel-config.js

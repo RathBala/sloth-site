@@ -81,5 +81,6 @@ Missing query parameters are sent as empty strings.
 
 ## Related
 
+- [Meta Pixel](./meta-pixel.md) — paid social measurement and `Lead` events on the same CTAs.
 - Google Analytics remains in the same file as a separate integration.
 - [`src/visitor-tracker.js`](../src/visitor-tracker.js) posts to a Netlify function for internal visit alerts; it is independent of PostHog.

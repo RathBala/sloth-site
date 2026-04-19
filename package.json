@@ -4,11 +4,12 @@
   "description": "Sloth Money - The Budgeting App Built for Two",
   "scripts": {
     "posthog:config": "node ./scripts/generate-posthog-config.mjs",
+    "meta:config": "node ./scripts/generate-meta-pixel-config.mjs",
     "dev:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --watch",
     "dev:server": "browser-sync start --server src --index index.html --port 3000 --files 'src/**/*' --no-notify",
     "build:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --minify",
-    "build": "yarn posthog:config && yarn build:css",
-    "dev": "yarn posthog:config && concurrently \"yarn dev:css\" \"yarn dev:server\" --names \"CSS,SERVER\" --prefix-colors \"blue,green\"",
+    "build": "yarn posthog:config && yarn meta:config && yarn build:css",
+    "dev": "yarn posthog:config && yarn meta:config && concurrently \"yarn dev:css\" \"yarn dev:server\" --names \"CSS,SERVER\" --prefix-colors \"blue,green\"",
     "lint": "prettier --check .",
     "typecheck": "node ./scripts/typecheck.mjs"
   },
