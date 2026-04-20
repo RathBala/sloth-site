@@ -2,3 +2,9 @@
   command = "yarn build"
   publish = "src"
   functions = "netlify/functions"
+
+# Prefer consistent trailing slash for static index routes
+[[redirects]]
+  from = "/wedding-fund"
+  to = "/wedding-fund/"
+  status = 301
