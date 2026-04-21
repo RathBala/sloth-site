@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Copywriting
+
+When writing or editing **user-facing copy** (landing pages, CTAs, headings, meta text), read and follow [`.cursor/skills/copywriting/SKILL.md`](.cursor/skills/copywriting/SKILL.md) - including punchy headings, concision, specificity (name what people are saving toward or catching up on), punctuation (e.g. spaced hyphen instead of em dash for sentence bridges), and scannable structure.
+
 ## Before writing any code
 
 1. State how you will verify that this change works (test, bash command, browser check etc)
