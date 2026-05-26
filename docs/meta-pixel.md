@@ -1,6 +1,6 @@
-# Meta Pixel (marketing site → web app signup)
+# Meta Pixel (marketing site -> web app signup)
 
-The landing page loads the [Meta Pixel](https://developers.facebook.com/docs/meta-pixel) so paid social (Facebook / Instagram) campaigns can measure visits, high-intent clicks to the app, and—once implemented on the app—completed registrations.
+The landing page loads the [Meta Pixel](https://developers.facebook.com/docs/meta-pixel) so paid social (Facebook / Instagram) campaigns can measure visits and high-intent clicks to the app. The budget app (`budget.slothmoney.app`, repo `sloth-budget`) uses the same Pixel ID and fires completed registration events after successful account creation.
 
 ## Configuration
 
@@ -42,9 +42,11 @@ CTA placements are the same as in [PostHog funnel docs](./posthog.md#custom-even
 
 ## Full funnel: account creation on the app
 
-`Lead` here means “clicked through to start signup,” not “account exists.” For Meta to optimize and attribute **completed signups**, the **budget web app** (`budget.slothmoney.app`) should also load the **same** Pixel and fire a standard event when registration succeeds, typically:
+`Lead` here means "clicked through to start signup," not "account exists." The **budget web app** (`budget.slothmoney.app`) loads the **same** Pixel and fires:
 
 - **`CompleteRegistration`** — after the user successfully creates an account (see [standard events](https://developers.facebook.com/docs/meta-pixel/reference#standard-events)).
+
+In `sloth-budget`, this is documented in `docs/features/meta-pixel.md`. The implementation initializes the Pixel from `VITE_META_PIXEL_ID`, then calls `trackMetaCompleteRegistration()` after successful email/password or Google signup.
 
 Pairing browser Pixel with the [Conversions API](https://developers.facebook.com/docs/marketing-api/conversions-api) on the server is optional but often improves measurement; that lives in the app or backend, not this repo.
 
@@ -57,8 +59,10 @@ If you serve users in regions that require consent before advertising cookies, i
 1. Set `META_PIXEL_ID` in `.env` and run `yarn meta:config` (or `yarn dev`).
 2. Open the site with test UTMs, click **Start for free**.
 3. In Events Manager → **Test events** (or browser **Meta Pixel Helper** extension), confirm `PageView`, `ViewContent`, and `Lead` (with `content_name` matching the CTA id).
+4. Complete a test signup on `budget.slothmoney.app` and confirm `CompleteRegistration` appears for the same Pixel ID.
 
 ## Related
 
 - [PostHog](./posthog.md) — product analytics and CTA attribution on the same page.
+- [Paid social tracking runbook](./paid-social-tracking.md) — launch checklist and live smoke-test steps.
 - App handoff query params are documented in [PostHog → App handoff](./posthog.md#app-handoff-query-string); Meta events mirror the UTM fields for reporting alignment.
