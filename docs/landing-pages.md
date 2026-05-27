@@ -16,6 +16,14 @@ On the homepage, **`Your data, fully under your control`** (data and privacy car
 - **Trust:** **`Private, practical, and built for shared planning`** (encryption, read-only access, shared finances) sits **after** the pricing block and before the closing CTA.
 - **Pricing:** The same pricing block as [`src/index.html`](../src/index.html) (monthly/yearly toggle via [`pricing-toggle.js`](../src/assets/js/pricing-toggle.js)) appears after the FAQ. The primary button in that block uses `data-analytics-cta="wedding-pricing-start"`. Trial-card copy matches the homepage and spells out that **one subscription covers both partners** (two accounts, one price) from signup.
 
+## Developers
+
+- **URL:** `https://slothmoney.app/developers/` (Netlify serves [`src/developers/index.html`](../src/developers/index.html))
+- **Purpose:** Public, lightweight developer page for the Sloth Agent API beta. It explains how paid Sloth users can create a Developer access token, use the CLI, read categories/transactions, and apply category assignments.
+- **Public boundary:** Keep this page focused on user-safe setup, examples, endpoint names, query options, and safety notes. Do not copy internal architecture details from `sloth-budget`, such as Firestore document paths, token hashing implementation, assignment side effects, or backend service names.
+- **Primary CTA:** `Open Sloth Money`, pointing to `https://budget.slothmoney.app`. The page assumes token creation happens inside the app, not through public token-management API docs.
+- **Canonical path:** `/developers/` is the public canonical page for now. A future `docs.slothmoney.app` or developer subdomain can redirect back here if the API surface grows into versioned docs.
+
 ## Running locally
 
 From the repo root, `yarn dev` serves `src` at port 3000. Open `/wedding-fund/` (with trailing slash) in the dev server.
