@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sloth Money - For couples with ambitious financial goals</title>
+    <title>Sloth Money - Shared money plans for couples</title>
 
     <!-- Status bar + theme colors -->
     <meta name="theme-color" content="#ffffff" />
@@ -12,66 +12,66 @@
     <!-- SEO Meta Tags -->
     <meta
       name="description"
-      content="Sloth Money builds a roadmap for couples to achieve their ambitious financial goals. Plan together, model the future, and build long-term wealth with clarity."
+      content="Sloth Money helps couples turn awkward money admin into a shared system. Build goals, contributions, and progress together - without spreadsheet chaos."
     />
     <meta
       name="keywords"
-      content="couples finance, financial roadmap, wealth goals, couples budgeting, financial planning, build wealth together"
+      content="couples finance, shared money plan, couples budgeting, shared savings goals, financial alignment, budget together"
     />
 
     <!-- Open Graph Meta Tags -->
     <meta
       property="og:title"
-      content="Sloth Money - For couples with ambitious financial goals"
+      content="Sloth Money - Shared money plans for couples"
     />
     <meta
       property="og:description"
-      content="Sloth Money builds a roadmap for couples to achieve their ambitious financial goals. Plan together, model the future, and build long-term wealth with clarity."
+      content="Turn awkward money admin into a shared system. Build goals, contributions, and progress together - without spreadsheet chaos."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://slothmoney.app/" />
     <meta
       property="og:image"
-      content="/assets/images/sloth_money_logo_white.png"
+      content="/assets/images/sloth-money-logo-icon.png"
     />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Sloth Money - For couples with ambitious financial goals"
+      content="Sloth Money - Shared money plans for couples"
     />
     <meta
       name="twitter:description"
-      content="Sloth Money builds a roadmap for couples to achieve their ambitious financial goals. Plan together, model the future, and build long-term wealth with clarity."
+      content="Turn awkward money admin into a shared system. Build goals, contributions, and progress together - without spreadsheet chaos."
     />
     <meta
       name="twitter:image"
-      content="/assets/images/sloth%20logo%20black.png"
+      content="/assets/images/sloth-money-logo-icon.png"
     />
 
     <!-- Favicon -->
     <link
       rel="icon"
-      href="/assets/images/sloth%20logo%20black.svg"
-      type="image/svg+xml"
+      href="/assets/images/sloth-money-logo-icon.png"
+      type="image/png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="/assets/images/sloth%20logo%20black.png"
+      href="/assets/images/sloth-money-logo-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="/assets/images/sloth%20logo%20black.png"
+      href="/assets/images/sloth-money-logo-icon.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="/assets/images/sloth%20logo%20black.png"
+      href="/assets/images/sloth-money-logo-icon.png"
     />
     <link rel="manifest" href="/site.webmanifest" />
 
@@ -145,6 +145,145 @@
           black 65%,
           transparent 100%
         );
+      }
+
+      .sloth-logo-lockup {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        color: #ffffff;
+      }
+
+      .sloth-logo-lockup img {
+        width: 2.35rem;
+        height: 2.35rem;
+        filter: drop-shadow(0 10px 18px rgba(1, 38, 25, 0.28));
+      }
+
+      .sloth-logo-type {
+        color: currentColor;
+        font-size: 1.55rem;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+
+      .sloth-hero {
+        isolation: isolate;
+        background: #013d29;
+      }
+
+      .sloth-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background-image: linear-gradient(
+            180deg,
+            rgba(1, 48, 31, 0.08) 0%,
+            rgba(1, 48, 31, 0.32) 100%
+          ),
+          url('assets/images/sloth-hero-leafy-bg.webp');
+        background-position: center top;
+        background-size: cover;
+      }
+
+      .sloth-hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: radial-gradient(
+            circle at 20% 18%,
+            rgba(150, 242, 148, 0.22),
+            transparent 32rem
+          ),
+          linear-gradient(
+            180deg,
+            rgba(1, 38, 25, 0.04) 0%,
+            rgba(1, 38, 25, 0.58) 100%
+          );
+      }
+
+      .sloth-hero-title {
+        text-wrap: balance;
+        text-shadow: 0 18px 44px rgba(1, 38, 25, 0.22);
+      }
+
+      .sloth-hero-title .mint-line {
+        color: #c4ffc7;
+      }
+
+      .sloth-cta-row {
+        align-items: flex-end;
+      }
+
+      .sloth-cta-actions {
+        width: min(100%, 29rem);
+      }
+
+      .sloth-guide-sidekick {
+        width: clamp(4.7rem, 19vw, 6.8rem);
+        filter: drop-shadow(0 18px 28px rgba(1, 38, 25, 0.34));
+        transform: translateY(0.45rem);
+      }
+
+      .sloth-archetype-flow {
+        position: relative;
+        filter: drop-shadow(0 24px 42px rgba(1, 38, 25, 0.18));
+      }
+
+      .sloth-archetype-flow img {
+        display: block;
+        width: 100%;
+        height: auto;
+        mask-image: linear-gradient(
+          180deg,
+          transparent 0,
+          #000 1.35rem,
+          #000 calc(100% - 1.5rem),
+          transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+          180deg,
+          transparent 0,
+          #000 1.35rem,
+          #000 calc(100% - 1.5rem),
+          transparent 100%
+        );
+      }
+
+      .sloth-archetype-hotspot {
+        position: absolute;
+        top: 15%;
+        height: 48%;
+        border-radius: 2rem;
+      }
+
+      .sloth-archetype-hotspot.goal-path {
+        left: 3%;
+        width: 45%;
+      }
+
+      .sloth-archetype-hotspot.zen-path {
+        left: 52%;
+        width: 45%;
+      }
+
+      .sloth-archetype-hotspot:focus-visible {
+        outline: 3px solid #c4ffc7;
+        outline-offset: 4px;
+      }
+
+      @media (max-width: 420px) {
+        .sloth-logo-lockup img {
+          width: 2.1rem;
+          height: 2.1rem;
+        }
+
+        .sloth-logo-type {
+          font-size: 1.35rem;
+        }
       }
     </style>
 
@@ -225,40 +364,41 @@
     <main>
       <!-- Header -->
       <header
-        class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-sm"
+        class="sticky top-0 z-50 bg-[#013d29]/95 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-green-really-dark/15"
       >
         <div
           class="max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
         >
           <nav class="flex items-center justify-between h-16 sm:h-20">
-            <a href="/" class="flex items-center gap-3">
+            <a href="/" class="sloth-logo-lockup" aria-label="Sloth Money home">
               <img
-                class="h-10 w-auto"
-                src="assets/images/sloth%20logo%20black.png"
-                style="filter: brightness(0) saturate(100%)"
-                alt="Sloth Money"
+                src="assets/images/sloth-money-logo-icon.webp"
+                alt=""
+                decoding="async"
               />
-              <span class="font-bold text-xl text-gray-900">Sloth Money</span>
+              <span class="sloth-logo-type" aria-hidden="true"
+                >Sloth Money</span
+              >
             </a>
             <div class="flex items-center gap-2 sm:gap-4">
               <a
-                class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
+                class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold tracking-wide text-emerald-50 hover:text-white transition-colors duration-200"
                 href="https://budget.slothmoney.app"
                 data-analytics-cta="header-sign-in"
               >
                 Sign in
               </a>
               <a
-                class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
+                class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold tracking-wide bg-green-light hover:bg-white text-green-really-dark rounded-full shadow-lg shadow-green-really-dark/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-light/70"
                 href="https://budget.slothmoney.app"
                 data-analytics-cta="header-start"
               >
-                Start for free
+                Start your shared plan
               </a>
               <button
                 id="mobile-menu-toggle"
                 type="button"
-                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green sm:hidden"
+                class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white bg-white/10 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-light focus:ring-offset-green-really-dark sm:hidden"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -296,21 +436,21 @@
           </nav>
           <div
             id="mobile-menu"
-            class="sm:hidden hidden border-t border-gray-100 mt-3 pt-4 pb-6"
+            class="sm:hidden hidden border-t border-white/10 mt-3 pt-4 pb-6"
           >
             <div
-              class="rounded-2xl border border-gray-200 bg-white/90 shadow-lg p-4 space-y-3"
+              class="rounded-2xl border border-white/10 bg-white/95 shadow-lg p-4 space-y-3"
             >
-              <div class="text-sm font-medium tracking-wide text-gray-500">
+              <div class="text-sm font-semibold tracking-wide text-green-dark">
                 Get started
               </div>
               <div class="space-y-3">
                 <a
-                  class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-xl shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
+                  class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-bold tracking-wide bg-green hover:bg-green-dark text-white rounded-xl shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
                   href="https://budget.slothmoney.app"
                   data-analytics-cta="mobile-menu-start"
                 >
-                  Start for free
+                  Start your shared plan
                 </a>
                 <a
                   class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-medium tracking-wide text-gray-800 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:text-gray-900 hover:border-gray-300 transition"
@@ -326,100 +466,93 @@
       </header>
 
       <!-- Hero Section -->
-      <section
-        class="relative overflow-hidden pt-8 sm:pt-12 pb-20 sm:pb-28 lg:pb-32 bg-gradient-to-b from-gray-50 to-white"
-      >
+      <section class="sloth-hero relative overflow-hidden text-white">
         <div
-          class="relative max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12"
+          class="relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-6 sm:py-14 lg:py-20 min-h-[calc(100svh-4rem)] sm:min-h-[calc(100svh-5rem)]"
         >
-          <div class="text-center">
-            <!-- Hero Image -->
-            <div
-              class="relative flex justify-center mb-0 sm:-mb-6 lg:-mb-10 reveal"
-            >
-              <div
-                class="relative w-72 sm:w-96 lg:w-[28rem] h-28 sm:h-36 lg:h-40 hero-image-container overflow-hidden"
+          <div
+            class="grid grid-cols-1 lg:grid-cols-[minmax(0,0.92fr)_minmax(30rem,0.78fr)] gap-6 lg:gap-16 items-center"
+          >
+            <div class="relative z-10 max-w-4xl reveal">
+              <h1
+                class="sloth-hero-title max-w-4xl text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-[0.98] tracking-tight"
               >
+                <span class="block">Pick your money mode.</span>
+                <span class="mint-line block mt-2"
+                  >Build the plan together.</span
+                >
+              </h1>
+
+              <p
+                class="mt-5 max-w-2xl text-base sm:text-xl lg:text-2xl leading-relaxed text-emerald-50"
+              >
+                For couples turning awkward money admin into a shared system.
+              </p>
+
+              <div
+                class="sloth-cta-row mt-6 flex max-w-2xl flex-row gap-3 sm:gap-5"
+              >
+                <div
+                  class="sloth-cta-actions flex min-w-0 flex-1 flex-col gap-3"
+                >
+                  <a
+                    class="group inline-flex w-full items-center justify-center rounded-2xl bg-green-light px-4 py-3.5 text-base font-extrabold tracking-wide text-green-really-dark shadow-2xl shadow-green-really-dark/30 transition duration-200 hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-4 focus:ring-green-light/50 sm:px-7 sm:py-4 sm:text-lg"
+                    href="https://budget.slothmoney.app"
+                    data-analytics-cta="hero-start"
+                  >
+                    <span class="truncate">Start your shared plan</span>
+                    <i
+                      data-lucide="arrow-right"
+                      class="ml-2 h-5 w-5 flex-none transition-transform group-hover:translate-x-1"
+                      aria-hidden="true"
+                    ></i>
+                  </a>
+                  <a
+                    class="inline-flex w-full items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-4 py-3.5 text-base font-extrabold tracking-wide text-white transition duration-200 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20 sm:px-7 sm:py-4 sm:text-lg"
+                    href="https://budget.slothmoney.app"
+                    data-analytics-cta="hero-sign-in"
+                  >
+                    Sign in
+                  </a>
+                </div>
                 <img
-                  src="assets/images/Gems.png"
-                  alt="Sloth couple hugging with gems representing wealth"
-                  class="w-full h-auto object-cover object-top absolute top-0 left-0"
+                  src="assets/images/sloth-guide-sidekick.webp"
+                  alt="Low-poly Sloth guide"
+                  class="sloth-guide-sidekick flex-none object-contain"
                   decoding="async"
                 />
               </div>
             </div>
 
-            <!-- Main headline -->
-            <h1
-              class="font-extrabold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight leading-[1.1] mb-6 sm:mb-8 reveal relative z-10 text-gray-900"
-            >
-              <span class="sm:block"
-                >Build a clear path to
-                <span class="sm:hidden">wealth,</span></span
+            <div class="relative z-10 reveal">
+              <div
+                class="sloth-archetype-flow mx-auto w-[calc(100%+1.5rem)] max-w-[35rem] -translate-x-3 sm:w-full sm:max-w-[38rem] sm:translate-x-0"
               >
-              <span class="block sm:mt-2 mt-1">
-                <span class="hidden sm:inline">wealth, </span
-                ><span class="text-green">together</span
-                ><span class="text-gray-900">.</span>
-              </span>
-            </h1>
-
-            <!-- Subheading -->
-            <p
-              class="max-w-5xl mx-auto text-lg sm:text-xl text-gray-600 leading-relaxed mb-6 sm:mb-8 reveal"
-            >
-              Sloth Money builds a roadmap for couples to achieve their
-              ambitious financial goals.
-            </p>
-
-            <!-- CTA Buttons -->
-            <div
-              class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-10 reveal"
-            >
-              <a
-                class="group inline-flex items-center px-8 py-4 bg-green hover:bg-green-dark text-white font-medium tracking-wide text-lg rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-green/30"
-                href="https://budget.slothmoney.app"
-                data-analytics-cta="hero-start"
-              >
-                Start for free
-                <svg
-                  class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                <img
+                  src="assets/images/sloth-archetype-flow.webp"
+                  alt="Goal-Chaser Sloth and Zen Sloth archetype cards with gem paths"
+                  decoding="async"
+                />
+                <a
+                  class="sloth-archetype-hotspot goal-path"
+                  href="https://budget.slothmoney.app?archetype=goal-chaser-sloth"
+                  data-analytics-cta="hero-archetype-goal-chaser"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  ></path>
-                </svg>
-              </a>
-              <a
-                class="text-lg font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
-                href="https://budget.slothmoney.app"
-                data-analytics-cta="hero-sign-in"
-              >
-                Sign in
-              </a>
-            </div>
-
-            <!-- Hero Image Placeholder -->
-            <div class="mt-16 reveal">
-              <div class="relative max-w-[95rem] mx-auto">
-                <picture>
-                  <source
-                    media="(min-width: 640px)"
-                    srcset="assets/images/hero%20asset.png"
-                  />
-                  <img
-                    src="assets/images/hero%20asset%20mobile.png"
-                    alt="Sloth Money dashboard showing financial roadmap and forecast"
-                    class="w-full h-auto object-contain rounded-2xl shadow-xl"
-                    decoding="async"
-                  />
-                </picture>
+                  <span class="sr-only"
+                    >Choose Goal-Chaser Sloth - track the details and hit the
+                    target</span
+                  >
+                </a>
+                <a
+                  class="sloth-archetype-hotspot zen-path"
+                  href="https://budget.slothmoney.app?archetype=zen-sloth"
+                  data-analytics-cta="hero-archetype-zen"
+                >
+                  <span class="sr-only"
+                    >Choose Zen Sloth - keep it calm and hide the
+                    spreadsheet</span
+                  >
+                </a>
               </div>
             </div>
           </div>
