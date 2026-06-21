@@ -108,6 +108,32 @@
       <polyline points="-220,384 -90,350" fill="none" stroke="#9fe16a" stroke-linecap="round" stroke-width="12" opacity="0.46" />
     </g>
 
+    <g id="medium-left-leaf" transform="translate(392 330) rotate(-14) scale(0.58)" opacity="0.68">
+      <polygon points="0,112 338,0 622,78 356,232" fill="url(#leafTop)" />
+      <polygon points="0,112 178,104 356,232 126,250" fill="#64bd45" />
+      <polygon points="178,104 338,0 356,232" fill="#98dc5d" />
+      <polygon points="338,0 504,102 356,232" fill="#3f9a3f" />
+      <polygon points="504,102 622,78 356,232" fill="#1f6f3e" />
+      <polygon points="126,250 356,232 540,338 252,374" fill="url(#leafTopDark)" />
+      <polygon points="356,232 622,78 690,260 540,338" fill="#185e39" />
+      <polyline points="0,112 178,104 338,0 504,102 622,78" fill="none" stroke="#b9ee6d" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" opacity="0.45" />
+      <polyline points="0,112 356,232 690,260" fill="none" stroke="#c5ff7a" stroke-linecap="round" stroke-width="5" opacity="0.42" />
+      <polyline points="356,232 338,0 356,232 504,102 356,232 540,338" fill="none" stroke="#164f31" stroke-linecap="round" stroke-width="3" opacity="0.45" />
+    </g>
+
+    <g id="medium-right-leaf" transform="translate(1470 830) rotate(12) scale(0.64)" opacity="0.72">
+      <polygon points="0,112 338,0 622,78 356,232" fill="url(#leafTop)" />
+      <polygon points="0,112 178,104 356,232 126,250" fill="#64bd45" />
+      <polygon points="178,104 338,0 356,232" fill="#98dc5d" />
+      <polygon points="338,0 504,102 356,232" fill="#3f9a3f" />
+      <polygon points="504,102 622,78 356,232" fill="#1f6f3e" />
+      <polygon points="126,250 356,232 540,338 252,374" fill="url(#leafTopDark)" />
+      <polygon points="356,232 622,78 690,260 540,338" fill="#185e39" />
+      <polyline points="0,112 178,104 338,0 504,102 622,78" fill="none" stroke="#b9ee6d" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" opacity="0.45" />
+      <polyline points="0,112 356,232 690,260" fill="none" stroke="#c5ff7a" stroke-linecap="round" stroke-width="5" opacity="0.42" />
+      <polyline points="356,232 338,0 356,232 504,102 356,232 540,338" fill="none" stroke="#164f31" stroke-linecap="round" stroke-width="3" opacity="0.45" />
+    </g>
+
     <g transform="translate(820 74) rotate(-28) scale(0.34)" opacity="0.56">
       <polygon points="0,112 106,18 254,0 342,102 220,228 78,210" fill="url(#leafLeft)" />
       <polygon points="0,112 138,106 78,210" fill="#3d8842" />

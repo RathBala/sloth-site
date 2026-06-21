@@ -11,9 +11,16 @@ const heroBackgroundSvgPath = path.join(
   projectRoot,
   'src/assets/images/sloth-hero-leafy-bg.svg'
 )
+const heroSideLeafSvgPath = path.join(
+  projectRoot,
+  'src/assets/images/sloth-side-leaf.svg'
+)
 
 const source = await readFile(homePagePath, 'utf8')
 const heroBackgroundSvg = await readFile(heroBackgroundSvgPath, 'utf8').catch(
+  () => ''
+)
+const heroSideLeafSvg = await readFile(heroSideLeafSvgPath, 'utf8').catch(
   () => ''
 )
 const normalizedSource = source.replace(/\s+/g, ' ')
@@ -149,9 +156,21 @@ const checks = [
       heroBackgroundSvg.includes('<svg') &&
       heroBackgroundSvg.includes('<polygon') &&
       heroBackgroundSvg.includes('<linearGradient') &&
-      heroBackgroundSvg.includes('viewBox="0 0 2048 1600"'),
+      heroBackgroundSvg.includes('viewBox="0 0 2048 1600"') &&
+      heroBackgroundSvg.includes('id="medium-left-leaf"') &&
+      heroBackgroundSvg.includes('id="medium-right-leaf"'),
     message:
-      'Home hero leafy SVG background should be authored vector artwork with a 2048x1600 viewBox.',
+      'Home hero leafy SVG background should be authored vector artwork with medium-crop side leaves.',
+  },
+  {
+    passes:
+      source.includes('assets/images/sloth-side-leaf.svg') &&
+      source.includes('sloth-hero-side-leaf-left') &&
+      source.includes('sloth-hero-side-leaf-right') &&
+      heroSideLeafSvg.includes('<polygon') &&
+      heroSideLeafSvg.includes('<linearGradient'),
+    message:
+      'Home hero should place crisp SVG side leaves independently of the background crop.',
   },
 ]
 

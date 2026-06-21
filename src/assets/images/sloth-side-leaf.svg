@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 390" role="img" aria-labelledby="title desc">
+  <title id="title">Low-poly green leaf</title>
+  <desc id="desc">A crisp faceted green leaf for the Sloth Money hero background.</desc>
+  <defs>
+    <linearGradient id="leafMain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#a7ed70" />
+      <stop offset="0.48" stop-color="#48a448" />
+      <stop offset="1" stop-color="#146b3a" />
+    </linearGradient>
+    <linearGradient id="leafShade" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#2d8d37" />
+      <stop offset="1" stop-color="#0a5231" />
+    </linearGradient>
+  </defs>
+  <g>
+    <polygon points="0,118 338,0 622,78 356,232" fill="url(#leafMain)" />
+    <polygon points="0,118 178,110 356,232 126,254" fill="#66bd45" />
+    <polygon points="178,110 338,0 356,232" fill="#95dc5b" />
+    <polygon points="338,0 504,102 356,232" fill="#3f9a3f" />
+    <polygon points="504,102 622,78 356,232" fill="#1f6f3e" />
+    <polygon points="126,254 356,232 540,338 252,374" fill="url(#leafShade)" />
+    <polygon points="356,232 622,78 690,260 540,338" fill="#185e39" />
+    <polyline points="0,118 178,110 338,0 504,102 622,78" fill="none" stroke="#c1f374" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" opacity="0.48" />
+    <polyline points="0,118 356,232 690,260" fill="none" stroke="#d0ff86" stroke-linecap="round" stroke-width="5" opacity="0.46" />
+    <polyline points="356,232 338,0 356,232 504,102 356,232 540,338" fill="none" stroke="#164f31" stroke-linecap="round" stroke-width="3" opacity="0.44" />
+  </g>
+</svg>

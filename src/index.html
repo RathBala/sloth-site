@@ -214,6 +214,40 @@
         color: #c4ffc7;
       }
 
+      .sloth-hero-side-leaf {
+        display: none;
+        position: absolute;
+        z-index: 0;
+        width: clamp(11rem, 25vw, 24rem);
+        height: auto;
+        pointer-events: none;
+        filter: drop-shadow(0 24px 42px rgba(1, 38, 25, 0.28));
+      }
+
+      .sloth-hero-side-leaf-left {
+        top: clamp(9rem, 23vh, 15rem);
+        left: max(-7.5rem, -8vw);
+        opacity: 0.66;
+        transform: rotate(-18deg);
+      }
+
+      .sloth-hero-side-leaf-right {
+        top: clamp(18rem, 39vh, 27rem);
+        right: max(-8rem, -7vw);
+        opacity: 0.62;
+        transform: scaleX(-1) rotate(-12deg);
+      }
+
+      .sloth-hero-content {
+        z-index: 1;
+      }
+
+      @media (max-width: 1535px) {
+        .sloth-hero-side-leaf {
+          display: block;
+        }
+      }
+
       .sloth-subhead-keyword {
         color: #c4ffc7;
         font-weight: 800;
@@ -325,6 +359,22 @@
 
         .sloth-logo-type {
           font-size: 1.35rem;
+        }
+
+        .sloth-hero-side-leaf {
+          width: 10rem;
+        }
+
+        .sloth-hero-side-leaf-left {
+          top: 10rem;
+          left: -5.75rem;
+          opacity: 0.56;
+        }
+
+        .sloth-hero-side-leaf-right {
+          top: 18.5rem;
+          right: -5.75rem;
+          opacity: 0.52;
         }
       }
 
@@ -520,6 +570,20 @@
       </header>
 
       <div class="sloth-hero relative overflow-hidden text-white">
+        <img
+          src="assets/images/sloth-side-leaf.svg"
+          alt=""
+          class="sloth-hero-side-leaf sloth-hero-side-leaf-left"
+          decoding="async"
+          aria-hidden="true"
+        />
+        <img
+          src="assets/images/sloth-side-leaf.svg"
+          alt=""
+          class="sloth-hero-side-leaf sloth-hero-side-leaf-right"
+          decoding="async"
+          aria-hidden="true"
+        />
         <!-- Hero Section -->
         <section>
           <div
