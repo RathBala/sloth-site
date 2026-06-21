@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+remote="origin"
+branch="main"
+dry_run=0
+skip_verify=0
+
+usage() {
+  cat <<'EOF'
+Usage: bin/push-main-from-worktree [options]
+
+Safely push the current committed HEAD from a Codex detached worktree to main.
+
+Options:
+  --dry-run       Fetch, rebase if needed, and verify without pushing
+  --skip-verify   Skip yarn/git verification commands
+  --remote NAME   Remote to push to (default: origin)
+  --branch NAME   Branch to push to (default: main)
+  -h, --help      Show this help
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run)
+      dry_run=1
+      shift
+      ;;
+    --skip-verify)
+      skip_verify=1
+      shift
+      ;;
+    --remote)
+      remote="${2:-}"
+      if [[ -z "$remote" ]]; then
+        echo "Missing value for --remote" >&2
+        exit 2
+      fi
+      shift 2
+      ;;
+    --branch)
+      branch="${2:-}"
+      if [[ -z "$branch" ]]; then
+        echo "Missing value for --branch" >&2
+        exit 2
+      fi
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+target_ref="$remote/$branch"
+
+if [[ -n "$(git status --porcelain)" ]]; then
+  echo "Worktree is not clean. Commit or stash changes before pushing." >&2
+  git status --short >&2
+  exit 1
+fi
+
+git_dir="$(git rev-parse --git-dir)"
+if [[ -d "$git_dir/rebase-merge" || -d "$git_dir/rebase-apply" || -f "$git_dir/MERGE_HEAD" ]]; then
+  echo "A rebase or merge is already in progress. Resolve it before pushing." >&2
+  exit 1
+fi
+
+echo "Fetching $remote $branch..."
+git fetch "$remote" "$branch"
+
+if ! git show-ref --verify --quiet "refs/remotes/$target_ref"; then
+  echo "Remote branch $target_ref was not found after fetch." >&2
+  exit 1
+fi
+
+read -r ahead behind < <(git rev-list --left-right --count "HEAD...$target_ref")
+
+if [[ "$ahead" == "0" && "$behind" == "0" ]]; then
+  echo "HEAD already matches $target_ref. Nothing to push."
+  exit 0
+fi
+
+if [[ "$ahead" == "0" ]]; then
+  echo "HEAD has no local commits and is $behind commit(s) behind $target_ref. Nothing to push." >&2
+  exit 1
+fi
+
+if [[ "$behind" != "0" ]]; then
+  echo "Rebasing $ahead local commit(s) onto $target_ref..."
+  git rebase "$target_ref"
+  read -r ahead behind < <(git rev-list --left-right --count "HEAD...$target_ref")
+fi
+
+if [[ "$behind" != "0" ]]; then
+  echo "HEAD is still behind $target_ref after rebase. Refusing to push." >&2
+  exit 1
+fi
+
+if [[ "$skip_verify" == "0" ]]; then
+  echo "Running verification..."
+  yarn check:copy
+  yarn lint
+  yarn typecheck
+  git diff --check "$target_ref..HEAD"
+fi
+
+if [[ "$dry_run" == "1" ]]; then
+  echo "Dry run complete. Would push HEAD to $remote $branch."
+  exit 0
+fi
+
+echo "Pushing HEAD to $remote $branch..."
+git push "$remote" "HEAD:$branch"

@@ -20,3 +20,12 @@ When writing or editing **user-facing copy** (landing pages, CTAs, headings, met
 - Install: yarn install
 - Lint: yarn lint
 - Typecheck: yarn typecheck
+
+## Pushing from Codex worktrees
+
+- Codex worktrees may be on a detached `HEAD`. When pushing a completed mainline
+  change to `main`, prefer `bin/push-main-from-worktree` so the worktree fetches
+  `origin/main`, rebases local commits if needed, runs verification, and pushes
+  `HEAD:main` safely.
+- Use `bin/push-main-from-worktree --dry-run` before the real push when you want
+  to confirm the rebase and checks without updating the remote.
