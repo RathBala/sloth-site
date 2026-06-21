@@ -64,9 +64,7 @@ const archetypeSection =
     ? ''
     : source.slice(archetypeStart, archetypeEnd)
 const roadmapHeroIndex = source.indexOf('assets/images/hero%20asset.png')
-const archetypeFlowIndex = source.indexOf(
-  'assets/images/sloth-archetype-flow.webp'
-)
+const archetypeFlowIndex = source.indexOf('class="sloth-archetype-flow')
 
 const checks = [
   {
@@ -133,6 +131,17 @@ const checks = [
       archetypeFlowIndex < heroBackgroundEnd,
     message:
       'Home hero and archetype sections should share one continuous hero background.',
+  },
+  {
+    passes:
+      archetypeSection.includes('sloth-archetype-card') &&
+      archetypeSection.includes(
+        'assets/images/sloth-archetype-goal-art.webp'
+      ) &&
+      archetypeSection.includes('assets/images/sloth-archetype-zen-art.webp') &&
+      !archetypeSection.includes('assets/images/sloth-archetype-flow.webp'),
+    message:
+      'Home archetype cards should render text, borders, and paths in code instead of using the old composite image.',
   },
   {
     passes:

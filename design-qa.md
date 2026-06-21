@@ -4,49 +4,45 @@
 
 **Source Visual Truth**
 
-- Path: `/tmp/codex-remote-attachments/019ede63-37d8-7440-a493-dd851a684d10/44B12FC3-F9FB-4D98-9A8B-3FE0D7770A4A/1-Photo-1.jpg`
-- Normalized source crop: `/tmp/sloth-archetype-flow-crop-final-source.png`
+- Path: `/Users/rathbala/.codex/worktrees/e040/sloth-site/src/assets/images/sloth-archetype-flow.webp`
+- User reference screenshot: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-4089612a-3329-435a-932b-c725559330e8.png`
 
 **Implementation Evidence**
 
 - Local URL: `http://localhost:3000`
-- Mobile screenshot: `/tmp/sloth-site-hero-mobile-archetype-fill-aligned.png`
-- Desktop screenshot: `/tmp/sloth-site-hero-desktop-archetype-fill-aligned.png`
-- Full-view comparison evidence: `/tmp/sloth-design-qa-mobile-comparison.png`
-- Viewport: mobile `390 x 844`, desktop `1440 x 1000`
-- State: default homepage hero, no menu open
+- Desktop screenshot: `/tmp/sloth-archetype-desktop.png`
+- Mobile screenshot: `/tmp/sloth-archetype-mobile.png`
+- Full-view comparison evidence: `/tmp/sloth-archetype-comparison.png`
+- Viewport: desktop `1440px` wide, mobile `390px` wide
+- State: default homepage archetype section
 
 **Required Fidelity Surfaces**
 
-- Fonts and typography: Manrope remains the site font. The implemented type keeps the source hierarchy: oversized bold hero, compact uppercase eyebrow, readable CTA, and smaller archetype copy. Mobile type was tightened so the archetype cards appear in the first viewport without clipping.
-- Spacing and layout rhythm: The implementation preserves the hero order: logo/nav, copy, CTA, guide, then archetype flow. Desktop adapts the mobile source into a two-column composition while preserving the same visual hierarchy.
-- Colors and visual tokens: The hero uses Sloth's primary green as the dominant background with mint CTA, green outlined glass archetype cards, yellow Goal-Chaser accents, lavender Zen accents, and glowing gem paths. This matches the selected direction and the saved Sloth brand context.
-- Image quality and asset fidelity: The implementation uses real raster assets for the leafy background, low-poly logo icon, guide sloth, and source-matched archetype card/flow artwork. No placeholder imagery remains.
-- Copy and content: The approved hero copy and CTA are present. Goal-Chaser Sloth is on the left, Zen Sloth is on the right, and both archetypes are sloths.
+- Fonts and typography: Manrope remains the site font. Archetype heading, card titles, supporting copy, and accessible labels are now live HTML text instead of raster text, so text is sharper and responsive. Mobile `Goal-Chaser` no longer splits at the hyphen.
+- Spacing and layout rhythm: The two-card structure, heading placement, yellow/purple accent paths, and card hierarchy match the approved archetype composition. The desktop cards are larger and clearer than the source composite by design because the user asked to stop baking UI into one blurred image.
+- Colors and visual tokens: The implementation keeps Sloth's dark green hero background, mint framed cards, yellow Goal-Chaser accent, and lavender Zen accent. Focus and hover states use the same green/mint token family.
+- Image quality and asset fidelity: Sloth/gem artwork remains raster artwork, split into two smaller assets for the card art layer. Text, card borders, underlines, paths, hover states, and focus states are code-rendered. Remaining P3 polish: future transparent character-only generation would remove the last baked green card background from the art layer.
+- Copy and content: The section keeps `Or begin with your money archetype`, `Goal-Chaser Sloth`, `Zen Sloth`, and the existing archetype descriptions, links, and analytics CTA attributes.
 
 **Open Questions**
 
-- None blocking. The desktop layout is an intentional responsive adaptation because the selected visual target was mobile-first.
+- None blocking.
 
 **Patches Made Since Previous QA Pass**
 
-- Hid the secondary hero sign-in button on mobile to keep the direct CTA and archetype flow visible.
-- Reduced mobile card image and text scale so both archetype cards appear in the first viewport.
-- Allowed archetype flow lines to extend below the cards instead of being clipped.
-- Replaced the white-backed logo treatment with the direct low-poly mark and single-line white wordmark from the selected mockup.
-- Replaced the cream guide card with a small standalone low-poly guide to the right of the CTA.
-- Replaced the separate cream archetype cards with the source-matched green outlined card, gem, and split-path artwork, while retaining clickable Goal-Chaser and Zen hotspots.
-- Moved hero `Sign in` into a same-width button directly below `Start sharing` on both mobile and desktop.
-- Realigned the preserved solid-green archetype card fill with the green bordered containers so the fill no longer stops above the card bottoms.
+- Replaced the single composite archetype image and invisible hotspots with native linked card markup.
+- Added separate raster card-art assets: `sloth-archetype-goal-art.webp` and `sloth-archetype-zen-art.webp`.
+- Added CSS-rendered card frames, heading rules, underlines, glow paths, hover states, and focus-visible states.
+- Prevented the mobile `Goal-Chaser` title from splitting at the hyphen, reduced mobile art scaling, sharpened the art mask falloff, removed the CSS top card glow, kept the card artwork uncropped, and centered each bottom gem on a straight vertical path line.
 
 **Implementation Checklist**
 
-- Keep the current mobile hero structure.
-- Keep low-poly sloth assets for all mascot/archetype imagery.
-- Keep `Goal-Chaser Sloth` left and `Zen Sloth` right.
+- Keep sloth/gem artwork as assets.
+- Keep editable text, card borders, containers, and interaction states in code.
+- Use transparent character-only generated assets in a future art pass if sharper raster art is needed.
 
 **Follow-up Polish**
 
-- P3: A future pass could add subtle motion to the flow lines after implementation is stable.
+- P3: Generate transparent, character-only sloth/gem assets so the art layer contains no baked card background.
 
 final result: passed
