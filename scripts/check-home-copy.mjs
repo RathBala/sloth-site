@@ -182,6 +182,34 @@ const checks = [
   },
   {
     passes:
+      archetypeSection.includes('href="#couple-archetypes"') &&
+      archetypeSection.includes('id="couple-archetypes"') &&
+      archetypeSection.includes('Planner + Free Spirit') &&
+      archetypeSection.includes('Planner + Planner') &&
+      archetypeSection.includes('Free Spirit + Free Spirit') &&
+      archetypeSection.includes(
+        'assets/images/sloth-couple-planner-free-spirit-art.webp'
+      ) &&
+      archetypeSection.includes(
+        'assets/images/sloth-couple-planner-planner-art.webp'
+      ) &&
+      archetypeSection.includes(
+        'assets/images/sloth-couple-free-spirit-free-spirit-art.webp'
+      ) &&
+      archetypeSection.includes(
+        'data-analytics-cta="couple-planner-free-spirit"'
+      ) &&
+      archetypeSection.includes(
+        'data-analytics-cta="couple-planner-planner"'
+      ) &&
+      archetypeSection.includes(
+        'data-analytics-cta="couple-free-spirit-free-spirit"'
+      ),
+    message:
+      'Home Couple saver card should scroll to the three couple archetype branches with tracked path CTAs.',
+  },
+  {
+    passes:
       source.includes('.sloth-archetype-flow') &&
       source.includes('max-width: 42rem') &&
       source.includes('aspect-ratio: 0.78') &&

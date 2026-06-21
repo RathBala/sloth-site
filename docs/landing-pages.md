@@ -4,6 +4,10 @@ This repo uses static HTML under `src/`. The main marketing site lives in [`src/
 
 On the homepage, **`Your data, fully under your control`** (data and privacy cards) appears **after** the **`Invest in your future, together`** pricing block and before the closing CTA (`#waitlist`).
 
+## Homepage archetype flow
+
+The homepage saver cards stay intentionally light: **Solo** links straight to the budget app, while **Couple** scrolls to the on-page couple branch (`#couple-archetypes`). That image-led branch offers **Planner + Free Spirit**, **Planner + Planner**, and **Free Spirit + Free Spirit** as tracked paths before sending visitors to the budget app with a `couple_archetype` URL parameter.
+
 ## Wedding fund (paid social)
 
 - **URL:** `https://slothmoney.app/wedding-fund/` (Netlify serves [`src/wedding-fund/index.html`](../src/wedding-fund/index.html))
