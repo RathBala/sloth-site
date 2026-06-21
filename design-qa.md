@@ -36,7 +36,7 @@
 - Replaced the white-backed logo treatment with the direct low-poly mark and single-line white wordmark from the selected mockup.
 - Replaced the cream guide card with a small standalone low-poly guide to the right of the CTA.
 - Replaced the separate cream archetype cards with the source-matched green outlined card, gem, and split-path artwork, while retaining clickable Goal-Chaser and Zen hotspots.
-- Moved hero `Sign in` into a same-width button directly below `Start your shared plan` on both mobile and desktop.
+- Moved hero `Sign in` into a same-width button directly below `Start sharing` on both mobile and desktop.
 - Realigned the preserved solid-green archetype card fill with the green bordered containers so the fill no longer stops above the card bottoms.
 
 **Implementation Checklist**
