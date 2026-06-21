@@ -14,6 +14,30 @@ const normalizedText = source.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')
 const heroBackgroundStart = source.indexOf('<div class="sloth-hero')
 const heroStart = source.indexOf('<!-- Hero Section -->')
 const heroEnd = heroStart === -1 ? -1 : source.indexOf('</section>', heroStart)
+const headlineStart = source.indexOf('<h1', heroStart)
+const headlineEnd =
+  headlineStart === -1 ? -1 : source.indexOf('</h1>', headlineStart)
+const heroHeadline =
+  headlineStart === -1 || headlineEnd === -1
+    ? ''
+    : source.slice(headlineStart, headlineEnd)
+const heroLeadIn =
+  heroStart === -1 || headlineStart === -1
+    ? ''
+    : source.slice(heroStart, headlineStart)
+const ctaRowStart = source.indexOf('class="sloth-cta-row', heroStart)
+const dashboardPreviewStart = source.indexOf(
+  'class="relative z-10 min-w-0 reveal"',
+  ctaRowStart
+)
+const ctaRowEnd =
+  ctaRowStart === -1 || dashboardPreviewStart === -1
+    ? -1
+    : dashboardPreviewStart
+const heroCtaRow =
+  ctaRowStart === -1 || ctaRowEnd === -1
+    ? ''
+    : source.slice(ctaRowStart, ctaRowEnd)
 const heroBackgroundEnd =
   heroBackgroundStart === -1
     ? -1
@@ -37,6 +61,26 @@ const checks = [
       'Home hero headline should lead with the agreed couple-finances value prop.',
   },
   {
+    passes:
+      heroHeadline.includes('actually fun.') &&
+      heroLeadIn.includes('assets/images/sloth-guide-sidekick.webp') &&
+      heroLeadIn.includes('sloth-hero-mascot') &&
+      !heroHeadline.includes('assets/images/sloth-guide-sidekick.webp') &&
+      !heroCtaRow.includes('assets/images/sloth-guide-sidekick.webp'),
+    message:
+      'Home hero guide sidekick should sit centered above the headline instead of inside the headline or CTA row.',
+  },
+  {
+    passes:
+      heroCtaRow.includes('max-w-[21.5rem]') &&
+      heroCtaRow.includes('sm:flex-row') &&
+      heroCtaRow.includes('sm:w-auto') &&
+      !heroCtaRow.includes('max-w-2xl') &&
+      !heroCtaRow.includes('sloth-cta-actions'),
+    message:
+      'Home hero CTAs should use a compact Attio-style button pair on desktop with a narrower mobile stack.',
+  },
+  {
     passes: !normalizedSource.includes('Pick your money mode.'),
     message: 'Home hero headline should not lead with vague money mode copy.',
   },
@@ -47,10 +91,10 @@ const checks = [
   },
   {
     passes: normalizedSource.includes(
-      'Budget and save your shared money, without the awkwardness.'
+      'Budget and save your way to your financial goals - more celebration, less awkwardness.'
     ),
     message:
-      'Home hero support copy should name budgeting, saving, shared money, and awkwardness.',
+      'Home hero support copy should name budgeting, saving, financial goals, celebration, and awkwardness.',
   },
   {
     passes:

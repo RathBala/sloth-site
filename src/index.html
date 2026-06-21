@@ -215,18 +215,24 @@
       }
 
       .sloth-cta-row {
-        align-items: flex-start;
+        align-items: stretch;
         justify-content: center;
       }
 
-      .sloth-cta-actions {
-        width: min(100%, 29rem);
+      @media (min-width: 640px) {
+        .sloth-cta-row {
+          align-items: center;
+        }
       }
 
       .sloth-guide-sidekick {
-        width: clamp(4.7rem, 19vw, 6.8rem);
+        width: clamp(4.1rem, 12vw, 6.3rem);
         filter: drop-shadow(0 18px 28px rgba(1, 38, 25, 0.34));
-        transform: translateY(-0.2rem);
+      }
+
+      .sloth-hero-mascot {
+        display: block;
+        margin: 0 auto clamp(0.75rem, 1.7vw, 1.15rem);
       }
 
       .sloth-dashboard-hero {
@@ -518,6 +524,13 @@
               class="sloth-hero-grid grid grid-cols-1 gap-8 lg:gap-14 items-center"
             >
               <div class="relative z-10 mx-auto max-w-4xl text-center reveal">
+                <img
+                  src="assets/images/sloth-guide-sidekick.webp"
+                  alt=""
+                  class="sloth-guide-sidekick sloth-hero-mascot"
+                  decoding="async"
+                  aria-hidden="true"
+                />
                 <h1
                   class="sloth-hero-title mx-auto max-w-4xl text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-[0.98] tracking-tight"
                 >
@@ -528,41 +541,32 @@
                 <p
                   class="mx-auto mt-5 max-w-2xl text-base sm:text-xl lg:text-2xl leading-relaxed text-emerald-50"
                 >
-                  Budget and save your shared money, without the awkwardness.
+                  Budget and save your way to your financial goals - more
+                  celebration, less awkwardness.
                 </p>
 
                 <div
-                  class="sloth-cta-row mx-auto mt-6 flex max-w-2xl flex-row gap-3 sm:gap-5"
+                  class="sloth-cta-row mx-auto mt-6 flex w-full max-w-[21.5rem] flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row"
                 >
-                  <div
-                    class="sloth-cta-actions flex min-w-0 flex-1 flex-col gap-3"
+                  <a
+                    class="group inline-flex w-full items-center justify-center rounded-2xl bg-green-light px-4 py-3.5 text-base font-extrabold tracking-wide text-green-really-dark shadow-2xl shadow-green-really-dark/30 transition duration-200 hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-4 focus:ring-green-light/50 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
+                    href="https://budget.slothmoney.app"
+                    data-analytics-cta="hero-start"
                   >
-                    <a
-                      class="group inline-flex w-full items-center justify-center rounded-2xl bg-green-light px-4 py-3.5 text-base font-extrabold tracking-wide text-green-really-dark shadow-2xl shadow-green-really-dark/30 transition duration-200 hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-4 focus:ring-green-light/50 sm:px-7 sm:py-4 sm:text-lg"
-                      href="https://budget.slothmoney.app"
-                      data-analytics-cta="hero-start"
-                    >
-                      <span class="truncate">Start sharing</span>
-                      <i
-                        data-lucide="arrow-right"
-                        class="ml-2 h-5 w-5 flex-none transition-transform group-hover:translate-x-1"
-                        aria-hidden="true"
-                      ></i>
-                    </a>
-                    <a
-                      class="inline-flex w-full items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-4 py-3.5 text-base font-extrabold tracking-wide text-white transition duration-200 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20 sm:px-7 sm:py-4 sm:text-lg"
-                      href="https://budget.slothmoney.app"
-                      data-analytics-cta="hero-sign-in"
-                    >
-                      Sign in
-                    </a>
-                  </div>
-                  <img
-                    src="assets/images/sloth-guide-sidekick.webp"
-                    alt="Low-poly Sloth guide"
-                    class="sloth-guide-sidekick flex-none object-contain"
-                    decoding="async"
-                  />
+                    <span class="truncate">Start sharing</span>
+                    <i
+                      data-lucide="arrow-right"
+                      class="ml-2 h-5 w-5 flex-none transition-transform group-hover:translate-x-1"
+                      aria-hidden="true"
+                    ></i>
+                  </a>
+                  <a
+                    class="inline-flex w-full items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-4 py-3.5 text-base font-extrabold tracking-wide text-white transition duration-200 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
+                    href="https://budget.slothmoney.app"
+                    data-analytics-cta="hero-sign-in"
+                  >
+                    Sign in
+                  </a>
                 </div>
               </div>
 
