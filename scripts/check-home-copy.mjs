@@ -11,6 +11,12 @@ const homePagePath = path.join(projectRoot, 'src/index.html')
 const source = await readFile(homePagePath, 'utf8')
 const normalizedSource = source.replace(/\s+/g, ' ')
 const normalizedText = source.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')
+const heroStart = source.indexOf('<section class="sloth-hero')
+const heroEnd = heroStart === -1 ? -1 : source.indexOf('</section>', heroStart)
+const roadmapHeroIndex = source.indexOf('assets/images/hero%20asset.png')
+const archetypeFlowIndex = source.indexOf(
+  'assets/images/sloth-archetype-flow.webp'
+)
 
 const checks = [
   {
@@ -33,6 +39,20 @@ const checks = [
     ),
     message:
       'Home hero support copy should name budgeting, saving, shared money, and awkwardness.',
+  },
+  {
+    passes:
+      heroStart !== -1 &&
+      heroEnd !== -1 &&
+      roadmapHeroIndex > heroStart &&
+      roadmapHeroIndex < heroEnd,
+    message:
+      'Home hero should use the Sloth Money roadmap dashboard image as the primary visual.',
+  },
+  {
+    passes: heroEnd !== -1 && archetypeFlowIndex > heroEnd,
+    message:
+      'Home archetype flow should sit below the hero instead of inside the hero grid.',
   },
 ]
 

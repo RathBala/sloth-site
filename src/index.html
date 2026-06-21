@@ -228,6 +228,24 @@
         transform: translateY(0.45rem);
       }
 
+      .sloth-dashboard-hero {
+        max-width: min(100%, 26rem);
+        min-width: 0;
+        filter: drop-shadow(0 34px 56px rgba(1, 24, 16, 0.34));
+      }
+
+      .sloth-dashboard-hero picture {
+        display: block;
+        min-width: 0;
+      }
+
+      .sloth-dashboard-hero img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+      }
+
       .sloth-archetype-flow {
         position: relative;
         filter: drop-shadow(0 24px 42px rgba(1, 38, 25, 0.18));
@@ -273,6 +291,18 @@
       .sloth-archetype-hotspot:focus-visible {
         outline: 3px solid #c4ffc7;
         outline-offset: 4px;
+      }
+
+      @media (min-width: 640px) {
+        .sloth-dashboard-hero {
+          max-width: 48rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .sloth-dashboard-hero {
+          max-width: none;
+        }
       }
 
       @media (max-width: 420px) {
@@ -468,10 +498,10 @@
       <!-- Hero Section -->
       <section class="sloth-hero relative overflow-hidden text-white">
         <div
-          class="relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-6 sm:py-14 lg:py-20 min-h-[calc(100svh-4rem)] sm:min-h-[calc(100svh-5rem)]"
+          class="relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-6 sm:py-14 lg:py-16"
         >
           <div
-            class="grid grid-cols-1 lg:grid-cols-[minmax(0,0.92fr)_minmax(30rem,0.78fr)] gap-6 lg:gap-16 items-center"
+            class="grid grid-cols-1 lg:grid-cols-[minmax(0,0.82fr)_minmax(34rem,1fr)] gap-8 lg:gap-14 items-center"
           >
             <div class="relative z-10 max-w-4xl reveal">
               <h1
@@ -522,37 +552,86 @@
               </div>
             </div>
 
-            <div class="relative z-10 reveal">
+            <div class="relative z-10 min-w-0 reveal">
               <div
-                class="sloth-archetype-flow mx-auto w-[calc(100%+1.5rem)] max-w-[35rem] -translate-x-3 sm:w-full sm:max-w-[38rem] sm:translate-x-0"
+                class="sloth-dashboard-hero mx-auto w-full max-w-[26rem] sm:max-w-[48rem] lg:max-w-none"
+                aria-label="Sloth Money dashboard preview"
               >
-                <img
-                  src="assets/images/sloth-archetype-flow.webp"
-                  alt="Goal-Chaser Sloth and Zen Sloth archetype cards with gem paths"
-                  decoding="async"
-                />
-                <a
-                  class="sloth-archetype-hotspot goal-path"
-                  href="https://budget.slothmoney.app?archetype=goal-chaser-sloth"
-                  data-analytics-cta="hero-archetype-goal-chaser"
+                <div
+                  class="rounded-[1.75rem] border border-white/15 bg-white/10 p-2 shadow-2xl shadow-green-really-dark/25 backdrop-blur-sm sm:p-3"
                 >
-                  <span class="sr-only"
-                    >Choose Goal-Chaser Sloth - track the details and hit the
-                    target</span
-                  >
-                </a>
-                <a
-                  class="sloth-archetype-hotspot zen-path"
-                  href="https://budget.slothmoney.app?archetype=zen-sloth"
-                  data-analytics-cta="hero-archetype-zen"
-                >
-                  <span class="sr-only"
-                    >Choose Zen Sloth - keep it calm and hide the
-                    spreadsheet</span
-                  >
-                </a>
+                  <picture>
+                    <source
+                      media="(min-width: 640px)"
+                      srcset="assets/images/hero%20asset.png"
+                    />
+                    <img
+                      src="assets/images/hero%20asset%20mobile.png"
+                      alt="Sloth Money dashboard showing goal drift, month-to-date spend, and roadmap snapshot"
+                      class="rounded-[1.35rem] bg-white object-contain"
+                      decoding="async"
+                      fetchpriority="high"
+                    />
+                  </picture>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Archetype Section -->
+      <section
+        class="relative overflow-hidden bg-[#013d29] pb-14 pt-3 text-white sm:pb-20 sm:pt-8"
+        aria-labelledby="archetype-flow-heading"
+      >
+        <div
+          class="absolute inset-0 opacity-70"
+          aria-hidden="true"
+          style="
+            background-image: linear-gradient(
+                180deg,
+                rgba(1, 61, 41, 0.74),
+                rgba(1, 61, 41, 0.92)
+              ),
+              url('assets/images/sloth-hero-leafy-bg.webp');
+            background-position: center bottom;
+            background-size: cover;
+          "
+        ></div>
+        <div
+          class="relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
+        >
+          <h2 id="archetype-flow-heading" class="sr-only">
+            Choose your money archetype
+          </h2>
+          <div
+            class="sloth-archetype-flow mx-auto w-[calc(100%+1.5rem)] max-w-[40rem] -translate-x-3 sm:w-full sm:max-w-[48rem] sm:translate-x-0 lg:max-w-[56rem]"
+          >
+            <img
+              src="assets/images/sloth-archetype-flow.webp"
+              alt="Goal-Chaser Sloth and Zen Sloth archetype cards with gem paths"
+              decoding="async"
+            />
+            <a
+              class="sloth-archetype-hotspot goal-path"
+              href="https://budget.slothmoney.app?archetype=goal-chaser-sloth"
+              data-analytics-cta="archetype-goal-chaser"
+            >
+              <span class="sr-only"
+                >Choose Goal-Chaser Sloth - track the details and hit the
+                target</span
+              >
+            </a>
+            <a
+              class="sloth-archetype-hotspot zen-path"
+              href="https://budget.slothmoney.app?archetype=zen-sloth"
+              data-analytics-cta="archetype-zen"
+            >
+              <span class="sr-only"
+                >Choose Zen Sloth - keep it calm and hide the spreadsheet</span
+              >
+            </a>
           </div>
         </div>
       </section>
