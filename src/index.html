@@ -216,6 +216,7 @@
 
       .sloth-cta-row {
         align-items: flex-start;
+        justify-content: center;
       }
 
       .sloth-cta-actions {
@@ -301,7 +302,7 @@
 
       @media (min-width: 1024px) {
         .sloth-dashboard-hero {
-          max-width: none;
+          max-width: min(100%, 90rem);
         }
       }
 
@@ -318,12 +319,13 @@
 
       @media (min-width: 1024px) {
         .sloth-hero-content {
-          padding-top: clamp(6rem, 9vh, 7.5rem);
-          padding-bottom: 3rem;
+          padding-top: clamp(5.5rem, 9vh, 7.5rem);
+          padding-bottom: clamp(2rem, 5vh, 4rem);
         }
 
         .sloth-hero-grid {
-          align-items: start;
+          align-items: center;
+          row-gap: clamp(2rem, 4vw, 3.25rem);
         }
       }
     </style>
@@ -513,24 +515,24 @@
             class="sloth-hero-content relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-6 sm:py-14 lg:py-16"
           >
             <div
-              class="sloth-hero-grid grid grid-cols-1 lg:grid-cols-[minmax(0,0.82fr)_minmax(34rem,1fr)] gap-8 lg:gap-14 items-center"
+              class="sloth-hero-grid grid grid-cols-1 gap-8 lg:gap-14 items-center"
             >
-              <div class="relative z-10 max-w-4xl reveal">
+              <div class="relative z-10 mx-auto max-w-4xl text-center reveal">
                 <h1
-                  class="sloth-hero-title max-w-4xl text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-[0.98] tracking-tight"
+                  class="sloth-hero-title mx-auto max-w-4xl text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-[0.98] tracking-tight"
                 >
                   <span class="block">Couple finances,</span>
                   <span class="mint-line block mt-2">actually fun.</span>
                 </h1>
 
                 <p
-                  class="mt-5 max-w-2xl text-base sm:text-xl lg:text-2xl leading-relaxed text-emerald-50"
+                  class="mx-auto mt-5 max-w-2xl text-base sm:text-xl lg:text-2xl leading-relaxed text-emerald-50"
                 >
                   Budget and save your shared money, without the awkwardness.
                 </p>
 
                 <div
-                  class="sloth-cta-row mt-6 flex max-w-2xl flex-row gap-3 sm:gap-5"
+                  class="sloth-cta-row mx-auto mt-6 flex max-w-2xl flex-row gap-3 sm:gap-5"
                 >
                   <div
                     class="sloth-cta-actions flex min-w-0 flex-1 flex-col gap-3"
