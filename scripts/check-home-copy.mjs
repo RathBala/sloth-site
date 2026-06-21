@@ -68,13 +68,16 @@ const archetypeFlowIndex = source.indexOf('class="sloth-archetype-flow')
 
 const checks = [
   {
-    passes: normalizedText.includes('Couple finances, actually fun.'),
+    passes: normalizedText.includes('Couple finances actually made fun.'),
     message:
-      'Home hero headline should lead with the agreed couple-finances value prop.',
+      'Home hero headline should lead with the agreed couple-finances-made-fun value prop.',
   },
   {
     passes:
-      heroHeadline.includes('actually fun.') &&
+      heroHeadline.includes('Couple finances actually') &&
+      heroHeadline.includes('made') &&
+      heroHeadline.includes('mint-line') &&
+      heroHeadline.includes('fun.') &&
       heroLeadIn.includes('assets/images/sloth-guide-sidekick.webp') &&
       heroLeadIn.includes('sloth-hero-mascot') &&
       !heroHeadline.includes('assets/images/sloth-guide-sidekick.webp') &&
