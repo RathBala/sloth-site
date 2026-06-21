@@ -297,13 +297,15 @@
         --archetype-panel: rgba(0, 75, 49, 0.74);
         position: relative;
         isolation: isolate;
+        max-width: 34rem;
       }
 
       .sloth-archetype-title {
         color: #d9ffda;
-        font-size: clamp(1.65rem, 5vw, 3rem);
+        font-size: clamp(1.45rem, 3.4vw, 2.15rem);
         font-weight: 800;
-        line-height: 1.04;
+        line-height: 1.1;
+        scroll-margin-top: 7rem;
         text-wrap: balance;
       }
 
@@ -332,11 +334,12 @@
       .sloth-archetype-card {
         position: relative;
         display: flex;
-        min-height: clamp(22.25rem, 62vw, 35rem);
+        aspect-ratio: 0.78;
+        min-height: 0;
         flex-direction: column;
         overflow: hidden;
         border: 1.5px solid var(--archetype-frame);
-        border-radius: clamp(1.6rem, 4vw, 3.25rem);
+        border-radius: clamp(1.15rem, 2.4vw, 2rem);
         background: linear-gradient(
           180deg,
           rgba(0, 83, 54, 0.92),
@@ -348,7 +351,7 @@
           0 24px 42px rgba(1, 38, 25, 0.22);
         color: #ffffff;
         outline: none;
-        padding: clamp(0.6rem, 1.8vw, 1rem);
+        padding: clamp(0.45rem, 1.2vw, 0.75rem);
         text-align: center;
         transition:
           border-color 180ms ease,
@@ -377,15 +380,16 @@
         display: grid;
         flex: 1;
         min-height: 0;
-        place-items: end center;
-        padding-top: clamp(0.35rem, 1.6vw, 0.8rem);
+        place-items: center;
       }
 
       .sloth-archetype-art img {
         display: block;
-        width: min(112%, 28rem);
-        max-width: none;
-        height: auto;
+        width: auto;
+        max-width: 100%;
+        height: 100%;
+        max-height: 100%;
+        object-fit: contain;
         filter: drop-shadow(0 18px 24px rgba(1, 24, 16, 0.26));
         -webkit-mask-image: radial-gradient(
           ellipse at 50% 52%,
@@ -400,9 +404,9 @@
       }
 
       .sloth-archetype-card-title {
-        font-size: clamp(1.85rem, 5.2vw, 3.75rem);
+        font-size: clamp(1.35rem, 3.7vw, 2.5rem);
         font-weight: 900;
-        line-height: 1.04;
+        line-height: 1;
         text-wrap: balance;
       }
 
@@ -412,9 +416,9 @@
 
       .sloth-archetype-underline {
         display: block;
-        height: 0.28rem;
-        margin: clamp(0.55rem, 1.5vw, 0.8rem) auto clamp(0.85rem, 2vw, 1.25rem);
-        width: clamp(3.25rem, 11vw, 5.4rem);
+        height: 0.18rem;
+        margin: clamp(0.4rem, 1vw, 0.55rem) auto clamp(0.45rem, 1.2vw, 0.75rem);
+        width: clamp(2.5rem, 7vw, 4rem);
         border-radius: 999px;
         background: var(--archetype-accent);
         box-shadow: 0 0 12px var(--archetype-accent);
@@ -435,7 +439,7 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: clamp(0.75rem, 2.3vw, 1.6rem);
-        height: clamp(8rem, 20vw, 13rem);
+        height: clamp(3.5rem, 8vw, 5.25rem);
         margin-top: -0.2rem;
         pointer-events: none;
       }
@@ -448,20 +452,20 @@
         content: '';
         position: absolute;
         top: -0.15rem;
-        bottom: calc(clamp(1.6rem, 5vw, 2.4rem) / 2);
+        bottom: calc(clamp(1.1rem, 3vw, 1.45rem) / 2);
         left: 50%;
-        width: 0.24rem;
+        width: 0.18rem;
         border-radius: 999px;
         background: var(--archetype-accent);
         opacity: 0.96;
         transform: translateX(-50%);
       }
 
-      .sloth-archetype-path.goal::before {
+      .sloth-archetype-path.solo::before {
         box-shadow: 0 0 22px rgba(255, 241, 118, 0.34);
       }
 
-      .sloth-archetype-path.zen::before {
+      .sloth-archetype-path.couple::before {
         box-shadow: 0 0 22px rgba(205, 160, 255, 0.32);
       }
 
@@ -470,7 +474,7 @@
         position: absolute;
         bottom: 0.25rem;
         left: 50%;
-        width: clamp(1.6rem, 5vw, 2.4rem);
+        width: clamp(1.1rem, 3vw, 1.45rem);
         aspect-ratio: 1;
         border-radius: 38% 62% 45% 55%;
         background: linear-gradient(
@@ -502,6 +506,10 @@
           max-width: 48rem;
         }
 
+        .sloth-archetype-flow {
+          max-width: 39rem;
+        }
+
         .sloth-archetype-title {
           display: flex;
           align-items: center;
@@ -518,6 +526,10 @@
       @media (min-width: 1024px) {
         .sloth-dashboard-hero {
           max-width: min(100%, 90rem);
+        }
+
+        .sloth-archetype-flow {
+          max-width: 42rem;
         }
       }
 
@@ -567,16 +579,7 @@
         }
 
         .sloth-archetype-card {
-          min-height: 21rem;
-          border-radius: 1.65rem;
-        }
-
-        .sloth-archetype-art {
-          place-items: center;
-        }
-
-        .sloth-archetype-art img {
-          width: 128%;
+          border-radius: 1.1rem;
         }
 
         .sloth-archetype-copy {
@@ -584,7 +587,7 @@
         }
 
         .sloth-archetype-card-title {
-          font-size: clamp(1.35rem, 6vw, 1.75rem);
+          font-size: clamp(1.2rem, 6vw, 1.55rem);
         }
       }
     </style>
@@ -875,85 +878,73 @@
 
         <!-- Archetype Section -->
         <section
-          class="relative pb-14 pt-3 sm:pb-20 sm:pt-8"
+          class="relative pb-10 pt-2 sm:pb-14 sm:pt-6"
           aria-labelledby="archetype-flow-heading"
         >
           <div
             class="relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
           >
-            <div
-              class="sloth-archetype-flow mx-auto w-full max-w-[40rem] sm:max-w-[48rem] lg:max-w-[56rem]"
-            >
+            <div class="sloth-archetype-flow mx-auto w-full">
               <h2
                 id="archetype-flow-heading"
-                class="sloth-archetype-title mx-auto mb-5 max-w-xl text-center sm:mb-7"
+                class="sloth-archetype-title mx-auto mb-4 max-w-xl text-center sm:mb-5"
               >
-                Or begin with your money archetype
+                What kind of saver are you?
               </h2>
 
               <div class="sloth-archetype-grid">
                 <a
                   class="sloth-archetype-card"
                   style="--archetype-accent: #fff176"
-                  href="https://budget.slothmoney.app?archetype=goal-chaser-sloth"
-                  data-analytics-cta="archetype-goal-chaser"
-                  aria-label="Choose Goal-Chaser Sloth - track the details and hit the target"
+                  href="https://budget.slothmoney.app?saver=solo"
+                  data-analytics-cta="saver-solo"
+                  aria-label="Choose Solo saver"
                 >
                   <span class="sloth-archetype-art" aria-hidden="true">
                     <img
-                      src="assets/images/sloth-archetype-goal-art.webp"
+                      src="assets/images/sloth-archetype-solo-art.webp"
                       alt=""
                       decoding="async"
                       loading="lazy"
                     />
                   </span>
-                  <span class="sloth-archetype-card-title">
-                    <span class="nowrap">Goal-Chaser</span><br />Sloth
-                  </span>
+                  <span class="sloth-archetype-card-title"> Solo </span>
                   <span
                     class="sloth-archetype-underline"
                     aria-hidden="true"
                   ></span>
-                  <span class="sloth-archetype-copy">
-                    Track the details.<br />Hit the target.
-                  </span>
                 </a>
 
                 <a
                   class="sloth-archetype-card"
                   style="--archetype-accent: #cda0ff"
-                  href="https://budget.slothmoney.app?archetype=zen-sloth"
-                  data-analytics-cta="archetype-zen"
-                  aria-label="Choose Zen Sloth - keep it calm and hide the spreadsheet"
+                  href="https://budget.slothmoney.app?saver=couple"
+                  data-analytics-cta="saver-couple"
+                  aria-label="Choose Couple saver"
                 >
                   <span class="sloth-archetype-art" aria-hidden="true">
                     <img
-                      src="assets/images/sloth-archetype-zen-art.webp"
+                      src="assets/images/sloth-archetype-couple-art.webp"
                       alt=""
                       decoding="async"
                       loading="lazy"
                     />
                   </span>
-                  <span class="sloth-archetype-card-title">
-                    Zen<br />Sloth
-                  </span>
+                  <span class="sloth-archetype-card-title"> Couple </span>
                   <span
                     class="sloth-archetype-underline"
                     aria-hidden="true"
                   ></span>
-                  <span class="sloth-archetype-copy">
-                    Keep it calm.<br />Hide the spreadsheet.
-                  </span>
                 </a>
               </div>
 
               <div class="sloth-archetype-paths" aria-hidden="true">
                 <span
-                  class="sloth-archetype-path goal"
+                  class="sloth-archetype-path solo"
                   style="--archetype-accent: #fff176"
                 ></span>
                 <span
-                  class="sloth-archetype-path zen"
+                  class="sloth-archetype-path couple"
                   style="--archetype-accent: #cda0ff"
                 ></span>
               </div>

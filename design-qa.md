@@ -4,25 +4,23 @@
 
 **Source Visual Truth**
 
-- Path: `/Users/rathbala/.codex/worktrees/e040/sloth-site/src/assets/images/sloth-archetype-flow.webp`
-- User reference screenshot: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-4089612a-3329-435a-932b-c725559330e8.png`
+- User reference screenshot: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-f4d1c730-7173-46e1-9bce-cd8aa6dff344.png`
 
 **Implementation Evidence**
 
-- Local URL: `http://localhost:3000`
-- Desktop screenshot: `/tmp/sloth-archetype-desktop.png`
-- Mobile screenshot: `/tmp/sloth-archetype-mobile.png`
-- Full-view comparison evidence: `/tmp/sloth-archetype-comparison.png`
+- Local URL: `http://127.0.0.1:4173`
+- Desktop screenshot: `/tmp/sloth-saver-options-desktop.png`
+- Mobile screenshot: `/tmp/sloth-saver-options-mobile.png`
 - Viewport: desktop `1440px` wide, mobile `390px` wide
-- State: default homepage archetype section
+- State: homepage saver-choice section at `#archetype-flow-heading`
 
 **Required Fidelity Surfaces**
 
-- Fonts and typography: Manrope remains the site font. Archetype heading, card titles, supporting copy, and accessible labels are now live HTML text instead of raster text, so text is sharper and responsive. Mobile `Goal-Chaser` no longer splits at the hyphen.
-- Spacing and layout rhythm: The two-card structure, heading placement, yellow/purple accent paths, and card hierarchy match the approved archetype composition. The desktop cards are larger and clearer than the source composite by design because the user asked to stop baking UI into one blurred image.
-- Colors and visual tokens: The implementation keeps Sloth's dark green hero background, mint framed cards, yellow Goal-Chaser accent, and lavender Zen accent. Focus and hover states use the same green/mint token family.
-- Image quality and asset fidelity: Sloth/gem artwork remains raster artwork, split into two smaller assets for the card art layer. Text, card borders, underlines, paths, hover states, and focus states are code-rendered. Remaining P3 polish: future transparent character-only generation would remove the last baked green card background from the art layer.
-- Copy and content: The section keeps `Or begin with your money archetype`, `Goal-Chaser Sloth`, `Zen Sloth`, and the existing archetype descriptions, links, and analytics CTA attributes.
+- Fonts and typography: Manrope remains the site font. The heading is now a compact H2-scale prompt, `What kind of saver are you?`, and the card labels are live HTML text.
+- Spacing and layout rhythm: The two-card structure is compact enough to fit within the section viewport on desktop and keeps both mobile card labels visible.
+- Colors and visual tokens: The section keeps Sloth's dark green hero background, mint framed cards, yellow Solo accent, and lavender Couple accent. Focus and hover states use the same green/mint token family.
+- Image quality and asset fidelity: New low-poly raster sloth assets support the Solo and Couple options. Text, card borders, underlines, paths, hover states, and focus states are code-rendered.
+- Copy and content: The section now offers only `Solo` and `Couple`, with matching app-entry links and analytics CTA names.
 
 **Open Questions**
 
@@ -30,19 +28,18 @@
 
 **Patches Made Since Previous QA Pass**
 
-- Replaced the single composite archetype image and invisible hotspots with native linked card markup.
-- Added separate raster card-art assets: `sloth-archetype-goal-art.webp` and `sloth-archetype-zen-art.webp`.
-- Added CSS-rendered card frames, heading rules, underlines, glow paths, hover states, and focus-visible states.
-- Prevented the mobile `Goal-Chaser` title from splitting at the hyphen, reduced mobile art scaling, sharpened the art mask falloff, removed the CSS top card glow, kept the card artwork uncropped, and centered each bottom gem on a straight vertical path line.
+- Replaced the old archetype copy with the saver prompt and Solo/Couple options.
+- Added separate raster card-art assets: `sloth-archetype-solo-art.webp` and `sloth-archetype-couple-art.webp`.
+- Reduced the card width, card height, heading scale, and decorative path height so the choice block no longer bleeds off screen.
+- Moved the saver-choice width cap into component CSS so the static page does not depend on a newly generated Tailwind arbitrary utility.
 
 **Implementation Checklist**
 
 - Keep sloth/gem artwork as assets.
 - Keep editable text, card borders, containers, and interaction states in code.
-- Use transparent character-only generated assets in a future art pass if sharper raster art is needed.
 
 **Follow-up Polish**
 
-- P3: Generate transparent, character-only sloth/gem assets so the art layer contains no baked card background.
+- P3: Generate transparent, character-only sloth/gem assets if sharper raster art is needed later.
 
 final result: passed

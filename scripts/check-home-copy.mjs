@@ -63,6 +63,9 @@ const archetypeSection =
   archetypeStart === -1 || archetypeEnd === -1
     ? ''
     : source.slice(archetypeStart, archetypeEnd)
+const archetypeText = archetypeSection
+  .replace(/<[^>]*>/g, ' ')
+  .replace(/\s+/g, ' ')
 const roadmapHeroIndex = source.indexOf('assets/images/hero%20asset.png')
 const archetypeFlowIndex = source.indexOf('class="sloth-archetype-flow')
 
@@ -139,12 +142,45 @@ const checks = [
     passes:
       archetypeSection.includes('sloth-archetype-card') &&
       archetypeSection.includes(
+        'assets/images/sloth-archetype-solo-art.webp'
+      ) &&
+      archetypeSection.includes(
+        'assets/images/sloth-archetype-couple-art.webp'
+      ) &&
+      !archetypeSection.includes(
         'assets/images/sloth-archetype-goal-art.webp'
       ) &&
-      archetypeSection.includes('assets/images/sloth-archetype-zen-art.webp') &&
+      !archetypeSection.includes(
+        'assets/images/sloth-archetype-zen-art.webp'
+      ) &&
       !archetypeSection.includes('assets/images/sloth-archetype-flow.webp'),
     message:
-      'Home archetype cards should render text, borders, and paths in code instead of using the old composite image.',
+      'Home archetype cards should use the Solo and Couple sloth assets instead of the old archetype art or composite image.',
+  },
+  {
+    passes:
+      archetypeSection.includes('What kind of saver are you?') &&
+      !archetypeSection.includes('Or begin with your money archetype'),
+    message:
+      'Home archetype heading should ask what kind of saver the visitor is.',
+  },
+  {
+    passes:
+      archetypeText.includes(' Solo ') &&
+      archetypeText.includes(' Couple ') &&
+      !archetypeSection.includes('Goal-Chaser') &&
+      !archetypeSection.includes('Zen<br />Sloth'),
+    message: 'Home archetype cards should offer Solo and Couple only.',
+  },
+  {
+    passes:
+      source.includes('.sloth-archetype-flow') &&
+      source.includes('max-width: 42rem') &&
+      source.includes('aspect-ratio: 0.78') &&
+      source.includes('height: clamp(3.5rem, 8vw, 5.25rem)') &&
+      !source.includes('min-height: clamp(22.25rem, 62vw, 35rem)'),
+    message:
+      'Home saver cards should keep compact component-owned sizing so they do not bleed off screen.',
   },
   {
     passes:
