@@ -91,10 +91,10 @@ const checks = [
   },
   {
     passes: normalizedSource.includes(
-      '<span class="block"> Budget and save your way to shared wealth. </span> <span class="block"> More celebration, less awkwardness. </span>'
+      '<span class="block"> <strong class="sloth-subhead-keyword">Budget</strong> and <strong class="sloth-subhead-keyword">save</strong> your way to shared wealth. </span> <span class="block"> More celebration, less awkwardness. </span>'
     ),
     message:
-      'Home hero support copy should use separate lines for shared wealth and celebration/awkwardness.',
+      'Home hero support copy should emphasize Budget/save and use separate lines for shared wealth and celebration/awkwardness.',
   },
   {
     passes:
