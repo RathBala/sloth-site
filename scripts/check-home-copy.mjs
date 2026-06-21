@@ -91,10 +91,10 @@ const checks = [
   },
   {
     passes: normalizedSource.includes(
-      'Budget and save your way to your financial goals - more celebration, less awkwardness.'
+      '<span class="block"> Budget and save your way to shared wealth. </span> <span class="block"> More celebration, less awkwardness. </span>'
     ),
     message:
-      'Home hero support copy should name budgeting, saving, financial goals, celebration, and awkwardness.',
+      'Home hero support copy should use separate lines for shared wealth and celebration/awkwardness.',
   },
   {
     passes:
