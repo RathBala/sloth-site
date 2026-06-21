@@ -215,7 +215,7 @@
       }
 
       .sloth-cta-row {
-        align-items: flex-end;
+        align-items: flex-start;
       }
 
       .sloth-cta-actions {
@@ -225,7 +225,7 @@
       .sloth-guide-sidekick {
         width: clamp(4.7rem, 19vw, 6.8rem);
         filter: drop-shadow(0 18px 28px rgba(1, 38, 25, 0.34));
-        transform: translateY(0.45rem);
+        transform: translateY(-0.2rem);
       }
 
       .sloth-dashboard-hero {
@@ -313,6 +313,17 @@
 
         .sloth-logo-type {
           font-size: 1.35rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .sloth-hero-content {
+          padding-top: clamp(6rem, 9vh, 7.5rem);
+          padding-bottom: 3rem;
+        }
+
+        .sloth-hero-grid {
+          align-items: start;
         }
       }
     </style>
@@ -498,10 +509,10 @@
       <!-- Hero Section -->
       <section class="sloth-hero relative overflow-hidden text-white">
         <div
-          class="relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-6 sm:py-14 lg:py-16"
+          class="sloth-hero-content relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-6 sm:py-14 lg:py-16"
         >
           <div
-            class="grid grid-cols-1 lg:grid-cols-[minmax(0,0.82fr)_minmax(34rem,1fr)] gap-8 lg:gap-14 items-center"
+            class="sloth-hero-grid grid grid-cols-1 lg:grid-cols-[minmax(0,0.82fr)_minmax(34rem,1fr)] gap-8 lg:gap-14 items-center"
           >
             <div class="relative z-10 max-w-4xl reveal">
               <h1
