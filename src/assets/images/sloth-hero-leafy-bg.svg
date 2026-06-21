@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Low-poly leafy hero background</title>
+  <desc id="desc">Crisp vector leaves, vines, and glow accents on a dark green background.</desc>
+  <defs>
+    <linearGradient id="heroBase" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#013c2a" />
+      <stop offset="0.46" stop-color="#01432f" />
+      <stop offset="1" stop-color="#002f22" />
+    </linearGradient>
+    <linearGradient id="leafTop" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#91df5c" />
+      <stop offset="0.52" stop-color="#3e9f3f" />
+      <stop offset="1" stop-color="#146c39" />
+    </linearGradient>
+    <linearGradient id="leafTopDark" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#2d8d37" />
+      <stop offset="1" stop-color="#0a5231" />
+    </linearGradient>
+    <linearGradient id="leafLeft" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#a4e874" />
+      <stop offset="0.5" stop-color="#4da248" />
+      <stop offset="1" stop-color="#1a653e" />
+    </linearGradient>
+    <linearGradient id="vineStroke" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#95d766" stop-opacity="0.75" />
+      <stop offset="1" stop-color="#2d7b47" stop-opacity="0.24" />
+    </linearGradient>
+    <radialGradient id="mintHaze" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#99f589" stop-opacity="0.22" />
+      <stop offset="1" stop-color="#99f589" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fff8a3" />
+      <stop offset="0.24" stop-color="#ddfb77" stop-opacity="0.88" />
+      <stop offset="0.58" stop-color="#76d45a" stop-opacity="0.32" />
+      <stop offset="1" stop-color="#76d45a" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="2048" height="1600" fill="url(#heroBase)" />
+
+  <g opacity="0.36">
+    <circle cx="325" cy="345" r="335" fill="url(#mintHaze)" />
+    <circle cx="1220" cy="170" r="420" fill="url(#mintHaze)" opacity="0.38" />
+    <circle cx="1850" cy="930" r="420" fill="url(#mintHaze)" opacity="0.32" />
+  </g>
+
+  <g opacity="0.3">
+    <path d="M1260 75c160-42 322-18 435 170-132 6-278 50-400 110-60-70-76-160-35-280Z" fill="#014b35" />
+    <path d="M1510 455c108-104 252-132 445-65-78 100-112 198-111 290-126-8-222-82-334-225Z" fill="#013727" />
+    <path d="M1180 835c164 36 306 112 428 205-134 54-214 164-250 330-194-54-315-220-178-535Z" fill="#012c22" />
+  </g>
+
+  <g fill="none" stroke="url(#vineStroke)" stroke-linecap="round" stroke-width="8" opacity="0.68">
+    <path d="M-75 118C20 170 76 255 92 372c21 154-48 236-3 378 40 127 132 198 120 347-9 109-74 210-58 345 8 66 36 120 72 170" />
+    <path d="M2025 62c-136 38-238 112-292 222-74 153-38 318-140 462-42 59-98 103-174 132" opacity="0.32" />
+    <path d="M2018 1270c-116-72-223-85-320-40-102 48-160 151-290 168" opacity="0.35" />
+  </g>
+
+  <g opacity="0.82">
+    <g transform="translate(1465 12) rotate(8) scale(0.84)">
+      <polygon points="0,112 338,0 622,78 356,232" fill="url(#leafTop)" />
+      <polygon points="0,112 178,104 356,232 126,250" fill="#64bd45" />
+      <polygon points="178,104 338,0 356,232" fill="#80cb51" />
+      <polygon points="338,0 504,102 356,232" fill="#31833b" />
+      <polygon points="504,102 622,78 356,232" fill="#1f6f3e" />
+      <polygon points="126,250 356,232 540,338 252,374" fill="url(#leafTopDark)" />
+      <polygon points="356,232 622,78 690,260 540,338" fill="#185e39" />
+      <polyline points="0,112 178,104 338,0 504,102 622,78" fill="none" stroke="#b9ee6d" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" opacity="0.45" />
+      <polyline points="0,112 356,232 690,260" fill="none" stroke="#c5ff7a" stroke-linecap="round" stroke-width="5" opacity="0.42" />
+      <polyline points="356,232 338,0 356,232 504,102 356,232 540,338" fill="none" stroke="#164f31" stroke-linecap="round" stroke-width="3" opacity="0.45" />
+    </g>
+
+    <g transform="translate(42 1142) rotate(-18)">
+      <polygon points="0,260 95,55 238,0 320,170 212,430" fill="url(#leafLeft)" />
+      <polygon points="0,260 140,210 212,430" fill="#3c9447" />
+      <polygon points="95,55 140,210 0,260" fill="#82cf58" />
+      <polygon points="95,55 238,0 140,210" fill="#69b94f" />
+      <polygon points="238,0 320,170 140,210" fill="#2f823f" />
+      <polygon points="140,210 320,170 212,430" fill="#1d613b" />
+      <polyline points="95,55 140,210 212,430" fill="none" stroke="#c3fb84" stroke-linecap="round" stroke-width="5" opacity="0.44" />
+      <polyline points="0,260 140,210 238,0" fill="none" stroke="#d2ff94" stroke-linecap="round" stroke-width="4" opacity="0.36" />
+    </g>
+
+    <g transform="translate(-210 255) rotate(-8) scale(0.9)" opacity="0.28">
+      <polygon points="0,210 238,70 528,16 716,158 512,346 188,380" fill="url(#leafTop)" />
+      <polygon points="0,210 228,198 188,380" fill="#64bd45" />
+      <polygon points="238,70 228,198 0,210" fill="#9be05f" />
+      <polygon points="238,70 528,16 360,190 228,198" fill="#80cb51" />
+      <polygon points="528,16 716,158 360,190" fill="#3f9a3f" />
+      <polygon points="360,190 716,158 512,346" fill="#246f3d" />
+      <polygon points="228,198 360,190 512,346 188,380" fill="url(#leafTopDark)" />
+      <polyline points="0,210 228,198 360,190 716,158" fill="none" stroke="#c5ff7a" stroke-linecap="round" stroke-width="6" opacity="0.46" />
+      <polyline points="228,198 238,70 228,198 528,16 360,190 512,346" fill="none" stroke="#174e31" stroke-linecap="round" stroke-width="4" opacity="0.36" />
+      <polyline points="-150,235 0,210" fill="none" stroke="#9fe16a" stroke-linecap="round" stroke-width="12" opacity="0.5" />
+    </g>
+
+    <g transform="translate(0 -110)" opacity="0.86">
+      <polygon points="-90,350 155,210 420,150 555,292 360,470 100,455" fill="url(#leafTop)" />
+      <polygon points="-90,350 210,330 100,455" fill="#64bd45" />
+      <polygon points="155,210 210,330 -90,350" fill="#9be05f" />
+      <polygon points="155,210 420,150 210,330" fill="#80cb51" />
+      <polygon points="420,150 555,292 210,330" fill="#3f9a3f" />
+      <polygon points="210,330 555,292 360,470" fill="#246f3d" />
+      <polygon points="210,330 360,470 100,455" fill="url(#leafTopDark)" />
+      <polyline points="-90,350 210,330 555,292" fill="none" stroke="#c5ff7a" stroke-linecap="round" stroke-width="6" opacity="0.46" />
+      <polyline points="210,330 155,210 210,330 420,150 210,330 360,470" fill="none" stroke="#164f31" stroke-linecap="round" stroke-width="4" opacity="0.38" />
+      <polyline points="-220,384 -90,350" fill="none" stroke="#9fe16a" stroke-linecap="round" stroke-width="12" opacity="0.46" />
+    </g>
+
+    <g transform="translate(820 74) rotate(-28) scale(0.34)" opacity="0.56">
+      <polygon points="0,112 106,18 254,0 342,102 220,228 78,210" fill="url(#leafLeft)" />
+      <polygon points="0,112 138,106 78,210" fill="#3d8842" />
+      <polygon points="106,18 138,106 0,112" fill="#86d45b" />
+      <polygon points="106,18 254,0 138,106" fill="#65b44b" />
+      <polygon points="254,0 342,102 138,106" fill="#2b753d" />
+      <polygon points="138,106 342,102 220,228" fill="#1d5e38" />
+      <polyline points="0,112 138,106 342,102" fill="none" stroke="#caff86" stroke-linecap="round" stroke-width="5" opacity="0.44" />
+      <polyline points="138,106 106,18 138,106 254,0 138,106 220,228" fill="none" stroke="#174f31" stroke-linecap="round" stroke-width="3" opacity="0.34" />
+    </g>
+
+    <g transform="translate(1120 150) rotate(24) scale(0.3)" opacity="0.5">
+      <polygon points="0,112 106,18 254,0 342,102 220,228 78,210" fill="url(#leafLeft)" />
+      <polygon points="0,112 138,106 78,210" fill="#3b8241" />
+      <polygon points="106,18 138,106 0,112" fill="#79ca55" />
+      <polygon points="106,18 254,0 138,106" fill="#5ca947" />
+      <polygon points="254,0 342,102 138,106" fill="#286f3c" />
+      <polygon points="138,106 342,102 220,228" fill="#1b5936" />
+      <polyline points="0,112 138,106 342,102" fill="none" stroke="#c4fb82" stroke-linecap="round" stroke-width="5" opacity="0.38" />
+      <polyline points="138,106 106,18 138,106 254,0 138,106 220,228" fill="none" stroke="#164d30" stroke-linecap="round" stroke-width="3" opacity="0.34" />
+    </g>
+  </g>
+
+  <g opacity="0.52">
+    <circle cx="1530" cy="645" r="60" fill="url(#goldGlow)" />
+    <circle cx="1530" cy="645" r="8" fill="#f5ff9b" />
+    <polygon points="1530,628 1536,642 1550,648 1536,654 1530,668 1524,654 1510,648 1524,642" fill="#fff9a8" opacity="0.9" />
+    <circle cx="1886" cy="740" r="42" fill="url(#goldGlow)" opacity="0.54" />
+    <circle cx="1886" cy="740" r="5" fill="#edff90" opacity="0.9" />
+    <circle cx="2030" cy="1332" r="54" fill="url(#goldGlow)" opacity="0.34" />
+  </g>
+
+  <g opacity="0.2">
+    <path d="M420 175c112-70 270-40 376 140-152-20-296 26-431 59 2-86 22-150 55-199Z" fill="#166c43" />
+    <path d="M605 1010c134-96 295-56 413 115-152 15-246 92-318 195-104-58-157-166-95-310Z" fill="#0a5a3d" />
+  </g>
+</svg>

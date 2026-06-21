@@ -7,13 +7,15 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '..')
 const homePagePath = path.join(projectRoot, 'src/index.html')
-const heroBackground2xPath = path.join(
+const heroBackgroundSvgPath = path.join(
   projectRoot,
-  'src/assets/images/sloth-hero-leafy-bg@2x.webp'
+  'src/assets/images/sloth-hero-leafy-bg.svg'
 )
 
 const source = await readFile(homePagePath, 'utf8')
-const heroBackground2x = await readFile(heroBackground2xPath).catch(() => null)
+const heroBackgroundSvg = await readFile(heroBackgroundSvgPath, 'utf8').catch(
+  () => ''
+)
 const normalizedSource = source.replace(/\s+/g, ' ')
 const normalizedText = source.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')
 const heroBackgroundStart = source.indexOf('<div class="sloth-hero')
@@ -58,45 +60,6 @@ const roadmapHeroIndex = source.indexOf('assets/images/hero%20asset.png')
 const archetypeFlowIndex = source.indexOf(
   'assets/images/sloth-archetype-flow.webp'
 )
-
-function readWebpDimensions(buffer) {
-  if (!buffer || buffer.toString('ascii', 0, 4) !== 'RIFF') {
-    return null
-  }
-
-  let offset = 12
-  while (offset + 8 <= buffer.length) {
-    const chunkType = buffer.toString('ascii', offset, offset + 4)
-    const chunkSize = buffer.readUInt32LE(offset + 4)
-    const chunkStart = offset + 8
-
-    if (chunkType === 'VP8X' && chunkStart + 10 <= buffer.length) {
-      return {
-        width: 1 + buffer.readUIntLE(chunkStart + 4, 3),
-        height: 1 + buffer.readUIntLE(chunkStart + 7, 3),
-      }
-    }
-
-    if (
-      chunkType === 'VP8 ' &&
-      chunkStart + 10 <= buffer.length &&
-      buffer[chunkStart + 3] === 0x9d &&
-      buffer[chunkStart + 4] === 0x01 &&
-      buffer[chunkStart + 5] === 0x2a
-    ) {
-      return {
-        width: buffer.readUInt16LE(chunkStart + 6) & 0x3fff,
-        height: buffer.readUInt16LE(chunkStart + 8) & 0x3fff,
-      }
-    }
-
-    offset = chunkStart + chunkSize + (chunkSize % 2)
-  }
-
-  return null
-}
-
-const heroBackground2xDimensions = readWebpDimensions(heroBackground2x)
 
 const checks = [
   {
@@ -175,19 +138,20 @@ const checks = [
   },
   {
     passes:
-      source.includes('image-set(') &&
-      source.includes('assets/images/sloth-hero-leafy-bg.webp') &&
-      source.includes('assets/images/sloth-hero-leafy-bg@2x.webp') &&
-      source.includes('2x'),
+      source.includes("url('assets/images/sloth-hero-leafy-bg.svg')") &&
+      !source.includes('assets/images/sloth-hero-leafy-bg.webp') &&
+      !source.includes('assets/images/sloth-hero-leafy-bg@2x.webp'),
     message:
-      'Home hero leafy background should use image-set with a 2x asset for high-density displays.',
+      'Home hero leafy background should use the crisp SVG asset instead of the raster WebP background.',
   },
   {
     passes:
-      heroBackground2xDimensions !== null &&
-      heroBackground2xDimensions.width >= 2880 &&
-      heroBackground2xDimensions.height >= 3200,
-    message: 'Home hero leafy 2x background should be at least 2880x3200px.',
+      heroBackgroundSvg.includes('<svg') &&
+      heroBackgroundSvg.includes('<polygon') &&
+      heroBackgroundSvg.includes('<linearGradient') &&
+      heroBackgroundSvg.includes('viewBox="0 0 2048 1600"'),
+    message:
+      'Home hero leafy SVG background should be authored vector artwork with a 2048x1600 viewBox.',
   },
 ]
 
