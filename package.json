@@ -2,6 +2,7 @@
   "name": "sloth-money-landing",
   "version": "1.0.0",
   "description": "Sloth Money - The Budgeting App Built for Two",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "posthog:config": "node ./scripts/generate-posthog-config.mjs",
     "meta:config": "node ./scripts/generate-meta-pixel-config.mjs",

@@ -29,3 +29,10 @@ When writing or editing **user-facing copy** (landing pages, CTAs, headings, met
   `HEAD:main` safely.
 - Use `bin/push-main-from-worktree --dry-run` before the real push when you want
   to confirm the rebase and checks without updating the remote.
+
+## Package manager
+
+- This repo uses Yarn v1. Use `yarn install` and commit `yarn.lock`.
+- Do not create, update, or commit `package-lock.json`; it is ignored because duplicate lockfiles create duplicate Dependabot alerts and unclear dependency state.
+- Dependency security fixes should prefer low-risk Yarn changes first: lockfile-only updates, patch/minor devDependency updates, or targeted `resolutions` for patched transitive development dependencies.
+- Do not merge major upgrades, runtime dependency upgrades, source-code changes, or build-system rewrites as part of automated dependency-security maintenance without human review.
