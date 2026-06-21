@@ -4,6 +4,12 @@
 
 When writing or editing **user-facing copy** (landing pages, CTAs, headings, meta text), read and follow [`.cursor/skills/copywriting/SKILL.md`](.cursor/skills/copywriting/SKILL.md) - including punchy headings, concision, specificity (name what people are saving toward or catching up on), punctuation (e.g. spaced hyphen instead of em dash for sentence bridges), and scannable structure.
 
+## Visual Asset Direction
+
+- Generated Sloth Money sloth assets should use warm tan and caramel-brown fur like the current Solo/Couple archetype cards. Keep cream face markings and dark brown eye patches for recognizability.
+- Do not generate green sloths for logo, mascot, hero, archetype, or promotional assets unless the user explicitly asks for a special variant. Use green for backgrounds, leaves, gems, and brand environment instead.
+- For generated sloth asset prompts, export steps, iteration limits, and screenshot QA, follow [`docs/visual-assets.md`](docs/visual-assets.md).
+
 ## Before writing any code
 
 1. State how you will verify that this change works (test, bash command, browser check etc)

@@ -7,6 +7,9 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '..')
 const homePagePath = path.join(projectRoot, 'src/index.html')
+const agentInstructionsPath = path.join(projectRoot, 'AGENTS.md')
+const visualAssetsDocPath = path.join(projectRoot, 'docs/visual-assets.md')
+const packageJsonPath = path.join(projectRoot, 'package.json')
 const heroBackgroundSvgPath = path.join(
   projectRoot,
   'src/assets/images/sloth-hero-leafy-bg.svg'
@@ -17,6 +20,11 @@ const heroSideLeafSvgPath = path.join(
 )
 
 const source = await readFile(homePagePath, 'utf8')
+const agentInstructions = await readFile(agentInstructionsPath, 'utf8')
+const visualAssetsDoc = await readFile(visualAssetsDocPath, 'utf8').catch(
+  () => ''
+)
+const packageJson = await readFile(packageJsonPath, 'utf8')
 const heroBackgroundSvg = await readFile(heroBackgroundSvgPath, 'utf8').catch(
   () => ''
 )
@@ -219,6 +227,31 @@ const checks = [
       heroSideLeafSvg.includes('<linearGradient'),
     message:
       'Home hero should place crisp SVG side leaves independently of the background crop.',
+  },
+  {
+    passes:
+      agentInstructions.includes('warm tan and caramel-brown') &&
+      agentInstructions.includes('green sloths') &&
+      agentInstructions.includes('logo, mascot, hero, archetype') &&
+      agentInstructions.includes('docs/visual-assets.md'),
+    message:
+      'AGENTS.md should document and link the warm brown sloth asset direction for future generated sloth assets.',
+  },
+  {
+    passes:
+      visualAssetsDoc.includes('Actual page context beats isolated pixels') &&
+      visualAssetsDoc.includes('two post-processing attempts') &&
+      visualAssetsDoc.includes('Cache-bust browser checks') &&
+      visualAssetsDoc.includes('warm tan and caramel-brown'),
+    message:
+      'docs/visual-assets.md should capture the repeatable visual asset workflow and loop-prevention rules.',
+  },
+  {
+    passes:
+      packageJson.includes('"asset:prepare-sloth"') &&
+      packageJson.includes('scripts/prepare-sloth-asset.mjs'),
+    message:
+      'package.json should expose the repeatable Sloth asset preparation script.',
   },
 ]
 

@@ -71,6 +71,11 @@ async function main() {
   const srcDir = path.join(projectRoot, 'src')
   if (await exists(srcDir)) targets.push(...(await collectJsFiles(srcDir)))
 
+  const scriptsDir = path.join(projectRoot, 'scripts')
+  if (await exists(scriptsDir)) {
+    targets.push(...(await collectJsFiles(scriptsDir)))
+  }
+
   const tailwindConfig = path.join(projectRoot, 'tailwind.config.js')
   if (await exists(tailwindConfig)) targets.push(tailwindConfig)
 

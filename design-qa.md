@@ -19,7 +19,7 @@
 - Fonts and typography: Manrope remains the site font. The heading is now a compact H2-scale prompt, `What kind of saver are you?`, and the card labels are live HTML text.
 - Spacing and layout rhythm: The two-card structure is compact enough to fit within the section viewport on desktop and keeps both mobile card labels visible.
 - Colors and visual tokens: The section keeps Sloth's dark green hero background, mint framed cards, yellow Solo accent, and lavender Couple accent. Focus and hover states use the same green/mint token family.
-- Image quality and asset fidelity: New low-poly raster sloth assets support the Solo and Couple options. Text, card borders, underlines, paths, hover states, and focus states are code-rendered.
+- Image quality and asset fidelity: New low-poly raster sloth assets support the Solo and Couple options. Logo, hero mascot, and archetype sloth assets should share warm tan and caramel-brown fur, cream face markings, and dark brown eye patches. Text, card borders, underlines, paths, hover states, and focus states are code-rendered.
 - Copy and content: The section now offers only `Solo` and `Couple`, with matching app-entry links and analytics CTA names.
 
 **Open Questions**
@@ -32,6 +32,7 @@
 - Added separate raster card-art assets: `sloth-archetype-solo-art.webp` and `sloth-archetype-couple-art.webp`.
 - Reduced the card width, card height, heading scale, and decorative path height so the choice block no longer bleeds off screen.
 - Moved the saver-choice width cap into component CSS so the static page does not depend on a newly generated Tailwind arbitrary utility.
+- Regenerated the logo icon and homepage guide mascot with brown sloth coloring to match the archetype assets.
 
 **Implementation Checklist**
 
