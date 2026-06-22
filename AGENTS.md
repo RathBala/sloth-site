@@ -4,6 +4,8 @@
 
 When writing or editing **user-facing copy** (landing pages, CTAs, headings, meta text), read and follow [`.cursor/skills/copywriting/SKILL.md`](.cursor/skills/copywriting/SKILL.md) - including punchy headings, concision, specificity (name what people are saving toward or catching up on), punctuation (e.g. spaced hyphen instead of em dash for sentence bridges), and scannable structure.
 
+Sloth copy should sound like one sharp, warm friend naming the money dynamic to another - human, specific, and a little cheeky. Prefer concrete emotional contrast over feature explanation; let the product stay implied when the benefit is obvious. Approved examples: "One of you loves to plan. The other loves to daydream.", "You both want the deets. All the deets.", and "You both gush about the future - just without spreadsheets."
+
 ## Visual Asset Direction
 
 - Generated Sloth Money sloth assets should use warm tan and caramel-brown fur like the current Solo/Couple archetype cards. Keep cream face markings and dark brown eye patches for recognizability.

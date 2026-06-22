@@ -55,6 +55,10 @@ Concise copy must still name **what** is at stake. Readers should not have to gu
 
 - Prefer **clear, plain language** over long sentences.
 - Match the voice of nearby sections and [`src/index.html`](../../src/index.html) / campaign pages.
+- Write like one sharp, warm friend naming the money dynamic to another. Sloth copy can be human, specific, and a little cheeky.
+- Prefer concrete emotional contrast over feature explanation. Let the product stay implied when the benefit is obvious.
+- Approved examples: `One of you loves to plan. The other loves to daydream.`, `You both want the deets. All the deets.`, `You both gush about the future - just without spreadsheets.`
+- Avoid generic SaaS or AI-sounding phrases such as `shared version of the plan`, `progress without spreadsheet energy`, and `become the money person` when a more human line can carry the idea.
 
 ## Checklist before finishing
 

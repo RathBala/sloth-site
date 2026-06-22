@@ -191,9 +191,16 @@ const checks = [
     passes:
       archetypeSection.includes('href="#couple-archetypes"') &&
       archetypeSection.includes('id="couple-archetypes"') &&
-      archetypeSection.includes('Planner + Free Spirit') &&
-      archetypeSection.includes('Planner + Planner') &&
-      archetypeSection.includes('Free Spirit + Free Spirit') &&
+      archetypeText.includes('Planner + Free Spirit') &&
+      archetypeText.includes('Planner + Planner') &&
+      archetypeText.includes('Free Spirit + Free Spirit') &&
+      archetypeText.includes('One of you loves to plan.') &&
+      archetypeText.includes('The other loves to daydream.') &&
+      archetypeText.includes('You both want the deets.') &&
+      archetypeText.includes('All the deets.') &&
+      archetypeText.includes('You both gush about the future -') &&
+      archetypeText.includes('just without spreadsheets.') &&
+      !archetypeText.includes('spreadsheet energy') &&
       archetypeSection.includes(
         'assets/images/sloth-couple-planner-free-spirit-art.webp'
       ) &&
