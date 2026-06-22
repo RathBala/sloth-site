@@ -217,10 +217,37 @@ const checks = [
   },
   {
     passes:
+      archetypeSection.includes('data-archetype-reveal="couple"') &&
+      archetypeSection.includes('data-couple-branch-grid') &&
+      source.includes('assets/js/archetype-flow.js'),
+    message:
+      'Home Couple saver card should reveal the dimmed couple branches before the user can choose a branch.',
+  },
+  {
+    passes:
+      source.includes(
+        '.sloth-couple-branches:not(.is-revealed):not(:target)'
+      ) &&
+      source.includes('.sloth-couple-branches.is-revealed') &&
+      source.includes('.sloth-couple-branch-grid[inert]'),
+    message:
+      'Home couple branches should start visually dimmed and interaction-locked until revealed.',
+  },
+  {
+    passes:
+      archetypeSection.includes('sloth-couple-connector') &&
+      source.includes('.sloth-archetype-path.couple::before') &&
+      source.includes('display: none') &&
+      !source.includes('left: 75%'),
+    message:
+      'Home Couple connector should be one centered merging line instead of a disconnected right-side branch line.',
+  },
+  {
+    passes:
       source.includes('.sloth-archetype-flow') &&
       source.includes('max-width: 42rem') &&
       source.includes('aspect-ratio: 0.78') &&
-      source.includes('height: clamp(3.5rem, 8vw, 5.25rem)') &&
+      source.includes('height: clamp(4.4rem, 9vw, 6.2rem)') &&
       !source.includes('min-height: clamp(22.25rem, 62vw, 35rem)'),
     message:
       'Home saver cards should keep compact component-owned sizing so they do not bleed off screen.',

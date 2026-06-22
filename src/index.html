@@ -439,7 +439,7 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: clamp(0.75rem, 2.3vw, 1.6rem);
-        height: clamp(3.5rem, 8vw, 5.25rem);
+        height: clamp(4.4rem, 9vw, 6.2rem);
         margin-top: -0.2rem;
         pointer-events: none;
       }
@@ -469,6 +469,11 @@
         box-shadow: 0 0 22px rgba(205, 160, 255, 0.32);
       }
 
+      .sloth-archetype-path.couple::before,
+      .sloth-archetype-path.couple::after {
+        display: none;
+      }
+
       .sloth-archetype-path::after {
         content: '';
         position: absolute;
@@ -487,24 +492,64 @@
         transform: translateX(-50%) rotate(45deg);
       }
 
+      .sloth-couple-connector {
+        position: absolute;
+        inset: -0.15rem 0 auto;
+        z-index: 1;
+        width: 100%;
+        height: calc(100% + clamp(2rem, 5vw, 3.5rem));
+        overflow: visible;
+      }
+
+      .sloth-couple-connector path {
+        fill: none;
+        stroke: #cda0ff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 0.18rem;
+        filter: drop-shadow(0 0 12px rgba(205, 160, 255, 0.5));
+        vector-effect: non-scaling-stroke;
+      }
+
       .sloth-couple-branches {
         position: relative;
-        margin: clamp(0.35rem, 1.4vw, 1rem) auto 0;
+        margin: 0 auto;
         padding-top: clamp(2.4rem, 6vw, 4rem);
         scroll-margin-top: 6.5rem;
       }
 
       .sloth-couple-branches::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 75%;
-        width: 0.18rem;
-        height: clamp(2.1rem, 5vw, 3.5rem);
-        border-radius: 999px;
-        background: #cda0ff;
-        box-shadow: 0 0 22px rgba(205, 160, 255, 0.32);
-        transform: translateX(-50%);
+        display: none;
+      }
+
+      .sloth-couple-branch-copy,
+      .sloth-couple-branch-grid {
+        transition:
+          filter 220ms ease,
+          opacity 220ms ease,
+          transform 220ms ease;
+      }
+
+      .sloth-couple-branches:not(.is-revealed):not(:target)
+        .sloth-couple-branch-copy,
+      .sloth-couple-branches:not(.is-revealed):not(:target)
+        .sloth-couple-branch-grid {
+        opacity: 0.28;
+        filter: saturate(0.45) brightness(0.64);
+        transform: translateY(0.35rem);
+      }
+
+      .sloth-couple-branches.is-revealed .sloth-couple-branch-copy,
+      .sloth-couple-branches.is-revealed .sloth-couple-branch-grid,
+      .sloth-couple-branches:target .sloth-couple-branch-copy,
+      .sloth-couple-branches:target .sloth-couple-branch-grid {
+        opacity: 1;
+        filter: none;
+        transform: none;
+      }
+
+      .sloth-couple-branch-grid[inert] {
+        pointer-events: none;
       }
 
       .sloth-couple-branch-copy {
@@ -1082,6 +1127,7 @@
                   class="sloth-archetype-card"
                   style="--archetype-accent: #cda0ff"
                   href="#couple-archetypes"
+                  data-archetype-reveal="couple"
                   data-analytics-cta="saver-couple"
                   aria-label="Choose Couple saver and see couple archetypes"
                 >
@@ -1110,6 +1156,15 @@
                   class="sloth-archetype-path couple"
                   style="--archetype-accent: #cda0ff"
                 ></span>
+                <svg
+                  class="sloth-couple-connector"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                  focusable="false"
+                  aria-hidden="true"
+                >
+                  <path d="M75 0 V32 C75 55 50 50 50 76 V100"></path>
+                </svg>
               </div>
 
               <div
@@ -1127,7 +1182,11 @@
                   </h3>
                 </div>
 
-                <div class="sloth-couple-branch-grid">
+                <div
+                  class="sloth-couple-branch-grid"
+                  data-couple-branch-grid
+                  inert
+                >
                   <a
                     class="sloth-couple-branch-card"
                     href="https://budget.slothmoney.app?saver=couple&couple_archetype=planner-free-spirit"
@@ -2101,6 +2160,7 @@
     <script src="assets/js/mobile-menu.js" defer></script>
     <script src="assets/js/shared-footer.js" defer></script>
     <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/archetype-flow.js" defer></script>
     <script src="assets/js/pricing-toggle.js" defer></script>
     <script src="assets/js/posthog-analytics.js" defer></script>
     <script src="assets/js/meta-pixel-analytics.js" defer></script>
