@@ -98,6 +98,13 @@ const checks = [
   },
   {
     passes:
+      heroHeadline.includes('leading-[.9]') &&
+      heroHeadline.includes('sm:leading-[0.98]'),
+    message:
+      'Home hero headline should use tighter mobile line-height to avoid awkward wrapped-line spacing.',
+  },
+  {
+    passes:
       heroCtaRow.includes('max-w-[21.5rem]') &&
       heroCtaRow.includes('sm:flex-row') &&
       heroCtaRow.includes('sm:w-auto') &&

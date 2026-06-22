@@ -1512,8 +1512,8 @@ video {
   line-height: 1.75rem;
 }
 
-.leading-\[0\.98\] {
-  line-height: 0.98;
+.leading-\[\.9\] {
+  line-height: .9;
 }
 
 .leading-\[1\.08\] {
@@ -2256,6 +2256,10 @@ html {
   .sm\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .sm\:leading-\[0\.98\] {
+    line-height: 0.98;
   }
 }
 
