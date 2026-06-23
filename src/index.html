@@ -329,6 +329,8 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: clamp(0.75rem, 2.3vw, 1.6rem);
+        max-width: 34rem;
+        margin: 0 auto;
       }
 
       .sloth-archetype-card {
@@ -441,6 +443,9 @@
         gap: clamp(0.75rem, 2.3vw, 1.6rem);
         height: clamp(4.4rem, 9vw, 6.2rem);
         margin-top: -0.2rem;
+        max-width: 34rem;
+        margin-right: auto;
+        margin-left: auto;
         pointer-events: none;
       }
 
@@ -579,10 +584,13 @@
       .sloth-couple-branch-grid {
         display: grid;
         gap: 0.75rem;
+        max-width: 24rem;
+        margin: 0 auto;
       }
 
       .sloth-couple-branch-card {
         display: flex;
+        aspect-ratio: 0.78;
         min-height: 0;
         flex-direction: column;
         justify-content: flex-start;
@@ -627,7 +635,7 @@
 
       .sloth-couple-branch-art {
         display: grid;
-        aspect-ratio: 1;
+        flex: 1;
         min-height: 0;
         overflow: hidden;
         place-items: center;
@@ -644,7 +652,7 @@
 
       .sloth-couple-branch-content {
         display: flex;
-        flex: 1;
+        flex: 0 0 auto;
         flex-direction: column;
         justify-content: flex-start;
         padding: 0.85rem 0.55rem 0.95rem;
@@ -688,6 +696,11 @@
         }
 
         .sloth-archetype-flow {
+          max-width: 66rem;
+        }
+
+        .sloth-archetype-grid,
+        .sloth-archetype-paths {
           max-width: 39rem;
         }
 
@@ -702,10 +715,6 @@
         .sloth-archetype-title::after {
           display: block;
         }
-
-        .sloth-couple-branch-grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
       }
 
       @media (min-width: 1024px) {
@@ -713,8 +722,17 @@
           max-width: min(100%, 90rem);
         }
 
-        .sloth-archetype-flow {
+        .sloth-archetype-grid,
+        .sloth-archetype-paths {
           max-width: 42rem;
+        }
+      }
+
+      @media (min-width: 900px) {
+        .sloth-couple-branch-grid {
+          width: 100%;
+          max-width: 66rem;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
         }
       }
 
@@ -779,6 +797,7 @@
           display: grid;
           grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr);
           align-items: stretch;
+          aspect-ratio: auto;
           min-height: 9.25rem;
           padding: 0.45rem;
           text-align: left;

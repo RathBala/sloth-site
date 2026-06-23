@@ -10,6 +10,10 @@ const homePagePath = path.join(projectRoot, 'src/index.html')
 const agentInstructionsPath = path.join(projectRoot, 'AGENTS.md')
 const visualAssetsDocPath = path.join(projectRoot, 'docs/visual-assets.md')
 const packageJsonPath = path.join(projectRoot, 'package.json')
+const archetypeFlowJsPath = path.join(
+  projectRoot,
+  'src/assets/js/archetype-flow.js'
+)
 const heroBackgroundSvgPath = path.join(
   projectRoot,
   'src/assets/images/sloth-hero-leafy-bg.svg'
@@ -25,6 +29,7 @@ const visualAssetsDoc = await readFile(visualAssetsDocPath, 'utf8').catch(
   () => ''
 )
 const packageJson = await readFile(packageJsonPath, 'utf8')
+const archetypeFlowJs = await readFile(archetypeFlowJsPath, 'utf8')
 const heroBackgroundSvg = await readFile(heroBackgroundSvgPath, 'utf8').catch(
   () => ''
 )
@@ -32,6 +37,7 @@ const heroSideLeafSvg = await readFile(heroSideLeafSvgPath, 'utf8').catch(
   () => ''
 )
 const normalizedSource = source.replace(/\s+/g, ' ')
+const normalizedCss = source.replace(/\s+/g, ' ')
 const normalizedText = source.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')
 const heroBackgroundStart = source.indexOf('<div class="sloth-hero')
 const heroStart = source.indexOf('<!-- Hero Section -->')
@@ -251,6 +257,35 @@ const checks = [
       !source.includes('min-height: clamp(22.25rem, 62vw, 35rem)'),
     message:
       'Home saver cards should keep compact component-owned sizing so they do not bleed off screen.',
+  },
+  {
+    passes:
+      normalizedCss.includes('.sloth-archetype-grid, .sloth-archetype-paths') &&
+      normalizedCss.includes('max-width: 42rem') &&
+      normalizedCss.includes('max-width: 66rem') &&
+      normalizedCss.includes(
+        '.sloth-couple-branch-card { display: flex; aspect-ratio: 0.78'
+      ) &&
+      normalizedCss.includes(
+        'grid-template-columns: repeat(3, minmax(0, 1fr))'
+      ) &&
+      normalizedCss.includes(
+        '.sloth-couple-branch-art { display: grid; flex: 1'
+      ),
+    message:
+      'Home couple branch cards should use a wider desktop grid and the same card/art proportions as the Solo and Couple saver cards.',
+  },
+  {
+    passes:
+      archetypeFlowJs.includes('event.preventDefault()') &&
+      archetypeFlowJs.includes(
+        "window.history.pushState(null, '', '#couple-archetypes')"
+      ) &&
+      archetypeFlowJs.includes('coupleBranches.scrollIntoView') &&
+      archetypeFlowJs.includes("behavior: 'smooth'") &&
+      archetypeFlowJs.includes("block: 'start'"),
+    message:
+      'Home Couple saver card should reveal and start smooth scrolling immediately from the click handler.',
   },
   {
     passes:
