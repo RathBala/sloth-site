@@ -91,16 +91,20 @@ const checks = [
   },
   {
     passes:
-      heroHeadline.includes('Couple finances actually') &&
+      heroHeadline.includes(
+        '<span class="block sm:inline">Couple finances</span>'
+      ) &&
+      heroHeadline.includes('<span class="block sm:inline">actually</span>') &&
       heroHeadline.includes('made') &&
       heroHeadline.includes('mint-line') &&
       heroHeadline.includes('fun.') &&
+      !heroHeadline.includes('mt-2') &&
       heroLeadIn.includes('assets/images/sloth-guide-sidekick.webp') &&
       heroLeadIn.includes('sloth-hero-mascot') &&
       !heroHeadline.includes('assets/images/sloth-guide-sidekick.webp') &&
       !heroCtaRow.includes('assets/images/sloth-guide-sidekick.webp'),
     message:
-      'Home hero guide sidekick should sit centered above the headline instead of inside the headline or CTA row.',
+      'Home hero guide sidekick should sit centered above the headline, and the headline should stack actually on mobile while keeping it on the first line at desktop sizes.',
   },
   {
     passes:
