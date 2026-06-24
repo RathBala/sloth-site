@@ -225,7 +225,25 @@ const checks = [
         'data-analytics-cta="couple-free-spirit-free-spirit"'
       ),
     message:
-      'Home Couple saver card should scroll to the three couple archetype branches with tracked path CTAs.',
+      'Home Couple saver card should scroll to the three tracked couple archetype branches.',
+  },
+  {
+    passes:
+      archetypeSection.includes('href="#planner-free-spirit-content"') &&
+      archetypeSection.includes(
+        'data-couple-archetype-trigger="planner-free-spirit"'
+      ) &&
+      source.includes('id="archetype-content"') &&
+      source.includes('data-archetype-content') &&
+      source.includes('hidden') &&
+      source.includes('.sloth-archetype-results') &&
+      source.includes('.sloth-archetype-results.is-revealed') &&
+      archetypeFlowJs.includes('data-couple-archetype-trigger') &&
+      archetypeFlowJs.includes('showArchetypeContent') &&
+      archetypeFlowJs.includes('const nextHash = `#${archetype}-content`') &&
+      archetypeFlowJs.includes('dataset.currentArchetype = archetype'),
+    message:
+      'Home Planner + Free Spirit branch should select an in-page archetype state and reveal the lower homepage content instead of navigating away.',
   },
   {
     passes:
