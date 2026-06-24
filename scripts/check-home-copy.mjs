@@ -82,6 +82,8 @@ const archetypeText = archetypeSection
   .replace(/\s+/g, ' ')
 const roadmapHeroIndex = source.indexOf('assets/images/hero%20asset.png')
 const archetypeFlowIndex = source.indexOf('class="sloth-archetype-flow')
+const archetypeArtImgRule =
+  source.match(/\.sloth-archetype-art img\s*\{[\s\S]*?\n      \}/)?.[0] ?? ''
 
 const checks = [
   {
@@ -246,7 +248,10 @@ const checks = [
   {
     passes:
       archetypeSection.includes('sloth-couple-connector') &&
+      archetypeSection.includes('M75 0 V32 C75 55 50 50 50 76 V100') &&
       source.includes('.sloth-archetype-path.couple::before') &&
+      source.includes('.sloth-couple-connector path') &&
+      source.includes('vector-effect: non-scaling-stroke') &&
       source.includes('display: none') &&
       !source.includes('left: 75%'),
     message:
@@ -261,6 +266,18 @@ const checks = [
       !source.includes('min-height: clamp(22.25rem, 62vw, 35rem)'),
     message:
       'Home saver cards should keep compact component-owned sizing so they do not bleed off screen.',
+  },
+  {
+    passes:
+      source.includes('.sloth-archetype-art {') &&
+      archetypeArtImgRule.includes('object-fit: cover') &&
+      archetypeArtImgRule.includes('object-position: center 48%') &&
+      !archetypeArtImgRule.includes('-webkit-mask-image') &&
+      !archetypeArtImgRule.includes('mask-image') &&
+      archetypeSection.includes('loading="eager"') &&
+      archetypeSection.includes('fetchpriority="high"'),
+    message:
+      'Home saver-card sloth art should render eagerly with unmasked, cropped images so Solo and Couple stay visible on mobile browsers.',
   },
   {
     passes:
