@@ -699,8 +699,16 @@
       }
 
       .sloth-archetype-results.is-preview {
-        opacity: 0.58;
-        filter: saturate(0.72) brightness(0.82);
+        background: #013d29;
+        pointer-events: none;
+        transition:
+          background 240ms ease,
+          filter 240ms ease;
+      }
+
+      .sloth-archetype-results.is-preview > section {
+        opacity: 0.42;
+        filter: saturate(0.48) brightness(0.62) contrast(0.82);
         transition:
           filter 240ms ease,
           opacity 240ms ease;
@@ -709,14 +717,12 @@
       .sloth-archetype-results.is-preview::before {
         content: '';
         position: absolute;
-        inset: 0 0 auto;
+        inset: 0;
         z-index: 2;
-        height: min(36rem, 44%);
         background: linear-gradient(
           180deg,
-          rgba(1, 61, 41, 0.34),
-          rgba(1, 61, 41, 0.08) 70%,
-          transparent 100%
+          rgba(1, 61, 41, 0.32),
+          rgba(1, 61, 41, 0.18)
         );
         pointer-events: none;
       }
@@ -724,6 +730,7 @@
       .sloth-archetype-results.is-revealed {
         opacity: 1;
         filter: none;
+        pointer-events: auto;
       }
 
       .sloth-archetype-content-anchor {
