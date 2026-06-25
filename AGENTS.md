@@ -10,6 +10,12 @@ When writing or editing **user-facing copy** (landing pages, CTAs, headings, met
 - Do not generate green sloths for logo, mascot, hero, archetype, or promotional assets unless the user explicitly asks for a special variant. Use green for backgrounds, leaves, gems, and brand environment instead.
 - For generated sloth asset prompts, export steps, iteration limits, and screenshot QA, follow [`docs/visual-assets.md`](docs/visual-assets.md).
 
+## Visual Verification
+
+- For visual changes, do not rely only on DOM/CSS checks or isolated screenshots. Capture and inspect the exact viewport state the user will see, including the transition area before and after the changed element.
+- If the user is reacting to a screenshot, reproduce that scroll position and compare against it before finalizing.
+- When checking color or dimming changes, verify the full composed result in the browser screenshot rather than inferring from a single CSS property.
+
 ## Before writing any code
 
 1. State how you will verify that this change works (test, bash command, browser check etc)
@@ -26,6 +32,7 @@ When writing or editing **user-facing copy** (landing pages, CTAs, headings, met
 - Before writing `Next steps for you: None.`, ask whether the change is worth the user manually checking in a browser, device, dashboard, account, or production environment.
 - If manual verification would be useful, include concise numbered steps under `Next steps for you` instead of saying `None`.
 - Manual test steps should name the exact page, flow, command, account, or environment to check and what result to expect.
+- State clearly when the work is only local and still needs to be committed or pushed to `main`; do not leave the user to infer git state.
 - Use `Next steps for you: None.` only when there is genuinely nothing useful for the user to verify or do outside the agent's local workspace.
 
 ## Commands
