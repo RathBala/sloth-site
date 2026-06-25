@@ -21,6 +21,13 @@ When writing or editing **user-facing copy** (landing pages, CTAs, headings, met
 - If verification fails, read the output, fix the root cause, and rerun until it passes
 - In your final message, report exactly what you ran and whether it passed
 
+## Final response next steps
+
+- Before writing `Next steps for you: None.`, ask whether the change is worth the user manually checking in a browser, device, dashboard, account, or production environment.
+- If manual verification would be useful, include concise numbered steps under `Next steps for you` instead of saying `None`.
+- Manual test steps should name the exact page, flow, command, account, or environment to check and what result to expect.
+- Use `Next steps for you: None.` only when there is genuinely nothing useful for the user to verify or do outside the agent's local workspace.
+
 ## Commands
 
 - Install: yarn install
