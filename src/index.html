@@ -687,10 +687,6 @@
         text-wrap: balance;
       }
 
-      .sloth-archetype-results[hidden] {
-        display: none;
-      }
-
       .sloth-archetype-results {
         position: relative;
         overflow: hidden;
@@ -700,6 +696,34 @@
 
       .sloth-archetype-results.is-revealed {
         animation: archetypeContentIn 360ms ease both;
+      }
+
+      .sloth-archetype-results.is-preview {
+        opacity: 0.58;
+        filter: saturate(0.72) brightness(0.82);
+        transition:
+          filter 240ms ease,
+          opacity 240ms ease;
+      }
+
+      .sloth-archetype-results.is-preview::before {
+        content: '';
+        position: absolute;
+        inset: 0 0 auto;
+        z-index: 2;
+        height: min(36rem, 44%);
+        background: linear-gradient(
+          180deg,
+          rgba(1, 61, 41, 0.34),
+          rgba(1, 61, 41, 0.08) 70%,
+          transparent 100%
+        );
+        pointer-events: none;
+      }
+
+      .sloth-archetype-results.is-revealed {
+        opacity: 1;
+        filter: none;
       }
 
       .sloth-archetype-content-anchor {
@@ -1370,10 +1394,8 @@
       </div>
       <div
         id="archetype-content"
-        class="sloth-archetype-results"
+        class="sloth-archetype-results is-preview"
         data-archetype-content
-        hidden
-        inert
       >
         <span
           id="planner-free-spirit-content"

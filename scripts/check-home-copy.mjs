@@ -77,6 +77,8 @@ const archetypeSection =
   archetypeStart === -1 || archetypeEnd === -1
     ? ''
     : source.slice(archetypeStart, archetypeEnd)
+const archetypeContentOpening =
+  source.match(/<div\s+id="archetype-content"[\s\S]*?>/)?.[0] ?? ''
 const archetypeText = archetypeSection
   .replace(/<[^>]*>/g, ' ')
   .replace(/\s+/g, ' ')
@@ -233,17 +235,22 @@ const checks = [
       archetypeSection.includes(
         'data-couple-archetype-trigger="planner-free-spirit"'
       ) &&
-      source.includes('id="archetype-content"') &&
-      source.includes('data-archetype-content') &&
-      source.includes('hidden') &&
+      archetypeContentOpening.includes('data-archetype-content') &&
+      archetypeContentOpening.includes('is-preview') &&
+      !archetypeContentOpening.includes('hidden') &&
+      !archetypeContentOpening.includes('inert') &&
       source.includes('.sloth-archetype-results') &&
+      source.includes('.sloth-archetype-results.is-preview') &&
       source.includes('.sloth-archetype-results.is-revealed') &&
       archetypeFlowJs.includes('data-couple-archetype-trigger') &&
       archetypeFlowJs.includes('showArchetypeContent') &&
+      archetypeFlowJs.includes("classList.add('is-preview')") &&
+      archetypeFlowJs.includes("classList.remove('is-preview')") &&
+      !archetypeFlowJs.includes('archetypeContent.hidden') &&
       archetypeFlowJs.includes('const nextHash = `#${archetype}-content`') &&
       archetypeFlowJs.includes('dataset.currentArchetype = archetype'),
     message:
-      'Home Planner + Free Spirit branch should select an in-page archetype state and reveal the lower homepage content instead of navigating away.',
+      'Home Planner + Free Spirit branch should select an in-page archetype state and undim the already-present lower homepage content instead of hiding it from the page flow.',
   },
   {
     passes:

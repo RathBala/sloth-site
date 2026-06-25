@@ -19,15 +19,14 @@
     branchGrid?.removeAttribute('inert')
   }
 
-  const hideArchetypeContent = () => {
+  const previewArchetypeContent = () => {
     if (!archetypeContent) {
       return
     }
 
     archetypeContent.classList.remove('is-revealed')
+    archetypeContent.classList.add('is-preview')
     archetypeContent.removeAttribute('data-current-archetype')
-    archetypeContent.setAttribute('inert', '')
-    archetypeContent.hidden = true
 
     archetypeTriggers.forEach((trigger) => {
       trigger.setAttribute('aria-expanded', 'false')
@@ -38,7 +37,7 @@
   const lockBranches = () => {
     coupleBranches.classList.remove('is-revealed')
     branchGrid?.setAttribute('inert', '')
-    hideArchetypeContent()
+    previewArchetypeContent()
   }
 
   const getArchetypeFromHash = () => {
@@ -67,8 +66,7 @@
     }
 
     revealBranches()
-    archetypeContent.hidden = false
-    archetypeContent.removeAttribute('inert')
+    archetypeContent.classList.remove('is-preview')
     archetypeContent.classList.add('is-revealed')
     archetypeContent.dataset.currentArchetype = archetype
 
@@ -107,7 +105,7 @@
 
     if (window.location.hash === '#couple-archetypes') {
       revealBranches()
-      hideArchetypeContent()
+      previewArchetypeContent()
       return
     }
 
@@ -128,7 +126,7 @@
 
     event.preventDefault()
     revealBranches()
-    hideArchetypeContent()
+    previewArchetypeContent()
 
     if (window.location.hash !== '#couple-archetypes') {
       window.history.pushState(null, '', '#couple-archetypes')
