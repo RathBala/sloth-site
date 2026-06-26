@@ -53,6 +53,15 @@ const waitForScroll = (page) =>
     timeout: 2000,
   })
 
+const scrollToContentEdge = async (page) => {
+  await page.evaluate(() => {
+    const content = document.querySelector('[data-archetype-content]')
+    const contentTop = content.getBoundingClientRect().top + window.scrollY
+    window.scrollTo(0, contentTop - window.innerHeight + 24)
+  })
+  await page.waitForTimeout(100)
+}
+
 const staticHtml = await readFile(indexPath, 'utf8')
 assert.match(
   staticHtml,
@@ -96,19 +105,30 @@ try {
   })
 
   await page.goto(baseUrl, { waitUntil: 'domcontentloaded' })
-  await page.locator('[data-archetype-reveal="couple"]').click()
-  await waitForScroll(page)
 
   const contentTop = await page
     .locator('[data-archetype-content]')
     .evaluate((element) => element.getBoundingClientRect().top + window.scrollY)
 
-  await page.evaluate(() => {
-    const content = document.querySelector('[data-archetype-content]')
-    const contentTop = content.getBoundingClientRect().top + window.scrollY
-    window.scrollTo(0, contentTop - window.innerHeight + 24)
-  })
-  await page.waitForTimeout(100)
+  await scrollToContentEdge(page)
+  await page.mouse.wheel(0, 900)
+  await page.waitForTimeout(500)
+
+  const unselectedScrollY = await page.evaluate(() => window.scrollY)
+  assert(
+    unselectedScrollY < contentTop - 80,
+    `users should not scroll into result content before choosing Solo or Couple; scrollY=${unselectedScrollY}, contentTop=${contentTop}`
+  )
+  await assert.doesNotReject(() =>
+    page
+      .locator('[data-saver-selection-gate]')
+      .waitFor({ state: 'visible', timeout: 1000 })
+  )
+
+  await page.locator('[data-archetype-reveal="couple"]').click()
+  await waitForScroll(page)
+
+  await scrollToContentEdge(page)
   await page.mouse.wheel(0, 900)
   await page.waitForTimeout(500)
 

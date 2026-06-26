@@ -687,7 +687,7 @@
         text-wrap: balance;
       }
 
-      .sloth-couple-selection-gate {
+      .sloth-selection-gate {
         display: block;
         max-width: 26rem;
         margin: clamp(1rem, 2.4vw, 1.35rem) auto 0;
@@ -710,16 +710,17 @@
           transform 180ms ease;
       }
 
-      .sloth-couple-selection-gate[hidden] {
+      .sloth-selection-gate[hidden] {
         display: none;
       }
 
-      .sloth-couple-branches.is-gated .sloth-couple-selection-gate {
+      .sloth-archetype-flow.is-gated .sloth-selection-gate,
+      .sloth-couple-branches.is-gated .sloth-selection-gate {
         opacity: 1;
         transform: none;
       }
 
-      .sloth-couple-selection-gate:focus-visible {
+      .sloth-selection-gate:focus-visible {
         outline: 3px solid rgba(225, 205, 255, 0.78);
         outline-offset: 4px;
       }
@@ -951,7 +952,7 @@
           font-size: 0.82rem;
         }
 
-        .sloth-couple-selection-gate {
+        .sloth-selection-gate {
           border-radius: 0.95rem;
         }
       }
@@ -1311,6 +1312,16 @@
                 </a>
               </div>
 
+              <p
+                class="sloth-selection-gate"
+                data-saver-selection-gate
+                hidden
+                role="status"
+                tabindex="-1"
+              >
+                Pick Solo or Couple to keep going.
+              </p>
+
               <div class="sloth-archetype-paths" aria-hidden="true">
                 <span
                   class="sloth-archetype-path solo"
@@ -1437,7 +1448,7 @@
                 </div>
 
                 <p
-                  class="sloth-couple-selection-gate"
+                  class="sloth-selection-gate"
                   data-couple-selection-gate
                   hidden
                   role="status"
