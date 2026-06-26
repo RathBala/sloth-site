@@ -13,6 +13,68 @@
   }
 
   const branchGrid = coupleBranches.querySelector('[data-couple-branch-grid]')
+  const selectionGate = coupleBranches.querySelector(
+    '[data-couple-selection-gate]'
+  )
+  const gatedKeys = new Set([' ', 'ArrowDown', 'End', 'PageDown'])
+  let touchStartY = 0
+  let isEnforcingGate = false
+
+  const hasSelectedArchetype = () =>
+    Boolean(archetypeContent?.dataset.currentArchetype)
+
+  const hideSelectionGate = () => {
+    coupleBranches.classList.remove('is-gated')
+    selectionGate?.setAttribute('hidden', '')
+  }
+
+  const showSelectionGate = ({ focus = false } = {}) => {
+    if (!selectionGate) {
+      return
+    }
+
+    selectionGate.removeAttribute('hidden')
+    coupleBranches.classList.add('is-gated')
+
+    selectionGate.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+    })
+
+    if (focus) {
+      selectionGate.focus({ preventScroll: true })
+    }
+  }
+
+  const isGateActive = () =>
+    coupleBranches.classList.contains('is-revealed') && !hasSelectedArchetype()
+
+  const getGateBoundary = () => {
+    if (!archetypeContent) {
+      return Number.POSITIVE_INFINITY
+    }
+
+    const contentTop =
+      archetypeContent.getBoundingClientRect().top + window.scrollY
+
+    return Math.max(0, contentTop - Math.min(window.innerHeight * 0.28, 180))
+  }
+
+  const shouldGateForwardScroll = () =>
+    isGateActive() && window.scrollY + window.innerHeight >= getGateBoundary()
+
+  const enforceSelectionGate = ({ focus = false } = {}) => {
+    if (!isGateActive() || isEnforcingGate) {
+      return
+    }
+
+    isEnforcingGate = true
+    showSelectionGate({ focus })
+
+    window.requestAnimationFrame(() => {
+      isEnforcingGate = false
+    })
+  }
 
   const revealBranches = () => {
     coupleBranches.classList.add('is-revealed')
@@ -27,6 +89,8 @@
     archetypeContent.classList.remove('is-revealed')
     archetypeContent.classList.add('is-preview')
     archetypeContent.removeAttribute('data-current-archetype')
+    archetypeContent.setAttribute('inert', '')
+    hideSelectionGate()
 
     archetypeTriggers.forEach((trigger) => {
       trigger.setAttribute('aria-expanded', 'false')
@@ -66,8 +130,10 @@
     }
 
     revealBranches()
+    hideSelectionGate()
     archetypeContent.classList.remove('is-preview')
     archetypeContent.classList.add('is-revealed')
+    archetypeContent.removeAttribute('inert')
     archetypeContent.dataset.currentArchetype = archetype
 
     archetypeTriggers.forEach((trigger) => {
@@ -159,10 +225,67 @@
     })
   }
 
+  const handleWheel = (event) => {
+    if (event.deltaY <= 0 || !shouldGateForwardScroll()) {
+      return
+    }
+
+    event.preventDefault()
+    enforceSelectionGate()
+  }
+
+  const handleScroll = () => {
+    if (!isGateActive() || window.scrollY < getGateBoundary()) {
+      return
+    }
+
+    enforceSelectionGate()
+  }
+
+  const handleKeydown = (event) => {
+    if (!gatedKeys.has(event.key) || !shouldGateForwardScroll()) {
+      return
+    }
+
+    event.preventDefault()
+    enforceSelectionGate({ focus: true })
+  }
+
+  const handleTouchStart = (event) => {
+    touchStartY = event.touches[0]?.clientY ?? 0
+  }
+
+  const handleTouchMove = (event) => {
+    const touchY = event.touches[0]?.clientY ?? touchStartY
+    const isMovingForward = touchStartY - touchY > 0
+
+    if (!isMovingForward || !shouldGateForwardScroll()) {
+      return
+    }
+
+    event.preventDefault()
+    enforceSelectionGate()
+  }
+
+  const keepFocusInBranches = (event) => {
+    if (!isGateActive() || !archetypeContent?.contains(event.target)) {
+      return
+    }
+
+    event.preventDefault()
+    enforceSelectionGate({ focus: true })
+  }
+
   coupleReveal?.addEventListener('click', revealAndScrollBranches)
   archetypeTriggers.forEach((trigger) => {
     trigger.addEventListener('click', selectArchetype)
   })
+  window.addEventListener('wheel', handleWheel, { passive: false })
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  window.addEventListener('keydown', handleKeydown)
+  window.addEventListener('touchstart', handleTouchStart, { passive: true })
+  window.addEventListener('touchmove', handleTouchMove, { passive: false })
+  document.addEventListener('focusin', keepFocusInBranches)
   window.addEventListener('hashchange', syncBranchesWithHash)
   window.addEventListener('popstate', syncBranchesWithHash)
   syncBranchesWithHash()

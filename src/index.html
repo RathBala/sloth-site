@@ -687,6 +687,43 @@
         text-wrap: balance;
       }
 
+      .sloth-couple-selection-gate {
+        display: block;
+        max-width: 26rem;
+        margin: clamp(1rem, 2.4vw, 1.35rem) auto 0;
+        border: 1px solid rgba(205, 160, 255, 0.46);
+        border-radius: 999px;
+        background: rgba(1, 61, 41, 0.9);
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+          0 18px 36px rgba(1, 24, 16, 0.24);
+        color: #ffffff;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        font-weight: 800;
+        line-height: 1.25;
+        opacity: 0;
+        padding: 0.85rem 1.05rem;
+        text-align: center;
+        transform: translateY(-0.3rem);
+        transition:
+          opacity 180ms ease,
+          transform 180ms ease;
+      }
+
+      .sloth-couple-selection-gate[hidden] {
+        display: none;
+      }
+
+      .sloth-couple-branches.is-gated .sloth-couple-selection-gate {
+        opacity: 1;
+        transform: none;
+      }
+
+      .sloth-couple-selection-gate:focus-visible {
+        outline: 3px solid rgba(225, 205, 255, 0.78);
+        outline-offset: 4px;
+      }
+
       .sloth-archetype-results {
         position: relative;
         overflow: hidden;
@@ -912,6 +949,10 @@
 
         .sloth-couple-branch-body {
           font-size: 0.82rem;
+        }
+
+        .sloth-couple-selection-gate {
+          border-radius: 0.95rem;
         }
       }
     </style>
@@ -1394,6 +1435,16 @@
                     </span>
                   </a>
                 </div>
+
+                <p
+                  class="sloth-couple-selection-gate"
+                  data-couple-selection-gate
+                  hidden
+                  role="status"
+                  tabindex="-1"
+                >
+                  Pick a couple dynamic to keep going.
+                </p>
               </div>
             </div>
           </div>
