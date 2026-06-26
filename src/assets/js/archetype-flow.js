@@ -14,109 +14,51 @@
 
   const archetypeFlow = coupleBranches.closest('.sloth-archetype-flow')
   const branchGrid = coupleBranches.querySelector('[data-couple-branch-grid]')
-  const saverSelectionGate = archetypeFlow?.querySelector(
-    '[data-saver-selection-gate]'
+  const archetypeLock = archetypeContent?.querySelector('[data-archetype-lock]')
+  const archetypeLockCopy = archetypeLock?.querySelector(
+    '[data-archetype-lock-copy]'
   )
-  const coupleSelectionGate = coupleBranches.querySelector(
-    '[data-couple-selection-gate]'
+  const archetypeLockAction = archetypeLock?.querySelector(
+    '[data-archetype-lock-action]'
   )
-  const gatedKeys = new Set([' ', 'ArrowDown', 'End', 'PageDown'])
-  let touchStartY = 0
-  let isEnforcingGate = false
-  let lastScrollY = window.scrollY
+  const archetypeSections = Array.from(
+    archetypeContent?.querySelectorAll(':scope > section') ?? []
+  )
 
   const hasSelectedArchetype = () =>
     Boolean(archetypeContent?.dataset.currentArchetype)
 
-  const hideSelectionGates = () => {
-    archetypeFlow?.classList.remove('is-gated')
-    coupleBranches.classList.remove('is-gated')
-    saverSelectionGate?.setAttribute('hidden', '')
-    coupleSelectionGate?.setAttribute('hidden', '')
-  }
-
-  const showSelectionGate = (gate, container, { focus = false } = {}) => {
-    if (!gate) {
+  const updateLockedPreview = () => {
+    if (!archetypeLock || !archetypeLockCopy) {
       return
     }
 
-    const wasHidden = gate.hasAttribute('hidden')
-
-    gate.removeAttribute('hidden')
-    container?.classList.add('is-gated')
-
-    if (wasHidden) {
-      gate.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-      })
-    }
-
-    if (focus) {
-      gate.focus({ preventScroll: true })
-    }
-  }
-
-  const getGateState = () => {
     if (hasSelectedArchetype()) {
-      return null
-    }
-
-    if (coupleBranches.classList.contains('is-revealed')) {
-      return {
-        container: coupleBranches,
-        gate: coupleSelectionGate,
-        target: archetypeContent,
-      }
-    }
-
-    return {
-      container: archetypeFlow,
-      gate: saverSelectionGate,
-      target: coupleBranches,
-    }
-  }
-
-  const isGateActive = () => Boolean(getGateState())
-
-  const getGateBoundary = () => {
-    const gateState = getGateState()
-
-    if (!gateState?.target) {
-      return Number.POSITIVE_INFINITY
-    }
-
-    const targetTop =
-      gateState.target.getBoundingClientRect().top + window.scrollY
-
-    return Math.max(0, targetTop - Math.min(window.innerHeight * 0.28, 180))
-  }
-
-  const shouldGateForwardScroll = () =>
-    isGateActive() && window.scrollY + window.innerHeight >= getGateBoundary()
-
-  const enforceSelectionGate = ({ focus = false } = {}) => {
-    if (!isGateActive() || isEnforcingGate) {
+      archetypeLock.setAttribute('hidden', '')
       return
     }
 
-    const gateState = getGateState()
-
-    if (!gateState) {
-      return
-    }
-
-    isEnforcingGate = true
-    showSelectionGate(gateState.gate, gateState.container, { focus })
-
-    window.requestAnimationFrame(() => {
-      isEnforcingGate = false
-    })
+    archetypeLockCopy.textContent = coupleBranches.classList.contains(
+      'is-revealed'
+    )
+      ? 'Pick a couple dynamic to unlock your plan.'
+      : 'Pick Solo or Couple to unlock your plan.'
+    archetypeLock.removeAttribute('hidden')
   }
 
   const revealBranches = () => {
     coupleBranches.classList.add('is-revealed')
     branchGrid?.removeAttribute('inert')
+  }
+
+  const setResultSectionsLocked = (isLocked) => {
+    archetypeSections.forEach((section) => {
+      if (isLocked) {
+        section.setAttribute('inert', '')
+      } else {
+        section.removeAttribute('inert')
+      }
+    })
   }
 
   const previewArchetypeContent = () => {
@@ -127,8 +69,8 @@
     archetypeContent.classList.remove('is-revealed')
     archetypeContent.classList.add('is-preview')
     archetypeContent.removeAttribute('data-current-archetype')
-    archetypeContent.setAttribute('inert', '')
-    hideSelectionGates()
+    setResultSectionsLocked(true)
+    updateLockedPreview()
 
     archetypeTriggers.forEach((trigger) => {
       trigger.setAttribute('aria-expanded', 'false')
@@ -168,11 +110,11 @@
     }
 
     revealBranches()
-    hideSelectionGates()
     archetypeContent.classList.remove('is-preview')
     archetypeContent.classList.add('is-revealed')
-    archetypeContent.removeAttribute('inert')
+    setResultSectionsLocked(false)
     archetypeContent.dataset.currentArchetype = archetype
+    updateLockedPreview()
 
     archetypeTriggers.forEach((trigger) => {
       const isCurrent = trigger.dataset.coupleArchetypeTrigger === archetype
@@ -263,75 +205,22 @@
     })
   }
 
-  const handleWheel = (event) => {
-    if (event.deltaY <= 0 || !shouldGateForwardScroll()) {
-      return
-    }
+  const scrollToActiveChoice = () => {
+    const target = coupleBranches.classList.contains('is-revealed')
+      ? coupleBranches
+      : archetypeFlow
 
-    event.preventDefault()
-    enforceSelectionGate()
-  }
-
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY
-    const isMovingForward = currentScrollY > lastScrollY
-    lastScrollY = currentScrollY
-
-    if (
-      !isMovingForward ||
-      !isGateActive() ||
-      currentScrollY + window.innerHeight < getGateBoundary()
-    ) {
-      return
-    }
-
-    enforceSelectionGate()
-  }
-
-  const handleKeydown = (event) => {
-    if (!gatedKeys.has(event.key) || !shouldGateForwardScroll()) {
-      return
-    }
-
-    event.preventDefault()
-    enforceSelectionGate({ focus: true })
-  }
-
-  const handleTouchStart = (event) => {
-    touchStartY = event.touches[0]?.clientY ?? 0
-  }
-
-  const handleTouchMove = (event) => {
-    const touchY = event.touches[0]?.clientY ?? touchStartY
-    const isMovingForward = touchStartY - touchY > 0
-
-    if (!isMovingForward || !shouldGateForwardScroll()) {
-      return
-    }
-
-    event.preventDefault()
-    enforceSelectionGate()
-  }
-
-  const keepFocusInBranches = (event) => {
-    if (!isGateActive() || !archetypeContent?.contains(event.target)) {
-      return
-    }
-
-    event.preventDefault()
-    enforceSelectionGate({ focus: true })
+    target?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
   }
 
   coupleReveal?.addEventListener('click', revealAndScrollBranches)
   archetypeTriggers.forEach((trigger) => {
     trigger.addEventListener('click', selectArchetype)
   })
-  window.addEventListener('wheel', handleWheel, { passive: false })
-  window.addEventListener('scroll', handleScroll, { passive: true })
-  window.addEventListener('keydown', handleKeydown)
-  window.addEventListener('touchstart', handleTouchStart, { passive: true })
-  window.addEventListener('touchmove', handleTouchMove, { passive: false })
-  document.addEventListener('focusin', keepFocusInBranches)
+  archetypeLockAction?.addEventListener('click', scrollToActiveChoice)
   window.addEventListener('hashchange', syncBranchesWithHash)
   window.addEventListener('popstate', syncBranchesWithHash)
   syncBranchesWithHash()

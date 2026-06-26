@@ -62,6 +62,23 @@ const scrollToContentEdge = async (page) => {
   await page.waitForTimeout(100)
 }
 
+const wheelTowardContent = async (page, contentTop) => {
+  await page.mouse.move(200, 500)
+
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    await page.mouse.wheel(0, 900)
+    await page.waitForTimeout(120)
+
+    const scrollY = await page.evaluate(() => window.scrollY)
+
+    if (scrollY > contentTop - 80) {
+      return scrollY
+    }
+  }
+
+  return page.evaluate(() => window.scrollY)
+}
+
 const staticHtml = await readFile(indexPath, 'utf8')
 assert.match(
   staticHtml,
@@ -94,10 +111,8 @@ try {
 
   await page.addInitScript(() => {
     window.__archetypeGateScrollSettled = true
-    window.__archetypeGateScrollIntoViewCount = 0
     const originalScrollIntoView = Element.prototype.scrollIntoView
     Element.prototype.scrollIntoView = function scrollIntoView(options) {
-      window.__archetypeGateScrollIntoViewCount += 1
       window.__archetypeGateScrollSettled = false
       originalScrollIntoView.call(this, { ...options, behavior: 'auto' })
       requestAnimationFrame(() => {
@@ -113,73 +128,58 @@ try {
     .evaluate((element) => element.getBoundingClientRect().top + window.scrollY)
 
   await scrollToContentEdge(page)
-  await page.mouse.wheel(0, 900)
-  await page.waitForTimeout(500)
-
-  const unselectedScrollY = await page.evaluate(() => window.scrollY)
+  const unselectedScrollY = await wheelTowardContent(page, contentTop)
   assert(
-    unselectedScrollY < contentTop - 80,
-    `users should not scroll into result content before choosing Solo or Couple; scrollY=${unselectedScrollY}, contentTop=${contentTop}`
+    unselectedScrollY > contentTop - 80,
+    `native scroll should continue into locked result content before choosing Solo or Couple; scrollY=${unselectedScrollY}, contentTop=${contentTop}`
   )
   await assert.doesNotReject(() =>
     page
-      .locator('[data-saver-selection-gate]')
+      .locator('[data-archetype-lock]')
       .waitFor({ state: 'visible', timeout: 1000 })
   )
-
-  await page.evaluate(() => {
-    window.__archetypeGateScrollIntoViewCount = 0
-  })
-  await page.mouse.wheel(0, 900)
-  await page.waitForTimeout(500)
-
-  const repeatedGateSnapCount = await page.evaluate(
-    () => window.__archetypeGateScrollIntoViewCount
+  assert.match(
+    await page.locator('[data-archetype-lock-copy]').innerText(),
+    /Pick Solo or Couple/,
+    'locked preview should explain the first required choice'
   )
   assert.equal(
-    repeatedGateSnapCount,
-    0,
-    `visible gate should block repeated downward scroll without re-snapping; scrollIntoView calls=${repeatedGateSnapCount}`
+    await page
+      .locator('[data-archetype-content] > section')
+      .first()
+      .getAttribute('inert'),
+    '',
+    'locked result sections should be inert before a selection'
   )
 
-  await page.evaluate(() => {
-    window.__archetypeGateScrollIntoViewCount = 0
-  })
   const beforeUpwardScrollY = await page.evaluate(() => window.scrollY)
   await page.mouse.wheel(0, -500)
   await page.waitForTimeout(500)
 
-  const upwardGateSnapCount = await page.evaluate(
-    () => window.__archetypeGateScrollIntoViewCount
-  )
-  assert.equal(
-    upwardGateSnapCount,
-    0,
-    `upward scroll after hitting the gate should not re-snap; scrollIntoView calls=${upwardGateSnapCount}`
-  )
-
   const afterUpwardScrollY = await page.evaluate(() => window.scrollY)
   assert(
     afterUpwardScrollY < beforeUpwardScrollY - 100,
-    `users should be able to scroll up cleanly after hitting the gate; before=${beforeUpwardScrollY}, after=${afterUpwardScrollY}`
+    `native upward scroll should remain clean in the locked preview; before=${beforeUpwardScrollY}, after=${afterUpwardScrollY}`
   )
 
   await page.locator('[data-archetype-reveal="couple"]').click()
   await waitForScroll(page)
 
   await scrollToContentEdge(page)
-  await page.mouse.wheel(0, 900)
-  await page.waitForTimeout(500)
-
-  const gatedScrollY = await page.evaluate(() => window.scrollY)
+  const gatedScrollY = await wheelTowardContent(page, contentTop)
   assert(
-    gatedScrollY < contentTop - 80,
-    `unselected couple users should not scroll into result content; scrollY=${gatedScrollY}, contentTop=${contentTop}`
+    gatedScrollY > contentTop - 80,
+    `native scroll should continue into locked result content before choosing a couple dynamic; scrollY=${gatedScrollY}, contentTop=${contentTop}`
   )
   await assert.doesNotReject(() =>
     page
-      .locator('[data-couple-selection-gate]')
+      .locator('[data-archetype-lock]')
       .waitFor({ state: 'visible', timeout: 1000 })
+  )
+  assert.match(
+    await page.locator('[data-archetype-lock-copy]').innerText(),
+    /Pick a couple dynamic/,
+    'locked preview should explain the second required choice'
   )
 
   await page
@@ -191,6 +191,14 @@ try {
     page
       .locator('[data-archetype-content].is-revealed')
       .waitFor({ state: 'visible', timeout: 1000 })
+  )
+  assert.equal(
+    await page
+      .locator('[data-archetype-content] > section')
+      .first()
+      .getAttribute('inert'),
+    null,
+    'result sections should be interactive after selecting a couple archetype'
   )
 
   await page.mouse.wheel(0, 2800)
