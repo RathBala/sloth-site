@@ -94,8 +94,10 @@ try {
 
   await page.addInitScript(() => {
     window.__archetypeGateScrollSettled = true
+    window.__archetypeGateScrollIntoViewCount = 0
     const originalScrollIntoView = Element.prototype.scrollIntoView
     Element.prototype.scrollIntoView = function scrollIntoView(options) {
+      window.__archetypeGateScrollIntoViewCount += 1
       window.__archetypeGateScrollSettled = false
       originalScrollIntoView.call(this, { ...options, behavior: 'auto' })
       requestAnimationFrame(() => {
@@ -123,6 +125,43 @@ try {
     page
       .locator('[data-saver-selection-gate]')
       .waitFor({ state: 'visible', timeout: 1000 })
+  )
+
+  await page.evaluate(() => {
+    window.__archetypeGateScrollIntoViewCount = 0
+  })
+  await page.mouse.wheel(0, 900)
+  await page.waitForTimeout(500)
+
+  const repeatedGateSnapCount = await page.evaluate(
+    () => window.__archetypeGateScrollIntoViewCount
+  )
+  assert.equal(
+    repeatedGateSnapCount,
+    0,
+    `visible gate should block repeated downward scroll without re-snapping; scrollIntoView calls=${repeatedGateSnapCount}`
+  )
+
+  await page.evaluate(() => {
+    window.__archetypeGateScrollIntoViewCount = 0
+  })
+  const beforeUpwardScrollY = await page.evaluate(() => window.scrollY)
+  await page.mouse.wheel(0, -500)
+  await page.waitForTimeout(500)
+
+  const upwardGateSnapCount = await page.evaluate(
+    () => window.__archetypeGateScrollIntoViewCount
+  )
+  assert.equal(
+    upwardGateSnapCount,
+    0,
+    `upward scroll after hitting the gate should not re-snap; scrollIntoView calls=${upwardGateSnapCount}`
+  )
+
+  const afterUpwardScrollY = await page.evaluate(() => window.scrollY)
+  assert(
+    afterUpwardScrollY < beforeUpwardScrollY - 100,
+    `users should be able to scroll up cleanly after hitting the gate; before=${beforeUpwardScrollY}, after=${afterUpwardScrollY}`
   )
 
   await page.locator('[data-archetype-reveal="couple"]').click()

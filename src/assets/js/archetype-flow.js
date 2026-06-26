@@ -23,6 +23,7 @@
   const gatedKeys = new Set([' ', 'ArrowDown', 'End', 'PageDown'])
   let touchStartY = 0
   let isEnforcingGate = false
+  let lastScrollY = window.scrollY
 
   const hasSelectedArchetype = () =>
     Boolean(archetypeContent?.dataset.currentArchetype)
@@ -39,13 +40,17 @@
       return
     }
 
+    const wasHidden = gate.hasAttribute('hidden')
+
     gate.removeAttribute('hidden')
     container?.classList.add('is-gated')
 
-    gate.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-    })
+    if (wasHidden) {
+      gate.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      })
+    }
 
     if (focus) {
       gate.focus({ preventScroll: true })
@@ -268,9 +273,14 @@
   }
 
   const handleScroll = () => {
+    const currentScrollY = window.scrollY
+    const isMovingForward = currentScrollY > lastScrollY
+    lastScrollY = currentScrollY
+
     if (
+      !isMovingForward ||
       !isGateActive() ||
-      window.scrollY + window.innerHeight < getGateBoundary()
+      currentScrollY + window.innerHeight < getGateBoundary()
     ) {
       return
     }
