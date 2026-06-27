@@ -689,11 +689,11 @@
 
       .sloth-archetype-lock {
         position: sticky;
-        top: 5.5rem;
+        bottom: max(1rem, env(safe-area-inset-bottom));
         z-index: 4;
         display: flex;
         width: min(calc(100% - 2rem), 34rem);
-        margin: 0 auto;
+        margin: 0 auto max(1rem, env(safe-area-inset-bottom));
         border: 1px solid rgba(205, 160, 255, 0.46);
         border-radius: 1rem;
         background: rgba(1, 61, 41, 0.9);
@@ -709,6 +709,16 @@
         justify-content: space-between;
         padding: 0.85rem 1rem;
         text-align: center;
+      }
+
+      .sloth-archetype-lock.is-bottom-stuck {
+        position: fixed;
+        right: auto;
+        bottom: max(1rem, env(safe-area-inset-bottom));
+        left: 50%;
+        width: min(calc(100vw - 2rem), 34rem);
+        margin: 0;
+        transform: translateX(-50%);
       }
 
       .sloth-archetype-lock[hidden] {

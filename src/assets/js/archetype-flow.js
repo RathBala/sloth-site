@@ -24,9 +24,15 @@
   const archetypeSections = Array.from(
     archetypeContent?.querySelectorAll(':scope > section') ?? []
   )
+  let lockPositionFrame = 0
 
   const hasSelectedArchetype = () =>
     Boolean(archetypeContent?.dataset.currentArchetype)
+
+  const getCurrentChoiceBoundary = () =>
+    coupleBranches.classList.contains('is-revealed')
+      ? coupleBranches
+      : archetypeFlow
 
   const updateLockedPreview = () => {
     if (!archetypeLock || !archetypeLockCopy) {
@@ -34,6 +40,7 @@
     }
 
     if (hasSelectedArchetype()) {
+      archetypeLock.classList.remove('is-bottom-stuck')
       archetypeLock.setAttribute('hidden', '')
       return
     }
@@ -44,6 +51,41 @@
       ? 'Pick a couple dynamic to unlock your plan.'
       : 'Pick Solo or Couple to unlock your plan.'
     archetypeLock.removeAttribute('hidden')
+    updateLockPosition()
+  }
+
+  const updateLockPosition = () => {
+    if (!archetypeLock || hasSelectedArchetype()) {
+      archetypeLock?.classList.remove('is-bottom-stuck')
+      return
+    }
+
+    const choiceBoundary = getCurrentChoiceBoundary()
+
+    if (!choiceBoundary || archetypeLock.hasAttribute('hidden')) {
+      archetypeLock.classList.remove('is-bottom-stuck')
+      return
+    }
+
+    const lockHeight = archetypeLock.offsetHeight
+    const minimumGap = 16
+
+    archetypeLock.classList.toggle(
+      'is-bottom-stuck',
+      choiceBoundary.getBoundingClientRect().bottom <=
+        window.innerHeight - lockHeight - minimumGap
+    )
+  }
+
+  const scheduleLockPositionUpdate = () => {
+    if (lockPositionFrame) {
+      return
+    }
+
+    lockPositionFrame = window.requestAnimationFrame(() => {
+      lockPositionFrame = 0
+      updateLockPosition()
+    })
   }
 
   const revealBranches = () => {
@@ -221,6 +263,10 @@
     trigger.addEventListener('click', selectArchetype)
   })
   archetypeLockAction?.addEventListener('click', scrollToActiveChoice)
+  window.addEventListener('scroll', scheduleLockPositionUpdate, {
+    passive: true,
+  })
+  window.addEventListener('resize', scheduleLockPositionUpdate)
   window.addEventListener('hashchange', syncBranchesWithHash)
   window.addEventListener('popstate', syncBranchesWithHash)
   syncBranchesWithHash()

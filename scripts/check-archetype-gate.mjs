@@ -79,6 +79,34 @@ const wheelTowardContent = async (page, contentTop) => {
   return page.evaluate(() => window.scrollY)
 }
 
+const assertLockSticksAboveViewportBottom = async (page, message) => {
+  const lockBox = await page.locator('[data-archetype-lock]').boundingBox()
+  const viewport = page.viewportSize()
+
+  assert(lockBox, `${message}: lock should be visible`)
+  assert(viewport, `${message}: viewport should be available`)
+
+  const bottomGap = viewport.height - (lockBox.y + lockBox.height)
+  const choiceBoundaryBottom = await page.evaluate(() => {
+    const coupleBranches = document.getElementById('couple-archetypes')
+    const archetypeFlow = coupleBranches?.closest('.sloth-archetype-flow')
+    const choiceBoundary = coupleBranches?.classList.contains('is-revealed')
+      ? coupleBranches
+      : archetypeFlow
+
+    return choiceBoundary?.getBoundingClientRect().bottom ?? 0
+  })
+
+  assert(
+    bottomGap >= 12 && bottomGap <= 48,
+    `${message}: lock should stick near the viewport bottom with breathing room; bottomGap=${bottomGap}`
+  )
+  assert(
+    choiceBoundaryBottom <= lockBox.y - 8,
+    `${message}: lock should not overlap the active choice area; choiceBoundaryBottom=${choiceBoundaryBottom}, lockTop=${lockBox.y}`
+  )
+}
+
 const staticHtml = await readFile(indexPath, 'utf8')
 assert.match(
   staticHtml,
@@ -138,6 +166,7 @@ try {
       .locator('[data-archetype-lock]')
       .waitFor({ state: 'visible', timeout: 1000 })
   )
+  await assertLockSticksAboveViewportBottom(page, 'first locked choice prompt')
   assert.match(
     await page.locator('[data-archetype-lock-copy]').innerText(),
     /Pick Solo or Couple/,
@@ -175,6 +204,10 @@ try {
     page
       .locator('[data-archetype-lock]')
       .waitFor({ state: 'visible', timeout: 1000 })
+  )
+  await assertLockSticksAboveViewportBottom(
+    page,
+    'couple dynamic locked choice prompt'
   )
   assert.match(
     await page.locator('[data-archetype-lock-copy]').innerText(),
