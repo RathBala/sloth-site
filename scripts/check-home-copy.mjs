@@ -176,15 +176,9 @@ const checks = [
       archetypeSection.includes(
         'assets/images/sloth-archetype-couple-art.webp'
       ) &&
-      !archetypeSection.includes(
-        'assets/images/sloth-archetype-goal-art.webp'
-      ) &&
-      !archetypeSection.includes(
-        'assets/images/sloth-archetype-zen-art.webp'
-      ) &&
       !archetypeSection.includes('assets/images/sloth-archetype-flow.webp'),
     message:
-      'Home archetype cards should use the Solo and Couple sloth assets instead of the old archetype art or composite image.',
+      'Home top-level archetype cards should use the Solo and Couple sloth assets instead of the old composite image.',
   },
   {
     passes:
@@ -200,6 +194,26 @@ const checks = [
       !archetypeSection.includes('Goal-Chaser') &&
       !archetypeSection.includes('Zen<br />Sloth'),
     message: 'Home archetype cards should offer Solo and Couple only.',
+  },
+  {
+    passes:
+      archetypeSection.includes('href="#solo-archetypes"') &&
+      archetypeSection.includes('id="solo-archetypes"') &&
+      archetypeSection.includes('Pick your solo style') &&
+      archetypeSection.includes('data-archetype-trigger="solo-planner"') &&
+      archetypeSection.includes('data-archetype-trigger="solo-free-spirit"') &&
+      archetypeSection.includes(
+        'assets/images/sloth-archetype-goal-art.webp'
+      ) &&
+      archetypeSection.includes('assets/images/sloth-archetype-zen-art.webp') &&
+      archetypeSection.includes('data-analytics-cta="solo-planner"') &&
+      archetypeSection.includes('data-analytics-cta="solo-free-spirit"') &&
+      source.includes('id="solo-planner-content"') &&
+      source.includes('id="solo-free-spirit-content"') &&
+      source.includes('data-archetype-solo-planner') &&
+      source.includes('data-archetype-solo-free-spirit'),
+    message:
+      'Home Solo saver card should reveal Planner and Free Spirit solo archetype branches with tracked in-page result states.',
   },
   {
     passes:
@@ -253,6 +267,7 @@ const checks = [
       ) &&
       source.includes('.sloth-archetype-results.is-revealed') &&
       archetypeFlowJs.includes('data-couple-archetype-trigger') &&
+      archetypeFlowJs.includes('data-archetype-trigger') &&
       archetypeFlowJs.includes('showArchetypeContent') &&
       archetypeFlowJs.includes("classList.add('is-preview')") &&
       archetypeFlowJs.includes("classList.remove('is-preview')") &&
@@ -265,10 +280,12 @@ const checks = [
   {
     passes:
       archetypeSection.includes('data-archetype-reveal="couple"') &&
+      archetypeSection.includes('data-archetype-reveal="solo"') &&
+      archetypeSection.includes('data-archetype-branch-grid') &&
       archetypeSection.includes('data-couple-branch-grid') &&
       source.includes('assets/js/archetype-flow.js'),
     message:
-      'Home Couple saver card should reveal the dimmed couple branches before the user can choose a branch.',
+      'Home Solo and Couple saver cards should reveal dimmed branches before the user can choose a branch.',
   },
   {
     passes:
@@ -276,9 +293,10 @@ const checks = [
         '.sloth-couple-branches:not(.is-revealed):not(:target)'
       ) &&
       source.includes('.sloth-couple-branches.is-revealed') &&
+      source.includes('[data-archetype-branch-group=') &&
       source.includes('.sloth-couple-branch-grid[inert]'),
     message:
-      'Home couple branches should start visually dimmed and interaction-locked until revealed.',
+      'Home archetype branches should start visually dimmed and interaction-locked until revealed.',
   },
   {
     passes:
@@ -335,13 +353,13 @@ const checks = [
     passes:
       archetypeFlowJs.includes('event.preventDefault()') &&
       archetypeFlowJs.includes(
-        "window.history.pushState(null, '', '#couple-archetypes')"
+        "window.history.pushState(null, '', `#${branchGroupElement.id}`)"
       ) &&
-      archetypeFlowJs.includes('coupleBranches.scrollIntoView') &&
+      archetypeFlowJs.includes('branchGroupElement?.scrollIntoView') &&
       archetypeFlowJs.includes("behavior: 'smooth'") &&
       archetypeFlowJs.includes("block: 'start'"),
     message:
-      'Home Couple saver card should reveal and start smooth scrolling immediately from the click handler.',
+      'Home saver cards should reveal their branch group and start smooth scrolling immediately from the click handler.',
   },
   {
     passes:

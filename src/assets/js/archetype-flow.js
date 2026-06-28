@@ -1,19 +1,22 @@
 ;(() => {
-  const coupleBranches = document.getElementById('couple-archetypes')
-  const coupleReveal = document.querySelector(
-    '[data-archetype-reveal="couple"]'
+  const branchGroups = Array.from(
+    document.querySelectorAll('[data-archetype-branch-group]')
+  )
+  const revealTriggers = Array.from(
+    document.querySelectorAll('[data-archetype-reveal]')
   )
   const archetypeContent = document.querySelector('[data-archetype-content]')
   const archetypeTriggers = Array.from(
-    document.querySelectorAll('[data-couple-archetype-trigger]')
+    document.querySelectorAll(
+      '[data-archetype-trigger], [data-couple-archetype-trigger]'
+    )
   )
 
-  if (!coupleBranches) {
+  if (branchGroups.length === 0) {
     return
   }
 
-  const archetypeFlow = coupleBranches.closest('.sloth-archetype-flow')
-  const branchGrid = coupleBranches.querySelector('[data-couple-branch-grid]')
+  const archetypeFlow = branchGroups[0].closest('.sloth-archetype-flow')
   const archetypeLock = archetypeContent?.querySelector('[data-archetype-lock]')
   const archetypeLockCopy = archetypeLock?.querySelector(
     '[data-archetype-lock-copy]'
@@ -27,15 +30,32 @@
   const archetypeCopyTargets = Array.from(
     archetypeContent?.querySelectorAll('[data-archetype-text]') ?? []
   )
+  const defaultBranchGroup = 'couple'
   let lockPositionFrame = 0
+
+  const getArchetype = (trigger) =>
+    trigger.dataset.archetypeTrigger || trigger.dataset.coupleArchetypeTrigger
+
+  const getBranchGrid = (branchGroup) =>
+    branchGroup?.querySelector(
+      '[data-archetype-branch-grid], [data-couple-branch-grid]'
+    )
 
   const hasSelectedArchetype = () =>
     Boolean(archetypeContent?.dataset.currentArchetype)
 
+  const getActiveBranchGroup = () =>
+    branchGroups.find((branchGroup) =>
+      branchGroup.classList.contains('is-active')
+    )
+
+  const getRevealedBranchGroup = () =>
+    branchGroups.find((branchGroup) =>
+      branchGroup.classList.contains('is-revealed')
+    )
+
   const getCurrentChoiceBoundary = () =>
-    coupleBranches.classList.contains('is-revealed')
-      ? coupleBranches
-      : archetypeFlow
+    getRevealedBranchGroup() ?? archetypeFlow
 
   const updateLockedPreview = () => {
     if (!archetypeLock || !archetypeLockCopy) {
@@ -48,11 +68,11 @@
       return
     }
 
-    archetypeLockCopy.textContent = coupleBranches.classList.contains(
-      'is-revealed'
-    )
-      ? 'Pick a couple dynamic to unlock your plan.'
-      : 'Pick Solo or Couple to unlock your plan.'
+    const revealedBranchGroup = getRevealedBranchGroup()
+
+    archetypeLockCopy.textContent =
+      revealedBranchGroup?.dataset.archetypeBranchLockCopy ||
+      'Pick Solo or Couple to unlock your plan.'
     archetypeLock.removeAttribute('hidden')
     updateLockPosition()
   }
@@ -103,9 +123,26 @@
     })
   }
 
-  const revealBranches = () => {
-    coupleBranches.classList.add('is-revealed')
-    branchGrid?.removeAttribute('inert')
+  const setActiveBranchGroup = (groupKey, { revealed = false } = {}) => {
+    const nextGroupKey = groupKey || defaultBranchGroup
+
+    if (archetypeFlow) {
+      archetypeFlow.dataset.activeBranchGroup = nextGroupKey
+    }
+
+    branchGroups.forEach((branchGroup) => {
+      const isActive = branchGroup.dataset.archetypeBranchGroup === nextGroupKey
+      const isRevealed = isActive && revealed
+
+      branchGroup.classList.toggle('is-active', isActive)
+      branchGroup.classList.toggle('is-revealed', isRevealed)
+
+      if (isRevealed) {
+        getBranchGrid(branchGroup)?.removeAttribute('inert')
+      } else {
+        getBranchGrid(branchGroup)?.setAttribute('inert', '')
+      }
+    })
   }
 
   const setResultSectionsLocked = (isLocked) => {
@@ -137,8 +174,7 @@
   }
 
   const lockBranches = () => {
-    coupleBranches.classList.remove('is-revealed')
-    branchGrid?.setAttribute('inert', '')
+    setActiveBranchGroup(defaultBranchGroup)
     previewArchetypeContent()
   }
 
@@ -153,10 +189,18 @@
     const archetype = hash.slice(0, -suffix.length)
 
     return archetypeTriggers.some(
-      (trigger) => trigger.dataset.coupleArchetypeTrigger === archetype
+      (trigger) => getArchetype(trigger) === archetype
     )
       ? archetype
       : ''
+  }
+
+  const getBranchGroupForArchetype = (archetype) => {
+    const trigger = archetypeTriggers.find(
+      (candidate) => getArchetype(candidate) === archetype
+    )
+
+    return trigger?.closest('[data-archetype-branch-group]')
   }
 
   const showArchetypeContent = (
@@ -167,7 +211,10 @@
       return
     }
 
-    revealBranches()
+    const branchGroup = getBranchGroupForArchetype(archetype)
+    setActiveBranchGroup(branchGroup?.dataset.archetypeBranchGroup, {
+      revealed: true,
+    })
     archetypeContent.classList.remove('is-preview')
     archetypeContent.classList.add('is-revealed')
     setResultSectionsLocked(false)
@@ -176,7 +223,7 @@
     updateLockedPreview()
 
     archetypeTriggers.forEach((trigger) => {
-      const isCurrent = trigger.dataset.coupleArchetypeTrigger === archetype
+      const isCurrent = getArchetype(trigger) === archetype
       trigger.setAttribute('aria-expanded', String(isCurrent))
 
       if (isCurrent) {
@@ -208,8 +255,14 @@
       return
     }
 
-    if (window.location.hash === '#couple-archetypes') {
-      revealBranches()
+    const targetBranchGroup = branchGroups.find(
+      (branchGroup) => window.location.hash === `#${branchGroup.id}`
+    )
+
+    if (targetBranchGroup) {
+      setActiveBranchGroup(targetBranchGroup.dataset.archetypeBranchGroup, {
+        revealed: true,
+      })
       previewArchetypeContent()
       return
     }
@@ -230,14 +283,22 @@
     }
 
     event.preventDefault()
-    revealBranches()
+    const branchGroup = event.currentTarget.dataset.archetypeReveal
+    const branchGroupElement = branchGroups.find(
+      (candidate) => candidate.dataset.archetypeBranchGroup === branchGroup
+    )
+
+    setActiveBranchGroup(branchGroup, { revealed: true })
     previewArchetypeContent()
 
-    if (window.location.hash !== '#couple-archetypes') {
-      window.history.pushState(null, '', '#couple-archetypes')
+    if (
+      branchGroupElement?.id &&
+      window.location.hash !== `#${branchGroupElement.id}`
+    ) {
+      window.history.pushState(null, '', `#${branchGroupElement.id}`)
     }
 
-    coupleBranches.scrollIntoView({
+    branchGroupElement?.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
     })
@@ -255,7 +316,7 @@
       return
     }
 
-    const archetype = event.currentTarget.dataset.coupleArchetypeTrigger
+    const archetype = getArchetype(event.currentTarget)
 
     event.preventDefault()
     showArchetypeContent(archetype, {
@@ -265,9 +326,7 @@
   }
 
   const scrollToActiveChoice = () => {
-    const target = coupleBranches.classList.contains('is-revealed')
-      ? coupleBranches
-      : archetypeFlow
+    const target = getRevealedBranchGroup() ?? archetypeFlow
 
     target?.scrollIntoView({
       behavior: 'smooth',
@@ -275,7 +334,9 @@
     })
   }
 
-  coupleReveal?.addEventListener('click', revealAndScrollBranches)
+  revealTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', revealAndScrollBranches)
+  })
   archetypeTriggers.forEach((trigger) => {
     trigger.addEventListener('click', selectArchetype)
   })

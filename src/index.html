@@ -472,6 +472,10 @@
         box-shadow: 0 0 22px rgba(255, 241, 118, 0.34);
       }
 
+      .sloth-archetype-path.solo::after {
+        display: none;
+      }
+
       .sloth-archetype-path.couple::before {
         display: none;
       }
@@ -509,6 +513,7 @@
       }
 
       .sloth-couple-connector path {
+        display: none;
         fill: none;
         stroke: #cda0ff;
         stroke-linecap: round;
@@ -518,11 +523,32 @@
         vector-effect: non-scaling-stroke;
       }
 
+      .sloth-archetype-flow[data-active-branch-group='solo']
+        .sloth-couple-connector
+        [data-archetype-connector='solo'],
+      .sloth-archetype-flow[data-active-branch-group='couple']
+        .sloth-couple-connector
+        [data-archetype-connector='couple'] {
+        display: block;
+      }
+
+      .sloth-archetype-flow[data-active-branch-group='solo']
+        .sloth-couple-connector
+        [data-archetype-connector='solo'] {
+        stroke: #fff176;
+        filter: drop-shadow(0 0 12px rgba(255, 241, 118, 0.5));
+      }
+
       .sloth-couple-branches {
+        display: none;
         position: relative;
         margin: 0 auto;
         padding-top: clamp(2.4rem, 6vw, 4rem);
         scroll-margin-top: 6.5rem;
+      }
+
+      .sloth-couple-branches.is-active {
+        display: block;
       }
 
       .sloth-couple-branches::before {
@@ -575,6 +601,11 @@
         text-transform: uppercase;
       }
 
+      .sloth-couple-branches[data-archetype-branch-group='solo']
+        .sloth-couple-branch-kicker {
+        color: #fff176;
+      }
+
       .sloth-couple-branch-heading {
         margin-top: 0.25rem;
         color: #ffffff;
@@ -619,12 +650,22 @@
           transform 180ms ease;
       }
 
+      .sloth-couple-branches[data-archetype-branch-group='solo']
+        .sloth-couple-branch-card {
+        border-color: rgba(255, 241, 118, 0.56);
+      }
+
       .sloth-couple-branch-card:hover {
         border-color: rgba(225, 205, 255, 0.86);
         box-shadow:
           inset 0 0 0 1px rgba(255, 255, 255, 0.12),
           0 22px 42px rgba(1, 38, 25, 0.24);
         transform: translateY(-2px);
+      }
+
+      .sloth-couple-branches[data-archetype-branch-group='solo']
+        .sloth-couple-branch-card:hover {
+        border-color: rgba(255, 247, 176, 0.9);
       }
 
       .sloth-couple-branch-card:focus-visible {
@@ -635,6 +676,14 @@
         outline: none;
       }
 
+      .sloth-couple-branches[data-archetype-branch-group='solo']
+        .sloth-couple-branch-card:focus-visible {
+        border-color: #fff7b0;
+        box-shadow:
+          0 0 0 4px rgba(255, 241, 118, 0.24),
+          0 22px 42px rgba(1, 38, 25, 0.24);
+      }
+
       .sloth-couple-branch-card[aria-current='true'] {
         border-color: #e1cdff;
         box-shadow:
@@ -642,6 +691,15 @@
           inset 0 0 0 1px rgba(255, 255, 255, 0.18),
           0 28px 52px rgba(1, 38, 25, 0.3);
         transform: translateY(-2px);
+      }
+
+      .sloth-couple-branches[data-archetype-branch-group='solo']
+        .sloth-couple-branch-card[aria-current='true'] {
+        border-color: #fff7b0;
+        box-shadow:
+          0 0 0 4px rgba(255, 241, 118, 0.18),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+          0 28px 52px rgba(1, 38, 25, 0.3);
       }
 
       .sloth-couple-branch-art {
@@ -884,6 +942,12 @@
           width: 100%;
           max-width: 66rem;
           grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .sloth-couple-branches[data-archetype-branch-group='solo']
+          .sloth-couple-branch-grid {
+          max-width: 44rem;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
@@ -1273,7 +1337,10 @@
           <div
             class="relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
           >
-            <div class="sloth-archetype-flow mx-auto w-full">
+            <div
+              class="sloth-archetype-flow mx-auto w-full"
+              data-active-branch-group="couple"
+            >
               <h2
                 id="archetype-flow-heading"
                 class="sloth-archetype-title mx-auto mb-4 max-w-xl text-center sm:mb-5"
@@ -1285,9 +1352,10 @@
                 <a
                   class="sloth-archetype-card"
                   style="--archetype-accent: #fff176"
-                  href="https://budget.slothmoney.app?saver=solo"
+                  href="#solo-archetypes"
+                  data-archetype-reveal="solo"
                   data-analytics-cta="saver-solo"
-                  aria-label="Choose Solo saver"
+                  aria-label="Choose Solo saver and see solo archetypes"
                 >
                   <span class="sloth-archetype-art" aria-hidden="true">
                     <img
@@ -1350,14 +1418,101 @@
                   focusable="false"
                   aria-hidden="true"
                 >
-                  <path d="M75 0 V32 C75 55 50 50 50 76 V100"></path>
+                  <path
+                    data-archetype-connector="solo"
+                    d="M25 0 V32 C25 55 50 50 50 76 V100"
+                  ></path>
+                  <path
+                    data-archetype-connector="couple"
+                    d="M75 0 V32 C75 55 50 50 50 76 V100"
+                  ></path>
                 </svg>
               </div>
 
               <div
-                id="couple-archetypes"
+                id="solo-archetypes"
                 class="sloth-couple-branches"
+                aria-labelledby="solo-archetypes-heading"
+                data-archetype-branch-group="solo"
+                data-archetype-branch-lock-copy="Pick a solo style to unlock your plan."
+              >
+                <div class="sloth-couple-branch-copy">
+                  <span class="sloth-couple-branch-kicker">Solo paths</span>
+                  <h3
+                    id="solo-archetypes-heading"
+                    class="sloth-couple-branch-heading"
+                  >
+                    Pick your solo style
+                  </h3>
+                </div>
+
+                <div
+                  class="sloth-couple-branch-grid"
+                  data-archetype-branch-grid
+                  inert
+                >
+                  <a
+                    class="sloth-couple-branch-card"
+                    href="#solo-planner-content"
+                    data-archetype-trigger="solo-planner"
+                    data-analytics-cta="solo-planner"
+                    aria-controls="archetype-content"
+                    aria-expanded="false"
+                    aria-label="Choose Solo Planner archetype"
+                  >
+                    <span class="sloth-couple-branch-art" aria-hidden="true">
+                      <img
+                        src="assets/images/sloth-archetype-goal-art.webp"
+                        alt=""
+                        decoding="async"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="sloth-couple-branch-content">
+                      <span class="sloth-couple-branch-title"> Planner </span>
+                      <span class="sloth-couple-branch-body">
+                        You like a clear target, a real number, and a plan you
+                        can keep checking.
+                      </span>
+                    </span>
+                  </a>
+
+                  <a
+                    class="sloth-couple-branch-card"
+                    href="#solo-free-spirit-content"
+                    data-archetype-trigger="solo-free-spirit"
+                    data-analytics-cta="solo-free-spirit"
+                    aria-controls="archetype-content"
+                    aria-expanded="false"
+                    aria-label="Choose Solo Free Spirit archetype"
+                  >
+                    <span class="sloth-couple-branch-art" aria-hidden="true">
+                      <img
+                        src="assets/images/sloth-archetype-zen-art.webp"
+                        alt=""
+                        decoding="async"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="sloth-couple-branch-content">
+                      <span class="sloth-couple-branch-title">
+                        Free Spirit
+                      </span>
+                      <span class="sloth-couple-branch-body">
+                        You want the future to feel possible, without making
+                        money admin your personality.
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              <div
+                id="couple-archetypes"
+                class="sloth-couple-branches is-active"
                 aria-labelledby="couple-archetypes-heading"
+                data-archetype-branch-group="couple"
+                data-archetype-branch-lock-copy="Pick a couple dynamic to unlock your plan."
               >
                 <div class="sloth-couple-branch-copy">
                   <span class="sloth-couple-branch-kicker">Couple paths</span>
@@ -1371,12 +1526,14 @@
 
                 <div
                   class="sloth-couple-branch-grid"
+                  data-archetype-branch-grid
                   data-couple-branch-grid
                   inert
                 >
                   <a
                     class="sloth-couple-branch-card"
                     href="#planner-free-spirit-content"
+                    data-archetype-trigger="planner-free-spirit"
                     data-couple-archetype-trigger="planner-free-spirit"
                     data-analytics-cta="couple-planner-free-spirit"
                     aria-controls="archetype-content"
@@ -1405,6 +1562,7 @@
                   <a
                     class="sloth-couple-branch-card"
                     href="#planner-planner-content"
+                    data-archetype-trigger="planner-planner"
                     data-couple-archetype-trigger="planner-planner"
                     data-analytics-cta="couple-planner-planner"
                     aria-controls="archetype-content"
@@ -1433,6 +1591,7 @@
                   <a
                     class="sloth-couple-branch-card"
                     href="#free-spirit-free-spirit-content"
+                    data-archetype-trigger="free-spirit-free-spirit"
                     data-couple-archetype-trigger="free-spirit-free-spirit"
                     data-analytics-cta="couple-free-spirit-free-spirit"
                     aria-controls="archetype-content"
@@ -1468,6 +1627,16 @@
         class="sloth-archetype-results is-preview"
         data-archetype-content
       >
+        <span
+          id="solo-planner-content"
+          class="sloth-archetype-content-anchor"
+          tabindex="-1"
+        ></span>
+        <span
+          id="solo-free-spirit-content"
+          class="sloth-archetype-content-anchor"
+          tabindex="-1"
+        ></span>
         <span
           id="planner-free-spirit-content"
           class="sloth-archetype-content-anchor"
@@ -1508,6 +1677,8 @@
                 class="mb-3 text-sm font-extrabold uppercase tracking-[0.18em] text-green-light"
                 data-archetype-text
                 data-archetype-default="Your path"
+                data-archetype-solo-planner="Solo Planner"
+                data-archetype-solo-free-spirit="Solo Free Spirit"
                 data-archetype-planner-free-spirit="Planner + Free Spirit"
                 data-archetype-planner-planner="Planner + Planner"
                 data-archetype-free-spirit-free-spirit="Free Spirit + Free Spirit"
@@ -1519,6 +1690,8 @@
                 data-archetype-path-heading
                 data-archetype-text
                 data-archetype-default="Your plan, in one place"
+                data-archetype-solo-planner="Planner with a roadmap"
+                data-archetype-solo-free-spirit="Free spirit with guardrails"
                 data-archetype-planner-free-spirit="One person holds the plan"
                 data-archetype-planner-planner="Two planners, one truth"
                 data-archetype-free-spirit-free-spirit="No money manager required"
@@ -1529,6 +1702,8 @@
                 class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-emerald-50"
                 data-archetype-text
                 data-archetype-default="Build a roadmap for shared goals, everyday budgets, and future trade-offs."
+                data-archetype-solo-planner="You like knowing where the money is going. Sloth keeps goals, budgets, and trade-offs in one clear roadmap."
+                data-archetype-solo-free-spirit="You care about the life you are building, but rigid spreadsheets lose you fast. Sloth shows the next money move without making money admin your personality."
                 data-archetype-planner-free-spirit="One of you tracks the numbers. The other wants the dream to stay fun. Sloth keeps the plan visible without turning every chat into a finance meeting."
                 data-archetype-planner-planner="You both want the deets. All the deets. Sloth gives your assumptions, budgets, and goal dates one shared home."
                 data-archetype-free-spirit-free-spirit="You both want the goal. Neither of you wants a second job managing it. Sloth shows the next money move without asking either of you to run the whole show."
@@ -1546,6 +1721,8 @@
                   class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
                   data-archetype-text
                   data-archetype-default="Map out your financial future from emergencies to nest eggs"
+                  data-archetype-solo-planner="Map every goal to a date"
+                  data-archetype-solo-free-spirit="Start with what you want"
                   data-archetype-planner-free-spirit="A roadmap both of you can see"
                   data-archetype-planner-planner="Every goal, date, and assumption"
                   data-archetype-free-spirit-free-spirit="Start with the dream"
@@ -1556,6 +1733,8 @@
                   class="text-lg text-gray-600 leading-relaxed"
                   data-archetype-text
                   data-archetype-default="Sloth Money brings your financial goals into a single, evolving timeline mapped out with your savings and investments growth plan."
+                  data-archetype-solo-planner="Put your emergency fund, trips, big purchases, and long-term nest egg on one timeline so every saving choice has context."
+                  data-archetype-solo-free-spirit="Name the goals that matter, then let Sloth turn them into a flexible path you can actually come back to."
                   data-archetype-planner-free-spirit="The planner gets a clear timeline. The free spirit gets the why behind each saving choice - without needing to live in a spreadsheet."
                   data-archetype-planner-planner="Put the house deposit, wedding fund, emergency buffer, and long-term nest egg on the same roadmap so you both work from the same dates."
                   data-archetype-free-spirit-free-spirit="Add the goals you care about, then let the roadmap show what is possible and what needs attention first."
@@ -1630,6 +1809,8 @@
                   class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
                   data-archetype-text
                   data-archetype-default="Plan together with your significant other"
+                  data-archetype-solo-planner="Plan solo without starting from scratch"
+                  data-archetype-solo-free-spirit="Keep your own pace"
                   data-archetype-planner-free-spirit="Share the plan, not the admin"
                   data-archetype-planner-planner="One source of truth"
                   data-archetype-free-spirit-free-spirit="Stay aligned without a spreadsheet owner"
@@ -1640,6 +1821,8 @@
                   class="text-lg text-gray-600 leading-relaxed"
                   data-archetype-text
                   data-archetype-default="Stay aligned as a couple on goals and budgets while preserving personal autonomy - making it easier to make decisions together towards financial freedom."
+                  data-archetype-solo-planner="Use one place for your goals, budget, and forecast so the plan is easy to update when life changes."
+                  data-archetype-solo-free-spirit="Keep the important money choices visible without forcing yourself into a rigid weekly spreadsheet habit."
                   data-archetype-planner-free-spirit="Shared goals and budgets make the plan easier to explain, check, and change together while each of you keeps personal space."
                   data-archetype-planner-planner="Both of you can see shared goals, budgets, and updates in one place, so the latest plan is not hiding in two separate tabs."
                   data-archetype-free-spirit-free-spirit="Set the shared goal, invite your partner when you are ready, and keep the money chat anchored to clear next steps."
@@ -1718,6 +1901,8 @@
                   data-archetype-feature-heading="budget"
                   data-archetype-text
                   data-archetype-default="Budget for the now"
+                  data-archetype-solo-planner="Budget detail without the drag"
+                  data-archetype-solo-free-spirit="Know what is safe to spend"
                   data-archetype-planner-free-spirit="Everyday choices, visible"
                   data-archetype-planner-planner="Budget detail without drift"
                   data-archetype-free-spirit-free-spirit="Know what is left"
@@ -1728,6 +1913,8 @@
                   class="text-lg text-gray-600 leading-relaxed"
                   data-archetype-text
                   data-archetype-default="Keep the month-to-month feeling manageable with simple budgets and near-term forecasts, so small decisions don’t quietly affect bigger goals."
+                  data-archetype-solo-planner="Track what is left this month and how today’s choices affect the goals you already mapped."
+                  data-archetype-solo-free-spirit="See the current budget, what needs attention, and what can stay flexible before small choices push the goal back."
                   data-archetype-planner-free-spirit="Budget views show what is left this month, so the planner does not have to translate every takeaway, shop, or weekend plan."
                   data-archetype-planner-planner="Track categories, remaining budget, and near-term forecast impact from the same shared picture."
                   data-archetype-free-spirit-free-spirit="See the current budget, what is over, and what needs a quick decision before small choices push the goal back."
@@ -1800,6 +1987,8 @@
                     class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
                     data-archetype-text
                     data-archetype-default="Model the future before it happens"
+                    data-archetype-solo-planner="Pressure-test your plan"
+                    data-archetype-solo-free-spirit="Try the idea first"
                     data-archetype-planner-free-spirit="Show the trade-off"
                     data-archetype-planner-planner="Pressure-test the plan"
                     data-archetype-free-spirit-free-spirit="Try the idea first"
@@ -1811,6 +2000,8 @@
                   class="text-lg text-gray-600 leading-relaxed"
                   data-archetype-text
                   data-archetype-default="Sloth Money lets you explore future scenarios and trade-offs to see how that impacts your goal timelines, so you can plan for changes rather than waiting."
+                  data-archetype-solo-planner="Compare timelines before you commit, then choose the version that still protects your biggest goals."
+                  data-archetype-solo-free-spirit="Play with future scenarios before deciding, then keep the option that still feels good next month."
                   data-archetype-planner-free-spirit="Want the trip, the car, or the bigger buffer? Model it first so the answer is visible before the conversation gets awkward."
                   data-archetype-planner-planner="Compare best-case and worst-case timelines, then agree which assumptions you both actually believe."
                   data-archetype-free-spirit-free-spirit="Play with future scenarios before committing, then keep the option that still protects the goals you care about."
@@ -1974,6 +2165,8 @@
                 class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3"
                 data-archetype-text
                 data-archetype-default="Built for couples planning a future together"
+                data-archetype-solo-planner="Built for solo planners"
+                data-archetype-solo-free-spirit="Built for solo free spirits"
                 data-archetype-planner-free-spirit="For the planner and the dreamer"
                 data-archetype-planner-planner="For two detail people"
                 data-archetype-free-spirit-free-spirit="For future-first free spirits"
@@ -1984,6 +2177,8 @@
                 class="max-w-2xl mx-auto text-gray-600"
                 data-archetype-text
                 data-archetype-default="Big goals rarely happen in isolation. They shift, compete, and get tested by real life."
+                data-archetype-solo-planner="Your goals still shift, compete, and get tested by real life. Keep the plan clear enough to adjust."
+                data-archetype-solo-free-spirit="Your goals can stay flexible without disappearing. Keep the next step visible when life changes."
                 data-archetype-planner-free-spirit="Keep the numbers grounded and the future exciting, even when real life changes the plan."
                 data-archetype-planner-planner="Give both of you enough detail to trust the plan without splitting it across notes, tabs, and memory."
                 data-archetype-free-spirit-free-spirit="Keep momentum without making either partner the household money manager."
@@ -2008,6 +2203,8 @@
                       class="text-lg font-semibold text-gray-900 mb-1"
                       data-archetype-text
                       data-archetype-default="Saving for a holiday"
+                      data-archetype-solo-planner="The planned escape"
+                      data-archetype-solo-free-spirit="The trip idea"
                       data-archetype-planner-free-spirit="The fun spend"
                       data-archetype-planner-planner="The trade-off"
                       data-archetype-free-spirit-free-spirit="The trip idea"
@@ -2018,6 +2215,8 @@
                       class="text-sm text-gray-600"
                       data-archetype-text
                       data-archetype-default="Know exactly what you can afford - and what it means for your other goals."
+                      data-archetype-solo-planner="See what the trip does to your goal date before you book."
+                      data-archetype-solo-free-spirit="Try the idea, see the impact, and keep the plan light enough to act on."
                       data-archetype-planner-free-spirit="See what the weekend away does to the goal date before anyone has to say no."
                       data-archetype-planner-planner="Compare the cost against the roadmap, then decide from the same numbers."
                       data-archetype-free-spirit-free-spirit="Try the idea, see the impact, and keep the plan light enough to act on."
@@ -2044,6 +2243,8 @@
                       class="text-lg font-semibold text-gray-900 mb-1"
                       data-archetype-text
                       data-archetype-default="An unexpected expense"
+                      data-archetype-solo-planner="The surprise bill"
+                      data-archetype-solo-free-spirit="The life happens fund"
                       data-archetype-planner-free-spirit="The surprise bill"
                       data-archetype-planner-planner="The changed assumption"
                       data-archetype-free-spirit-free-spirit="The life happens fund"
@@ -2054,6 +2255,8 @@
                       class="text-sm text-gray-600"
                       data-archetype-text
                       data-archetype-default="A car breaks down. You dip into your emergency fund. Instantly see how that changes your timelines - and what needs to adjust."
+                      data-archetype-solo-planner="When the emergency fund takes a hit, see which timeline moves and what needs to change next."
+                      data-archetype-solo-free-spirit="Let the dashboard show what needs attention so the fix does not become a full finance session."
                       data-archetype-planner-free-spirit="When the emergency fund takes a hit, both of you can see the plan change without one person carrying the explanation."
                       data-archetype-planner-planner="Update the budget, check the forecast, and agree what moves without debating stale numbers."
                       data-archetype-free-spirit-free-spirit="Let the dashboard show what needs attention so the fix does not become a full finance session."
@@ -2081,6 +2284,8 @@
                       class="text-lg font-semibold text-gray-900 mb-1"
                       data-archetype-text
                       data-archetype-default="Planning a major milestone"
+                      data-archetype-solo-planner="The milestone plan"
+                      data-archetype-solo-free-spirit="The future you keep naming"
                       data-archetype-planner-free-spirit="The big shared goal"
                       data-archetype-planner-planner="The milestone plan"
                       data-archetype-free-spirit-free-spirit="The future you keep naming"
@@ -2091,6 +2296,8 @@
                       class="text-sm text-gray-600"
                       data-archetype-text
                       data-archetype-default="A wedding, a house deposit, or a growing family. Understand how new priorities fit into your long-term plan."
+                      data-archetype-solo-planner="Line up the target date, monthly amount, and priority before the plan starts branching."
+                      data-archetype-solo-free-spirit="Name the milestone, add the target, and let Sloth show the monthly saving path."
                       data-archetype-planner-free-spirit="Put the wedding, house deposit, or family goal somewhere both of you can understand at a glance."
                       data-archetype-planner-planner="Line up target dates, monthly amounts, and goal priority before the plan starts branching."
                       data-archetype-free-spirit-free-spirit="Name the milestone, add the target, and let Sloth show the monthly saving path."
@@ -2118,6 +2325,8 @@
                       class="text-lg font-semibold text-gray-900 mb-1"
                       data-archetype-text
                       data-archetype-default="Building a long-term nest egg"
+                      data-archetype-solo-planner="The long view"
+                      data-archetype-solo-free-spirit="The future cushion"
                       data-archetype-planner-free-spirit="The bigger picture"
                       data-archetype-planner-planner="The long view"
                       data-archetype-free-spirit-free-spirit="The future cushion"
@@ -2128,6 +2337,8 @@
                       class="text-sm text-gray-600"
                       data-archetype-text
                       data-archetype-default="See how consistent saving and investing compounds over years, not just months."
+                      data-archetype-solo-planner="Track long-term progress without losing sight of the budget choices that fund it."
+                      data-archetype-solo-free-spirit="Keep the big future visible without managing every detail."
                       data-archetype-planner-free-spirit="Connect this month to the life you are building, so the details serve the dream."
                       data-archetype-planner-planner="Track long-term progress without losing sight of the budget choices that fund it."
                       data-archetype-free-spirit-free-spirit="Keep the big future visible, even when neither of you wants to manage every detail."
@@ -2150,6 +2361,8 @@
                 class="font-bold text-3xl sm:text-4xl text-gray-900 mb-4"
                 data-archetype-text
                 data-archetype-default="Invest in your future, together"
+                data-archetype-solo-planner="Invest with a clear plan"
+                data-archetype-solo-free-spirit="Start light, stay moving"
                 data-archetype-planner-free-spirit="Start with the plan"
                 data-archetype-planner-planner="Build one plan you both trust"
                 data-archetype-free-spirit-free-spirit="Start light, stay aligned"
@@ -2160,6 +2373,8 @@
                 class="max-w-2xl mx-auto text-lg text-gray-600"
                 data-archetype-text
                 data-archetype-default="One plan. Two people. A shared roadmap to the life you're building."
+                data-archetype-solo-planner="One roadmap for the goals, budgets, and trade-offs you want to keep visible."
+                data-archetype-solo-free-spirit="A lighter way to see the next money move without turning planning into homework."
                 data-archetype-planner-free-spirit="One partner can set the first roadmap. Both of you can see what changes as life moves."
                 data-archetype-planner-planner="Give both planners the same goals, budgets, and forecast before the details multiply."
                 data-archetype-free-spirit-free-spirit="Let Sloth show the next move so neither of you has to become the money lead."
@@ -2181,6 +2396,8 @@
                     class="text-2xl font-bold text-gray-900 mb-4"
                     data-archetype-text
                     data-archetype-default="Start your shared journey"
+                    data-archetype-solo-planner="Start your solo roadmap"
+                    data-archetype-solo-free-spirit="Start with one goal"
                     data-archetype-planner-free-spirit="Invite them into the plan"
                     data-archetype-planner-planner="Bring both plans together"
                     data-archetype-free-spirit-free-spirit="Let Sloth hold the thread"
@@ -2191,6 +2408,8 @@
                     class="text-gray-600 text-lg mb-8 max-w-md"
                     data-archetype-text
                     data-archetype-default="One subscription covers both of you - when you sign up, you get two accounts at one price. Start your roadmap right away and invite your partner when you are ready for joint goals and shared budgeting."
+                    data-archetype-solo-planner="Start with your own roadmap, then build goals, budgets, and scenarios around the plan you want to keep."
+                    data-archetype-solo-free-spirit="Add the first goal, see the next step, and keep your plan flexible enough to come back to."
                     data-archetype-planner-free-spirit="One subscription covers both of you. Start the roadmap now, then invite your partner when it is time to make goals and budgets shared."
                     data-archetype-planner-planner="One subscription covers both accounts. Build the shared roadmap, compare the details, and invite your partner when you are ready."
                     data-archetype-free-spirit-free-spirit="One subscription covers both of you. Add the first goals, see the next steps, and invite your partner when the plan is ready to share."
@@ -2204,13 +2423,29 @@
                   <ul class="space-y-4 mb-10">
                     <li class="flex items-center gap-3">
                       <i data-lucide="check" class="w-5 h-5 text-green"></i>
-                      <span class="text-gray-700"
+                      <span
+                        class="text-gray-700"
+                        data-archetype-text
+                        data-archetype-default="Both partners included - no separate subscription"
+                        data-archetype-solo-planner="Your roadmap, goals, and scenarios in one place"
+                        data-archetype-solo-free-spirit="A lighter way to keep goals moving"
+                        data-archetype-planner-free-spirit="Both partners included - no separate subscription"
+                        data-archetype-planner-planner="Both partners included - no separate subscription"
+                        data-archetype-free-spirit-free-spirit="Both partners included - no separate subscription"
                         >Both partners included - no separate subscription</span
                       >
                     </li>
                     <li class="flex items-center gap-3">
                       <i data-lucide="check" class="w-5 h-5 text-green"></i>
-                      <span class="text-gray-700"
+                      <span
+                        class="text-gray-700"
+                        data-archetype-text
+                        data-archetype-default="Your roadmap and goals from day one"
+                        data-archetype-solo-planner="Your roadmap and goals from day one"
+                        data-archetype-solo-free-spirit="One goal is enough to start"
+                        data-archetype-planner-free-spirit="Your roadmap and goals from day one"
+                        data-archetype-planner-planner="Your roadmap and goals from day one"
+                        data-archetype-free-spirit-free-spirit="Your roadmap and goals from day one"
                         >Your roadmap and goals from day one</span
                       >
                     </li>

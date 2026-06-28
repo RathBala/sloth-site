@@ -88,10 +88,12 @@ const assertLockSticksAboveViewportBottom = async (page, message) => {
 
   const bottomGap = viewport.height - (lockBox.y + lockBox.height)
   const choiceBoundaryBottom = await page.evaluate(() => {
-    const coupleBranches = document.getElementById('couple-archetypes')
-    const archetypeFlow = coupleBranches?.closest('.sloth-archetype-flow')
-    const choiceBoundary = coupleBranches?.classList.contains('is-revealed')
-      ? coupleBranches
+    const activeBranchGroup = document.querySelector(
+      '[data-archetype-branch-group].is-active'
+    )
+    const archetypeFlow = activeBranchGroup?.closest('.sloth-archetype-flow')
+    const choiceBoundary = activeBranchGroup?.classList.contains('is-revealed')
+      ? activeBranchGroup
       : archetypeFlow
 
     return choiceBoundary?.getBoundingClientRect().bottom ?? 0
@@ -117,6 +119,26 @@ assert.match(
   staticHtml,
   /id="planner-free-spirit-content"/,
   'couple archetype result anchors should remain in the static HTML'
+)
+assert.match(
+  staticHtml,
+  /id="solo-planner-content"/,
+  'solo planner result anchor should remain in the static HTML'
+)
+assert.match(
+  staticHtml,
+  /id="solo-free-spirit-content"/,
+  'solo free spirit result anchor should remain in the static HTML'
+)
+assert.match(
+  staticHtml,
+  /Planner with a roadmap/,
+  'solo planner result copy should remain in the static HTML'
+)
+assert.match(
+  staticHtml,
+  /Free spirit with guardrails/,
+  'solo free spirit result copy should remain in the static HTML'
 )
 assert.match(
   staticHtml,
@@ -182,6 +204,18 @@ try {
       .waitFor({ state: 'visible', timeout: 1000 })
   )
   await assertLockSticksAboveViewportBottom(page, 'first locked choice prompt')
+  await assert.doesNotReject(() =>
+    page
+      .locator('[data-archetype-branch-group="couple"].is-active')
+      .waitFor({ state: 'visible', timeout: 1000 })
+  )
+  await assert.rejects(
+    () =>
+      page
+        .locator('[data-archetype-branch-group="solo"].is-active')
+        .waitFor({ state: 'visible', timeout: 300 }),
+    'solo branch should not be visible before choosing Solo'
+  )
   assert.match(
     await page.locator('[data-archetype-lock-copy]').innerText(),
     /Pick Solo or Couple/,
@@ -206,8 +240,78 @@ try {
     `native upward scroll should remain clean in the locked preview; before=${beforeUpwardScrollY}, after=${afterUpwardScrollY}`
   )
 
+  await page.locator('[data-archetype-reveal="solo"]').click()
+  await waitForScroll(page)
+
+  await assert.doesNotReject(() =>
+    page
+      .locator('[data-archetype-branch-group="solo"].is-active.is-revealed')
+      .waitFor({ state: 'visible', timeout: 1000 })
+  )
+  await assert.rejects(
+    () =>
+      page
+        .locator('[data-archetype-branch-group="couple"].is-active')
+        .waitFor({ state: 'visible', timeout: 300 }),
+    'solo branch should replace the couple branch after choosing Solo'
+  )
+  assert.equal(
+    await page
+      .locator('.sloth-couple-connector [data-archetype-connector="solo"]')
+      .evaluate((element) => getComputedStyle(element).stroke),
+    'rgb(255, 241, 118)',
+    'solo branch connector should use the solo path color'
+  )
+  assert.equal(
+    await page
+      .locator('.sloth-archetype-path.solo')
+      .evaluate((element) => getComputedStyle(element, '::after').display),
+    'none',
+    'solo branch line should not show a yellow gem'
+  )
+  assert.match(
+    await page.locator('[data-archetype-lock-copy]').innerText(),
+    /Pick a solo style/,
+    'locked preview should explain the solo archetype choice'
+  )
+
+  await page.locator('[data-archetype-trigger="solo-planner"]').click()
+  await waitForScroll(page)
+  assert.match(
+    await page.locator('[data-archetype-path-heading]').innerText(),
+    /Planner with a roadmap/,
+    'solo planner should adapt the path heading'
+  )
+  assert.match(
+    await page.locator('[data-archetype-feature-heading="budget"]').innerText(),
+    /Budget detail without the drag/,
+    'solo planner should adapt feature copy'
+  )
+
+  await page.locator('[data-archetype-reveal="solo"]').click()
+  await waitForScroll(page)
+  await page.locator('[data-archetype-trigger="solo-free-spirit"]').click()
+  await waitForScroll(page)
+  assert.match(
+    await page.locator('[data-archetype-path-heading]').innerText(),
+    /Free spirit with guardrails/,
+    'solo free spirit should adapt the path heading'
+  )
+
   await page.locator('[data-archetype-reveal="couple"]').click()
   await waitForScroll(page)
+  await assert.doesNotReject(() =>
+    page
+      .locator('[data-archetype-branch-group="couple"].is-active.is-revealed')
+      .waitFor({ state: 'visible', timeout: 1000 })
+  )
+  await assert.rejects(
+    () =>
+      page
+        .locator('[data-archetype-branch-group="solo"].is-active')
+        .waitFor({ state: 'visible', timeout: 300 }),
+    'couple branch should replace the solo branch after choosing Couple'
+  )
 
   await scrollToContentEdge(page)
   const gatedScrollY = await wheelTowardContent(page, contentTop)
