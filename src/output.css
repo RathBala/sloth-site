@@ -699,6 +699,10 @@ video {
   margin-top: 0.75rem;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .mt-5 {
   margin-top: 1.25rem;
 }
@@ -1592,6 +1596,11 @@ video {
 .text-green-dark {
   --tw-text-opacity: 1;
   color: rgb(3 140 115 / var(--tw-text-opacity));
+}
+
+.text-green-light {
+  --tw-text-opacity: 1;
+  color: rgb(150 242 148 / var(--tw-text-opacity));
 }
 
 .text-green-really-dark {

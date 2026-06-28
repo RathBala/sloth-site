@@ -118,6 +118,21 @@ assert.match(
   /id="planner-free-spirit-content"/,
   'couple archetype result anchors should remain in the static HTML'
 )
+assert.match(
+  staticHtml,
+  /One of you tracks the numbers/,
+  'planner plus free spirit result copy should remain in the static HTML'
+)
+assert.match(
+  staticHtml,
+  /You both want the deets/,
+  'planner plus planner result copy should remain in the static HTML'
+)
+assert.match(
+  staticHtml,
+  /Neither of you wants a second job/,
+  'free spirit plus free spirit result copy should remain in the static HTML'
+)
 
 let browser
 
@@ -233,6 +248,16 @@ try {
     null,
     'result sections should be interactive after selecting a couple archetype'
   )
+  assert.match(
+    await page.locator('[data-archetype-path-heading]').innerText(),
+    /One person holds the plan/,
+    'planner plus free spirit should adapt the path heading'
+  )
+  assert.match(
+    await page.locator('[data-archetype-feature-heading="budget"]').innerText(),
+    /Everyday choices, visible/,
+    'planner plus free spirit should adapt feature copy'
+  )
 
   await page.mouse.wheel(0, 2800)
   await page.waitForTimeout(500)
@@ -241,6 +266,26 @@ try {
   assert(
     selectedScrollY > contentTop - 80,
     `selected couple users should be able to continue into result content; scrollY=${selectedScrollY}, contentTop=${contentTop}`
+  )
+
+  await page
+    .locator('[data-couple-archetype-trigger="planner-planner"]')
+    .click()
+  await waitForScroll(page)
+  assert.match(
+    await page.locator('[data-archetype-path-heading]').innerText(),
+    /Two planners, one truth/,
+    'planner plus planner should adapt the path heading'
+  )
+
+  await page
+    .locator('[data-couple-archetype-trigger="free-spirit-free-spirit"]')
+    .click()
+  await waitForScroll(page)
+  assert.match(
+    await page.locator('[data-archetype-path-heading]').innerText(),
+    /No money manager required/,
+    'free spirit plus free spirit should adapt the path heading'
   )
 } finally {
   await browser?.close()

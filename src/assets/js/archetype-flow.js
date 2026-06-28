@@ -24,6 +24,9 @@
   const archetypeSections = Array.from(
     archetypeContent?.querySelectorAll(':scope > section') ?? []
   )
+  const archetypeCopyTargets = Array.from(
+    archetypeContent?.querySelectorAll('[data-archetype-text]') ?? []
+  )
   let lockPositionFrame = 0
 
   const hasSelectedArchetype = () =>
@@ -88,6 +91,18 @@
     })
   }
 
+  const updateArchetypeCopy = (archetype = '') => {
+    archetypeCopyTargets.forEach((target) => {
+      const nextCopy =
+        (archetype && target.getAttribute(`data-archetype-${archetype}`)) ||
+        target.getAttribute('data-archetype-default')
+
+      if (nextCopy) {
+        target.textContent = nextCopy
+      }
+    })
+  }
+
   const revealBranches = () => {
     coupleBranches.classList.add('is-revealed')
     branchGrid?.removeAttribute('inert')
@@ -111,6 +126,7 @@
     archetypeContent.classList.remove('is-revealed')
     archetypeContent.classList.add('is-preview')
     archetypeContent.removeAttribute('data-current-archetype')
+    updateArchetypeCopy()
     setResultSectionsLocked(true)
     updateLockedPreview()
 
@@ -156,6 +172,7 @@
     archetypeContent.classList.add('is-revealed')
     setResultSectionsLocked(false)
     archetypeContent.dataset.currentArchetype = archetype
+    updateArchetypeCopy(archetype)
     updateLockedPreview()
 
     archetypeTriggers.forEach((trigger) => {

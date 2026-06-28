@@ -6,7 +6,7 @@ On the homepage, **`Your data, fully under your control`** (data and privacy car
 
 ## Homepage archetype flow
 
-The homepage saver cards stay intentionally light: **Solo** links straight to the budget app, while **Couple** scrolls to the on-page couple branch (`#couple-archetypes`). That image-led branch offers **Planner + Free Spirit**, **Planner + Planner**, and **Free Spirit + Free Spirit** as tracked paths. The lower homepage content stays present in the normal page flow as a dimmed preview for crawlability and no-JS access. Selecting a couple path updates the URL hash, for example `#planner-free-spirit-content`, and undims that content in place. The selection is URL-derived only; it is not stored locally or remotely.
+The homepage saver cards stay intentionally light: **Solo** links straight to the budget app, while **Couple** scrolls to the on-page couple branch (`#couple-archetypes`). That image-led branch offers **Planner + Free Spirit**, **Planner + Planner**, and **Free Spirit + Free Spirit** as tracked paths. The lower homepage content stays present in the normal page flow as a dimmed preview for crawlability and no-JS access. Selecting a couple path updates the URL hash, for example `#planner-free-spirit-content`, undims the content in place, and swaps the below-gate copy so the path intro, feature rows, example cards, and pricing CTA speak to that couple dynamic. All variant copy remains in static `data-archetype-*` attributes for crawlers and no-JS inspection. The selection is URL-derived only; it is not stored locally or remotely and does not claim personality-specific onboarding inside `sloth-budget`.
 
 ## Wedding fund (paid social)
 
