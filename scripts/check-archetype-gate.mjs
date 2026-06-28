@@ -269,6 +269,13 @@ try {
     'none',
     'solo branch line should not show a yellow gem'
   )
+  assert.equal(
+    await page
+      .locator('.sloth-archetype-path.solo')
+      .evaluate((element) => getComputedStyle(element, '::before').display),
+    'none',
+    'solo branch should not show a separate straight line before the connector'
+  )
   assert.match(
     await page.locator('[data-archetype-lock-copy]').innerText(),
     /Pick a solo style/,
