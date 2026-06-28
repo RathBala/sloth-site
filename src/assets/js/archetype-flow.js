@@ -128,6 +128,9 @@
 
     if (archetypeFlow) {
       archetypeFlow.dataset.activeBranchGroup = nextGroupKey
+      archetypeFlow.dataset.connectorState = revealed
+        ? nextGroupKey
+        : 'unselected'
     }
 
     branchGroups.forEach((branchGroup) => {

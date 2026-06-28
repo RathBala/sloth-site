@@ -516,27 +516,47 @@
       .sloth-couple-connector path {
         display: none;
         fill: none;
+        opacity: 1;
         stroke: #cda0ff;
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-width: 0.18rem;
         filter: drop-shadow(0 0 12px rgba(205, 160, 255, 0.5));
+        transition:
+          filter 220ms ease,
+          opacity 220ms ease;
         vector-effect: non-scaling-stroke;
       }
 
-      .sloth-archetype-flow[data-active-branch-group='solo']
+      .sloth-archetype-flow[data-connector-state='solo']
         .sloth-couple-connector
         [data-archetype-connector='solo'],
-      .sloth-archetype-flow[data-active-branch-group='couple']
+      .sloth-archetype-flow[data-connector-state='couple']
         .sloth-couple-connector
         [data-archetype-connector='couple'] {
         display: block;
       }
 
-      .sloth-archetype-flow[data-active-branch-group='solo']
+      .sloth-archetype-flow[data-connector-state='unselected']
+        .sloth-couple-connector
+        path {
+        display: block;
+        opacity: 0.3;
+        filter: saturate(0.45) brightness(0.64);
+      }
+
+      .sloth-archetype-flow[data-connector-state='solo']
+        .sloth-couple-connector
+        [data-archetype-connector='solo'],
+      .sloth-archetype-flow[data-connector-state='unselected']
         .sloth-couple-connector
         [data-archetype-connector='solo'] {
         stroke: #fff176;
+      }
+
+      .sloth-archetype-flow[data-connector-state='solo']
+        .sloth-couple-connector
+        [data-archetype-connector='solo'] {
         filter: drop-shadow(0 0 12px rgba(255, 241, 118, 0.5));
       }
 
@@ -1341,6 +1361,7 @@
             <div
               class="sloth-archetype-flow mx-auto w-full"
               data-active-branch-group="couple"
+              data-connector-state="unselected"
             >
               <h2
                 id="archetype-flow-heading"

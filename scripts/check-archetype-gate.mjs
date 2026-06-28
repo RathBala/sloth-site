@@ -216,6 +216,34 @@ try {
         .waitFor({ state: 'visible', timeout: 300 }),
     'solo branch should not be visible before choosing Solo'
   )
+  assert.equal(
+    await page
+      .locator('.sloth-couple-connector [data-archetype-connector="solo"]')
+      .evaluate((element) => getComputedStyle(element).display),
+    'block',
+    'unselected preview should show the dimmed solo connector'
+  )
+  assert.equal(
+    await page
+      .locator('.sloth-couple-connector [data-archetype-connector="couple"]')
+      .evaluate((element) => getComputedStyle(element).display),
+    'block',
+    'unselected preview should show the dimmed couple connector'
+  )
+  assert.equal(
+    await page
+      .locator('.sloth-couple-connector [data-archetype-connector="solo"]')
+      .evaluate((element) => getComputedStyle(element).opacity),
+    '0.3',
+    'unselected solo connector should be dimmed'
+  )
+  assert.equal(
+    await page
+      .locator('.sloth-couple-connector [data-archetype-connector="couple"]')
+      .evaluate((element) => getComputedStyle(element).opacity),
+    '0.3',
+    'unselected couple connector should be dimmed'
+  )
   assert.match(
     await page.locator('[data-archetype-lock-copy]').innerText(),
     /Pick Solo or Couple/,
