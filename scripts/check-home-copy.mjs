@@ -279,6 +279,50 @@ const checks = [
   },
   {
     passes:
+      !source.includes('data-archetype-default="Your path"') &&
+      !normalizedText.includes('Your path Planner with a roadmap') &&
+      !normalizedText.includes(
+        'Planner + Free Spirit One person holds the plan'
+      ),
+    message:
+      'Home archetype result content should not show a redundant path label above the selected plan heading.',
+  },
+  {
+    passes:
+      normalizedText.includes(
+        'One partner tracks the numbers, the other dreams about the future.'
+      ) &&
+      source.includes(
+        'Sloth Money keeps the plan visible without turning every chat into a finance meeting.'
+      ) &&
+      !source.includes(
+        'Sloth keeps the plan visible without turning every chat into a finance meeting.'
+      ),
+    message:
+      'Home Planner + Free Spirit copy should describe the dreamer plainly and use the full Sloth Money product name.',
+  },
+  {
+    passes:
+      source.includes('The planner can model it first') &&
+      source.includes('For two detail-oriented people') &&
+      !source.includes('Model it first so the answer is visible') &&
+      !source.includes('For two detail people'),
+    message:
+      'Home archetype copy should use the requested planner scenario and detail-oriented phrasing.',
+  },
+  {
+    passes:
+      source.includes('The holiday trade-off') &&
+      source.includes('The wedding plan') &&
+      source.includes('The car repair') &&
+      source.includes('The nest egg') &&
+      source.includes('Dream as big and as often as you want') &&
+      !source.includes('Play with future scenarios before committing'),
+    message:
+      'Home scenario copy should stay tied to concrete holiday, milestone, emergency, nest-egg, and free-spirit goals.',
+  },
+  {
+    passes:
       archetypeSection.includes('data-archetype-reveal="couple"') &&
       archetypeSection.includes('data-archetype-reveal="solo"') &&
       archetypeSection.includes('data-archetype-branch-grid') &&
