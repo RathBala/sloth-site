@@ -610,6 +610,10 @@ video {
   top: 0px;
 }
 
+.top-8 {
+  top: 2rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -887,6 +891,10 @@ video {
   max-width: 390px;
 }
 
+.max-w-\[76rem\] {
+  max-width: 76rem;
+}
+
 .max-w-\[95rem\] {
   max-width: 95rem;
 }
@@ -918,6 +926,14 @@ video {
 
 .resize {
   resize: both;
+}
+
+.scroll-mt-8 {
+  scroll-margin-top: 2rem;
+}
+
+.list-disc {
+  list-style-type: disc;
 }
 
 .grid-cols-1 {
@@ -1015,6 +1031,18 @@ video {
   margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-y-12 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(3rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(3rem * var(--tw-space-y-reverse));
+}
+
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
 .space-y-3 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1056,6 +1084,10 @@ video {
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.whitespace-nowrap {
   white-space: nowrap;
 }
 
@@ -1407,6 +1439,10 @@ video {
   padding-bottom: 1.5rem;
 }
 
+.pl-5 {
+  padding-left: 1.25rem;
+}
+
 .pt-12 {
   padding-top: 3rem;
 }
@@ -1600,11 +1636,6 @@ video {
 .text-green-dark {
   --tw-text-opacity: 1;
   color: rgb(3 140 115 / var(--tw-text-opacity));
-}
-
-.text-green-light {
-  --tw-text-opacity: 1;
-  color: rgb(150 242 148 / var(--tw-text-opacity));
 }
 
 .text-green-really-dark {
@@ -2311,6 +2342,10 @@ html {
     margin-bottom: 5rem;
   }
 
+  .lg\:block {
+    display: block;
+  }
+
   .lg\:h-40 {
     height: 10rem;
   }
@@ -2341,6 +2376,10 @@ html {
 
   .lg\:grid-cols-\[0\.8fr_1fr\] {
     grid-template-columns: 0.8fr 1fr;
+  }
+
+  .lg\:grid-cols-\[16rem_minmax\(0\2c 1fr\)\] {
+    grid-template-columns: 16rem minmax(0,1fr);
   }
 
   .lg\:grid-cols-\[320px_minmax\(0\2c 1fr\)\] {

@@ -14,6 +14,7 @@
     "asset:prepare-sloth": "node ./scripts/prepare-sloth-asset.mjs",
     "check:archetype-gate": "node ./scripts/check-archetype-gate.mjs",
     "check:copy": "node ./scripts/check-home-copy.mjs",
+    "check:footer": "node ./scripts/check-shared-footer.mjs",
     "lint": "prettier --check .",
     "typecheck": "node ./scripts/typecheck.mjs"
   },

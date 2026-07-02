@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '..')
 const srcDir = path.join(projectRoot, 'src')
 const sharedFooterScript = path.join(srcDir, 'assets/js/shared-footer.js')
+const privacyPolicyPage = path.join(srcDir, 'privacy', 'index.html')
 
 async function collectHtmlFiles(dirPath) {
   const entries = await readdir(dirPath, { withFileTypes: true })
@@ -40,6 +41,43 @@ const sharedFooterSource = await readFile(sharedFooterScript, 'utf8').catch(
 
 if (!sharedFooterSource.includes('href="/developers/"')) {
   failures.push('src/assets/js/shared-footer.js must include /developers/.')
+}
+
+if (!sharedFooterSource.includes('href="/privacy/"')) {
+  failures.push('src/assets/js/shared-footer.js must include /privacy/.')
+}
+
+const privacyPolicySource = await readFile(privacyPolicyPage, 'utf8').catch(
+  () => ''
+)
+
+for (const expectedCopy of [
+  'Google Analytics',
+  'PostHog',
+  'Meta Pixel',
+  'visit notification',
+  'budget.slothmoney.app',
+  'GoCardless Bank Account Data',
+  'SnapTrade',
+  'Stripe',
+  'OpenAI',
+  'Firebase',
+  'Banking and investment data',
+  'Lawful bases',
+  'Contract',
+  'Consent',
+  'Legitimate interests',
+  'International transfers',
+  'standard contractual clauses',
+  'Cookies and similar technologies',
+  'consent-management',
+  'Your UK and EU rights',
+  'Information Commissioner',
+  'automated means',
+]) {
+  if (!privacyPolicySource.includes(expectedCopy)) {
+    failures.push(`src/privacy/index.html must mention ${expectedCopy}.`)
+  }
 }
 
 const htmlFiles = await collectHtmlFiles(srcDir)

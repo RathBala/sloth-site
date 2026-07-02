@@ -19,6 +19,10 @@ const sharedFooterHtml = `
             href="/developers/"
             class="text-gray-400 hover:text-green transition-colors duration-200"
           >Developers</a>
+          <a
+            href="/privacy/"
+            class="text-gray-400 hover:text-green transition-colors duration-200"
+          >Privacy</a>
           <span>&copy; <span data-footer-year></span> Sloth Money</span>
           <a
             href="https://www.instagram.com/slothmoneyapp"
