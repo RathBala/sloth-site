@@ -159,8 +159,8 @@
                   For UK and EU data protection purposes, Sloth Money is the
                   controller for the personal data described in this policy,
                   except where a provider such as Stripe, GoCardless, SnapTrade,
-                  Firebase, or a sign-in provider acts as its own controller for
-                  parts of its service.
+                  an authentication provider, or another integrated service acts
+                  as its own controller for parts of its service.
                 </p>
               </div>
             </section>
@@ -235,8 +235,8 @@
                     We collect page URL, referrer, browser, device type,
                     campaign parameters, app events, CTA clicks, signup and
                     onboarding events, and similar usage data through tools such
-                    as Google Analytics, PostHog, Meta Pixel, Sentry, and our
-                    own visit notification flow.
+                    as Google Analytics, PostHog, Meta Pixel, error monitoring,
+                    and internal visit notification tools.
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
@@ -364,12 +364,8 @@
                 </p>
                 <ul class="list-disc pl-5 space-y-2">
                   <li>
-                    <strong class="font-semibold text-gray-900"
-                      >Firebase, Firestore, Firebase Auth, Google Cloud, and
-                      Netlify</strong
-                    >
-                    for hosting, authentication, storage, backend services, and
-                    deployment.
+                    Hosting, authentication, database, backend, and deployment
+                    providers for running the website and app.
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
@@ -391,26 +387,23 @@
                     and payment processing.
                   </li>
                   <li>
-                    <strong class="font-semibold text-gray-900"
-                      >OpenAI and Braintrust</strong
-                    >
-                    for AI-assisted categorisation, evaluation, and related
-                    observability where those features are enabled.
+                    AI and evaluation providers for AI-assisted categorisation,
+                    quality checks, and related observability where those
+                    features are enabled.
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
-                      >PostHog, Google Analytics, Meta Pixel, and Sentry</strong
+                      >PostHog, Google Analytics, and Meta Pixel</strong
                     >
-                    for analytics, campaign measurement, diagnostics, and
-                    error-linked replay. Sentry replay is configured to mask
+                    for analytics, campaign measurement, and advertising
+                    attribution, plus error monitoring providers for diagnostics
+                    and error-linked replay. Error replay is configured to mask
                     text and block media.
                   </li>
                   <li>
-                    <strong class="font-semibold text-gray-900"
-                      >Resend and Telegram</strong
-                    >
-                    for invitation emails and internal operational alerts such
-                    as support or signup notifications.
+                    Email delivery and internal notification providers for
+                    invitation emails, support notifications, signup alerts, and
+                    operational messages.
                   </li>
                 </ul>
                 <p>
@@ -540,7 +533,7 @@
               </h2>
               <div class="mt-4 space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  We use authentication gates, backend token checks, Firestore
+                  We use authentication gates, backend token checks, database
                   security rules, server-side provider secrets, scoped Agent API
                   tokens, and provider-managed connection flows to protect user
                   data.

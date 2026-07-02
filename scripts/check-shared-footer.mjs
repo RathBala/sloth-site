@@ -50,6 +50,10 @@ if (!sharedFooterSource.includes('href="/privacy/"')) {
 const privacyPolicySource = await readFile(privacyPolicyPage, 'utf8').catch(
   () => ''
 )
+const privacyPolicyText = privacyPolicySource
+  .replace(/<[^>]*>/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim()
 
 for (const expectedCopy of [
   'Google Analytics',
@@ -60,8 +64,9 @@ for (const expectedCopy of [
   'GoCardless Bank Account Data',
   'SnapTrade',
   'Stripe',
-  'OpenAI',
-  'Firebase',
+  'AI and evaluation providers',
+  'Hosting, authentication, database, backend, and deployment providers',
+  'Email delivery and internal notification providers',
   'Banking and investment data',
   'Lawful bases',
   'Contract',
@@ -75,7 +80,7 @@ for (const expectedCopy of [
   'Information Commissioner',
   'automated means',
 ]) {
-  if (!privacyPolicySource.includes(expectedCopy)) {
+  if (!privacyPolicyText.includes(expectedCopy)) {
     failures.push(`src/privacy/index.html must mention ${expectedCopy}.`)
   }
 }
