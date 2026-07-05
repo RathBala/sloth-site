@@ -131,8 +131,10 @@
   window.posthog.init(apiKey, {
     api_host: apiHost,
     defaults: '2026-01-30',
-    autocapture: true,
-    capture_pageview: true,
+    autocapture: false,
+    capture_pageview: false,
+    persistence: 'memory',
+    disable_session_recording: true,
     loaded: function (ph) {
       ph.register(shared)
       ph.capture('landing_view')

@@ -56,9 +56,8 @@ const privacyPolicyText = privacyPolicySource
   .trim()
 
 for (const expectedCopy of [
-  'Google Analytics',
   'PostHog',
-  'Meta Pixel',
+  'minimized visit notification',
   'visit notification',
   'budget.slothmoney.app',
   'GoCardless Bank Account Data',
@@ -72,10 +71,10 @@ for (const expectedCopy of [
   'Contract',
   'Consent',
   'Legitimate interests',
+  'explicit telemetry',
   'International transfers',
   'standard contractual clauses',
   'Cookies and similar technologies',
-  'consent-management',
   'Your UK and EU rights',
   'Information Commissioner',
   'automated means',

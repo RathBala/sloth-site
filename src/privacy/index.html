@@ -232,11 +232,11 @@
                     <strong class="font-semibold text-gray-900"
                       >Analytics and device data.</strong
                     >
-                    We collect page URL, referrer, browser, device type,
-                    campaign parameters, app events, CTA clicks, signup and
-                    onboarding events, and similar usage data through tools such
-                    as Google Analytics, PostHog, Meta Pixel, error monitoring,
-                    and internal visit notification tools.
+                    We collect page path, referrer hostname, coarse device type,
+                    campaign parameters, explicit app events, CTA clicks, signup
+                    and onboarding events, and similar usage data through tools
+                    such as PostHog, Sentry, and our minimized visit
+                    notification flow.
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
@@ -287,8 +287,8 @@
                     billing portal access.
                   </li>
                   <li>
-                    Measure marketing, onboarding, signup, and product usage so
-                    we can improve the service.
+                    Measure marketing, onboarding, signup, and product usage
+                    through explicit events so we can improve the service.
                   </li>
                   <li>
                     Debug errors, protect the service, prevent abuse, and meet
@@ -333,9 +333,9 @@
                       >Legitimate interests.</strong
                     >
                     To secure the service, prevent abuse, debug errors, measure
-                    product performance, understand campaign effectiveness, and
-                    improve Sloth Money, where those interests are not
-                    overridden by your rights.
+                    product performance through explicit telemetry, understand
+                    campaign effectiveness, and improve Sloth Money, where those
+                    interests are not overridden by your rights.
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
@@ -393,11 +393,10 @@
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
-                      >PostHog, Google Analytics, and Meta Pixel</strong
+                      >PostHog and Sentry</strong
                     >
-                    for analytics, campaign measurement, and advertising
-                    attribution, plus error monitoring providers for diagnostics
-                    and error-linked replay. Error replay is configured to mask
+                    for explicit product telemetry, diagnostics, and
+                    error-linked replay. Sentry replay is configured to mask
                     text and block media.
                   </li>
                   <li>
@@ -461,16 +460,15 @@
                 <p>
                   We use cookies, pixels, local storage, and similar
                   technologies for authentication, security, preferences,
-                  analytics, attribution, diagnostics, and advertising
-                  measurement.
+                  analytics, attribution, diagnostics, and operational visit
+                  notifications.
                 </p>
                 <p>
                   Essential technologies are used to provide the service you ask
-                  for. Non-essential analytics and advertising technologies
-                  should only run for UK or EU visitors when valid consent has
-                  been collected. The current website still needs a consent
-                  banner or consent-management integration before that cookie
-                  standard is fully implemented.
+                  for. Advertising pixels are disabled. PostHog is limited to
+                  explicit events, does not use autocapture or cross-domain
+                  cookie stitching, and is used for product and marketing
+                  telemetry under legitimate interests.
                 </p>
                 <p>
                   You can block or delete cookies in your browser, but some app

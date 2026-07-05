@@ -34,4 +34,4 @@ From the repo root, `yarn dev` serves `src` at port 3000. Open `/wedding-fund/` 
 
 ## Build
 
-`yarn build` regenerates PostHog/Meta config and compiles Tailwind to `src/output.css`. Deploy the `src` directory (see [`netlify.toml`](../netlify.toml)).
+`yarn build` regenerates PostHog config and compiles Tailwind to `src/output.css`. Deploy the `src` directory (see [`netlify.toml`](../netlify.toml)).

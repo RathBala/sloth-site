@@ -16,6 +16,12 @@ When writing or editing **user-facing copy** (landing pages, CTAs, headings, met
 - If the user is reacting to a screenshot, reproduce that scroll position and compare against it before finalizing.
 - When checking color or dimming changes, verify the full composed result in the browser screenshot rather than inferring from a single CSS property.
 
+## Tracking Inventory
+
+- `docs/tracking-inventory.md` is the source of truth for marketing-site analytics, visit alerts, attribution handoff, and disabled tracking providers.
+- When adding, removing, or changing logging, analytics, alerts, third-party tracking, or data sent to another service, review and update that inventory in the same change.
+- After updating the inventory, check whether `src/privacy/index.html`, provider docs, or tracking regression checks also need updates.
+
 ## Before writing any code
 
 1. State how you will verify that this change works (test, bash command, browser check etc)
