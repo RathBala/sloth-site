@@ -23,7 +23,7 @@ The homepage saver cards stay intentionally light: **Solo** links straight to th
 ## Developers
 
 - **URL:** `https://slothmoney.app/developers/` (Netlify serves [`src/developers/index.html`](../src/developers/index.html))
-- **Purpose:** Public, lightweight developer page for the Sloth Agent API beta. It explains how paid Sloth users can create a Developer access token, use the CLI, read categories/transactions, and apply category assignments.
+- **Purpose:** Public, lightweight developer page for the Sloth Agent API beta. It provides the real npm installation command and public CLI source, then explains how paid Sloth users can create a Developer access token, read categories/transactions, create partner clarification links, and apply category assignments.
 - **Public boundary:** Keep this page focused on user-safe setup, examples, endpoint names, query options, and safety notes. Do not copy internal architecture details from `sloth-budget`, such as Firestore document paths, token hashing implementation, assignment side effects, or backend service names.
 - **Primary CTA:** `Open Sloth Money`, pointing to `https://budget.slothmoney.app`. The page assumes token creation happens inside the app, not through public token-management API docs.
 - **Canonical path:** `/developers/` is the public canonical page for now. A future `docs.slothmoney.app` or developer subdomain can redirect back here if the API surface grows into versioned docs.

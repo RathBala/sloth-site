@@ -6,10 +6,11 @@
   "scripts": {
     "posthog:config": "node ./scripts/generate-posthog-config.mjs",
     "meta:config": "node ./scripts/generate-meta-pixel-config.mjs",
+    "check:developer-cli-docs": "node ./scripts/check-developer-cli-docs.mjs",
     "dev:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --watch",
     "dev:server": "browser-sync start --server src --index index.html --port 3000 --files 'src/**/*' --no-notify",
     "build:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --minify",
-    "build": "yarn posthog:config && yarn build:css",
+    "build": "yarn posthog:config && yarn check:developer-cli-docs && yarn build:css",
     "dev": "yarn posthog:config && concurrently \"yarn dev:css\" \"yarn dev:server\" --names \"CSS,SERVER\" --prefix-colors \"blue,green\"",
     "asset:prepare-sloth": "node ./scripts/prepare-sloth-asset.mjs",
     "check:archetype-gate": "node ./scripts/check-archetype-gate.mjs",

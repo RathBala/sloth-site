@@ -10,7 +10,7 @@
 
     <meta
       name="description"
-      content="Use the Sloth Agent API and CLI to read uncategorized transactions, preview assignments, and categorize your own Sloth Money data with a user-run agent."
+      content="Use the Sloth Agent API and CLI to read transactions, ask for partner context, preview assignments, and categorize your own Sloth Money data with a user-run agent."
     />
     <meta
       name="keywords"
@@ -23,7 +23,7 @@
     />
     <meta
       property="og:description"
-      content="Read transaction data and categorize your own Sloth Money transactions with a personal access token, CLI, and Agent API."
+      content="Read transactions, create partner clarification links, and categorize your own Sloth Money data with a personal access token, CLI, and Agent API."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://slothmoney.app/developers/" />
@@ -39,7 +39,7 @@
     />
     <meta
       name="twitter:description"
-      content="Use your own agent to inspect and categorize Sloth Money transactions."
+      content="Use your own agent to inspect, clarify, and categorize Sloth Money transactions."
     />
     <meta
       name="twitter:image"
@@ -122,7 +122,7 @@
       })(document, window.posthog || [])
     </script>
   </head>
-  <body class="bg-white text-gray-900 font-sans antialiased">
+  <body class="overflow-x-hidden bg-white text-gray-900 font-sans antialiased">
     <main>
       <header
         class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-sm"
@@ -243,8 +243,9 @@
             </h1>
             <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-8">
               Use a personal access token, a small CLI, or direct HTTP requests
-              to read uncategorized transactions and write category assignments.
-              You stay in control of access, expiry, and revocation.
+              to read uncategorized transactions, ask for partner context, and
+              write category assignments. You stay in control of access, expiry,
+              and revocation.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
               <a
@@ -282,13 +283,13 @@
               >
             </div>
             <pre
-              class="overflow-x-auto p-5 sm:p-6 text-sm leading-7 text-gray-100"
-            ><code>export SLOTH_AGENT_TOKEN="sloth_pat_v1_..."
-export SLOTH_AGENT_API_BASE_URL="https://budget.slothmoney.app"
+              class="w-full max-w-full overflow-x-auto p-5 sm:p-6 text-sm leading-7 text-gray-100"
+            ><code>npm install --global @slothmoney/agent-cli
+export SLOTH_AGENT_TOKEN="sloth_pat_v1_..."
 
-yarn agent transactions --uncategorized --limit 50
-yarn agent assign --input assignments.json
-yarn agent assign --input assignments.json --apply</code></pre>
+sloth-agent transactions --uncategorized --limit 50
+sloth-agent assign --input assignments.json
+sloth-agent assign --input assignments.json --apply</code></pre>
           </div>
         </div>
       </section>
@@ -326,6 +327,20 @@ yarn agent assign --input assignments.json --apply</code></pre>
                 account transactions for that Sloth Money account.
               </p>
             </div>
+            <div class="border border-gray-200 rounded-lg p-6">
+              <i
+                data-lucide="message-circle"
+                class="w-7 h-7 text-green mb-5"
+              ></i>
+              <h2 class="text-xl font-bold text-gray-900 mb-3">
+                Human context when needed
+              </h2>
+              <p class="text-gray-600 leading-relaxed">
+                Agents can create a partner clarification link for a
+                partner-shared or joint transaction. The CLI prints the message
+                and link; it does not send WhatsApp messages.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -342,19 +357,44 @@ yarn agent assign --input assignments.json --apply</code></pre>
               Connect an agent
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
-              The CLI is the fastest path for local agents that can run shell
-              commands. Direct HTTP calls use the same API.
+              Install the public CLI from
+              <a
+                class="font-semibold text-green-dark underline decoration-green/30 underline-offset-4 hover:decoration-green"
+                href="https://www.npmjs.com/package/@slothmoney/agent-cli"
+                >npm</a
+              >. Review the
+              <a
+                class="font-semibold text-green-dark underline decoration-green/30 underline-offset-4 hover:decoration-green"
+                href="https://github.com/RathBala/sloth-agent-cli"
+                >source on GitHub</a
+              >. Direct HTTP calls use the same API.
             </p>
           </div>
 
           <div class="grid lg:grid-cols-[320px_minmax(0,1fr)] gap-8">
-            <ol class="space-y-4">
+            <ol class="min-w-0 space-y-4">
               <li class="flex gap-4">
                 <span
                   class="flex-shrink-0 w-8 h-8 rounded-full bg-green text-white font-bold flex items-center justify-center"
                   >1</span
                 >
-                <div>
+                <div class="min-w-0">
+                  <h3 class="font-bold text-gray-900">Install the CLI</h3>
+                  <p class="text-gray-600">
+                    Install the package with Node.js 22 or newer. The
+                    <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+                      >sloth-agent</code
+                    >
+                    command works from any directory.
+                  </p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span
+                  class="flex-shrink-0 w-8 h-8 rounded-full bg-green text-white font-bold flex items-center justify-center"
+                  >2</span
+                >
+                <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Create a token</h3>
                   <p class="text-gray-600">
                     Open Settings, then Developer access. Choose an expiry and
@@ -365,22 +405,22 @@ yarn agent assign --input assignments.json --apply</code></pre>
               <li class="flex gap-4">
                 <span
                   class="flex-shrink-0 w-8 h-8 rounded-full bg-green text-white font-bold flex items-center justify-center"
-                  >2</span
+                  >3</span
                 >
-                <div>
-                  <h3 class="font-bold text-gray-900">Set environment</h3>
+                <div class="min-w-0">
+                  <h3 class="font-bold text-gray-900">Load the secret</h3>
                   <p class="text-gray-600">
                     Store the token where your agent can read it. Do not paste
-                    it into prompts or shared logs.
+                    it into prompts, chat, source control, or shared logs.
                   </p>
                 </div>
               </li>
               <li class="flex gap-4">
                 <span
                   class="flex-shrink-0 w-8 h-8 rounded-full bg-green text-white font-bold flex items-center justify-center"
-                  >3</span
+                  >4</span
                 >
-                <div>
+                <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Preview, then apply</h3>
                   <p class="text-gray-600">
                     Build an assignment file, preview the payload, then add
@@ -393,21 +433,37 @@ yarn agent assign --input assignments.json --apply</code></pre>
               </li>
             </ol>
 
-            <div class="space-y-4">
+            <div class="min-w-0 space-y-4">
               <pre
-                class="overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-              ><code>export SLOTH_AGENT_TOKEN="sloth_pat_v1_..."
-export SLOTH_AGENT_API_BASE_URL="https://budget.slothmoney.app"</code></pre>
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>npm install --global @slothmoney/agent-cli
+sloth-agent --version</code></pre>
               <pre
-                class="overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-              ><code>yarn agent categories
-yarn agent transactions --uncategorized --limit 50
-yarn agent transactions --q "tesco" --start-date 2026-05-01 --end-date 2026-05-31</code></pre>
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>export SLOTH_AGENT_TOKEN="sloth_pat_v1_..."</code></pre>
               <pre
-                class="overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-              ><code>yarn agent assign --input assignments.json
-yarn agent assign --input assignments.json --apply</code></pre>
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent categories
+sloth-agent transactions --uncategorized --limit 50
+sloth-agent transactions --q "tesco" --start-date 2026-05-01 --end-date 2026-05-31</code></pre>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent assign --input assignments.json
+sloth-agent assign --input assignments.json --apply
+sloth-agent ask-partner --transaction-ref sloth_txn_...</code></pre>
             </div>
+          </div>
+
+          <div class="mt-8 rounded-lg border border-gray-200 bg-white p-5">
+            <h3 class="font-bold text-gray-900 mb-2">Prefer direct HTTP?</h3>
+            <p class="text-gray-600 mb-4">
+              Every CLI command maps to the same versioned API. Send the token
+              as a bearer header when another tool already handles HTTP.
+            </p>
+            <pre
+              class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+            ><code>curl "https://budget.slothmoney.app/api/agent/v1/categories" \
+  -H "Authorization: Bearer $SLOTH_AGENT_TOKEN"</code></pre>
           </div>
         </div>
       </section>
@@ -423,7 +479,7 @@ yarn agent assign --input assignments.json --apply</code></pre>
             <h2
               class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
             >
-              Three core endpoints
+              Four core endpoints
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               Every request uses
@@ -477,6 +533,23 @@ yarn agent assign --input assignments.json --apply</code></pre>
                   >POST</span
                 >
                 <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/transaction-explanation-requests</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Creates a 72-hour partner clarification link for one booked
+                partner-shared or joint transaction. The response includes a
+                shareable message and link.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >POST</span
+                >
+                <code class="text-gray-900 font-semibold"
                   >/api/agent/v1/transaction-assignments</code
                 >
               </div>
@@ -512,10 +585,10 @@ yarn agent assign --input assignments.json --apply</code></pre>
           </div>
 
           <div class="grid lg:grid-cols-2 gap-6">
-            <div>
+            <div class="min-w-0">
               <h3 class="font-bold text-gray-900 mb-3">Single category</h3>
               <pre
-                class="overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>{
   "assignments": [
     {
@@ -526,10 +599,10 @@ yarn agent assign --input assignments.json --apply</code></pre>
   ]
 }</code></pre>
             </div>
-            <div>
+            <div class="min-w-0">
               <h3 class="font-bold text-gray-900 mb-3">Split category</h3>
               <pre
-                class="overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>{
   "assignments": [
     {
@@ -585,6 +658,13 @@ yarn agent assign --input assignments.json --apply</code></pre>
               <p class="text-gray-600">
                 Reads use stored booked transactions. Agent requests do not
                 trigger a bank refresh.
+              </p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-5">
+              <h3 class="font-bold text-gray-900 mb-2">Links expire</h3>
+              <p class="text-gray-600">
+                Partner clarification links last 72 hours and accept one answer.
+                Agents receive the payload but do not send messages.
               </p>
             </div>
             <div class="bg-gray-50 rounded-lg p-5">
