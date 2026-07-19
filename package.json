@@ -27,7 +27,7 @@
     "dotenv": "^16.4.7",
     "http-server": "^14.1.1",
     "playwright": "^1.61.1",
-    "prettier": "^3.3.3",
+    "prettier": "^3.9.5",
     "tailwindcss": "^3.4.7"
   },
   "resolutions": {
