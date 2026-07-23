@@ -285,7 +285,10 @@
             <pre
               class="w-full max-w-full overflow-x-auto p-5 sm:p-6 text-sm leading-7 text-gray-100"
             ><code>npm install --global @slothmoney/agent-cli
-export SLOTH_AGENT_TOKEN="sloth_pat_v1_..."
+
+# macOS: save once (secure prompt)
+security add-generic-password -U -a &quot;$USER&quot; -s &quot;sloth-money-agent-token&quot; -w
+export SLOTH_AGENT_TOKEN="$(security find-generic-password -a &quot;$USER&quot; -s &quot;sloth-money-agent-token&quot; -w)"
 
 sloth-agent transactions --uncategorized --limit 50
 sloth-agent assign --input assignments.json
@@ -410,8 +413,8 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Load the secret</h3>
                   <p class="text-gray-600">
-                    Store the token where your agent can read it. Do not paste
-                    it into prompts, chat, source control, or shared logs.
+                    On macOS, save it in Keychain. Otherwise, use a hidden
+                    prompt or your OS secret manager.
                   </p>
                 </div>
               </li>
@@ -433,14 +436,42 @@ sloth-agent assign --input assignments.json --apply</code></pre>
               </li>
             </ol>
 
-            <div class="min-w-0 space-y-4">
+            <div class="space-y-5 min-w-0">
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>npm install --global @slothmoney/agent-cli
 sloth-agent --version</code></pre>
-              <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-              ><code>export SLOTH_AGENT_TOKEN="sloth_pat_v1_..."</code></pre>
+              <div>
+                <h3 class="font-bold text-gray-900 mb-3">
+                  macOS Keychain (recommended)
+                </h3>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                ><code># Save once (secure prompt)
+security add-generic-password -U -a &quot;$USER&quot; -s &quot;sloth-money-agent-token&quot; -w
+
+# Load into this shell
+export SLOTH_AGENT_TOKEN="$(security find-generic-password -a &quot;$USER&quot; -s &quot;sloth-money-agent-token&quot; -w)"</code></pre>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900 mb-3">
+                  Other platforms (temporary)
+                </h3>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                ><code># Bash or Zsh
+printf &quot;Sloth token: &quot;
+IFS= read -rs SLOTH_AGENT_TOKEN &amp;&amp; echo
+export SLOTH_AGENT_TOKEN
+
+# PowerShell 7.1+
+$env:SLOTH_AGENT_TOKEN = Read-Host &quot;Sloth token&quot; -MaskInput</code></pre>
+                <p class="mt-3 text-sm text-gray-600 leading-relaxed">
+                  Hidden input stays out of shell history. It lasts until you
+                  close the shell. For repeat use, choose your OS keychain or
+                  secret manager.
+                </p>
+              </div>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent categories
@@ -634,7 +665,8 @@ sloth-agent ask-partner --transaction-ref sloth_txn_...</code></pre>
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               The Agent API is built for user-run automation. Treat your token
-              like a password and revoke it when you are done testing.
+              like a password. Never put it in chat, source control, shared
+              logs, or shell history. Revoke it when you are done testing.
             </p>
           </div>
 
