@@ -286,11 +286,11 @@
               class="w-full max-w-full overflow-x-auto p-5 sm:p-6 text-sm leading-7 text-gray-100"
             ><code>npm install --global @slothmoney/agent-cli
 
-# macOS: save once (secure prompt)
-security add-generic-password -U -a &quot;$USER&quot; -s &quot;sloth-money-agent-token&quot; -w
-export SLOTH_AGENT_TOKEN="$(security find-generic-password -a &quot;$USER&quot; -s &quot;sloth-money-agent-token&quot; -w)"
+sloth-agent auth login
+sloth-agent auth status
 
 sloth-agent transactions --uncategorized --limit 50
+sloth-agent ask-partner --transaction-ref sloth_txn_...
 sloth-agent assign --input assignments.json
 sloth-agent assign --input assignments.json --apply</code></pre>
           </div>
@@ -411,10 +411,10 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                   >3</span
                 >
                 <div class="min-w-0">
-                  <h3 class="font-bold text-gray-900">Load the secret</h3>
+                  <h3 class="font-bold text-gray-900">Save the token</h3>
                   <p class="text-gray-600">
-                    On macOS, save it in Keychain. Otherwise, use a hidden
-                    prompt or your OS secret manager.
+                    Use the hidden login prompt to save it in your operating
+                    system's secure credential store.
                   </p>
                 </div>
               </li>
@@ -436,42 +436,12 @@ sloth-agent assign --input assignments.json --apply</code></pre>
               </li>
             </ol>
 
-            <div class="space-y-5 min-w-0">
+            <div class="min-w-0 space-y-4">
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>npm install --global @slothmoney/agent-cli
-sloth-agent --version</code></pre>
-              <div>
-                <h3 class="font-bold text-gray-900 mb-3">
-                  macOS Keychain (recommended)
-                </h3>
-                <pre
-                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-                ><code># Save once (secure prompt)
-security add-generic-password -U -a &quot;$USER&quot; -s &quot;sloth-money-agent-token&quot; -w
-
-# Load into this shell
-export SLOTH_AGENT_TOKEN="$(security find-generic-password -a &quot;$USER&quot; -s &quot;sloth-money-agent-token&quot; -w)"</code></pre>
-              </div>
-              <div>
-                <h3 class="font-bold text-gray-900 mb-3">
-                  Other platforms (temporary)
-                </h3>
-                <pre
-                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-                ><code># Bash or Zsh
-printf &quot;Sloth token: &quot;
-IFS= read -rs SLOTH_AGENT_TOKEN &amp;&amp; echo
-export SLOTH_AGENT_TOKEN
-
-# PowerShell 7.1+
-$env:SLOTH_AGENT_TOKEN = Read-Host &quot;Sloth token&quot; -MaskInput</code></pre>
-                <p class="mt-3 text-sm text-gray-600 leading-relaxed">
-                  Hidden input stays out of shell history. It lasts until you
-                  close the shell. For repeat use, choose your OS keychain or
-                  secret manager.
-                </p>
-              </div>
+sloth-agent auth login
+sloth-agent auth status</code></pre>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent categories
@@ -482,6 +452,27 @@ sloth-agent transactions --q "tesco" --start-date 2026-05-01 --end-date 2026-05-
               ><code>sloth-agent assign --input assignments.json
 sloth-agent assign --input assignments.json --apply
 sloth-agent ask-partner --transaction-ref sloth_txn_...</code></pre>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent auth logout</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                For CI or headless systems, set
+                <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+                  >SLOTH_AGENT_TOKEN</code
+                >
+                in your secret manager. It overrides a stored credential.
+              </p>
+              <p class="text-gray-600 leading-relaxed">
+                <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+                  >auth status</code
+                >
+                makes a live request and updates the token's last-used time.
+                <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+                  >auth logout</code
+                >
+                removes the local copy only. Revoke the token in Developer
+                access.
+              </p>
             </div>
           </div>
 
