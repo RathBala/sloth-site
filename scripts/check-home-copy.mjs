@@ -253,17 +253,18 @@ const checks = [
       archetypeContentOpening.includes('is-preview') &&
       !archetypeContentOpening.includes('hidden') &&
       !archetypeContentOpening.includes('inert') &&
+      source.includes("document.documentElement.classList.add('js')") &&
       source.includes('.sloth-archetype-results') &&
-      source.includes('.sloth-archetype-results.is-preview') &&
+      source.includes('.js .sloth-archetype-results.is-preview') &&
       source.includes('background: #013d29') &&
-      source.includes('.sloth-archetype-results.is-preview > section') &&
+      source.includes('.js .sloth-archetype-results.is-preview > section') &&
       source.includes('opacity: 0.42') &&
       source.includes('saturate(0.48) brightness(0.62) contrast(0.82)') &&
-      source.includes('.sloth-archetype-results.is-preview::before') &&
+      source.includes('.js .sloth-archetype-results.is-preview::before') &&
       source.includes('#013d29') &&
       source.includes('inset: 0') &&
       !source.includes(
-        '.sloth-archetype-results.is-preview {\n        opacity:'
+        '.js .sloth-archetype-results.is-preview {\n        opacity:'
       ) &&
       source.includes('.sloth-archetype-results.is-revealed') &&
       archetypeFlowJs.includes('data-couple-archetype-trigger') &&

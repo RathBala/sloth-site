@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sloth Money - Shared money plans for couples</title>
+    <link rel="canonical" href="https://slothmoney.app/" />
 
     <!-- Status bar + theme colors -->
     <meta name="theme-color" content="#ffffff" />
@@ -32,7 +33,7 @@
     <meta property="og:url" content="https://slothmoney.app/" />
     <meta
       property="og:image"
-      content="/assets/images/sloth-money-logo-icon.png"
+      content="https://slothmoney.app/assets/images/sloth-money-logo-icon.png"
     />
 
     <!-- Twitter Card Meta Tags -->
@@ -47,7 +48,7 @@
     />
     <meta
       name="twitter:image"
-      content="/assets/images/sloth-money-logo-icon.png"
+      content="https://slothmoney.app/assets/images/sloth-money-logo-icon.png"
     />
 
     <!-- Favicon -->
@@ -85,6 +86,9 @@
 
     <!-- Styles -->
     <link href="./output.css" rel="stylesheet" />
+    <script>
+      document.documentElement.classList.add('js')
+    </script>
 
     <style>
       @keyframes floatCard {
@@ -831,14 +835,14 @@
         animation: archetypeContentIn 360ms ease both;
       }
 
-      .sloth-archetype-results.is-preview {
+      .js .sloth-archetype-results.is-preview {
         background: #013d29;
         transition:
           background 240ms ease,
           filter 240ms ease;
       }
 
-      .sloth-archetype-results.is-preview > section {
+      .js .sloth-archetype-results.is-preview > section {
         opacity: 0.42;
         filter: saturate(0.48) brightness(0.62) contrast(0.82);
         pointer-events: none;
@@ -847,7 +851,7 @@
           opacity 240ms ease;
       }
 
-      .sloth-archetype-results.is-preview::before {
+      .js .sloth-archetype-results.is-preview::before {
         content: '';
         position: absolute;
         inset: 0;
@@ -2811,7 +2815,17 @@
       </div>
     </main>
 
-    <div data-shared-footer></div>
+    <div data-shared-footer>
+      <nav
+        aria-label="Footer"
+        class="flex items-center justify-center gap-6 py-8 text-sm font-medium tracking-wide"
+      >
+        <a class="text-gray-400 hover:text-green" href="/developers/"
+          >Developers</a
+        >
+        <a class="text-gray-400 hover:text-green" href="/privacy/">Privacy</a>
+      </nav>
+    </div>
     <script src="assets/js/mobile-menu.js" defer></script>
     <script src="assets/js/shared-footer.js" defer></script>
     <script src="assets/js/animations.js" defer></script>
