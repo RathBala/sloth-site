@@ -28,6 +28,11 @@ const requiredSnippets = [
   'Sloth Money &rarr; Transactions',
   '<code>succeeded</code>',
   '<code>failed</code>',
+  'sloth-agent goals',
+  'sloth-agent goals create',
+  'sloth-agent goals update',
+  'sloth-agent goals delete',
+  '/api/agent/v1/goals',
   'https://github.com/RathBala/sloth-agent-cli',
   'https://www.npmjs.com/package/@slothmoney/agent-cli',
 ]

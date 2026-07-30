@@ -27,6 +27,18 @@ for (const page of marketingPages) {
   )
 }
 
+const privacyPage = fs.readFileSync(
+  path.join(root, 'src/privacy/index.html'),
+  'utf8'
+)
+assert.equal(
+  privacyPage.includes(
+    'Agents can list, create, update, and delete your goals'
+  ),
+  true,
+  'privacy policy should describe Agent API goal access'
+)
+
 const posthogSource = fs.readFileSync(
   path.join(root, 'src/assets/js/posthog-analytics.js'),
   'utf8'

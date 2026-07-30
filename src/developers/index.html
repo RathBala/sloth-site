@@ -11,7 +11,7 @@
 
     <meta
       name="description"
-      content="Use the Sloth Agent API and CLI to read transactions, ask for partner context, preview assignments, and categorize your own Sloth Money data with a user-run agent."
+      content="Use the Sloth Agent API and CLI to manage goals, read transactions, ask for partner context, and categorize your own Sloth Money data with a user-run agent."
     />
     <meta
       name="keywords"
@@ -24,7 +24,7 @@
     />
     <meta
       property="og:description"
-      content="Read transactions, create partner clarification links, and categorize your own Sloth Money data with a personal access token, CLI, and Agent API."
+      content="Manage goals, read transactions, create partner clarification links, and categorize your own Sloth Money data with a personal access token, CLI, and Agent API."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://slothmoney.app/developers/" />
@@ -40,7 +40,7 @@
     />
     <meta
       name="twitter:description"
-      content="Use your own agent to inspect, clarify, and categorize Sloth Money transactions."
+      content="Use your own agent to manage goals and categorize Sloth Money transactions."
     />
     <meta
       name="twitter:image"
@@ -241,13 +241,13 @@
             <h1
               class="font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.08] text-gray-900 mb-6"
             >
-              Categorize Sloth transactions with your own agent.
+              Manage goals and categorize transactions with your own agent.
             </h1>
             <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-4">
               Use a personal access token, a small CLI, or direct HTTP requests
-              to read uncategorized transactions, ask for partner context, and
-              write category assignments. You stay in control of access, expiry,
-              and revocation.
+              to list and manage goals, read uncategorized transactions, ask for
+              partner context, and write category assignments. You stay in
+              control of access, expiry, and revocation.
             </p>
             <p class="text-base sm:text-lg font-semibold text-gray-800 mb-8">
               An assignment categorises an existing transaction e.g. assigning
@@ -295,6 +295,9 @@
 sloth-agent auth login
 sloth-agent auth status
 
+sloth-agent goals
+sloth-agent goals create --name "Emergency fund" \
+  --target-amount 12000 --target-month 2027-06 --apply
 sloth-agent transactions --uncategorized --limit 50
 sloth-agent assign --input assignments.json
 sloth-agent assign --input assignments.json --apply</code></pre>
@@ -321,8 +324,12 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 Read before writing
               </h2>
               <p class="text-gray-600 leading-relaxed">
-                Pull categories and transactions first. A preview checks the
-                file locally before you send a write request.
+                Pull goals, categories, and transactions first. Goal and
+                assignment writes are previews until you add
+                <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+                  >--apply</code
+                >. Assignment previews validate the file locally without
+                contacting Sloth Money.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -475,6 +482,14 @@ sloth-agent auth login
 sloth-agent auth status</code></pre>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent goals
+sloth-agent goals create --name "Emergency fund" --target-amount 12000 --target-month 2027-06
+sloth-agent goals create --name "Emergency fund" --target-amount 12000 --target-month 2027-06 --apply
+sloth-agent goals update --goal-id GOAL_ID --achieved=true --apply
+sloth-agent goals delete --goal-id GOAL_ID
+sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent categories
 sloth-agent transactions --uncategorized --limit 50</code></pre>
               <p class="text-gray-600 leading-relaxed">
@@ -576,7 +591,7 @@ sloth-agent auth logout</code></pre>
             <h2
               class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
             >
-              Five core capabilities
+              Six API resources
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               Every request uses
@@ -588,6 +603,24 @@ sloth-agent auth logout</code></pre>
           </div>
 
           <div class="space-y-5">
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET · POST · PATCH · DELETE</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/goals</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Lists goals or creates one. Update and delete requests use
+                <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded"
+                  >/api/agent/v1/goals/:goalId</code
+                >. Goal writes are limited to the signed-in user's goals.
+              </p>
+            </article>
+
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
@@ -826,8 +859,8 @@ sloth-agent auth logout</code></pre>
           <p
             class="max-w-2xl mx-auto text-lg text-white/85 leading-relaxed mb-8"
           >
-            Create a token in Sloth Money, connect your agent, and preview the
-            first assignment payload before writing changes.
+            Create a token in Sloth Money, connect your agent, and preview goal
+            or assignment changes before applying them.
           </p>
           <a
             class="inline-flex items-center justify-center px-7 py-3 bg-white text-green-dark hover:text-green-really-dark font-bold tracking-wide rounded-lg shadow-sm transition"
