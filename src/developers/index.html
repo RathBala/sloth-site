@@ -47,6 +47,7 @@
       content="https://slothmoney.app/assets/images/sloth%20logo%20black.png"
     />
 
+    <link rel="canonical" href="https://slothmoney.app/developers/" />
     <link
       rel="icon"
       type="image/png"
@@ -242,11 +243,15 @@
             >
               Categorize Sloth transactions with your own agent.
             </h1>
-            <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-8">
+            <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-4">
               Use a personal access token, a small CLI, or direct HTTP requests
               to read uncategorized transactions, ask for partner context, and
               write category assignments. You stay in control of access, expiry,
               and revocation.
+            </p>
+            <p class="text-base sm:text-lg font-semibold text-gray-800 mb-8">
+              An assignment categorises an existing transaction e.g. assigning
+              category Groceries to a transaction.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
               <a
@@ -291,7 +296,6 @@ sloth-agent auth login
 sloth-agent auth status
 
 sloth-agent transactions --uncategorized --limit 50
-sloth-agent ask-partner --transaction-ref sloth_txn_...
 sloth-agent assign --input assignments.json
 sloth-agent assign --input assignments.json --apply</code></pre>
           </div>
@@ -317,8 +321,8 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 Read before writing
               </h2>
               <p class="text-gray-600 leading-relaxed">
-                Pull categories and transactions first. Preview assignment JSON
-                before sending a write request.
+                Pull categories and transactions first. A preview checks the
+                file locally before you send a write request.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -425,13 +429,39 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                   >4</span
                 >
                 <div class="min-w-0">
-                  <h3 class="font-bold text-gray-900">Preview, then apply</h3>
+                  <h3 class="font-bold text-gray-900">Read before writing</h3>
                   <p class="text-gray-600">
-                    Build an assignment file, preview the payload, then add
+                    Read categories and uncategorized transactions, then copy
+                    the exact IDs into an assignment file.
+                  </p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span
+                  class="flex-shrink-0 w-8 h-8 rounded-full bg-green text-white font-bold flex items-center justify-center"
+                  >5</span
+                >
+                <div class="min-w-0">
+                  <h3 class="font-bold text-gray-900">Preview locally</h3>
+                  <p class="text-gray-600">
+                    Check the file without contacting Sloth Money or writing
+                    anything.
+                  </p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span
+                  class="flex-shrink-0 w-8 h-8 rounded-full bg-green text-white font-bold flex items-center justify-center"
+                  >6</span
+                >
+                <div class="min-w-0">
+                  <h3 class="font-bold text-gray-900">Apply and check</h3>
+                  <p class="text-gray-600">
                     <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                       >--apply</code
                     >
-                    when it is correct.
+                    applies the file. Inspect every result, then read the
+                    transaction again.
                   </p>
                 </div>
               </li>
@@ -446,33 +476,77 @@ sloth-agent auth status</code></pre>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent categories
-sloth-agent transactions --uncategorized --limit 50
-sloth-agent transactions --q "tesco" --start-date 2026-05-01 --end-date 2026-05-31</code></pre>
+sloth-agent transactions --uncategorized --limit 50</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                Copy the exact <code>transactionRef</code> for the transaction
+                and a <code>categoryId</code> from these outputs into
+                <code>assignments.json</code>.
+              </p>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-              ><code>sloth-agent assign --input assignments.json
-sloth-agent assign --input assignments.json --apply
-sloth-agent ask-partner --transaction-ref sloth_txn_...</code></pre>
+              ><code>{
+  "assignments": [
+    {
+      "transactionRef": "PASTE_THE_EXACT_TRANSACTION_REF_HERE",
+      "categoryId": "PASTE_A_CATEGORY_ID_HERE"
+    }
+  ]
+}</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                These are placeholders. Do not submit the example values.
+              </p>
+              <h3 class="font-bold text-gray-900">Preview the file</h3>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-              ><code>sloth-agent auth logout</code></pre>
+              ><code>sloth-agent assign --input assignments.json</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                Without <code>--apply</code>, the CLI checks that the file is
+                valid and returns the payload it would send. It does not contact
+                Sloth Money, verify the <code>transactionRef</code> or category
+                values, or write anything. A successful preview does not
+                guarantee that applying the assignment will succeed.
+              </p>
+              <h3 class="font-bold text-gray-900">Apply the assignment</h3>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent assign --input assignments.json --apply</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                Inspect every item in the <code>succeeded</code> and
+                <code>failed</code> arrays.
+              </p>
+              <h3 class="font-bold text-gray-900">Check the result</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Successful assignments update the original transaction. See the
+                category in <strong>Sloth Money &rarr; Transactions</strong>, or
+                re-run the original transaction query without
+                <code>--uncategorized</code> and inspect its category fields.
+                The transaction should also disappear from the matching
+                uncategorized query. Assignments do not create a separate list.
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent transactions --limit 50</code></pre>
+              <h3 class="font-bold text-gray-900">Other commands</h3>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent transactions --assignment-scope joint --uncategorized
+sloth-agent joint-budget-settings --include-shared-personal-transactions=true
+sloth-agent joint-budget-settings --include-shared-personal-transactions=true --apply
+sloth-agent ask-partner --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE
+sloth-agent auth logout</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                The transaction reference shown above is also a placeholder.
+                Copy the exact value from
+                <code>sloth-agent transactions</code> output.
+              </p>
               <p class="text-gray-600 leading-relaxed">
                 For CI or headless systems, set
                 <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                   >SLOTH_AGENT_TOKEN</code
                 >
                 in your secret manager. It overrides a stored credential.
-              </p>
-              <p class="text-gray-600 leading-relaxed">
-                <code class="text-sm bg-white px-1.5 py-0.5 rounded"
-                  >auth status</code
-                >
-                makes a live request and updates the token's last-used time.
-                <code class="text-sm bg-white px-1.5 py-0.5 rounded"
-                  >auth logout</code
-                >
-                removes the local copy only. Revoke the token in Developer
-                access.
+                <code>auth logout</code> removes only the local copy; revoke the
+                token in Developer access.
               </p>
             </div>
           </div>
@@ -502,7 +576,7 @@ sloth-agent ask-partner --transaction-ref sloth_txn_...</code></pre>
             <h2
               class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
             >
-              Four core endpoints
+              Five core capabilities
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               Every request uses
@@ -528,6 +602,15 @@ sloth-agent ask-partner --transaction-ref sloth_txn_...</code></pre>
                 Returns visible categories and budget line-item options for
                 personal and joint scopes.
               </p>
+              <p class="text-gray-600 mt-3">
+                A category is the broader parent. A line item is a child within
+                one category. Names such as <strong>Other</strong> may repeat:
+                <strong>Bills &rarr; Other</strong> and
+                <strong>Subscriptions &rarr; Other</strong> are different
+                choices. Use the map matching the transaction
+                <code>scope</code>, and keep <code>categoryId</code> and
+                <code>lineItemId</code> together.
+              </p>
             </article>
 
             <article class="border border-gray-200 rounded-lg p-5">
@@ -545,7 +628,28 @@ sloth-agent ask-partner --transaction-ref sloth_txn_...</code></pre>
                 <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded"
                   >transactionRef</code
                 >. Filter by date range, search text, account, category, or
-                uncategorized state.
+                uncategorized state. Use <code>assignmentScope=joint</code> to
+                inspect the joint classification of eligible shared
+                personal-account transactions. These rows include a nullable
+                <code>jointBudgetContribution</code>.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET / PUT</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/joint-budget-settings</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Reads or updates the linked setting that includes shared
+                personal-account portions in the joint budget. PUT accepts
+                exactly <code>includeSharedPersonalTransactions</code> and
+                returns 409 when there is no active joint budget.
               </p>
             </article>
 
@@ -605,19 +709,27 @@ sloth-agent ask-partner --transaction-ref sloth_txn_...</code></pre>
               from the transaction response. It is the stable reference the API
               needs for assignment writes.
             </p>
+            <p class="text-gray-600 leading-relaxed mt-3">
+              These are placeholders. Replace each example value with the exact
+              <code>transactionRef</code> and category IDs returned for your
+              account.
+            </p>
           </div>
 
           <div class="grid lg:grid-cols-2 gap-6">
             <div class="min-w-0">
-              <h3 class="font-bold text-gray-900 mb-3">Single category</h3>
+              <h3 class="font-bold text-gray-900 mb-3">
+                Category and optional line item
+              </h3>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>{
   "assignments": [
     {
-      "transactionRef": "sloth_txn_...",
-      "categoryId": "groceries",
-      "lineItemId": "weekly"
+      "transactionRef": "PASTE_THE_EXACT_TRANSACTION_REF_HERE",
+      "assignmentScope": "joint",
+      "categoryId": "PASTE_A_CATEGORY_ID_HERE",
+      "lineItemId": "PASTE_A_LINE_ITEM_ID_HERE"
     }
   ]
 }</code></pre>
@@ -629,10 +741,10 @@ sloth-agent ask-partner --transaction-ref sloth_txn_...</code></pre>
               ><code>{
   "assignments": [
     {
-      "transactionRef": "sloth_txn_...",
+      "transactionRef": "PASTE_THE_EXACT_TRANSACTION_REF_HERE",
       "categorySplits": [
-        { "categoryId": "groceries", "amountPence": 1500 },
-        { "categoryId": "shopping", "amountPence": 500 }
+        { "categoryId": "PASTE_FIRST_CATEGORY_ID_HERE", "amountPence": 1500 },
+        { "categoryId": "PASTE_SECOND_CATEGORY_ID_HERE", "amountPence": 500 }
       ]
     }
   ]

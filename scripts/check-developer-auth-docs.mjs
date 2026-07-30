@@ -18,31 +18,31 @@ assert.equal(
 
 assert.match(
   developerPage,
-  /security add-generic-password -U -a &quot;\$USER&quot; -s &quot;sloth-money-agent-token&quot; -w/,
-  'Developer docs should recommend securely saving the token in macOS Keychain.'
+  /npm install --global @slothmoney\/agent-cli/,
+  'Developer docs should install the public Agent CLI.'
 )
 
 assert.match(
   developerPage,
-  /security find-generic-password -a &quot;\$USER&quot; -s &quot;sloth-money-agent-token&quot; -w/,
-  'Developer docs should show how to load the token from macOS Keychain.'
+  /sloth-agent auth login/,
+  'Developer docs should use the CLI native login.'
 )
 
 assert.match(
   developerPage,
-  /IFS= read -rs SLOTH_AGENT_TOKEN/,
-  'Developer docs should include a hidden temporary Bash and Zsh prompt.'
+  /sloth-agent auth status/,
+  'Developer docs should show how to check the active credential.'
 )
 
 assert.match(
   developerPage,
-  /Read-Host &quot;Sloth token&quot; -MaskInput/,
-  'Developer docs should include a hidden temporary PowerShell prompt.'
+  /sloth-agent auth logout/,
+  'Developer docs should explain local logout.'
 )
 
 assert.match(
   developerPage,
-  /class="space-y-5 min-w-0"/,
+  /class="min-w-0 space-y-4"/,
   'The Quickstart code column should shrink within the mobile viewport.'
 )
 
@@ -54,8 +54,8 @@ const assignmentSection = developerPage.slice(
 
 assert.match(
   assignmentSection,
-  /<div class="min-w-0">\s*<h3[^>]*>Single category<\/h3>/,
-  'The single-category example should shrink within the mobile viewport.'
+  /<div class="min-w-0">\s*<h3[^>]*>\s*Category and optional line item\s*<\/h3>/,
+  'The category and line-item example should shrink within the mobile viewport.'
 )
 
 assert.match(

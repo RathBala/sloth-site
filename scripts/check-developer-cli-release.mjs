@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 
 const packageName = '@slothmoney/agent-cli'
-const expectedVersion = '0.1.0'
+const expectedVersion = '0.3.0'
 const npmCache =
   process.env.npm_config_cache ??
   path.join(os.tmpdir(), 'sloth-developer-docs-npm-cache')

@@ -14,6 +14,20 @@ const requiredSnippets = [
   'sloth-agent transactions',
   'sloth-agent assign',
   'sloth-agent ask-partner',
+  'sloth-agent joint-budget-settings',
+  '--assignment-scope joint',
+  '/api/agent/v1/joint-budget-settings',
+  'assignmentScope',
+  'A category is the broader parent.',
+  'Bills &rarr; Other',
+  'Subscriptions &rarr; Other',
+  '<code>scope</code>',
+  'Category and optional line item',
+  'PASTE_THE_EXACT_TRANSACTION_REF_HERE',
+  'These are placeholders.',
+  'Sloth Money &rarr; Transactions',
+  '<code>succeeded</code>',
+  '<code>failed</code>',
   'https://github.com/RathBala/sloth-agent-cli',
   'https://www.npmjs.com/package/@slothmoney/agent-cli',
 ]
@@ -24,8 +38,66 @@ const missing = requiredSnippets.filter(
 if (missing.length > 0) {
   throw new Error(`Developer CLI docs are missing: ${missing.join(', ')}`)
 }
+
+const normalizedDeveloperPage = developerPage.replace(/\s+/g, ' ')
+const requiredCopy = [
+  'An assignment categorises an existing transaction e.g. assigning category Groceries to a transaction.',
+  'does not contact Sloth Money',
+  'A successful preview does not guarantee that applying the assignment will succeed.',
+]
+const missingCopy = requiredCopy.filter(
+  (copy) => !normalizedDeveloperPage.includes(copy)
+)
+if (missingCopy.length > 0) {
+  throw new Error(
+    `Developer CLI docs are missing copy: ${missingCopy.join(', ')}`
+  )
+}
 if (developerPage.includes('yarn agent')) {
   throw new Error(
     'Developer CLI docs must not rely on the private yarn agent script'
   )
+}
+
+const quickstartStart = developerPage.indexOf('<section id="quickstart"')
+const quickstartEnd = developerPage.indexOf(
+  '<section class="py-16 sm:py-20 bg-white">',
+  quickstartStart
+)
+const quickstart = developerPage.slice(quickstartStart, quickstartEnd)
+const workflowSnippets = [
+  'sloth-agent categories',
+  'sloth-agent transactions --uncategorized --limit 50',
+  'PASTE_THE_EXACT_TRANSACTION_REF_HERE',
+  'sloth-agent assign --input assignments.json',
+  'sloth-agent assign --input assignments.json --apply',
+  'Check the result',
+  'sloth-agent transactions --limit 50',
+]
+let workflowPosition = -1
+for (const snippet of workflowSnippets) {
+  const nextPosition = quickstart.indexOf(snippet, workflowPosition + 1)
+  if (nextPosition === -1) {
+    throw new Error(
+      `Developer CLI quickstart is missing or misorders: ${snippet}`
+    )
+  }
+  workflowPosition = nextPosition
+}
+
+if (
+  !developerPage.includes(
+    '<link rel="canonical" href="https://slothmoney.app/developers/" />'
+  )
+) {
+  throw new Error('Developer docs must declare their canonical public URL')
+}
+
+for (const property of ['og:image', 'twitter:image']) {
+  const pattern = new RegExp(
+    `${property}"\\s+content="https://slothmoney\\.app/assets/images/`
+  )
+  if (!pattern.test(developerPage)) {
+    throw new Error(`${property} must use an absolute public asset URL`)
+  }
 }
