@@ -617,7 +617,9 @@ sloth-agent auth logout</code></pre>
                 Lists goals or creates one. Update and delete requests use
                 <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded"
                   >/api/agent/v1/goals/:goalId</code
-                >. Goal writes are limited to the signed-in user's goals.
+                >. Goal writes are limited to the signed-in user's goals. Active
+                shared pot target amounts stay app-managed so account balances
+                can be reconciled across goals in priority order.
               </p>
             </article>
 
