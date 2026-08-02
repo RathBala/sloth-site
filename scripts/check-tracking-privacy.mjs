@@ -32,9 +32,7 @@ const privacyPage = fs.readFileSync(
   'utf8'
 )
 assert.equal(
-  privacyPage.includes(
-    'Agents can list, create, update, and delete your goals'
-  ),
+  /create,\s+update, or delete goals/.test(privacyPage),
   true,
   'privacy policy should describe Agent API goal access'
 )

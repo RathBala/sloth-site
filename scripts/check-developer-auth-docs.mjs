@@ -7,6 +7,10 @@ const developerPage = await readFile(
   path.join(process.cwd(), 'src/developers/index.html'),
   'utf8'
 )
+const privacyPage = await readFile(
+  path.join(process.cwd(), 'src/privacy/index.html'),
+  'utf8'
+)
 
 assert.equal(
   /(?:export\s+SLOTH_AGENT_TOKEN|\$env:SLOTH_AGENT_TOKEN)\s*=\s*["']?sloth_pat_/i.test(
@@ -32,6 +36,24 @@ assert.match(
   developerPage,
   /sloth-agent auth status/,
   'Developer docs should show how to check the active credential.'
+)
+
+assert.match(
+  developerPage,
+  /view-only by default/i,
+  'Developer docs should explain the least-privilege token default.'
+)
+
+assert.match(
+  developerPage,
+  /Allow changes/,
+  'Developer docs should name the explicit write-access control.'
+)
+
+assert.match(
+  privacyPage,
+  /view-only by default/i,
+  'Privacy copy should explain the least-privilege token default.'
 )
 
 assert.match(

@@ -316,8 +316,9 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 Token controlled
               </h2>
               <p class="text-gray-600 leading-relaxed">
-                Create a personal access token in Settings, copy it once, and
-                revoke it when your agent no longer needs access.
+                New tokens are view-only by default. Turn on Allow changes only
+                when your agent needs to categorise transactions, request
+                explanations, or manage goals.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -860,6 +861,14 @@ sloth-agent auth logout</code></pre>
               <p class="text-gray-600">
                 Choose 7, 30, or 90 days when creating a personal access token
                 in Developer access.
+              </p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-5">
+              <h3 class="font-bold text-gray-900 mb-2">Choose less access</h3>
+              <p class="text-gray-600">
+                View-only tokens can read accounts, transactions, categories,
+                and goals. Permissions cannot be edited later - revoke and
+                reissue a token if its job changes.
               </p>
             </div>
             <div class="bg-gray-50 rounded-lg p-5">
