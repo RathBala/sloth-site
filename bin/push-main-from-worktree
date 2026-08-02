@@ -109,6 +109,7 @@ fi
 
 if [[ "$skip_verify" == "0" ]]; then
   echo "Running verification..."
+  yarn check:repo-hygiene
   yarn check:copy
   yarn lint
   yarn typecheck
