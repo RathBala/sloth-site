@@ -123,9 +123,9 @@ for (const metadata of [
     location: 'src/developers/index.html',
     title: 'Sloth Agent API - Developer access for Sloth Money',
     openGraphDescription:
-      'Manage goals, read transactions, create partner clarification links, and categorize your own Sloth Money data with a personal access token, CLI, and Agent API.',
+      'Inspect known accounts, manage goals, read transactions, and categorize your own Sloth Money data with a personal access token, CLI, and Agent API.',
     twitterDescription:
-      'Use your own agent to manage goals and categorize Sloth Money transactions.',
+      'Use your own agent to inspect known accounts, manage goals, and categorize Sloth Money transactions.',
     url: 'https://slothmoney.app/developers/',
     image: 'https://slothmoney.app/assets/images/sloth%20logo%20black.png',
   },

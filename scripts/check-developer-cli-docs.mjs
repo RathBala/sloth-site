@@ -7,16 +7,26 @@ const developerPage = fs.readFileSync(
   path.join(root, 'src', 'developers', 'index.html'),
   'utf8'
 )
+const privacyPage = fs.readFileSync(
+  path.join(root, 'src', 'privacy', 'index.html'),
+  'utf8'
+)
 
 const requiredSnippets = [
   'npm install --global @slothmoney/agent-cli',
+  'sloth-agent accounts',
   'sloth-agent categories',
   'sloth-agent transactions',
   'sloth-agent assign',
   'sloth-agent ask-partner',
-  'sloth-agent joint-budget-settings',
   '--assignment-scope joint',
+  '/api/agent/v1/accounts',
   '/api/agent/v1/joint-budget-settings',
+  '<code>accountRef</code>',
+  '<code>accountType</code>',
+  '<code>asOf</code>',
+  '<code>lastBalanceUpdatedAt</code>',
+  '<code>connectionState</code>',
   'assignmentScope',
   'A category is the broader parent.',
   'Bills &rarr; Other',
@@ -49,6 +59,11 @@ const requiredCopy = [
   'An assignment categorises an existing transaction e.g. assigning category Groceries to a transaction.',
   'does not contact Sloth Money',
   'A successful preview does not guarantee that applying the assignment will succeed.',
+  'Account reads are cache-only and do not contact a bank or refresh balances.',
+  'Partner personal accounts are excluded.',
+  'Provider account IDs, account numbers, sort codes, and IBANs are not returned.',
+  'The first transaction read each UTC day may refresh linked bank data.',
+  'The CLI does not wrap this setting.',
 ]
 const missingCopy = requiredCopy.filter(
   (copy) => !normalizedDeveloperPage.includes(copy)
@@ -58,10 +73,31 @@ if (missingCopy.length > 0) {
     `Developer CLI docs are missing copy: ${missingCopy.join(', ')}`
   )
 }
+
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes('read your account inventory, transaction data, and categories')
+) {
+  throw new Error(
+    'Privacy copy must disclose Agent API access to account inventory.'
+  )
+}
 if (developerPage.includes('yarn agent')) {
   throw new Error(
     'Developer CLI docs must not rely on the private yarn agent script'
   )
+}
+
+for (const unsupportedSnippet of [
+  'sloth-agent joint-budget-settings',
+  'personalBudgetAmountPence',
+]) {
+  if (developerPage.includes(unsupportedSnippet)) {
+    throw new Error(
+      `Developer CLI docs must not advertise unsupported surface: ${unsupportedSnippet}`
+    )
+  }
 }
 
 const quickstartStart = developerPage.indexOf('<section id="quickstart"')

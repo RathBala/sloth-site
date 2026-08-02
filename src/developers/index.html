@@ -11,7 +11,7 @@
 
     <meta
       name="description"
-      content="Use the Sloth Agent API and CLI to manage goals, read transactions, ask for partner context, and categorize your own Sloth Money data with a user-run agent."
+      content="Use the Sloth Agent API and CLI to inspect known accounts, manage goals, read transactions, ask for partner context, and categorize your own Sloth Money data."
     />
     <meta
       name="keywords"
@@ -24,7 +24,7 @@
     />
     <meta
       property="og:description"
-      content="Manage goals, read transactions, create partner clarification links, and categorize your own Sloth Money data with a personal access token, CLI, and Agent API."
+      content="Inspect known accounts, manage goals, read transactions, and categorize your own Sloth Money data with a personal access token, CLI, and Agent API."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://slothmoney.app/developers/" />
@@ -40,7 +40,7 @@
     />
     <meta
       name="twitter:description"
-      content="Use your own agent to manage goals and categorize Sloth Money transactions."
+      content="Use your own agent to inspect known accounts, manage goals, and categorize Sloth Money transactions."
     />
     <meta
       name="twitter:image"
@@ -245,9 +245,10 @@
             </h1>
             <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-4">
               Use a personal access token, a small CLI, or direct HTTP requests
-              to list and manage goals, read uncategorized transactions, ask for
-              partner context, and write category assignments. You stay in
-              control of access, expiry, and revocation.
+              to inspect known accounts, list and manage goals, read
+              uncategorized transactions, ask for partner context, and write
+              category assignments. You stay in control of access, expiry, and
+              revocation.
             </p>
             <p class="text-base sm:text-lg font-semibold text-gray-800 mb-8">
               An assignment categorises an existing transaction e.g. assigning
@@ -295,6 +296,7 @@
 sloth-agent auth login
 sloth-agent auth status
 
+sloth-agent accounts
 sloth-agent goals
 sloth-agent goals create --name "Emergency fund" \
   --target-amount 12000 --target-month 2027-06 --apply
@@ -324,8 +326,8 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 Read before writing
               </h2>
               <p class="text-gray-600 leading-relaxed">
-                Pull goals, categories, and transactions first. Goal and
-                assignment writes are previews until you add
+                Pull accounts, goals, categories, and transactions first. Goal
+                and assignment writes are previews until you add
                 <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                   >--apply</code
                 >. Assignment previews validate the file locally without
@@ -338,8 +340,9 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 Your data only
               </h2>
               <p class="text-gray-600 leading-relaxed">
-                Agent access is scoped to the signed-in user and enabled joint
-                account transactions for that Sloth Money account.
+                Agent access is scoped to the signed-in user. Account reads show
+                personal accounts and enabled shared joint accounts. Partner
+                personal accounts are excluded.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -438,8 +441,9 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Read before writing</h3>
                   <p class="text-gray-600">
-                    Read categories and uncategorized transactions, then copy
-                    the exact IDs into an assignment file.
+                    Inspect known accounts, then read categories and
+                    uncategorized transactions. Copy the exact IDs into an
+                    assignment file.
                   </p>
                 </div>
               </li>
@@ -479,7 +483,8 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>npm install --global @slothmoney/agent-cli
 sloth-agent auth login
-sloth-agent auth status</code></pre>
+sloth-agent auth status
+sloth-agent accounts</code></pre>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent goals
@@ -545,8 +550,6 @@ sloth-agent transactions --uncategorized --limit 50</code></pre>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent transactions --assignment-scope joint --uncategorized
-sloth-agent joint-budget-settings --include-shared-personal-transactions=true
-sloth-agent joint-budget-settings --include-shared-personal-transactions=true --apply
 sloth-agent ask-partner --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE
 sloth-agent auth logout</code></pre>
               <p class="text-gray-600 leading-relaxed">
@@ -574,7 +577,7 @@ sloth-agent auth logout</code></pre>
             </p>
             <pre
               class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-            ><code>curl "https://budget.slothmoney.app/api/agent/v1/categories" \
+            ><code>curl "https://budget.slothmoney.app/api/agent/v1/accounts" \
   -H "Authorization: Bearer $SLOTH_AGENT_TOKEN"</code></pre>
           </div>
         </div>
@@ -591,7 +594,7 @@ sloth-agent auth logout</code></pre>
             <h2
               class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
             >
-              Six API resources
+              Seven API resources
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               Every request uses
@@ -603,6 +606,34 @@ sloth-agent auth logout</code></pre>
           </div>
 
           <div class="space-y-5">
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/accounts</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Returns the existing personal accounts and enabled shared joint
+                accounts visible to the signed-in user. Partner personal
+                accounts are excluded. Each row has an opaque
+                <code>accountRef</code>, saved account and institution labels,
+                <code>accountType</code>, ownership, source, native balance and
+                currency when known, <code>lastBalanceUpdatedAt</code>, and
+                <code>connectionState</code>.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Account reads are cache-only and do not contact a bank or
+                refresh balances. <code>asOf</code> is the response time, not a
+                balance timestamp. Balances are never converted or combined, and
+                missing values are <code>null</code>. Provider account IDs,
+                account numbers, sort codes, and IBANs are not returned.
+              </p>
+            </article>
+
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
@@ -668,6 +699,12 @@ sloth-agent auth logout</code></pre>
                 personal-account transactions. These rows include a nullable
                 <code>jointBudgetContribution</code>.
               </p>
+              <p class="text-gray-600 mt-3">
+                The first transaction read each UTC day may refresh linked bank
+                data. The response includes structured refresh status and still
+                returns readable cached transactions if refresh work continues
+                or fails.
+              </p>
             </article>
 
             <article class="border border-gray-200 rounded-lg p-5">
@@ -684,7 +721,8 @@ sloth-agent auth logout</code></pre>
                 Reads or updates the linked setting that includes shared
                 personal-account portions in the joint budget. PUT accepts
                 exactly <code>includeSharedPersonalTransactions</code> and
-                returns 409 when there is no active joint budget.
+                returns 409 when there is no active joint budget. The CLI does
+                not wrap this setting.
               </p>
             </article>
 
@@ -825,10 +863,11 @@ sloth-agent auth logout</code></pre>
               </p>
             </div>
             <div class="bg-gray-50 rounded-lg p-5">
-              <h3 class="font-bold text-gray-900 mb-2">No bank sync</h3>
+              <h3 class="font-bold text-gray-900 mb-2">Check freshness</h3>
               <p class="text-gray-600">
-                Reads use stored booked transactions. Agent requests do not
-                trigger a bank refresh.
+                Account reads never trigger bank refreshes. Transaction reads
+                may refresh linked bank data once each UTC day and report the
+                result.
               </p>
             </div>
             <div class="bg-gray-50 rounded-lg p-5">
