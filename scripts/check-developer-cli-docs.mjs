@@ -16,6 +16,10 @@ const requiredSnippets = [
   'npm install --global @slothmoney/agent-cli',
   'sloth-agent accounts',
   'sloth-agent categories',
+  'sloth-agent categories create',
+  'sloth-agent categories rename',
+  'sloth-agent line-items create',
+  'sloth-agent line-items rename',
   'sloth-agent transactions',
   'sloth-agent assign',
   'sloth-agent ask-partner',
@@ -43,6 +47,9 @@ const requiredSnippets = [
   'sloth-agent goals update',
   'sloth-agent goals delete',
   '/api/agent/v1/goals',
+  '/api/agent/v1/categories/:categoryId',
+  '/api/agent/v1/line-items/:lineItemId',
+  '--line-item-id',
   'https://github.com/RathBala/sloth-agent-cli',
   'https://www.npmjs.com/package/@slothmoney/agent-cli',
 ]
@@ -81,6 +88,15 @@ if (
 ) {
   throw new Error(
     'Privacy copy must disclose Agent API access to account inventory.'
+  )
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes('manage custom categories and scoped budget line items')
+) {
+  throw new Error(
+    'Privacy copy must disclose Agent API category and line-item management.'
   )
 }
 if (developerPage.includes('yarn agent')) {

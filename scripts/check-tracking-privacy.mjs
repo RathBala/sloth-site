@@ -36,6 +36,11 @@ assert.equal(
   true,
   'privacy policy should describe Agent API goal access'
 )
+assert.equal(
+  /manage custom categories and\s+scoped budget line items/.test(privacyPage),
+  true,
+  'privacy policy should describe Agent API category and line-item access'
+)
 
 const posthogSource = fs.readFileSync(
   path.join(root, 'src/assets/js/posthog-analytics.js'),
