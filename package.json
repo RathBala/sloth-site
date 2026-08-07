@@ -9,6 +9,7 @@
     "check:repo-hygiene": "node ./scripts/check-repo-hygiene.mjs",
     "check:developer-cli-docs": "node ./scripts/check-developer-cli-docs.mjs",
     "check:developer-cli-release": "node ./scripts/check-developer-cli-release.mjs",
+    "test:developer-cli-release": "node --test ./scripts/check-developer-cli-release.test.mjs",
     "dev:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --watch",
     "dev:server": "browser-sync start --server src --index index.html --port 3000 --files 'src/**/*' --no-notify",
     "build:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --minify",
