@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "browser-sync": "^3.0.4",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.3",
     "dotenv": "^16.4.7",
     "http-server": "^14.1.1",
     "playwright": "^1.61.1",
