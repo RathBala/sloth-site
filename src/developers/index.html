@@ -11,7 +11,7 @@
 
     <meta
       name="description"
-      content="Use the Sloth Agent API and CLI to inspect known accounts, manage goals, categories, and line items, read transactions, and categorize your own Sloth Money data."
+      content="Use the Sloth Agent API and CLI to inspect accounts and investment holdings, manage goal-savings membership, goals, categories, and your own Sloth Money data."
     />
     <meta
       name="keywords"
@@ -24,7 +24,7 @@
     />
     <meta
       property="og:description"
-      content="Inspect known accounts, manage goals and budget categories, read transactions, and categorize your own Sloth Money data with a personal access token, CLI, and Agent API."
+      content="Inspect accounts and investment holdings, manage goal-savings membership, goals, and budget categories, and categorize your own Sloth Money data."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://slothmoney.app/developers/" />
@@ -40,7 +40,7 @@
     />
     <meta
       name="twitter:description"
-      content="Use your own agent to inspect known accounts, manage goals and budget categories, and categorize Sloth Money transactions."
+      content="Use your own agent to inspect accounts and investment holdings, manage goal-savings membership, and categorize Sloth Money transactions."
     />
     <meta
       name="twitter:image"
@@ -245,10 +245,11 @@
             </h1>
             <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-4">
               Use a personal access token, a small CLI, or direct HTTP requests
-              to inspect known accounts, list and manage goals, create or rename
-              custom categories and line items, read transactions, ask for
-              partner context, and write category assignments. You stay in
-              control of access, expiry, and revocation.
+              to inspect accounts and investment holdings, manage which linked
+              accounts fund your goals, list and manage goals, create or rename
+              categories and line items, read transactions, ask for partner
+              context, and write category assignments. You stay in control of
+              access, expiry, and revocation.
             </p>
             <p class="text-base sm:text-lg font-semibold text-gray-800 mb-8">
               An assignment categorises an existing transaction e.g. assigning
@@ -297,6 +298,9 @@ sloth-agent auth login
 sloth-agent auth status
 
 sloth-agent accounts
+sloth-agent investments
+sloth-agent accounts update --account-ref sloth_account_v1_... \
+  --goal-savings-source true --apply
 sloth-agent goals
 sloth-agent goals create --name "Emergency fund" \
   --target-amount 12000 --target-month 2027-06 --apply
@@ -318,8 +322,8 @@ sloth-agent assign --input assignments.json --apply</code></pre>
               <p class="text-gray-600 leading-relaxed">
                 New tokens are view-only by default. Turn on Allow changes only
                 when your agent needs to categorise transactions, manage
-                categories and line items, request explanations, or manage
-                goals.
+                categories and line items, change goal-savings account
+                membership, request explanations, or manage goals.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -328,9 +332,9 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 Read before writing
               </h2>
               <p class="text-gray-600 leading-relaxed">
-                Pull accounts, goals, categories, and transactions first. Goal,
-                category, line-item, and assignment writes are previews until
-                you add
+                Pull accounts, investments, goals, categories, and transactions
+                first. Account, goal, category, line-item, and assignment writes
+                are previews until you add
                 <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                   >--apply</code
                 >. Assignment previews validate the file locally without
@@ -603,7 +607,7 @@ sloth-agent auth logout</code></pre>
             <h2
               class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
             >
-              Eight API resources
+              Nine API resources
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               Every request uses
@@ -619,7 +623,7 @@ sloth-agent auth logout</code></pre>
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
                   class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
-                  >GET</span
+                  >GET · PATCH</span
                 >
                 <code class="text-gray-900 font-semibold"
                   >/api/agent/v1/accounts</code
@@ -632,7 +636,8 @@ sloth-agent auth logout</code></pre>
                 <code>accountRef</code>, saved account and institution labels,
                 <code>accountType</code>, ownership, source, native balance and
                 currency when known, <code>lastBalanceUpdatedAt</code>, and
-                <code>connectionState</code>.
+                <code>connectionState</code>. <code>isGoalSavingsSource</code>
+                shows whether the account contributes to goal savings.
               </p>
               <p class="text-gray-600 mt-3">
                 Account reads are cache-only and do not contact a bank or
@@ -640,6 +645,39 @@ sloth-agent auth logout</code></pre>
                 balance timestamp. Balances are never converted or combined, and
                 missing values are <code>null</code>. Provider account IDs,
                 account numbers, sort codes, and IBANs are not returned.
+              </p>
+              <p class="text-gray-600 mt-3">
+                <code>/api/agent/v1/accounts/:accountRef</code> accepts a PATCH
+                containing only <code>isGoalSavingsSource</code>. Only the
+                account owner can change goal-savings membership. Manual
+                accounts have fixed membership, and shared partner accounts are
+                informational. The CLI previews this write locally until you add
+                <code>--apply</code>.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/investments</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Returns caller-owned linked investment accounts with Coinbase,
+                Trading 212, and other SnapTrade holdings nested beneath each
+                account. Filter with <code>accountRef</code> or
+                <code>sloth-agent investments --account-ref</code>. Manual
+                holdings, activities, and partner-owned accounts are excluded.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Investment reads are cache-only and do not contact SnapTrade.
+                Holding values stay in their provider-native currencies and may
+                not reconcile to a converted account total. Symbols can be
+                missing, and non-zero cash appears as a cash holding.
               </p>
             </article>
 
@@ -900,9 +938,9 @@ sloth-agent auth logout</code></pre>
             <div class="bg-gray-50 rounded-lg p-5">
               <h3 class="font-bold text-gray-900 mb-2">Choose less access</h3>
               <p class="text-gray-600">
-                View-only tokens can read accounts, transactions, categories,
-                and goals. Permissions cannot be edited later - revoke and
-                reissue a token if its job changes.
+                View-only tokens can read accounts, investment holdings,
+                transactions, categories, and goals. Permissions cannot be
+                edited later - revoke and reissue a token if its job changes.
               </p>
             </div>
             <div class="bg-gray-50 rounded-lg p-5">

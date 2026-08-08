@@ -37,9 +37,21 @@ assert.equal(
   'privacy policy should describe Agent API goal access'
 )
 assert.equal(
-  /manage custom categories and\s+scoped budget line items/.test(privacyPage),
+  /manage\s+custom categories and\s+scoped budget line items/.test(privacyPage),
   true,
   'privacy policy should describe Agent API category and line-item access'
+)
+assert.equal(
+  /read your account inventory, investment holdings,\s+transaction data/.test(
+    privacyPage
+  ),
+  true,
+  'privacy policy should describe Agent API investment holdings access'
+)
+assert.equal(
+  /change\s+goal-savings account membership/.test(privacyPage),
+  true,
+  'privacy policy should describe Agent API goal-savings account changes'
 )
 
 const posthogSource = fs.readFileSync(

@@ -13,15 +13,15 @@ test('retries registry propagation before accepting the published version', asyn
       if (attempts < 3) {
         throw new Error('not propagated')
       }
-      return '0.5.0'
+      return '0.6.0'
     },
-    version: '0.5.0',
+    version: '0.6.0',
     attempts: 3,
     retryDelayMs: 25,
     delay: async (milliseconds) => delays.push(milliseconds),
   })
 
-  assert.equal(publishedVersion, '0.5.0')
+  assert.equal(publishedVersion, '0.6.0')
   assert.equal(attempts, 3)
   assert.deepEqual(delays, [25, 25])
 })
@@ -35,7 +35,7 @@ test('fails after the bounded number of attempts', async () => {
         attempts += 1
         throw new Error('not propagated')
       },
-      version: '0.5.0',
+      version: '0.6.0',
       attempts: 2,
       retryDelayMs: 0,
       delay: async () => {},

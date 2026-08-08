@@ -15,6 +15,8 @@ const privacyPage = fs.readFileSync(
 const requiredSnippets = [
   'npm install --global @slothmoney/agent-cli',
   'sloth-agent accounts',
+  'sloth-agent accounts update',
+  'sloth-agent investments',
   'sloth-agent categories',
   'sloth-agent categories create',
   'sloth-agent categories rename',
@@ -25,12 +27,15 @@ const requiredSnippets = [
   'sloth-agent ask-partner',
   '--assignment-scope joint',
   '/api/agent/v1/accounts',
+  '/api/agent/v1/accounts/:accountRef',
+  '/api/agent/v1/investments',
   '/api/agent/v1/joint-budget-settings',
   '<code>accountRef</code>',
   '<code>accountType</code>',
   '<code>asOf</code>',
   '<code>lastBalanceUpdatedAt</code>',
   '<code>connectionState</code>',
+  '<code>isGoalSavingsSource</code>',
   'assignmentScope',
   'A category is the broader parent.',
   'Bills &rarr; Other',
@@ -67,6 +72,9 @@ const requiredCopy = [
   'does not contact Sloth Money',
   'A successful preview does not guarantee that applying the assignment will succeed.',
   'Account reads are cache-only and do not contact a bank or refresh balances.',
+  'Investment reads are cache-only and do not contact SnapTrade.',
+  'Holding values stay in their provider-native currencies and may not reconcile to a converted account total.',
+  'Only the account owner can change goal-savings membership.',
   'Partner personal accounts are excluded.',
   'Provider account IDs, account numbers, sort codes, and IBANs are not returned.',
   'The first transaction read each UTC day may refresh linked bank data.',
@@ -84,10 +92,21 @@ if (missingCopy.length > 0) {
 if (
   !privacyPage
     .replace(/\s+/g, ' ')
-    .includes('read your account inventory, transaction data, and categories')
+    .includes(
+      'read your account inventory, investment holdings, transaction data, and categories'
+    )
 ) {
   throw new Error(
-    'Privacy copy must disclose Agent API access to account inventory.'
+    'Privacy copy must disclose Agent API access to account inventory and investment holdings.'
+  )
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes('change goal-savings account membership')
+) {
+  throw new Error(
+    'Privacy copy must disclose Agent API goal-savings account membership changes.'
   )
 }
 if (
