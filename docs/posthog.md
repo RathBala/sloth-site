@@ -51,7 +51,7 @@ The site sends only the named events below. CTA URL attribution still forwards c
 | `landing_view` | Once, after PostHog loads on the initial page view                                    |
 | `cta_clicked`  | User clicks a tracked CTA (`<a data-analytics-cta="...">` to `budget.slothmoney.app`) |
 
-CTA placements use `data-analytics-cta` values: `header-sign-in`, `header-start`, `mobile-menu-start`, `mobile-menu-sign-in`, `hero-start`, `hero-sign-in`, `pricing-start`, `final-cta-start`.
+CTA placements use `data-analytics-cta` values: `header-sign-in`, `header-start`, `mobile-menu-start`, `mobile-menu-sign-in`, `hero-start`, `hero-sign-in`, `pricing-start`, `final-cta-start`. `pricing-start` is retained as the historical placement identifier for the free-beta access block so the funnel remains comparable.
 
 `cta_clicked` also includes `cta_placement` and `cta_label` (trimmed link text).
 

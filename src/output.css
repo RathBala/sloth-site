@@ -964,10 +964,6 @@ video {
   align-items: center;
 }
 
-.items-baseline {
-  align-items: baseline;
-}
-
 .items-stretch {
   align-items: stretch;
 }
@@ -1284,10 +1280,6 @@ video {
      object-position: top;
 }
 
-.p-1 {
-  padding: 0.25rem;
-}
-
 .p-2 {
   padding: 0.5rem;
 }
@@ -1320,11 +1312,6 @@ video {
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .px-2\.5 {
@@ -1503,10 +1490,6 @@ video {
   font-size: 1.7rem;
 }
 
-.text-\[10px\] {
-  font-size: 10px;
-}
-
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -1586,10 +1569,6 @@ video {
 
 .tracking-wide {
   letter-spacing: 0.025em;
-}
-
-.tracking-wider {
-  letter-spacing: 0.05em;
 }
 
 .text-blue-really-light\/70 {

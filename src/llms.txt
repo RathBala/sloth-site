@@ -4,7 +4,7 @@
 
 ## Main pages
 
-- [Sloth Money](https://slothmoney.app/): Product overview and pricing.
+- [Sloth Money](https://slothmoney.app/): Product overview and permanent free-beta access.
 - [Developer guide](https://slothmoney.app/developers/): Agent API authentication, CLI setup, cache-only account and investment views, goal-savings account management, goal management, transaction categorization, endpoints, and safe write workflows.
 - [Privacy policy](https://slothmoney.app/privacy/): How Sloth Money handles personal and financial data.
 

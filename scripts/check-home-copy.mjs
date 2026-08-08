@@ -7,6 +7,8 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '..')
 const homePagePath = path.join(projectRoot, 'src/index.html')
+const weddingPagePath = path.join(projectRoot, 'src/wedding-fund/index.html')
+const developerPagePath = path.join(projectRoot, 'src/developers/index.html')
 const agentInstructionsPath = path.join(projectRoot, 'AGENTS.md')
 const visualAssetsDocPath = path.join(projectRoot, 'docs/visual-assets.md')
 const packageJsonPath = path.join(projectRoot, 'package.json')
@@ -24,6 +26,8 @@ const heroSideLeafSvgPath = path.join(
 )
 
 const source = await readFile(homePagePath, 'utf8')
+const weddingSource = await readFile(weddingPagePath, 'utf8')
+const developerSource = await readFile(developerPagePath, 'utf8')
 const agentInstructions = await readFile(agentInstructionsPath, 'utf8')
 const visualAssetsDoc = await readFile(visualAssetsDocPath, 'utf8').catch(
   () => ''
@@ -39,6 +43,12 @@ const heroSideLeafSvg = await readFile(heroSideLeafSvgPath, 'utf8').catch(
 const normalizedSource = source.replace(/\s+/g, ' ')
 const normalizedCss = source.replace(/\s+/g, ' ')
 const normalizedText = source.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')
+const normalizedWeddingText = weddingSource
+  .replace(/<[^>]*>/g, ' ')
+  .replace(/\s+/g, ' ')
+const normalizedDeveloperText = developerSource
+  .replace(/<[^>]*>/g, ' ')
+  .replace(/\s+/g, ' ')
 const heroBackgroundStart = source.indexOf('<div class="sloth-hero')
 const heroStart = source.indexOf('<!-- Hero Section -->')
 const heroEnd = heroStart === -1 ? -1 : source.indexOf('</section>', heroStart)
@@ -88,6 +98,42 @@ const archetypeArtImgRule =
   source.match(/\.sloth-archetype-art img\s*\{[\s\S]*?\n      \}/)?.[0] ?? ''
 
 const checks = [
+  {
+    passes:
+      normalizedText.includes('Join the free beta') &&
+      normalizedText.includes('full access is yours free forever') &&
+      normalizedText.includes(
+        'One connected partner included while you are linked'
+      ) &&
+      !normalizedText.includes('Full access for 14 days') &&
+      !normalizedText.includes('One subscription') &&
+      !normalizedText.includes('£4.99') &&
+      !source.includes('pricing-toggle.js'),
+    message:
+      'Home access block should promise permanent free-beta access and remove trial, subscription, price, and pricing-toggle copy.',
+  },
+  {
+    passes:
+      normalizedWeddingText.includes('Join the free beta') &&
+      normalizedWeddingText.includes('full access is yours free forever') &&
+      normalizedWeddingText.includes(
+        'One connected partner included while you are linked'
+      ) &&
+      !normalizedWeddingText.includes('Full access for 14 days') &&
+      !normalizedWeddingText.includes('One subscription') &&
+      !normalizedWeddingText.includes('£4.99') &&
+      !weddingSource.includes('pricing-toggle.js'),
+    message:
+      'Wedding access block should match the permanent free-beta promise and remove pricing controls.',
+  },
+  {
+    passes:
+      normalizedDeveloperText.includes('Free beta included') &&
+      normalizedDeveloperText.includes('Agent API access is included') &&
+      !normalizedDeveloperText.includes('Paid access required'),
+    message:
+      'Developer docs should explain that Agent API access is included in the free beta.',
+  },
   {
     passes: normalizedText.includes('Couple finances actually made fun.'),
     message:
