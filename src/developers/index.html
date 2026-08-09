@@ -11,7 +11,7 @@
 
     <meta
       name="description"
-      content="Use the Sloth Agent API and CLI to inspect accounts and investment holdings, manage goal-savings membership, goals, categories, and your own Sloth Money data."
+      content="Use the Sloth Agent API and CLI to inspect accounts, investments, and budgets, update planned amounts, manage goals, and categorize transactions."
     />
     <meta
       name="keywords"
@@ -24,7 +24,7 @@
     />
     <meta
       property="og:description"
-      content="Inspect accounts and investment holdings, manage goal-savings membership, goals, and budget categories, and categorize your own Sloth Money data."
+      content="Inspect accounts, investments, and budgets, update planned amounts, manage goals, and categorize your Sloth Money data."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://slothmoney.app/developers/" />
@@ -40,7 +40,7 @@
     />
     <meta
       name="twitter:description"
-      content="Use your own agent to inspect accounts and investment holdings, manage goal-savings membership, and categorize Sloth Money transactions."
+      content="Use your own agent to inspect budgets, accounts, and investments, update plans, and categorize Sloth Money transactions."
     />
     <meta
       name="twitter:image"
@@ -245,9 +245,9 @@
             </h1>
             <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-4">
               Use a personal access token, a small CLI, or direct HTTP requests
-              to inspect accounts and investment holdings, manage which linked
-              accounts fund your goals, list and manage goals, create or rename
-              categories and line items, read transactions, ask for partner
+              to inspect accounts, investments, and budgets, update planned
+              amounts, manage which linked accounts fund your goals, manage
+              goals and budget categories, read transactions, ask for partner
               context, and write category assignments. You stay in control of
               access, expiry, and revocation.
             </p>
@@ -299,6 +299,7 @@ sloth-agent auth status
 
 sloth-agent accounts
 sloth-agent investments
+sloth-agent budget --scope personal
 sloth-agent accounts update --account-ref sloth_account_v1_... \
   --goal-savings-source true --apply
 sloth-agent goals
@@ -322,8 +323,9 @@ sloth-agent assign --input assignments.json --apply</code></pre>
               <p class="text-gray-600 leading-relaxed">
                 New tokens are view-only by default. Turn on Allow changes only
                 when your agent needs to categorise transactions, manage
-                categories and line items, change goal-savings account
-                membership, request explanations, or manage goals.
+                categories and line items, update planned budgets, change
+                goal-savings account membership, request explanations, or manage
+                goals.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -332,12 +334,12 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 Read before writing
               </h2>
               <p class="text-gray-600 leading-relaxed">
-                Pull accounts, investments, goals, categories, and transactions
-                first. Account, goal, category, line-item, and assignment writes
-                are previews until you add
+                Pull accounts, investments, budgets, goals, categories, and
+                transactions first. Account, budget, goal, category, line-item,
+                and assignment writes are previews until you add
                 <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                   >--apply</code
-                >. Assignment previews validate the file locally without
+                >. Assignment and budget previews validate files locally without
                 contacting Sloth Money.
               </p>
             </div>
@@ -502,6 +504,35 @@ sloth-agent goals delete --goal-id GOAL_ID
 sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent budget --scope personal --period 2026-08
+sloth-agent budget update --scope personal --period 2026-08 --input budget.json
+sloth-agent budget update --scope personal --period 2026-08 --input budget.json --apply</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                A budget update file contains 1 to 100 unique allocations. Each
+                one identifies an existing category and line item and sets its
+                whole-number <code>plannedPence</code>.
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>{
+  "allocations": [
+    {
+      "categoryId": "groceries",
+      "lineItemId": "weekly",
+      "plannedPence": 45000
+    }
+  ]
+}</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                Budget previews validate the file locally without loading a
+                token or contacting Sloth Money. Applying starts from the full
+                selected-period budget and patches the listed amounts. Saving X
+                overwrites X and every explicit future plan. A later save from Y
+                overwrites Y and everything after it. Earlier and historical
+                periods stay unchanged.
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent categories
 sloth-agent categories create --name "Holidays" --icon-key plane --type Wants
 sloth-agent categories create --name "Holidays" --icon-key plane --type Wants --apply
@@ -607,7 +638,7 @@ sloth-agent auth logout</code></pre>
             <h2
               class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
             >
-              Nine API resources
+              Ten API resources
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               Every request uses
@@ -653,6 +684,33 @@ sloth-agent auth logout</code></pre>
                 accounts have fixed membership, and shared partner accounts are
                 informational. The CLI previews this write locally until you add
                 <code>--apply</code>.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET · PATCH</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/budgets</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Reads one personal or joint budget period. The response includes
+                <code>periodStatus</code>, currency, the effective plan, stored
+                funding when available, categories, line items, and planned
+                pence. Historical reads require their frozen snapshot. The API
+                does not calculate spent or available balances from
+                transactions.
+              </p>
+              <p class="text-gray-600 mt-3">
+                PATCH accepts 1 to 100 existing category and line-item pairs
+                with <code>plannedPence</code>. It builds a complete
+                selected-period budget, then overwrites that period and every
+                explicit future plan. A later update starts a new overwrite
+                boundary. Historical periods cannot be changed.
               </p>
             </article>
 
@@ -939,8 +997,8 @@ sloth-agent auth logout</code></pre>
               <h3 class="font-bold text-gray-900 mb-2">Choose less access</h3>
               <p class="text-gray-600">
                 View-only tokens can read accounts, investment holdings,
-                transactions, categories, and goals. Permissions cannot be
-                edited later - revoke and reissue a token if its job changes.
+                transactions, categories, budgets, and goals. Permissions cannot
+                be edited later - revoke and reissue a token if its job changes.
               </p>
             </div>
             <div class="bg-gray-50 rounded-lg p-5">

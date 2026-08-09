@@ -32,7 +32,7 @@ const privacyPage = fs.readFileSync(
   'utf8'
 )
 assert.equal(
-  /create,\s+update, or delete goals/.test(privacyPage),
+  /create,\s+update,\s+or\s+delete goals/.test(privacyPage),
   true,
   'privacy policy should describe Agent API goal access'
 )
@@ -49,9 +49,21 @@ assert.equal(
   'privacy policy should describe Agent API investment holdings access'
 )
 assert.equal(
-  /change\s+goal-savings account membership/.test(privacyPage),
+  /change\s+goal-savings account\s+membership/.test(privacyPage),
   true,
   'privacy policy should describe Agent API goal-savings account changes'
+)
+assert.equal(
+  /read your account inventory, investment holdings,\s+transaction data, categories, budgets, and goals/.test(
+    privacyPage
+  ),
+  true,
+  'privacy policy should describe Agent API budget reads'
+)
+assert.equal(
+  /update\s+planned budget amounts/.test(privacyPage),
+  true,
+  'privacy policy should describe Agent API planned-budget updates'
 )
 
 const posthogSource = fs.readFileSync(

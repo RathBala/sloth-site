@@ -17,6 +17,8 @@ const requiredSnippets = [
   'sloth-agent accounts',
   'sloth-agent accounts update',
   'sloth-agent investments',
+  'sloth-agent budget --scope personal',
+  'sloth-agent budget update',
   'sloth-agent categories',
   'sloth-agent categories create',
   'sloth-agent categories rename',
@@ -29,6 +31,7 @@ const requiredSnippets = [
   '/api/agent/v1/accounts',
   '/api/agent/v1/accounts/:accountRef',
   '/api/agent/v1/investments',
+  '/api/agent/v1/budgets',
   '/api/agent/v1/joint-budget-settings',
   '<code>accountRef</code>',
   '<code>accountType</code>',
@@ -36,6 +39,8 @@ const requiredSnippets = [
   '<code>lastBalanceUpdatedAt</code>',
   '<code>connectionState</code>',
   '<code>isGoalSavingsSource</code>',
+  '<code>periodStatus</code>',
+  '<code>plannedPence</code>',
   'assignmentScope',
   'A category is the broader parent.',
   'Bills &rarr; Other',
@@ -79,6 +84,8 @@ const requiredCopy = [
   'Provider account IDs, account numbers, sort codes, and IBANs are not returned.',
   'The first transaction read each UTC day may refresh linked bank data.',
   'The CLI does not wrap this setting.',
+  'Budget previews validate the file locally without loading a token or contacting Sloth Money.',
+  'Saving X overwrites X and every explicit future plan. A later save from Y overwrites Y and everything after it.',
 ]
 const missingCopy = requiredCopy.filter(
   (copy) => !normalizedDeveloperPage.includes(copy)
@@ -93,11 +100,11 @@ if (
   !privacyPage
     .replace(/\s+/g, ' ')
     .includes(
-      'read your account inventory, investment holdings, transaction data, and categories'
+      'read your account inventory, investment holdings, transaction data, categories, budgets, and goals'
     )
 ) {
   throw new Error(
-    'Privacy copy must disclose Agent API access to account inventory and investment holdings.'
+    'Privacy copy must disclose Agent API access to account inventory, investments, and budgets.'
   )
 }
 if (
@@ -107,6 +114,13 @@ if (
 ) {
   throw new Error(
     'Privacy copy must disclose Agent API goal-savings account membership changes.'
+  )
+}
+if (
+  !privacyPage.replace(/\s+/g, ' ').includes('update planned budget amounts')
+) {
+  throw new Error(
+    'Privacy copy must disclose Agent API planned-budget updates.'
   )
 }
 if (

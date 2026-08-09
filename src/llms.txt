@@ -5,10 +5,10 @@
 ## Main pages
 
 - [Sloth Money](https://slothmoney.app/): Product overview and permanent free-beta access.
-- [Developer guide](https://slothmoney.app/developers/): Agent API authentication, CLI setup, cache-only account and investment views, goal-savings account management, goal management, transaction categorization, endpoints, and safe write workflows.
+- [Developer guide](https://slothmoney.app/developers/): Agent API authentication, CLI setup, account, investment, and budget views, planned-budget updates, goal management, transaction categorization, endpoints, and safe write workflows.
 - [Privacy policy](https://slothmoney.app/privacy/): How Sloth Money handles personal and financial data.
 
 ## Developer resources
 
-- [Sloth Agent CLI](https://www.npmjs.com/package/@slothmoney/agent-cli): Public command-line client for inspecting accounts and investment holdings, managing goal-savings membership and goals, and categorizing transactions through the Sloth Agent API.
+- [Sloth Agent CLI](https://www.npmjs.com/package/@slothmoney/agent-cli): Public command-line client for inspecting accounts, investments, and budgets, updating planned amounts, managing goals, and categorizing transactions through the Sloth Agent API.
 - [Sloth Agent CLI source](https://github.com/RathBala/sloth-agent-cli): MIT-licensed source code and usage documentation.
