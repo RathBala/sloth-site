@@ -16,6 +16,7 @@ const requiredSnippets = [
   'npm install --global @slothmoney/agent-cli',
   'sloth-agent accounts',
   'sloth-agent accounts update',
+  'sloth-agent accounts remove',
   'sloth-agent investments',
   'sloth-agent budget --scope personal',
   'sloth-agent budget update',
@@ -80,7 +81,9 @@ const requiredCopy = [
   'Account reads are cache-only and do not contact a bank or refresh balances.',
   'Investment reads are cache-only and do not contact SnapTrade.',
   'Holding values stay in their provider-native currencies and may not reconcile to a converted account total.',
-  'Only the account owner can change goal-savings membership.',
+  'Manual accounts can change institution, name, currency, and ownership.',
+  'DELETE archives an owned manual account without deleting its transaction, import, balance, or categorisation records.',
+  'There is no restore command.',
   'Partner personal accounts are excluded.',
   'Provider account IDs, account numbers, sort codes, and IBANs are not returned.',
   'The first transaction read each UTC day may refresh linked bank data.',
@@ -112,10 +115,10 @@ if (
 if (
   !privacyPage
     .replace(/\s+/g, ' ')
-    .includes('change goal-savings account membership')
+    .includes('manage account details and archive manual accounts')
 ) {
   throw new Error(
-    'Privacy copy must disclose Agent API goal-savings account membership changes.'
+    'Privacy copy must disclose Agent API account changes and archival.'
   )
 }
 if (

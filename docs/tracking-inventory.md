@@ -4,7 +4,7 @@ This is the source of truth for Sloth Money marketing-site tracking, visit alert
 
 Public privacy copy should be checked against this inventory before it is edited. The public policy does not need to link to this document.
 
-Agent API category and line-item mutations are product operations owned by the
+Agent API account, category, and line-item mutations are product operations owned by the
 sibling `sloth-budget` server, not marketing-site tracking. Their privacy-safe
 PostHog and Railway fields are inventoried in
 `sloth-budget/docs/tracking-inventory.md`. This site adds no telemetry for the

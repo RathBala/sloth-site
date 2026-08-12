@@ -10,5 +10,5 @@
 
 ## Developer resources
 
-- [Sloth Agent CLI](https://www.npmjs.com/package/@slothmoney/agent-cli): Public command-line client for inspecting accounts, investments, and budgets, updating planned amounts, changing goal priority ordering, and categorizing transactions through the Sloth Agent API.
+- [Sloth Agent CLI](https://www.npmjs.com/package/@slothmoney/agent-cli): Public command-line client for inspecting and managing accounts, investments, budgets, and goals; updating planned amounts and goal priorities; and categorizing transactions through the Sloth Agent API.
 - [Sloth Agent CLI source](https://github.com/RathBala/sloth-agent-cli): MIT-licensed source code and usage documentation.

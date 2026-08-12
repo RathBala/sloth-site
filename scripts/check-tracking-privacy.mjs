@@ -49,9 +49,9 @@ assert.equal(
   'privacy policy should describe Agent API investment holdings access'
 )
 assert.equal(
-  /change\s+goal-savings account\s+membership/.test(privacyPage),
+  /manage\s+account details and archive\s+manual accounts/.test(privacyPage),
   true,
-  'privacy policy should describe Agent API goal-savings account changes'
+  'privacy policy should describe Agent API account changes and archival'
 )
 assert.equal(
   /read your account inventory, investment holdings,\s+transaction data, categories, budgets, and goals/.test(

@@ -301,7 +301,12 @@ sloth-agent accounts
 sloth-agent investments
 sloth-agent budget --scope personal
 sloth-agent accounts update --account-ref sloth_account_v1_... \
-  --goal-savings-source true --apply
+  --institution-name "Hargreaves Lansdown" \
+  --account-name "Stocks & Shares ISA" \
+  --ownership individual --balance-amount 12500.75 \
+  --account-type investments --goal-savings-source false --apply
+sloth-agent accounts remove --account-ref sloth_account_v1_...
+sloth-agent accounts remove --account-ref sloth_account_v1_... --apply
 sloth-agent goals
 sloth-agent goals create --name "Emergency fund" \
   --target-amount 12000 --target-month 2027-06 --apply
@@ -323,9 +328,8 @@ sloth-agent assign --input assignments.json --apply</code></pre>
               <p class="text-gray-600 leading-relaxed">
                 New tokens are view-only by default. Turn on Allow changes only
                 when your agent needs to categorise transactions, manage
-                categories and line items, update planned budgets, change
-                goal-savings account membership, request explanations, or manage
-                goals.
+                categories and line items, update planned budgets, manage
+                accounts, request explanations, or manage goals.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -663,7 +667,7 @@ sloth-agent auth logout</code></pre>
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
                   class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
-                  >GET · PATCH</span
+                  >GET · PATCH · DELETE</span
                 >
                 <code class="text-gray-900 font-semibold"
                   >/api/agent/v1/accounts</code
@@ -687,12 +691,18 @@ sloth-agent auth logout</code></pre>
                 account numbers, sort codes, and IBANs are not returned.
               </p>
               <p class="text-gray-600 mt-3">
-                <code>/api/agent/v1/accounts/:accountRef</code> accepts a PATCH
-                containing only <code>isGoalSavingsSource</code>. Only the
-                account owner can change goal-savings membership. Manual
-                accounts have fixed membership, and shared partner accounts are
-                informational. The CLI previews this write locally until you add
-                <code>--apply</code>.
+                <code>/api/agent/v1/accounts/:accountRef</code> accepts strict
+                partial updates. Manual accounts can change institution, name,
+                currency, and ownership. Balance-only accounts can also change
+                balance, Savings/Investments type, and goal-savings membership.
+                Connected accounts support goal-savings membership only.
+              </p>
+              <p class="text-gray-600 mt-3">
+                DELETE archives an owned manual account without deleting its
+                transaction, import, balance, or categorisation records. There
+                is no restore command. Shared, disconnected, or inaccessible
+                accounts return Account not found. The CLI previews PATCH and
+                DELETE locally until you add <code>--apply</code>.
               </p>
             </article>
 
