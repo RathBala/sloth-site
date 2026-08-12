@@ -55,6 +55,7 @@ const requiredSnippets = [
   'sloth-agent goals',
   'sloth-agent goals create',
   'sloth-agent goals update',
+  '--priority 2',
   'sloth-agent goals delete',
   '/api/agent/v1/goals',
   '/api/agent/v1/categories/:categoryId',
@@ -86,6 +87,7 @@ const requiredCopy = [
   'The CLI does not wrap this setting.',
   'Budget previews validate the file locally without loading a token or contacting Sloth Money.',
   'Saving X overwrites X and every explicit future plan. A later save from Y overwrites Y and everything after it.',
+  'Goal priority is one-based, so 1 is highest. Set priority on its own. Moving one goal shifts the intervening goals automatically.',
 ]
 const missingCopy = requiredCopy.filter(
   (copy) => !normalizedDeveloperPage.includes(copy)

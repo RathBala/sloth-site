@@ -265,6 +265,7 @@ for (const resource of [
   'https://www.npmjs.com/package/@slothmoney/agent-cli',
   'https://github.com/RathBala/sloth-agent-cli',
   'https://slothmoney.app/privacy/',
+  'goal priority ordering',
 ]) {
   requireText(llms, resource, 'src/llms.txt')
 }
