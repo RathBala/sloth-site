@@ -310,7 +310,7 @@ sloth-agent accounts remove --account-ref sloth_account_v1_... --apply
 sloth-agent goals
 sloth-agent goals create --name "Emergency fund" \
   --target-amount 12000 --target-month 2027-06 --apply
-sloth-agent transactions --uncategorized --limit 50
+sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
 sloth-agent assign --input assignments.json
 sloth-agent assign --input assignments.json --apply</code></pre>
           </div>
@@ -454,9 +454,10 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Read before writing</h3>
                   <p class="text-gray-600">
-                    Inspect known accounts, then read categories and
-                    uncategorized transactions. Copy the exact IDs into an
-                    assignment file.
+                    Inspect known accounts and categories, then check personal
+                    and joint categorisation separately. Copy the exact
+                    transaction, category, and line-item IDs into an assignment
+                    file.
                   </p>
                 </div>
               </li>
@@ -552,11 +553,16 @@ sloth-agent categories create --name "Holidays" --icon-key plane --type Wants --
 sloth-agent categories rename --category-id CATEGORY_ID --name "Travel fund" --apply
 sloth-agent line-items create --scope personal --category-id CATEGORY_ID --name "Flights" --apply
 sloth-agent line-items rename --scope personal --category-id CATEGORY_ID --line-item-id LINE_ITEM_ID --name "Travel" --apply
-sloth-agent transactions --uncategorized --limit 50</code></pre>
+sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
+sloth-agent transactions --assignment-scope joint --uncategorized --limit 50</code></pre>
               <p class="text-gray-600 leading-relaxed">
                 Copy the exact <code>transactionRef</code> for the transaction
-                and a <code>categoryId</code> from these outputs into
-                <code>assignments.json</code>.
+                and the matching <code>categoryId</code> and
+                <code>lineItemId</code> from these outputs into
+                <code>assignments.json</code>. Choose the most specific suitable
+                line item. If none fits, use that category's
+                <code>Other</code> line item. Historical assignments without a
+                line item are not a recommendation to omit one.
               </p>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
@@ -564,7 +570,9 @@ sloth-agent transactions --uncategorized --limit 50</code></pre>
   "assignments": [
     {
       "transactionRef": "PASTE_THE_EXACT_TRANSACTION_REF_HERE",
-      "categoryId": "PASTE_A_CATEGORY_ID_HERE"
+      "assignmentScope": "personal",
+      "categoryId": "PASTE_A_CATEGORY_ID_HERE",
+      "lineItemId": "PASTE_A_LINE_ITEM_ID_HERE"
     }
   ]
 }</code></pre>
@@ -592,16 +600,18 @@ sloth-agent transactions --uncategorized --limit 50</code></pre>
               </p>
               <h3 class="font-bold text-gray-900">Check the result</h3>
               <p class="text-gray-600 leading-relaxed">
+                Check the result in the same assignment scope that you changed.
                 Successful assignments update the original transaction. See the
                 category in <strong>Sloth Money &rarr; Transactions</strong>, or
                 re-run the original transaction query without
-                <code>--uncategorized</code> and inspect its category fields.
-                The transaction should also disappear from the matching
-                uncategorized query. Assignments do not create a separate list.
+                <code>--uncategorized</code>. The transaction should also
+                disappear from the matching uncategorized query. Confirm that an
+                existing assignment in the other scope was not changed.
+                Assignments do not create a separate list.
               </p>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
-              ><code>sloth-agent transactions --limit 50</code></pre>
+              ><code>sloth-agent transactions --assignment-scope personal --limit 50</code></pre>
               <h3 class="font-bold text-gray-900">Other commands</h3>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
@@ -846,10 +856,21 @@ sloth-agent auth logout</code></pre>
                 item, or uncategorized state. Use <code>--line-item-id</code> in
                 the CLI or <code>lineItemId</code> over HTTP. When combined with
                 <code>categoryId</code>, both IDs must match the same assignment
-                or split. Use <code>assignmentScope=joint</code> to inspect the
-                joint classification of eligible shared personal-account
-                transactions. These rows include a nullable
-                <code>jointBudgetContribution</code>.
+                or split.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Personal and joint category assignments are separate. A personal
+                assignment uses the transaction's top-level
+                <code>categoryId</code>, <code>lineItemId</code>, and
+                <code>categorySplits</code>. A joint-budget assignment uses the
+                corresponding fields under <code>jointBudgetContribution</code>.
+              </p>
+              <p class="text-gray-600 mt-3">
+                A transaction can be uncategorised personally while its
+                joint-budget contribution is already categorised. To assess its
+                categorisation, inspect both locations. Use
+                <code>assignmentScope=joint</code> to select the joint fields on
+                eligible shared personal-account transactions.
               </p>
               <p class="text-gray-600 mt-3">
                 The first transaction read each UTC day may refresh linked bank
@@ -907,8 +928,7 @@ sloth-agent auth logout</code></pre>
               </div>
               <p class="text-gray-600">
                 Applies 1 to 100 category assignments. The response may contain
-                mixed successes and failures, so agents should inspect every
-                result.
+                mixed successes and failures, so inspect every result.
               </p>
             </article>
           </div>
@@ -944,7 +964,7 @@ sloth-agent auth logout</code></pre>
           <div class="grid lg:grid-cols-2 gap-6">
             <div class="min-w-0">
               <h3 class="font-bold text-gray-900 mb-3">
-                Category and optional line item
+                Joint category and line item
               </h3>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
@@ -967,6 +987,7 @@ sloth-agent auth logout</code></pre>
   "assignments": [
     {
       "transactionRef": "PASTE_THE_EXACT_TRANSACTION_REF_HERE",
+      "assignmentScope": "personal",
       "categorySplits": [
         { "categoryId": "PASTE_FIRST_CATEGORY_ID_HERE", "amountPence": 1500 },
         { "categoryId": "PASTE_SECOND_CATEGORY_ID_HERE", "amountPence": 500 }

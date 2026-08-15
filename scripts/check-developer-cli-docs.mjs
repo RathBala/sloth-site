@@ -43,11 +43,12 @@ const requiredSnippets = [
   '<code>periodStatus</code>',
   '<code>plannedPence</code>',
   'assignmentScope',
+  'jointBudgetContribution',
   'A category is the broader parent.',
   'Bills &rarr; Other',
   'Subscriptions &rarr; Other',
   '<code>scope</code>',
-  'Category and optional line item',
+  'Joint category and line item',
   'PASTE_THE_EXACT_TRANSACTION_REF_HERE',
   'These are placeholders.',
   'Sloth Money &rarr; Transactions',
@@ -73,7 +74,10 @@ if (missing.length > 0) {
   throw new Error(`Developer CLI docs are missing: ${missing.join(', ')}`)
 }
 
-const normalizedDeveloperPage = developerPage.replace(/\s+/g, ' ')
+const normalizedDeveloperText = developerPage
+  .replace(/<[^>]*>/g, ' ')
+  .replace(/\s+/g, ' ')
+  .replace(/\s+([,.;:])/g, '$1')
 const requiredCopy = [
   'An assignment categorises an existing transaction e.g. assigning category Groceries to a transaction.',
   'does not contact Sloth Money',
@@ -91,9 +95,14 @@ const requiredCopy = [
   'Budget previews validate the file locally without loading a token or contacting Sloth Money.',
   'Saving X overwrites X and every explicit future plan. A later save from Y overwrites Y and everything after it.',
   'Goal priority is one-based, so 1 is highest. Set priority on its own. Moving one goal shifts the intervening goals automatically.',
+  "Personal and joint category assignments are separate. A personal assignment uses the transaction's top-level categoryId, lineItemId, and categorySplits. A joint-budget assignment uses the corresponding fields under jointBudgetContribution.",
+  'A transaction can be uncategorised personally while its joint-budget contribution is already categorised. To assess its categorisation, inspect both locations.',
+  "Choose the most specific suitable line item. If none fits, use that category's Other line item. Historical assignments without a line item are not a recommendation to omit one.",
+  'Check the result in the same assignment scope that you changed.',
+  'Confirm that an existing assignment in the other scope was not changed.',
 ]
 const missingCopy = requiredCopy.filter(
-  (copy) => !normalizedDeveloperPage.includes(copy)
+  (copy) => !normalizedDeveloperText.includes(copy)
 )
 if (missingCopy.length > 0) {
   throw new Error(
@@ -162,12 +171,14 @@ const quickstartEnd = developerPage.indexOf(
 const quickstart = developerPage.slice(quickstartStart, quickstartEnd)
 const workflowSnippets = [
   'sloth-agent categories',
-  'sloth-agent transactions --uncategorized --limit 50',
+  'sloth-agent transactions --assignment-scope personal --uncategorized --limit 50',
   'PASTE_THE_EXACT_TRANSACTION_REF_HERE',
+  '"assignmentScope": "personal"',
+  '"lineItemId": "PASTE_A_LINE_ITEM_ID_HERE"',
   'sloth-agent assign --input assignments.json',
   'sloth-agent assign --input assignments.json --apply',
   'Check the result',
-  'sloth-agent transactions --limit 50',
+  'sloth-agent transactions --assignment-scope personal --limit 50',
 ]
 let workflowPosition = -1
 for (const snippet of workflowSnippets) {
