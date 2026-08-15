@@ -14,6 +14,7 @@ const privacyPage = fs.readFileSync(
 
 const requiredSnippets = [
   'npm install --global @slothmoney/agent-cli',
+  'CLI 0.10.0 or newer',
   'sloth-agent accounts',
   'sloth-agent accounts update',
   'sloth-agent accounts remove',
@@ -57,8 +58,15 @@ const requiredSnippets = [
   'sloth-agent goals',
   'sloth-agent goals create',
   'sloth-agent goals update',
+  'sloth-agent goals mark-spent',
+  'sloth-agent goals restore',
+  '--type keep',
+  '--type spend',
   '--priority 2',
   'sloth-agent goals delete',
+  '<code>goalType</code>',
+  '<code>spentAt</code>',
+  '<code>isSpent</code>',
   '/api/agent/v1/goals',
   '/api/agent/v1/categories/:categoryId',
   '/api/agent/v1/line-items/:lineItemId',
@@ -95,6 +103,9 @@ const requiredCopy = [
   'Budget previews validate the file locally without loading a token or contacting Sloth Money.',
   'Saving X overwrites X and every explicit future plan. A later save from Y overwrites Y and everything after it.',
   'Goal priority is one-based, so 1 is highest. Set priority on its own. Moving one goal shifts the intervening goals automatically.',
+  'Goal creates require a positive target amount and an explicit Keep or Spend type.',
+  'Keep goals cannot be marked spent. Restore a spent goal before changing its type.',
+  'Goal results include goalType and nullable spentAt.',
   "Personal and joint category assignments are separate. A personal assignment uses the transaction's top-level categoryId, lineItemId, and categorySplits. A joint-budget assignment uses the corresponding fields under jointBudgetContribution.",
   'A transaction can be uncategorised personally while its joint-budget contribution is already categorised. To assess its categorisation, inspect both locations.',
   "Choose the most specific suitable line item. If none fits, use that category's Other line item. Historical assignments without a line item are not a recommendation to omit one.",
@@ -155,6 +166,8 @@ if (developerPage.includes('yarn agent')) {
 for (const unsupportedSnippet of [
   'sloth-agent joint-budget-settings',
   'personalBudgetAmountPence',
+  '--achieved',
+  'isAchieved',
 ]) {
   if (developerPage.includes(unsupportedSnippet)) {
     throw new Error(

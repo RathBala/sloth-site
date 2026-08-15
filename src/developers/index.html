@@ -309,7 +309,7 @@ sloth-agent accounts remove --account-ref sloth_account_v1_...
 sloth-agent accounts remove --account-ref sloth_account_v1_... --apply
 sloth-agent goals
 sloth-agent goals create --name "Emergency fund" \
-  --target-amount 12000 --target-month 2027-06 --apply
+  --target-amount 12000 --target-month 2027-06 --type keep --apply
 sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
 sloth-agent assign --input assignments.json
 sloth-agent assign --input assignments.json --apply</code></pre>
@@ -412,7 +412,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install the package with Node.js 22 or newer. The
+                    Install CLI 0.10.0 or newer with Node.js 22 or newer. The
                     <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -502,13 +502,25 @@ sloth-agent accounts</code></pre>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent goals
-sloth-agent goals create --name "Emergency fund" --target-amount 12000 --target-month 2027-06
-sloth-agent goals create --name "Emergency fund" --target-amount 12000 --target-month 2027-06 --apply
-sloth-agent goals update --goal-id GOAL_ID --achieved=true --apply
+sloth-agent goals create --name "Emergency fund" --target-amount 12000 --target-month 2027-06 --type keep
+sloth-agent goals create --name "Emergency fund" --target-amount 12000 --target-month 2027-06 --type keep --apply
+sloth-agent goals update --goal-id GOAL_ID --type spend
+sloth-agent goals update --goal-id GOAL_ID --type spend --apply
 sloth-agent goals update --goal-id GOAL_ID --priority 2
 sloth-agent goals update --goal-id GOAL_ID --priority 2 --apply
+sloth-agent goals mark-spent --goal-id GOAL_ID
+sloth-agent goals mark-spent --goal-id GOAL_ID --apply
+sloth-agent goals restore --goal-id GOAL_ID
+sloth-agent goals restore --goal-id GOAL_ID --apply
 sloth-agent goals delete --goal-id GOAL_ID
 sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                Goal creates require a positive target amount and an explicit
+                Keep or Spend type. Goal results include
+                <code>goalType</code> and nullable <code>spentAt</code>. Keep
+                goals cannot be marked spent. Restore a spent goal before
+                changing its type.
+              </p>
               <p class="text-gray-600 leading-relaxed">
                 Goal priority is one-based, so 1 is highest. Set priority on its
                 own. Moving one goal shifts the intervening goals automatically.
@@ -779,14 +791,20 @@ sloth-agent auth logout</code></pre>
                 >
               </div>
               <p class="text-gray-600">
-                Lists goals or creates one. Update and delete requests use
+                Lists goals or creates one. Creates require a positive target
+                amount and <code>goalType</code> set to <code>keep</code> or
+                <code>spend</code>. Results include <code>goalType</code> and
+                nullable <code>spentAt</code>. Update and delete requests use
                 <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded"
                   >/api/agent/v1/goals/:goalId</code
                 >. Goal writes are limited to the signed-in user's goals. Active
                 shared pot target amounts stay app-managed so account balances
                 can be reconciled across goals in priority order. A standalone
                 <code>priority</code> PATCH uses a one-based position and shifts
-                the intervening goals automatically.
+                the intervening goals automatically. A Spend goal can be marked
+                spent or restored with <code>isSpent</code>. Keep goals cannot
+                be marked spent, and a spent goal must be restored before its
+                type changes.
               </p>
             </article>
 
