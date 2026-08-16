@@ -11,16 +11,18 @@ const privacyPage = fs.readFileSync(
   path.join(root, 'src', 'privacy', 'index.html'),
   'utf8'
 )
+const llmsText = fs.readFileSync(path.join(root, 'src', 'llms.txt'), 'utf8')
 
 const requiredSnippets = [
   'npm install --global @slothmoney/agent-cli',
-  'CLI 0.10.0 or newer',
+  'CLI 0.11.0 or newer',
   'sloth-agent accounts',
   'sloth-agent accounts update',
   'sloth-agent accounts remove',
   'sloth-agent investments',
   'sloth-agent budget --scope personal',
   'sloth-agent budget update',
+  'sloth-agent budget move',
   'sloth-agent categories',
   'sloth-agent categories create',
   'sloth-agent categories rename',
@@ -34,6 +36,7 @@ const requiredSnippets = [
   '/api/agent/v1/accounts/:accountRef',
   '/api/agent/v1/investments',
   '/api/agent/v1/budgets',
+  '/api/agent/v1/budget-movements',
   '/api/agent/v1/joint-budget-settings',
   '<code>accountRef</code>',
   '<code>accountType</code>',
@@ -101,6 +104,9 @@ const requiredCopy = [
   'The first transaction read each UTC day may refresh linked bank data.',
   'The CLI does not wrap this setting.',
   'Budget previews validate the file locally without loading a token or contacting Sloth Money.',
+  'A preview does not load a token or contact Sloth Money.',
+  'The decimal digits are converted exactly to positive safe-integer pence.',
+  'It does not change planned amounts or future budget plans.',
   'Saving X overwrites X and every explicit future plan. A later save from Y overwrites Y and everything after it.',
   'Goal priority is one-based, so 1 is highest. Set priority on its own. Moving one goal shifts the intervening goals automatically.',
   'Goal creates require a positive target amount and an explicit Keep or Spend type.',
@@ -146,6 +152,16 @@ if (
 ) {
   throw new Error(
     'Privacy copy must disclose Agent API planned-budget updates.'
+  )
+}
+if (!privacyPage.replace(/\s+/g, ' ').includes('move assigned budget money')) {
+  throw new Error(
+    'Privacy copy must disclose Agent API assigned-budget movements.'
+  )
+}
+if (!llmsText.includes('assigned-budget movements')) {
+  throw new Error(
+    'llms.txt must advertise Agent API assigned-budget movements.'
   )
 }
 if (
