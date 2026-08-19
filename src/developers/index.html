@@ -11,7 +11,7 @@
 
     <meta
       name="description"
-      content="Use the Sloth Agent API and CLI to inspect accounts, investments, and budgets, update planned amounts, manage goals, and categorize transactions."
+      content="Use the Sloth Agent API and CLI to inspect accounts, investments, and budgets, share and categorise transactions, update planned amounts, and manage goals."
     />
     <meta
       name="keywords"
@@ -252,8 +252,8 @@
               access, expiry, and revocation.
             </p>
             <p class="text-base sm:text-lg font-semibold text-gray-800 mb-8">
-              An assignment categorises an existing transaction e.g. assigning
-              category Groceries to a transaction.
+              An assignment can change an owned transaction’s sharing,
+              categorisation, or both.
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
               <a
@@ -331,10 +331,10 @@ sloth-agent assign --input assignments.json --apply</code></pre>
               </h2>
               <p class="text-gray-600 leading-relaxed">
                 New tokens are view-only by default. Turn on Allow changes only
-                when your agent needs to categorise transactions, manage
-                categories and line items, move assigned budget money, update
-                planned budgets, manage accounts, request explanations, or
-                manage goals.
+                when your agent needs to share or categorise transactions,
+                manage categories and line items, move assigned budget money,
+                update planned budgets, manage accounts, request explanations,
+                or manage goals.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -417,7 +417,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.12.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.13.0 or newer with Node.js 22 or newer. The
                     <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -660,6 +660,52 @@ sloth-agent transactions --assignment-scope joint --uncategorized --limit 50</co
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent transactions --assignment-scope personal --limit 50</code></pre>
+              <h3 class="font-bold text-gray-900">Share and categorise</h3>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent transactions --shared=false --q "sainsbury" --limit 20</code></pre>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>{
+  "assignments": [
+    {
+      "transactionRef": "PASTE_THE_EXACT_TRANSACTION_REF_HERE",
+      "sharing": {
+        "isShared": true,
+        "shareRatio": 0.6,
+        "userExclusiveAmountPence": 500,
+        "partnerExclusiveAmountPence": 0
+      },
+      "assignmentScope": "joint",
+      "categoryId": "groceries"
+    }
+  ]
+}</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                <code>sharing.isShared</code> is required. The optional
+                <code>shareRatio</code> is your share, from 0 to 1. Exclusive
+                amounts use <code>userExclusiveAmountPence</code> and
+                <code>partnerExclusiveAmountPence</code> as nonnegative integer
+                pence. Preview stays local and does not load a token. Apply with
+                <code>--apply</code>, then read the saved result with
+                <code>--shared=true</code>.
+              </p>
+              <p class="text-gray-600 leading-relaxed">
+                A first share uses your saved couple ratio, falling back to 0.5,
+                and zero exclusive amounts when split fields are omitted. On an
+                existing share, omitted split fields keep their saved values. A
+                combined category uses Joint when you have no exclusive amount
+                and Personal when you do, unless you set
+                <code>assignmentScope</code> explicitly.
+              </p>
+              <p class="text-gray-600 leading-relaxed">
+                Send <code>{ "isShared": false }</code> without split fields to
+                unshare. Sloth keeps the Joint category dormant for a later
+                re-share. Only your booked personal-account transactions can be
+                changed. Partner-owned and native joint-account transactions
+                remain read-only. Foreign-currency sharing remains available for
+                settlement but is not included in the Joint budget.
+              </p>
               <h3 class="font-bold text-gray-900">Other commands</h3>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
@@ -956,8 +1002,9 @@ sloth-agent auth logout</code></pre>
                 <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded"
                   >transactionRef</code
                 >. Filter by date range, search text, account, category, line
-                item, or uncategorized state. Use <code>--line-item-id</code> in
-                the CLI or <code>lineItemId</code> over HTTP. When combined with
+                item, uncategorized state, or sharing state. Use
+                <code>--shared</code> and <code>--line-item-id</code> in the CLI
+                or <code>lineItemId</code> over HTTP. When combined with
                 <code>categoryId</code>, both IDs must match the same assignment
                 or split.
               </p>
@@ -980,25 +1027,6 @@ sloth-agent auth logout</code></pre>
                 data. The response includes structured refresh status and still
                 returns readable cached transactions if refresh work continues
                 or fails.
-              </p>
-            </article>
-
-            <article class="border border-gray-200 rounded-lg p-5">
-              <div class="flex flex-wrap items-center gap-3 mb-3">
-                <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
-                  >GET / PUT</span
-                >
-                <code class="text-gray-900 font-semibold"
-                  >/api/agent/v1/joint-budget-settings</code
-                >
-              </div>
-              <p class="text-gray-600">
-                Reads or updates the linked setting that includes shared
-                personal-account portions in the joint budget. PUT accepts
-                exactly <code>includeSharedPersonalTransactions</code> and
-                returns 409 when there is no active joint budget. The CLI does
-                not wrap this setting.
               </p>
             </article>
 
@@ -1030,8 +1058,11 @@ sloth-agent auth logout</code></pre>
                 >
               </div>
               <p class="text-gray-600">
-                Applies 1 to 100 category assignments. The response may contain
-                mixed successes and failures, so inspect every result.
+                Applies 1 to 100 sharing changes, category assignments, or both.
+                Each item is atomic. A successful sharing result includes the
+                persisted split and resulting Joint contribution. The response
+                may contain mixed successes and failures, so inspect every
+                result.
               </p>
             </article>
           </div>

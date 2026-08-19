@@ -15,7 +15,7 @@ const llmsText = fs.readFileSync(path.join(root, 'src', 'llms.txt'), 'utf8')
 
 const requiredSnippets = [
   'npm install --global @slothmoney/agent-cli',
-  'CLI 0.12.0 or newer',
+  'CLI 0.13.0 or newer',
   'sloth-agent accounts',
   'sloth-agent accounts update',
   'sloth-agent accounts remove',
@@ -39,7 +39,12 @@ const requiredSnippets = [
   '/api/agent/v1/budgets',
   '/api/agent/v1/budget-status',
   '/api/agent/v1/budget-movements',
-  '/api/agent/v1/joint-budget-settings',
+  '/api/agent/v1/transaction-assignments',
+  '--shared',
+  '<code>sharing.isShared</code>',
+  '<code>shareRatio</code>',
+  '<code>userExclusiveAmountPence</code>',
+  '<code>partnerExclusiveAmountPence</code>',
   '<code>accountRef</code>',
   '<code>accountType</code>',
   '<code>asOf</code>',
@@ -96,7 +101,7 @@ const normalizedDeveloperText = developerPage
   .replace(/\s+/g, ' ')
   .replace(/\s+([,.;:])/g, '$1')
 const requiredCopy = [
-  'An assignment categorises an existing transaction e.g. assigning category Groceries to a transaction.',
+  'An assignment can change an owned transaction’s sharing, categorisation, or both.',
   'does not contact Sloth Money',
   'A successful preview does not guarantee that applying the assignment will succeed.',
   'Account reads are cache-only and do not contact a bank or refresh balances.',
@@ -108,7 +113,6 @@ const requiredCopy = [
   'Partner personal accounts are excluded.',
   'Provider account IDs, account numbers, sort codes, and IBANs are not returned.',
   'The first transaction read each UTC day may refresh linked bank data.',
-  'The CLI does not wrap this setting.',
   'Budget previews validate the file locally without loading a token or contacting Sloth Money.',
   'Budget status is read-only and always uses the current Sloth budget period.',
   'Negative availablePence means the category is over budget.',
@@ -126,6 +130,9 @@ const requiredCopy = [
   "Choose the most specific suitable line item. If none fits, use that category's Other line item. Historical assignments without a line item are not a recommendation to omit one.",
   'Check the result in the same assignment scope that you changed.',
   'Confirm that an existing assignment in the other scope was not changed.',
+  'A first share uses your saved couple ratio, falling back to 0.5, and zero exclusive amounts when split fields are omitted.',
+  'On an existing share, omitted split fields keep their saved values.',
+  'A combined category uses Joint when you have no exclusive amount and Personal when you do, unless you set assignmentScope explicitly.',
 ]
 const missingCopy = requiredCopy.filter(
   (copy) => !normalizedDeveloperText.includes(copy)
@@ -176,6 +183,18 @@ if (!llmsText.includes('assigned-budget movements')) {
 if (
   !privacyPage
     .replace(/\s+/g, ' ')
+    .includes('change an owned transaction’s partner-sharing state and split')
+) {
+  throw new Error(
+    'Privacy copy must disclose Agent API transaction-sharing changes.'
+  )
+}
+if (!llmsText.includes('transaction sharing and split changes')) {
+  throw new Error('llms.txt must advertise Agent API transaction sharing.')
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
     .includes('manage custom categories and scoped budget line items')
 ) {
   throw new Error(
@@ -190,6 +209,7 @@ if (developerPage.includes('yarn agent')) {
 
 for (const unsupportedSnippet of [
   'sloth-agent joint-budget-settings',
+  '/api/agent/v1/joint-budget-settings',
   'personalBudgetAmountPence',
   '--achieved',
   'isAchieved',
