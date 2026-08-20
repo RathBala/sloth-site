@@ -2,6 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { expectedCliVersion } from './developer-cli-version.mjs'
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const developerPage = fs.readFileSync(
   path.join(root, 'src', 'developers', 'index.html'),
@@ -15,7 +17,7 @@ const llmsText = fs.readFileSync(path.join(root, 'src', 'llms.txt'), 'utf8')
 
 const requiredSnippets = [
   'npm install --global @slothmoney/agent-cli',
-  'CLI 0.13.0 or newer',
+  `CLI ${expectedCliVersion} or newer`,
   'sloth-agent accounts',
   'sloth-agent accounts update',
   'sloth-agent accounts remove',
@@ -41,6 +43,8 @@ const requiredSnippets = [
   '/api/agent/v1/budget-movements',
   '/api/agent/v1/transaction-assignments',
   '--shared',
+  '--account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE',
+  '--account-id',
   '<code>sharing.isShared</code>',
   '<code>shareRatio</code>',
   '<code>userExclusiveAmountPence</code>',
@@ -133,6 +137,8 @@ const requiredCopy = [
   'A first share uses your saved couple ratio, falling back to 0.5, and zero exclusive amounts when split fields are omitted.',
   'On an existing share, omitted split fields keep their saved values.',
   'A combined category uses Joint when you have no exclusive amount and Personal when you do, unless you set assignmentScope explicitly.',
+  'Every transaction result includes the same accountRef used by sloth-agent accounts.',
+  'Use either --account-ref or the legacy --account-id filter, not both.',
 ]
 const missingCopy = requiredCopy.filter(
   (copy) => !normalizedDeveloperText.includes(copy)
@@ -191,6 +197,11 @@ if (
 }
 if (!llmsText.includes('transaction sharing and split changes')) {
   throw new Error('llms.txt must advertise Agent API transaction sharing.')
+}
+if (!llmsText.includes('transaction filtering by opaque account reference')) {
+  throw new Error(
+    'llms.txt must advertise Agent API transaction account filtering.'
+  )
 }
 if (
   !privacyPage

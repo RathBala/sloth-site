@@ -3,8 +3,9 @@ import { fileURLToPath } from 'node:url'
 import os from 'node:os'
 import path from 'node:path'
 
+import { expectedCliVersion } from './developer-cli-version.mjs'
+
 const packageName = '@slothmoney/agent-cli'
-const expectedVersion = '0.13.0'
 const npmCache =
   process.env.npm_config_cache ??
   path.join(os.tmpdir(), 'sloth-developer-docs-npm-cache')
@@ -12,7 +13,7 @@ const npmCache =
 const readPublishedVersion = () => {
   const output = execFileSync(
     'npm',
-    ['view', `${packageName}@${expectedVersion}`, 'version', '--json'],
+    ['view', `${packageName}@${expectedCliVersion}`, 'version', '--json'],
     {
       encoding: 'utf8',
       env: {
@@ -74,8 +75,8 @@ const isDirectRun =
 if (isDirectRun) {
   await verifyPublishedVersion({
     fetchVersion: readPublishedVersion,
-    version: expectedVersion,
+    version: expectedCliVersion,
   })
 
-  console.log(`Verified published package ${packageName}@${expectedVersion}`)
+  console.log(`Verified published package ${packageName}@${expectedCliVersion}`)
 }
