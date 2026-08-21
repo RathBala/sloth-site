@@ -6,6 +6,29 @@ import { createRequire } from 'node:module'
 
 const root = process.cwd()
 
+const agentGuidance = fs.readFileSync(path.join(root, 'AGENTS.md'), 'utf8')
+const landingPageDocs = fs.readFileSync(
+  path.join(root, 'docs/landing-pages.md'),
+  'utf8'
+)
+
+for (const [source, location] of [
+  [agentGuidance, 'AGENTS.md'],
+  [landingPageDocs, 'docs/landing-pages.md'],
+]) {
+  assert.equal(
+    source.includes('https://slothmoney.app/mark-me.html'),
+    true,
+    `${location} should tell production testers how to suppress visit alerts`
+  )
+}
+
+assert.equal(
+  agentGuidance.includes('Use a local preview by default'),
+  true,
+  'agent guidance should keep routine browser testing off production'
+)
+
 const marketingPages = [
   'src/index.html',
   'src/wedding-fund/index.html',
@@ -37,7 +60,9 @@ assert.equal(
   'privacy policy should describe Agent API goal access'
 )
 assert.equal(
-  /manage\s+custom categories and\s+scoped budget line items/.test(privacyPage),
+  /manage\s+custom categories\s+and\s+scoped budget line items/.test(
+    privacyPage
+  ),
   true,
   'privacy policy should describe Agent API category and line-item access'
 )
@@ -49,7 +74,7 @@ assert.equal(
   'privacy policy should describe Agent API investment holdings access'
 )
 assert.equal(
-  /manage\s+account details and archive\s+manual accounts/.test(privacyPage),
+  /manage\s+account details and\s+archive\s+manual accounts/.test(privacyPage),
   true,
   'privacy policy should describe Agent API account changes and archival'
 )

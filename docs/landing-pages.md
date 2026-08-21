@@ -34,6 +34,14 @@ The homepage saver cards stay intentionally light: **Solo** links straight to th
 
 From the repo root, `yarn dev` serves `src` at port 3000. Open `/wedding-fund/` (with trailing slash) in the dev server.
 
+Local previews do not reach the production Telegram visit-alert function, so use them for routine browser checks.
+
+## Testing the production site without visit alerts
+
+The production marketing pages send a Telegram alert on each eligible page load. Before opening a production page in a fresh manual or automated browser session, open `https://slothmoney.app/mark-me.html` in that same browser and wait for the success message. It sets the one-year `rath_visitor=true` cookie used by [`visitor-tracker.js`](../src/visitor-tracker.js) to skip alerts. Repeat this setup whenever the browser profile or session is new.
+
+Do not call the live `/.netlify/functions/track-visit` endpoint as a test. Run `yarn check:tracking`; it exercises the alert flow with a mocked Telegram request.
+
 ## Build
 
 `yarn build` regenerates PostHog config and compiles Tailwind to `src/output.css`. Deploy the `src` directory (see [`netlify.toml`](../netlify.toml)).

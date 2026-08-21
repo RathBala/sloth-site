@@ -22,6 +22,12 @@ When writing or editing **user-facing copy** (landing pages, CTAs, headings, met
 - When adding, removing, or changing logging, analytics, alerts, third-party tracking, or data sent to another service, review and update that inventory in the same change.
 - After updating the inventory, check whether `src/privacy/index.html`, provider docs, or tracking regression checks also need updates.
 
+## Production Browser Testing
+
+- Use a local preview by default. Local page visits cannot reach the production Telegram visit-alert function.
+- Before an agent or automated browser opens any page on `https://slothmoney.app` in a fresh browser session or profile, first open `https://slothmoney.app/mark-me.html` in that same browser and wait for the page to confirm that alerts are disabled. Do this before the first tracked production page load; do not assume the cookie survived an earlier session.
+- Never call the live `/.netlify/functions/track-visit` endpoint to test it. Use `yarn check:tracking`, which mocks Telegram delivery.
+
 ## Before writing any code
 
 1. State how you will verify that this change works (test, bash command, browser check etc)
