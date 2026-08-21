@@ -11,7 +11,7 @@
 
     <meta
       name="description"
-      content="Use the Sloth Agent API and CLI to inspect accounts, investments, and budgets, share and categorise transactions, update planned amounts, and manage goals."
+      content="Use the Sloth Agent API and CLI to inspect accounts, investments, and budgets, manage transaction notifications, share and categorise transactions, update planned amounts, and manage goals."
     />
     <meta
       name="keywords"
@@ -247,9 +247,10 @@
               Use a personal access token, a small CLI, or direct HTTP requests
               to inspect accounts, investments, and budgets, update planned
               amounts, manage which linked accounts fund your goals, manage
-              goals and budget categories, read transactions, ask for partner
-              context, and write category assignments. You stay in control of
-              access, expiry, and revocation.
+              goals and budget categories, read transactions, set payment
+              notification rules, ask for partner context, and write category
+              assignments. You stay in control of access, expiry, and
+              revocation.
             </p>
             <p class="text-base sm:text-lg font-semibold text-gray-800 mb-8">
               An assignment can change an owned transaction’s sharing,
@@ -333,8 +334,9 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 New tokens are view-only by default. Turn on Allow changes only
                 when your agent needs to share or categorise transactions,
                 manage categories and line items, move assigned budget money,
-                update planned budgets, manage accounts, request explanations,
-                or manage goals.
+                update planned budgets, manage accounts, set payment
+                notification rules, scan a contract for its renewal date,
+                request explanations, or manage goals.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -345,11 +347,12 @@ sloth-agent assign --input assignments.json --apply</code></pre>
               <p class="text-gray-600 leading-relaxed">
                 Pull accounts, investments, budgets, goals, categories, and
                 transactions first. Account, budget, goal, category, line-item,
-                and assignment writes are previews until you add
+                assignment, and notification-rule writes are previews until you
+                add
                 <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                   >--apply</code
-                >. Assignment and budget previews validate files locally without
-                contacting Sloth Money.
+                >. Assignment, budget, and notification-rule previews validate
+                files locally without contacting Sloth Money.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -672,6 +675,63 @@ sloth-agent transactions --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --limit 
                 into <code>--account-ref</code> to keep later pages and reads on
                 that account. Use either <code>--account-ref</code> or the
                 legacy <code>--account-id</code> filter, not both.
+              </p>
+              <h3 class="font-bold text-gray-900">Watch a payment</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Rules watch future payments that match an existing transaction.
+                They do not create transactions or recurring predictions.
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>{
+  "amountChange": {
+    "enabled": true,
+    "comparison": "increase",
+    "baselinePence": 3184
+  },
+  "renewalReminder": {
+    "enabled": true,
+    "renewalDate": "2027-07-30",
+    "leadDays": 30
+  },
+  "delivery": { "inApp": true, "email": true }
+}</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                <code>baselinePence</code> is the comparison amount.
+                <code>renewalDate</code> uses YYYY-MM-DD, and
+                <code>leadDays</code> sets how early Sloth should notify you.
+                In-app delivery is always on; email is optional.
+              </p>
+              <p class="text-gray-600 leading-relaxed">
+                Save this as <code>rule.json</code>. Copy the exact
+                <code>transactionRef</code> from
+                <code>sloth-agent transactions</code>, then preview and apply
+                the rule:
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent rules list
+sloth-agent rules get --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE
+sloth-agent rules set --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --input rule.json
+sloth-agent rules set --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --input rule.json --apply
+sloth-agent rules delete --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE
+sloth-agent rules delete --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --apply</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                Without <code>--apply</code>, <code>rules set</code> validates
+                the file locally without loading a token or contacting Sloth
+                Money.
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent rules scan-contract --contract contract.pdf
+sloth-agent rules scan-contract --contract contract.pdf --apply</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                A contract must be a PDF no larger than 6 MB. Without
+                <code>--apply</code>, it stays on your device. With
+                <code>--apply</code>, Sloth sends it for one-time extraction.
+                Scanning returns a <code>renewalDate</code> and confidence. It
+                does not save a rule. The PDF is discarded after extraction and
+                is not stored.
               </p>
               <h3 class="font-bold text-gray-900">Share and categorise</h3>
               <pre
@@ -1086,6 +1146,32 @@ sloth-agent auth logout</code></pre>
                 persisted split and resulting Joint contribution. The response
                 may contain mixed successes and failures, so inspect every
                 result.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET · PUT · DELETE</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/notification-rules</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Lists saved transaction notification rules. Read, replace, or
+                remove one rule through
+                <code>/api/agent/v1/notification-rules/for-transaction</code>
+                using the exact <code>transactionRef</code> returned by the
+                transactions endpoint. A rule can watch for an amount increase,
+                any amount change, a renewal date, or both.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Contract extraction uses
+                <code>/api/agent/v1/notification-rules/extract-renewal</code>.
+                The response contains the renewal date and confidence only. The
+                PDF is discarded after extraction and is not stored.
               </p>
             </article>
           </div>

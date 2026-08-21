@@ -33,6 +33,11 @@ const requiredSnippets = [
   'sloth-agent line-items rename',
   'sloth-agent transactions',
   'sloth-agent assign',
+  'sloth-agent rules list',
+  'sloth-agent rules get',
+  'sloth-agent rules set',
+  'sloth-agent rules delete',
+  'sloth-agent rules scan-contract',
   'sloth-agent ask-partner',
   '--assignment-scope joint',
   '/api/agent/v1/accounts',
@@ -42,6 +47,9 @@ const requiredSnippets = [
   '/api/agent/v1/budget-status',
   '/api/agent/v1/budget-movements',
   '/api/agent/v1/transaction-assignments',
+  '/api/agent/v1/notification-rules',
+  '/api/agent/v1/notification-rules/for-transaction',
+  '/api/agent/v1/notification-rules/extract-renewal',
   '--shared',
   '--account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE',
   '--account-id',
@@ -50,6 +58,9 @@ const requiredSnippets = [
   '<code>userExclusiveAmountPence</code>',
   '<code>partnerExclusiveAmountPence</code>',
   '<code>accountRef</code>',
+  '<code>baselinePence</code>',
+  '<code>renewalDate</code>',
+  '<code>leadDays</code>',
   '<code>accountType</code>',
   '<code>asOf</code>',
   '<code>lastBalanceUpdatedAt</code>',
@@ -139,6 +150,10 @@ const requiredCopy = [
   'A combined category uses Joint when you have no exclusive amount and Personal when you do, unless you set assignmentScope explicitly.',
   'Every transaction result includes the same accountRef used by sloth-agent accounts.',
   'Use either --account-ref or the legacy --account-id filter, not both.',
+  'Rules watch future payments that match an existing transaction. They do not create transactions or recurring predictions.',
+  'Without --apply, rules set validates the file locally without loading a token or contacting Sloth Money.',
+  'Scanning returns a renewalDate and confidence. It does not save a rule.',
+  'The PDF is discarded after extraction and is not stored.',
 ]
 const missingCopy = requiredCopy.filter(
   (copy) => !normalizedDeveloperText.includes(copy)
@@ -201,6 +216,26 @@ if (!llmsText.includes('transaction sharing and split changes')) {
 if (!llmsText.includes('transaction filtering by opaque account reference')) {
   throw new Error(
     'llms.txt must advertise Agent API transaction account filtering.'
+  )
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes(
+      'save transaction notification rules and temporarily send a contract PDF to extract a renewal date without storing the file'
+    )
+) {
+  throw new Error(
+    'Privacy copy must disclose notification rules and transient contract extraction.'
+  )
+}
+if (
+  !llmsText.includes(
+    'transaction notification rules and transient contract renewal-date extraction'
+  )
+) {
+  throw new Error(
+    'llms.txt must advertise notification rules and transient contract extraction.'
   )
 }
 if (
