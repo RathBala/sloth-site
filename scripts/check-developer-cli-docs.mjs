@@ -60,6 +60,8 @@ const requiredSnippets = [
   '<code>baselinePence</code>',
   '<code>renewalDate</code>',
   '<code>leadDays</code>',
+  '<code>remindOn</code>',
+  '<code>delivery.email</code>',
   '<code>accountType</code>',
   '<code>asOf</code>',
   '<code>lastBalanceUpdatedAt</code>',
@@ -153,6 +155,10 @@ const requiredCopy = [
   'Without --apply, rules set validates the file locally without loading a token or contacting Sloth Money.',
   'Scanning returns a renewalDate and confidence. It does not save a rule.',
   'The PDF is discarded after extraction and is not stored.',
+  'leadDays accepts an integer from 1 to 365.',
+  'In-app delivery is always on. Set delivery.email to add email delivery.',
+  'Returned rules include the computed remindOn date.',
+  'renewalDate is null when Sloth cannot find a date in the PDF.',
 ]
 const missingCopy = requiredCopy.filter(
   (copy) => !normalizedDeveloperText.includes(copy)
@@ -170,6 +176,12 @@ const retainedLegacyCopy = forbiddenLegacyAccountIdCopy.filter((copy) =>
 if (retainedLegacyCopy.length > 0) {
   throw new Error(
     `Developer CLI docs still expose legacy account IDs: ${retainedLegacyCopy.join(', ')}`
+  )
+}
+
+if (developerPage.includes('"delivery": { "inApp": true')) {
+  throw new Error(
+    'Developer CLI docs must not expose server-owned delivery.inApp as a write field.'
   )
 }
 
