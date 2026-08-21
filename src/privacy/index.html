@@ -204,6 +204,21 @@
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
+                      >Receipt data.</strong
+                    >
+                    When you choose receipt extraction, the receipt image is
+                    sent to OpenAI for extraction and then discarded by Sloth
+                    Money. We store only confirmed receipt items with their
+                    signed amounts against the transaction you selected. These
+                    can include purchases, discounts, tips, service charges,
+                    fees, or tax added at the till. Sloth asks OpenAI not to
+                    store Responses application state. OpenAI's default API
+                    controls may still keep customer content in abuse-monitoring
+                    logs for up to 30 days, and do not use API inputs or outputs
+                    for model training unless we opt in.
+                  </li>
+                  <li>
+                    <strong class="font-semibold text-gray-900"
                       >Partner and sharing data.</strong
                     >
                     If you invite or connect with a partner, we process
@@ -247,18 +262,20 @@
                     New tokens are view-only by default. You can explicitly
                     allow changes when creating a token. View-only access can
                     read your account inventory, investment holdings,
-                    transaction data, categories, budgets, and goals. Write
-                    access can let an agent categorise transactions, change an
-                    owned transaction’s partner-sharing state and split, manage
-                    custom categories and scoped budget line items, move
-                    assigned budget money, update planned budget amounts, manage
-                    account details and archive manual accounts, save
-                    transaction notification rules and temporarily send a
-                    contract PDF to extract a renewal date without storing the
-                    file, request explanations, and create, update, or delete
-                    goals. Archived account and transaction records are
-                    retained. Permissions cannot be edited later - revoke and
-                    reissue the token if its access needs change.
+                    transaction data, categories, budgets, and goals, plus
+                    confirmed receipt evidence. Write access can let an agent
+                    categorise transactions, change an owned transaction’s
+                    partner-sharing state and split, manage custom categories
+                    and scoped budget line items, move assigned budget money,
+                    update planned budget amounts, manage account details and
+                    archive manual accounts, extract a receipt draft, manage
+                    confirmed receipt items, save transaction notification rules
+                    and temporarily send a contract PDF to extract a renewal
+                    date without storing the file, request explanations, and
+                    create, update, or delete goals. Archived account and
+                    transaction records are retained. Permissions cannot be
+                    edited later - revoke and reissue the token if its access
+                    needs change.
                   </li>
                 </ul>
                 <p>
@@ -290,6 +307,10 @@
                     Suggest or apply transaction categories using your category
                     setup, transaction details, and prior categorisation
                     patterns.
+                  </li>
+                  <li>
+                    Extract receipt items for your review and store the
+                    structured evidence only after you confirm it.
                   </li>
                   <li>
                     Enable partner invitations, shared views, joint-account
@@ -401,8 +422,8 @@
                   </li>
                   <li>
                     AI and evaluation providers for AI-assisted categorisation,
-                    quality checks, and related observability where those
-                    features are enabled.
+                    receipt extraction, quality checks, and related
+                    observability where those features are enabled.
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"

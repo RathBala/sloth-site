@@ -11,7 +11,7 @@
 
     <meta
       name="description"
-      content="Use the Sloth Agent API and CLI to inspect accounts, investments, and budgets, manage transaction notifications, share and categorise transactions, update planned amounts, and manage goals."
+      content="Use the Sloth Agent API and CLI to inspect accounts, investments, and budgets, attach reviewed receipt items, manage transaction notifications, share and categorise transactions, update planned amounts, and manage goals."
     />
     <meta
       name="keywords"
@@ -736,6 +736,34 @@ sloth-agent rules scan-contract --contract contract.pdf --apply</code></pre>
                 Sloth cannot find a date in the PDF. The PDF is discarded after
                 extraction and is not stored.
               </p>
+              <h3 class="font-bold text-gray-900">Attach receipt items</h3>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent receipts extract --image /path/to/receipt.jpg &gt; receipt-draft.json
+sloth-agent receipts attach --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --input receipt.json
+sloth-agent receipts attach --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --input receipt.json --apply
+sloth-agent receipts get --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE
+sloth-agent receipts remove --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --revision 1 --apply</code></pre>
+              <p class="text-gray-600 leading-relaxed">
+                Extraction accepts one JPEG, PNG, or WebP image up to 8 MB and
+                returns a draft. Sloth does not save the image or the draft.
+                Review every receipt item, then keep only
+                <code>schemaVersion</code>, <code>currency</code>, and
+                <code>receiptItems</code> in the attach file. Each receipt item
+                contains only an id, label, and signed amount in pence. Use a
+                positive amount for a purchase or charge and a negative amount
+                for a discount. Leave out subtotals, payment, change, and VAT
+                already included in the item prices so they are not counted
+                twice.
+              </p>
+              <p class="text-gray-600 leading-relaxed">
+                Attach previews are local and do not load a token or contact
+                Sloth Money until you add <code>--apply</code>. Confirmed
+                receipt items are evidence only. They do not change the
+                transaction's category, sharing, partner balance, or budget
+                treatment. Use the saved revision when replacing or removing
+                evidence so an older edit cannot overwrite a newer one.
+              </p>
               <h3 class="font-bold text-gray-900">Share and categorise</h3>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
@@ -831,7 +859,7 @@ sloth-agent auth logout</code></pre>
             <h2
               class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
             >
-              Twelve API resources
+              Thirteen API resources
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               Every request uses
@@ -883,6 +911,51 @@ sloth-agent auth logout</code></pre>
                 is no restore command. Shared, disconnected, or inaccessible
                 accounts return Account not found. The CLI previews PATCH and
                 DELETE locally until you add <code>--apply</code>.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >POST</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/receipts/extract</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Accepts one raw JPEG, PNG, or WebP image up to 8 MB and returns
+                a transient draft with a currency, warnings, and up to 200
+                receipt items. Each item has an id, label, and signed amount in
+                pence. Purchases and charges are positive; discounts are
+                negative. The image and draft are not persisted by Sloth Money.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET · PUT · DELETE</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/receipts/confirmed</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Reads, replaces, or removes the confirmed structured receipt
+                evidence for one booked transaction. PUT accepts the opaque
+                <code>transactionRef</code>, an optional
+                <code>expectedRevision</code>, and the reviewed receipt. DELETE
+                requires the current revision. The saved total is the simple sum
+                of every signed receipt-item amount.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Receipt evidence is separate from categorisation and sharing.
+                The owner can manage it. A connected partner can read it only
+                when the parent transaction is shared; either member of a true
+                joint account can manage it.
               </p>
             </article>
 

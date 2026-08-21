@@ -32,6 +32,10 @@ const requiredSnippets = [
   'sloth-agent line-items create',
   'sloth-agent line-items rename',
   'sloth-agent transactions',
+  'sloth-agent receipts extract',
+  'sloth-agent receipts get',
+  'sloth-agent receipts attach',
+  'sloth-agent receipts remove',
   'sloth-agent assign',
   'sloth-agent rules list',
   'sloth-agent rules get',
@@ -50,6 +54,8 @@ const requiredSnippets = [
   '/api/agent/v1/notification-rules',
   '/api/agent/v1/notification-rules/for-transaction',
   '/api/agent/v1/notification-rules/extract-renewal',
+  '/api/agent/v1/receipts/extract',
+  '/api/agent/v1/receipts/confirmed',
   '--shared',
   '--account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE',
   '<code>sharing.isShared</code>',
@@ -258,6 +264,40 @@ if (
   throw new Error(
     'llms.txt must advertise notification rules and transient contract extraction.'
   )
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes(
+      'receipt image is sent to OpenAI for extraction and then discarded by Sloth Money'
+    )
+) {
+  throw new Error(
+    'Privacy copy must explain that receipt images are transient.'
+  )
+}
+if (
+  !developerPage
+    .replace(/\s+/g, ' ')
+    .includes(
+      'Each receipt item contains only an id, label, and signed amount in pence'
+    )
+) {
+  throw new Error(
+    'Developer receipt docs must describe the canonical signed-row contract.'
+  )
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes('confirmed receipt items with their signed amounts')
+) {
+  throw new Error(
+    'Privacy copy must disclose persisted confirmed receipt evidence.'
+  )
+}
+if (!llmsText.includes('receipt extraction and confirmed receipt items')) {
+  throw new Error('llms.txt must advertise receipt evidence support.')
 }
 if (
   !privacyPage
