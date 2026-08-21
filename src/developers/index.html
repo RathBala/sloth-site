@@ -673,8 +673,8 @@ sloth-agent transactions --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --limit 
                 <code>accountRef</code> used by
                 <code>sloth-agent accounts</code>. Copy the exact opaque value
                 into <code>--account-ref</code> to keep later pages and reads on
-                that account. Use either <code>--account-ref</code> or the
-                legacy <code>--account-id</code> filter, not both.
+                that account. <code>accountRef</code> is the public account
+                filter for CLI and HTTP transaction reads.
               </p>
               <h3 class="font-bold text-gray-900">Watch a payment</h3>
               <p class="text-gray-600 leading-relaxed">
@@ -1080,10 +1080,8 @@ sloth-agent auth logout</code></pre>
                 sharing state.
               </p>
               <p class="text-gray-600 mt-3">
-                New clients should send the opaque
-                <code>accountRef</code> from the accounts response. The older
-                <code>accountId</code> filter remains available for
-                compatibility.
+                Filter one account with the opaque <code>accountRef</code> from
+                the accounts response.
               </p>
               <p class="text-gray-600 mt-3">
                 Use <code>--shared</code> and <code>--line-item-id</code> in the

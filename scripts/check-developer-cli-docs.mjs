@@ -52,7 +52,6 @@ const requiredSnippets = [
   '/api/agent/v1/notification-rules/extract-renewal',
   '--shared',
   '--account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE',
-  '--account-id',
   '<code>sharing.isShared</code>',
   '<code>shareRatio</code>',
   '<code>userExclusiveAmountPence</code>',
@@ -149,7 +148,7 @@ const requiredCopy = [
   'On an existing share, omitted split fields keep their saved values.',
   'A combined category uses Joint when you have no exclusive amount and Personal when you do, unless you set assignmentScope explicitly.',
   'Every transaction result includes the same accountRef used by sloth-agent accounts.',
-  'Use either --account-ref or the legacy --account-id filter, not both.',
+  'accountRef is the public account filter for CLI and HTTP transaction reads.',
   'Rules watch future payments that match an existing transaction. They do not create transactions or recurring predictions.',
   'Without --apply, rules set validates the file locally without loading a token or contacting Sloth Money.',
   'Scanning returns a renewalDate and confidence. It does not save a rule.',
@@ -161,6 +160,16 @@ const missingCopy = requiredCopy.filter(
 if (missingCopy.length > 0) {
   throw new Error(
     `Developer CLI docs are missing copy: ${missingCopy.join(', ')}`
+  )
+}
+
+const forbiddenLegacyAccountIdCopy = ['--account-id', '<code>accountId</code>']
+const retainedLegacyCopy = forbiddenLegacyAccountIdCopy.filter((copy) =>
+  developerPage.includes(copy)
+)
+if (retainedLegacyCopy.length > 0) {
+  throw new Error(
+    `Developer CLI docs still expose legacy account IDs: ${retainedLegacyCopy.join(', ')}`
   )
 }
 
