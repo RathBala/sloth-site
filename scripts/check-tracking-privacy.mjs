@@ -90,6 +90,16 @@ assert.equal(
   true,
   'privacy policy should describe Agent API planned-budget updates'
 )
+assert.equal(
+  /budget app uses privacy-masked\s+session replay/.test(privacyPage),
+  true,
+  'privacy policy should describe budget-app session replay'
+)
+assert.equal(
+  /marketing website does not use session replay/.test(privacyPage),
+  true,
+  'privacy policy should exclude the marketing site from session replay'
+)
 
 const posthogSource = fs.readFileSync(
   path.join(root, 'src/assets/js/posthog-analytics.js'),
@@ -114,6 +124,11 @@ assert.equal(
   posthogSource.includes('localStorage+cookie'),
   false,
   'marketing PostHog should not use cookie-backed persistence'
+)
+assert.equal(
+  posthogSource.includes('disable_session_recording: true'),
+  true,
+  'marketing PostHog should explicitly disable session recording'
 )
 
 async function runVisitorTracker({

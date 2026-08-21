@@ -40,9 +40,9 @@ PostHog is configured for lightweight explicit telemetry:
 - `capture_pageview: false`
 - `persistence: 'memory'`
 - no cross-subdomain cookie stitching
-- no session recording
+- session recording explicitly disabled on the marketing site
 
-The site sends only the named events below. CTA URL attribution still forwards campaign context to the budget app through query parameters, but PostHog does not create a shared cookie identity across `slothmoney.app` and `budget.slothmoney.app`.
+The site sends only the named events below. `disable_session_recording: true` keeps the marketing site out of replay even though the shared PostHog project records privacy-masked sessions on `budget.slothmoney.app`. The provider's authorized replay domain is also limited to the budget app. CTA URL attribution still forwards campaign context to the budget app through query parameters, but PostHog does not create a shared cookie identity across `slothmoney.app` and `budget.slothmoney.app`.
 
 ## Custom events (funnel)
 

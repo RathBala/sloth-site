@@ -104,7 +104,7 @@
             >.
           </p>
           <p class="mt-5 text-sm font-medium tracking-wide text-gray-500">
-            Last updated: August 9, 2026
+            Last updated: August 21, 2026
           </p>
         </div>
       </section>
@@ -251,7 +251,12 @@
                     campaign parameters, explicit app events, CTA clicks, signup
                     and onboarding events, and similar usage data through tools
                     such as PostHog, Sentry, and our minimized visit
-                    notification flow.
+                    notification flow. The budget app uses privacy-masked
+                    session replay in PostHog to record page structure and
+                    interaction timing. Replay masks all text, inputs, and
+                    element attributes, blocks media, and does not capture
+                    console logs, network details, or request and response
+                    bodies. The marketing website does not use session replay.
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
@@ -322,7 +327,8 @@
                   </li>
                   <li>
                     Measure marketing, onboarding, signup, and product usage
-                    through explicit events so we can improve the service.
+                    through explicit events and privacy-masked budget app
+                    session replay so we can improve the service.
                   </li>
                   <li>
                     Debug errors, protect the service, prevent abuse, and meet
@@ -367,8 +373,9 @@
                       >Legitimate interests.</strong
                     >
                     To secure the service, prevent abuse, debug errors, measure
-                    product performance through explicit telemetry, understand
-                    campaign effectiveness, and improve Sloth Money, where those
+                    product performance through explicit telemetry and masked
+                    budget app session replay, understand campaign
+                    effectiveness, and improve Sloth Money, where those
                     interests are not overridden by your rights.
                   </li>
                   <li>
@@ -429,9 +436,12 @@
                     <strong class="font-semibold text-gray-900"
                       >PostHog and Sentry</strong
                     >
-                    for explicit product telemetry, diagnostics, and
-                    error-linked replay. Sentry replay is configured to mask
-                    text and block media.
+                    for explicit product telemetry, privacy-masked budget app
+                    session replay, diagnostics, and error-linked replay.
+                    PostHog replay is limited to the budget app, masks text,
+                    inputs, and element attributes, blocks media, and excludes
+                    console and network capture. Sentry replay is configured to
+                    mask text and block media.
                   </li>
                   <li>
                     Email delivery and internal notification providers for
@@ -499,10 +509,12 @@
                 </p>
                 <p>
                   Essential technologies are used to provide the service you ask
-                  for. Advertising pixels are disabled. PostHog is limited to
-                  explicit events, does not use autocapture or cross-domain
-                  cookie stitching, and is used for product and marketing
-                  telemetry under legitimate interests.
+                  for. Advertising pixels are disabled. On the marketing
+                  website, PostHog is limited to explicit events and session
+                  replay is disabled. In the budget app, PostHog also uses
+                  privacy-masked session replay. PostHog does not use
+                  autocapture or cross-domain cookie stitching and uses
+                  memory-only browser persistence.
                 </p>
                 <p>
                   You can block or delete cookies in your browser, but some app
