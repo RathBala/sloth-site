@@ -302,6 +302,7 @@ sloth-agent accounts
 sloth-agent investments
 sloth-agent budget --scope personal
 sloth-agent budget status --scope personal
+sloth-agent budget status --scope personal --period 2026-07
 sloth-agent budget move --scope personal \
   --from-category-id activities --to-category-id groceries \
   --amount 52.95 --apply
@@ -420,7 +421,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.17.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.18.0 or newer with Node.js 22 or newer. The
                     <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -540,24 +541,25 @@ sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent budget --scope personal --period 2026-08
 sloth-agent budget status --scope personal
+sloth-agent budget status --scope personal --period 2026-07
 sloth-agent budget update --scope personal --period 2026-08 --input budget.json
 sloth-agent budget update --scope personal --period 2026-08 --input budget.json --apply
 sloth-agent budget move --scope personal --from-category-id activities --to-category-id groceries --amount 52.95
 sloth-agent budget move --scope personal --from-category-id activities --to-category-id groceries --amount 52.95 --apply</code></pre>
               <p class="text-gray-600 leading-relaxed">
-                Budget status is read-only and always uses the current Sloth
-                budget period. For each category, <code>spentPence</code> is
-                signed booked activity and <code>availablePence</code> is
-                assigned minus spent. Refunds reduce spent. Negative
-                availablePence means the category is over budget.
+                Budget status is read-only. Omit <code>--period</code> for the
+                current Sloth budget period, or pass YYYY-MM for a historical
+                period. Each activity row has nonnegative
+                <code>moneyInPence</code> and <code>moneyOutPence</code>, plus
+                their difference as <code>netPence</code>.
               </p>
               <p class="text-gray-600 leading-relaxed">
-                The server applies its normal once-per-UTC-day automatic
-                transaction refresh policy before calculating the result. Check
-                refresh status,
-                <code>uncategorizedSpentPence</code>, and
-                <code>unmappedSpentPence</code> before suggesting a
-                reallocation.
+                Current status uses Sloth's normal transaction refresh policy.
+                Historical budget status is cache-only and returns refresh as
+                null. Income, Transfer, and explicit None are normal activity
+                rows. A transaction with no category appears under
+                <code>activity.uncategorized</code>. <code>budget</code> is null
+                when no trustworthy plan exists, but activity still returns.
               </p>
               <p class="text-gray-600 leading-relaxed">
                 A budget update file contains 1 to 100 unique allocations. Each
@@ -982,19 +984,18 @@ sloth-agent auth logout</code></pre>
                 >
               </div>
               <p class="text-gray-600">
-                Returns the current personal or joint budget with category
-                <code>plannedPence</code>, assigned pence,
-                <code>spentPence</code>, and <code>availablePence</code>. It
-                uses the user's configured budget-period dates and includes the
-                transaction refresh result.
+                Returns booked activity for the current or a historical personal
+                or joint budget period. Pass an optional
+                <code>periodKey</code> in YYYY-MM format. The response includes
+                stored or legacy-fallback period dates, one currency, refresh
+                state, activity, and a nullable budget.
               </p>
               <p class="text-gray-600 mt-3">
-                Expenses increase spent and refunds reduce it. Negative
-                <code>availablePence</code> means a category is over budget. The
-                activity summary reports
-                <code>uncategorizedSpentPence</code> and
-                <code>unmappedSpentPence</code> without returning raw
-                transactions or account details.
+                Activity includes Income, Transfer, explicit None, and observed
+                categories. Each row reports <code>moneyInPence</code>,
+                <code>moneyOutPence</code>, and <code>netPence</code>. Truly
+                uncategorized activity stays separate. Historical reads do not
+                refresh or borrow a later budget plan.
               </p>
             </article>
 
@@ -1065,10 +1066,11 @@ sloth-agent auth logout</code></pre>
                 holdings, activities, and partner-owned accounts are excluded.
               </p>
               <p class="text-gray-600 mt-3">
-                Investment reads are cache-only and do not contact SnapTrade.
-                Holding values stay in their provider-native currencies and may
-                not reconcile to a converted account total. Symbols can be
-                missing, and non-zero cash appears as a cash holding.
+                Investment reads are cache-only and do not contact SnapTrade. An
+                investment account total and its nested holdings describe the
+                same portfolio, so do not add them together. Do not add values
+                in different currencies without an explicit conversion. Symbols
+                can be missing, and non-zero cash appears as a cash holding.
               </p>
             </article>
 
