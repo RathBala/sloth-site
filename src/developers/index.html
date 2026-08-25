@@ -986,9 +986,11 @@ sloth-agent auth logout</code></pre>
               <p class="text-gray-600">
                 Returns booked activity for the current or a historical personal
                 or joint budget period. Pass an optional
-                <code>periodKey</code> in YYYY-MM format. The response includes
-                stored or legacy-fallback period dates, one currency, refresh
-                state, activity, and a nullable budget.
+                <code>periodKey</code> in YYYY-MM format. The key names the
+                month containing the period's start boundary, so the end date
+                can fall in the following month. The response includes stored or
+                legacy-fallback period dates, one currency, refresh state,
+                activity, and a nullable budget.
               </p>
               <p class="text-gray-600 mt-3">
                 Activity includes Income, Transfer, explicit None, and observed
