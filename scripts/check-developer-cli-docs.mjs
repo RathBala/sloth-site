@@ -54,6 +54,14 @@ const requiredSnippets = [
   '/api/agent/v1/notification-rules',
   '/api/agent/v1/notification-rules/for-transaction',
   '/api/agent/v1/notification-rules/extract-renewal',
+  '/api/agent/v1/transaction-assignments/:operationId',
+  '<code>Idempotency-Key</code>',
+  '<code>operationId</code>',
+  '<code>itemCount</code>',
+  '<code>completedCount</code>',
+  '<code>failedCount</code>',
+  '<code>expiresAt</code>',
+  '<code>pollAfterMs</code>',
   '/api/agent/v1/receipts/extract',
   '/api/agent/v1/receipts/confirmed',
   '--shared',
@@ -165,6 +173,15 @@ const requiredCopy = [
   'In-app delivery is always on. Set delivery.email to add email delivery.',
   'Returned rules include the computed remindOn date.',
   'renewalDate is null when Sloth cannot find a date in the PDF.',
+  'Applying 1 to 100 assignments creates a durable operation and returns a receipt promptly.',
+  'POST requires an Idempotency-Key. Retrying the same submission with that key does not create a second operation.',
+  'The CLI polls the authenticated status endpoint for you. If the command is interrupted, rerun the same command with the same input file to recover the operation.',
+  'The command stays sloth-agent assign --input assignments.json --apply and its final output stays succeeded and failed.',
+  'Completed item results stay in the same order as the input file.',
+  'The direct POST returns a 202 receipt.',
+  'Each completed item has a succeeded or failed status. Failed results include transactionRef and error; succeeded results include the saved assignment fields.',
+  'Each transactionRef can appear only once in a file. Duplicate refs reject the whole submission before anything is written.',
+  'Sloth Money keeps the minimum assignment instructions, ownership and progress state, and ordered results needed for recovery. The operation record expires after seven days and is then deleted.',
 ]
 const missingCopy = requiredCopy.filter(
   (copy) => !normalizedDeveloperText.includes(copy)
@@ -306,6 +323,18 @@ if (
 ) {
   throw new Error(
     'Privacy copy must disclose Agent API category and line-item management.'
+  )
+}
+if (
+  !privacyPage
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .includes(
+      'Sloth Money keeps the minimum assignment instructions, ownership and progress state, and ordered results needed for recovery. The operation record expires after seven days and is then deleted.'
+    )
+) {
+  throw new Error(
+    'Privacy copy must disclose durable assignment operation data and retention.'
   )
 }
 if (developerPage.includes('yarn agent')) {

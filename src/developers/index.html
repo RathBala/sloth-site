@@ -646,8 +646,20 @@ sloth-agent transactions --assignment-scope joint --uncategorized --limit 50</co
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent assign --input assignments.json --apply</code></pre>
               <p class="text-gray-600 leading-relaxed">
-                Inspect every item in the <code>succeeded</code> and
-                <code>failed</code> arrays.
+                Applying 1 to 100 assignments creates a durable operation and
+                returns a receipt promptly. The CLI polls the authenticated
+                status endpoint for you. If the command is
+                interrupted, rerun the same command with the same input file to
+                recover the operation. The command stays
+                <code>sloth-agent assign --input assignments.json --apply</code>
+                and its final output stays <code>succeeded</code> and
+                <code>failed</code>. Completed item results stay in the same
+                order as the input file. Inspect every result.
+              </p>
+              <p class="text-gray-600 leading-relaxed">
+                Each <code>transactionRef</code> can appear only once in a file.
+                Duplicate refs reject the whole submission before anything is
+                written.
               </p>
               <h3 class="font-bold text-gray-900">Check the result</h3>
               <p class="text-gray-600 leading-relaxed">
@@ -1208,18 +1220,40 @@ sloth-agent auth logout</code></pre>
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
                   class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
-                  >POST</span
+                  >POST · GET</span
                 >
                 <code class="text-gray-900 font-semibold"
                   >/api/agent/v1/transaction-assignments</code
                 >
               </div>
               <p class="text-gray-600">
-                Applies 1 to 100 sharing changes, category assignments, or both.
-                Each item is atomic. A successful sharing result includes the
-                persisted split and resulting Joint contribution. The response
-                may contain mixed successes and failures, so inspect every
-                result.
+                Applying 1 to 100 assignments creates a durable operation and
+                returns a receipt promptly. The direct POST returns a 202
+                receipt. POST requires an
+                <code>Idempotency-Key</code>. Retrying the same submission with
+                that key does not create a second operation. The receipt has an
+                <code>operationId</code>; a <code>pending</code>,
+                <code>processing</code>, or <code>completed</code> status;
+                <code>itemCount</code>, <code>completedCount</code>, and
+                <code>failedCount</code>; <code>expiresAt</code>; and
+                <code>pollAfterMs</code>.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Read progress from the authenticated
+                <code>/api/agent/v1/transaction-assignments/:operationId</code>
+                endpoint. A completed operation includes one atomic succeeded or
+                failed result per input item, in input order. Each completed
+                item has a <code>succeeded</code> or <code>failed</code> status.
+                Failed results include <code>transactionRef</code> and
+                <code>error</code>; succeeded results include the saved
+                assignment fields. A successful sharing result includes the
+                persisted split and resulting Joint contribution.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Sloth Money keeps the minimum assignment instructions,
+                ownership and progress state, and ordered results needed for
+                recovery. The operation record expires after seven days and is
+                then deleted.
               </p>
             </article>
 

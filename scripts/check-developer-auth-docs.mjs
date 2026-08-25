@@ -76,8 +76,8 @@ const assignmentSection = developerPage.slice(
 
 assert.match(
   assignmentSection,
-  /<div class="min-w-0">\s*<h3[^>]*>\s*Category and optional line item\s*<\/h3>/,
-  'The category and line-item example should shrink within the mobile viewport.'
+  /<div class="min-w-0">\s*<h3[^>]*>\s*Joint category and line item\s*<\/h3>/,
+  'The joint category and line-item example should shrink within the mobile viewport.'
 )
 
 assert.match(

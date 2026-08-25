@@ -67,6 +67,13 @@ assert.equal(
   'privacy policy should describe Agent API category and line-item access'
 )
 assert.equal(
+  /assignment\s+instructions,\s+ownership and progress state, and ordered\s+results needed for recovery[\s\S]*operation\s+record expires after seven days and is then\s+deleted/.test(
+    privacyPage
+  ),
+  true,
+  'privacy policy should describe assignment recovery data and retention'
+)
+assert.equal(
   /read your account inventory, investment holdings,\s+transaction data/.test(
     privacyPage
   ),
