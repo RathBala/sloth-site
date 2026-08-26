@@ -1,1 +1,1 @@
-export const expectedCliVersion = '0.18.0'
+export const expectedCliVersion = '0.19.0'

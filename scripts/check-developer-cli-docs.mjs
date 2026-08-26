@@ -81,7 +81,7 @@ const requiredSnippets = [
   '<code>asOf</code>',
   '<code>lastBalanceUpdatedAt</code>',
   '<code>connectionState</code>',
-  '<code>isGoalSavingsSource</code>',
+  '<code>isGoalFundingAccount</code>',
   '<code>periodStatus</code>',
   '<code>plannedPence</code>',
   '<code>moneyInPence</code>',
@@ -113,6 +113,12 @@ const requiredSnippets = [
   '<code>spentAt</code>',
   '<code>isSpent</code>',
   '/api/agent/v1/goals',
+  '/api/agent/v1/goals/preview',
+  '<code>fundingAccountRef</code>',
+  '<code>forecastMonthKey</code>',
+  '<code>forecastBasis</code>',
+  '<code>projectionThroughMonthKey</code>',
+  '--goal-funding-account',
   '/api/agent/v1/categories/:categoryId',
   '/api/agent/v1/line-items/:lineItemId',
   '--line-item-id',
@@ -155,8 +161,12 @@ const requiredCopy = [
   'The decimal digits are converted exactly to positive safe-integer pence.',
   'It does not change planned amounts or future budget plans.',
   'Saving X overwrites X and every explicit future plan. A later save from Y overwrites Y and everything after it.',
-  'Goal priority is one-based, so 1 is highest. Set priority on its own. Moving one goal shifts the intervening goals automatically.',
-  'Goal creates require a positive target amount and an explicit Keep or Spend type.',
+  'Goal priority is one-based, so 1 is highest. Moving one goal shifts the intervening goals automatically.',
+  'Goal creates require a positive target amount, an explicit Keep or Spend type, and one personal Goal-funding account.',
+  'Without --apply, goal creation authenticates and asks Sloth to calculate forecastMonthKey without saving the Goal.',
+  'targetMonthKey is your optional desired month. forecastMonthKey is Sloth’s calculated month.',
+  'Only the active scenario is calculated.',
+  'A null forecastMonthKey means Sloth did not find a month within the projection boundary; check projectionThroughMonthKey for the final month tested.',
   'Keep goals cannot be marked spent. Restore a spent goal before changing its type.',
   'Goal results include goalType and nullable spentAt.',
   "Personal and joint category assignments are separate. A personal assignment uses the transaction's top-level categoryId, lineItemId, and categorySplits. A joint-budget assignment uses the corresponding fields under jointBudgetContribution.",
@@ -206,6 +216,18 @@ if (retainedLegacyCopy.length > 0) {
   )
 }
 
+for (const legacyGoalFundingCopy of [
+  'isGoalSavingsSource',
+  '--goal-savings-source',
+  'owner next opens Forecast',
+]) {
+  if (developerPage.includes(legacyGoalFundingCopy)) {
+    throw new Error(
+      `Developer CLI docs still expose legacy Goal-funding behavior: ${legacyGoalFundingCopy}`
+    )
+  }
+}
+
 if (developerPage.includes('"delivery": { "inApp": true')) {
   throw new Error(
     'Developer CLI docs must not expose server-owned delivery.inApp as a write field.'
@@ -247,6 +269,20 @@ if (!privacyPage.replace(/\s+/g, ' ').includes('move assigned budget money')) {
 if (!llmsText.includes('assigned-budget movements')) {
   throw new Error(
     'llms.txt must advertise Agent API assigned-budget movements.'
+  )
+}
+if (!llmsText.includes('server-backed goal previews')) {
+  throw new Error('llms.txt must advertise server-backed goal previews.')
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes(
+      'preview a goal against your private Goal-funding account without saving the goal'
+    )
+) {
+  throw new Error(
+    'Privacy copy must disclose private account-backed Goal previews.'
   )
 }
 if (

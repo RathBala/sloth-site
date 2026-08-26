@@ -54,14 +54,22 @@ const privacyPage = fs.readFileSync(
   path.join(root, 'src/privacy/index.html'),
   'utf8'
 )
+const normalizedPrivacyPage = privacyPage.replace(/\s+/g, ' ')
 assert.equal(
-  /create,\s+update,\s+or\s+delete\s+goals/.test(privacyPage),
+  /create,\s+update,\s+or\s+delete\s+goals/.test(normalizedPrivacyPage),
   true,
   'privacy policy should describe Agent API goal access'
 )
 assert.equal(
-  /manage\s+custom categories\s+and\s+scoped budget line items/.test(
-    privacyPage
+  /partner can see a shared Goal, but not the personal account assigned to fund it, its label, reference, or balance/.test(
+    normalizedPrivacyPage
+  ),
+  true,
+  'privacy policy should keep Goal-funding account details private from partners'
+)
+assert.equal(
+  /manage\s+custom categories and\s+scoped budget line items/.test(
+    normalizedPrivacyPage
   ),
   true,
   'privacy policy should describe Agent API category and line-item access'
@@ -75,25 +83,27 @@ assert.equal(
 )
 assert.equal(
   /read your account inventory, investment holdings,\s+transaction data/.test(
-    privacyPage
+    normalizedPrivacyPage
   ),
   true,
   'privacy policy should describe Agent API investment holdings access'
 )
 assert.equal(
-  /manage\s+account details and\s+archive\s+manual accounts/.test(privacyPage),
+  /manage\s+account details and archive\s+manual accounts/.test(
+    normalizedPrivacyPage
+  ),
   true,
   'privacy policy should describe Agent API account changes and archival'
 )
 assert.equal(
   /read your account inventory, investment holdings,\s+transaction data, categories, budgets, and goals/.test(
-    privacyPage
+    normalizedPrivacyPage
   ),
   true,
   'privacy policy should describe Agent API budget reads'
 )
 assert.equal(
-  /update\s+planned budget amounts/.test(privacyPage),
+  /update\s+planned budget amounts/.test(normalizedPrivacyPage),
   true,
   'privacy policy should describe Agent API planned-budget updates'
 )
