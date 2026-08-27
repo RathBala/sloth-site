@@ -267,17 +267,21 @@
                     scopes, expiry, revocation status, and secure token hashes.
                     New tokens are view-only by default. You can explicitly
                     allow changes when creating a token. View-only access can
-                    read your account inventory, investment holdings,
-                    transaction data, categories, budgets, and goals, plus
-                    confirmed receipt evidence. It can also preview a goal
-                    against your private Goal-funding account without saving the
-                    goal. Write access can let an agent categorise transactions,
-                    change an owned transaction’s partner-sharing state and
-                    split, manage custom categories and scoped budget line
-                    items, move assigned budget money, update planned budget
-                    amounts, manage account details and archive manual accounts,
-                    extract a receipt draft, manage confirmed receipt items,
-                    save transaction notification rules and temporarily send a
+                    read your account inventory, investment holdings, booked and
+                    recent pending transaction data, categories, budgets, goals,
+                    household-planning balances or linked holdings explicitly
+                    shared by your partner, and read-only partner settlement
+                    balance and recorded payment activity, plus confirmed
+                    receipt evidence. It can also preview a goal against your
+                    private Goal-funding account without saving the goal. Write
+                    access can let an agent categorise transactions, change an
+                    owned transaction’s partner-sharing state and split, manage
+                    custom categories and scoped budget line items, move
+                    assigned budget money, update planned budget amounts, manage
+                    account details and which owned accounts share planning
+                    balances or holdings, archive manual accounts, extract a
+                    receipt draft, manage confirmed receipt items, save
+                    transaction notification rules and temporarily send a
                     contract PDF to extract a renewal date without storing the
                     file, request explanations, and create, update, or delete
                     goals. A partner can see a shared Goal, but not the personal
@@ -597,6 +601,13 @@
                   records. If you ask us to delete identifiable account data, we
                   will handle the request subject to legal, security, billing,
                   and backup constraints.
+                </p>
+                <p>
+                  For Agent pending-transaction review, we keep a bounded copy
+                  of the latest complete pending observation and replace it
+                  after the next fully successful account refresh, including
+                  when no pending transactions remain. It follows the same
+                  account-data deletion lifecycle.
                 </p>
                 <p>
                   AI-assisted categorisation can profile transaction patterns to

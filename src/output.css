@@ -932,6 +932,10 @@ video {
   resize: both;
 }
 
+.scroll-mt-24 {
+  scroll-margin-top: 6rem;
+}
+
 .scroll-mt-8 {
   scroll-margin-top: 2rem;
 }

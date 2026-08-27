@@ -22,6 +22,8 @@ const requiredSnippets = [
   'sloth-agent accounts update',
   'sloth-agent accounts remove',
   'sloth-agent investments',
+  'sloth-agent portfolio --view household',
+  '--partner-visibility holdings',
   'sloth-agent budget --scope personal',
   'sloth-agent budget status',
   'sloth-agent budget status --scope personal --period 2026-07',
@@ -33,6 +35,8 @@ const requiredSnippets = [
   'sloth-agent line-items create',
   'sloth-agent line-items rename',
   'sloth-agent transactions',
+  'sloth-agent transactions --include-pending',
+  'sloth-agent partner status',
   'sloth-agent receipts extract',
   'sloth-agent receipts get',
   'sloth-agent receipts attach',
@@ -48,10 +52,12 @@ const requiredSnippets = [
   '/api/agent/v1/accounts',
   '/api/agent/v1/accounts/:accountRef',
   '/api/agent/v1/investments',
+  '/api/agent/v1/portfolio',
   '/api/agent/v1/budgets',
   '/api/agent/v1/budget-status',
   '/api/agent/v1/budget-movements',
   '/api/agent/v1/transaction-assignments',
+  '/api/agent/v1/partner-status',
   '/api/agent/v1/notification-rules',
   '/api/agent/v1/notification-rules/for-transaction',
   '/api/agent/v1/notification-rules/extract-renewal',
@@ -82,6 +88,7 @@ const requiredSnippets = [
   '<code>lastBalanceUpdatedAt</code>',
   '<code>connectionState</code>',
   '<code>isGoalFundingAccount</code>',
+  '<code>partnerVisibility</code>',
   '<code>periodStatus</code>',
   '<code>plannedPence</code>',
   '<code>moneyInPence</code>',
@@ -143,6 +150,8 @@ const requiredCopy = [
   'A successful preview does not guarantee that applying the assignment will succeed.',
   'Account reads are cache-only and do not contact a bank or refresh balances.',
   'Investment reads are cache-only and do not contact SnapTrade.',
+  'Partner accounts appear only when their owner shared a balance or linked holdings.',
+  'Sharing does not change ownership, transaction access, Goal funding, or who can move money.',
   'An investment account total and its nested holdings describe the same portfolio, so do not add them together.',
   'Do not add values in different currencies without an explicit conversion.',
   'Manual accounts can change institution, name, currency, and ownership.',
@@ -151,6 +160,10 @@ const requiredCopy = [
   'Partner personal accounts are excluded.',
   'Provider account IDs, account numbers, sort codes, and IBANs are not returned.',
   'The first transaction read each UTC day may refresh linked bank data.',
+  "--include-pending reuses the transaction command's normal refresh; it does not force another refresh.",
+  'Pending rows appear in a separate pending block',
+  'partner status is read-only.',
+  'It does not refresh bank accounts or change partner records.',
   'Budget previews validate the file locally without loading a token or contacting Sloth Money.',
   'Budget status is read-only. Omit --period for the current Sloth budget period, or pass YYYY-MM for a historical period.',
   'Historical budget status is cache-only and returns refresh as null.',
@@ -238,17 +251,19 @@ if (
   !privacyPage
     .replace(/\s+/g, ' ')
     .includes(
-      'read your account inventory, investment holdings, transaction data, categories, budgets, and goals'
+      'read your account inventory, investment holdings, booked and recent pending transaction data, categories, budgets, goals, household-planning balances or linked holdings explicitly shared by your partner, and read-only partner settlement balance and recorded payment activity'
     )
 ) {
   throw new Error(
-    'Privacy copy must disclose Agent API access to account inventory, investments, and budgets.'
+    'Privacy copy must disclose Agent API access to account inventory, investments, pending transactions, partner settlement data, and budgets.'
   )
 }
 if (
   !privacyPage
     .replace(/\s+/g, ' ')
-    .includes('manage account details and archive manual accounts')
+    .includes(
+      'manage account details and which owned accounts share planning balances or holdings, archive manual accounts'
+    )
 ) {
   throw new Error(
     'Privacy copy must disclose Agent API account changes and archival.'

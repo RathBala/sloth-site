@@ -247,10 +247,10 @@
               Use a personal access token, a small CLI, or direct HTTP requests
               to inspect accounts, investments, and budgets, update planned
               amounts, manage which linked accounts fund your goals, manage
-              goals and budget categories, read transactions, set payment
-              notification rules, ask for partner context, and write category
-              assignments. You stay in control of access, expiry, and
-              revocation.
+              goals and budget categories, read booked and pending transactions,
+              reconcile partner payments and balances, set payment notification
+              rules, ask for partner context, and write category assignments.
+              You stay in control of access, expiry, and revocation.
             </p>
             <p class="text-base sm:text-lg font-semibold text-gray-800 mb-8">
               An assignment can change an owned transaction’s sharing,
@@ -317,7 +317,11 @@ sloth-agent goals
 sloth-agent goals create --name "Emergency fund" \
   --target-amount 12000 --target-month 2027-06 --type keep \
   --account-ref sloth_account_v1_... --apply
+sloth-agent portfolio --view household
+sloth-agent accounts update --account-ref sloth_account_v1_... --partner-visibility holdings --apply
 sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
+sloth-agent transactions --include-pending
+sloth-agent partner status
 sloth-agent assign --input assignments.json
 sloth-agent assign --input assignments.json --apply</code></pre>
           </div>
@@ -422,7 +426,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.19.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.20.0 or newer with Node.js 22 or newer. The
                     <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -620,7 +624,36 @@ sloth-agent categories rename --category-id CATEGORY_ID --name "Travel fund" --a
 sloth-agent line-items create --scope personal --category-id CATEGORY_ID --name "Flights" --apply
 sloth-agent line-items rename --scope personal --category-id CATEGORY_ID --line-item-id LINE_ITEM_ID --name "Travel" --apply
 sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
-sloth-agent transactions --assignment-scope joint --uncategorized --limit 50</code></pre>
+sloth-agent transactions --assignment-scope joint --uncategorized --limit 50
+sloth-agent transactions --include-pending
+sloth-agent partner status</code></pre>
+              <h3
+                id="pending-and-partner-review"
+                class="font-bold text-gray-900 scroll-mt-24"
+              >
+                Review pending and partner payments
+              </h3>
+              <p class="text-gray-600 leading-relaxed">
+                <code>--include-pending</code> reuses the transaction command's
+                normal refresh; it does not force another refresh. Booked rows
+                stay under <code>transactions</code>. Pending rows appear in a
+                separate <code>pending</code> block with
+                <code>writable: false</code> and
+                <code>writeBlockReason: pending</code>, so they cannot be
+                categorised until they book. Sloth Money keeps the latest
+                complete pending observation so the same result remains
+                available to a later daily review without another bank refresh.
+                A current empty list means no matching pending rows were
+                observed. An <code>unavailable</code> snapshot does not prove
+                there are none.
+              </p>
+              <p class="text-gray-600 leading-relaxed">
+                <code>partner status</code> is read-only. It returns the current
+                settlement direction and amount plus recent recorded partner
+                payments, which lets an agent reconcile an incoming payment
+                without guessing from the bank counterparty alone. It does not
+                refresh bank accounts or change partner records.
+              </p>
               <p class="text-gray-600 leading-relaxed">
                 Copy the exact <code>transactionRef</code> for the transaction
                 and the matching <code>categoryId</code> and
@@ -886,7 +919,7 @@ sloth-agent auth logout</code></pre>
             <h2
               class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
             >
-              Thirteen API resources
+              Fifteen API resources
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               Every request uses
@@ -918,6 +951,9 @@ sloth-agent auth logout</code></pre>
                 <code>connectionState</code>.
                 <code>isGoalFundingAccount</code> shows whether Goals and active
                 scenario contributions may use the account.
+                <code>partnerVisibility</code> is <code>private</code>,
+                <code>balance</code>, or <code>holdings</code> for the current
+                partner pair.
               </p>
               <p class="text-gray-600 mt-3">
                 Account reads are cache-only and do not contact a bank or
@@ -931,8 +967,10 @@ sloth-agent auth logout</code></pre>
                 partial updates. Manual accounts can change institution, name,
                 currency, and ownership. Balance-only accounts can also change
                 balance, Savings/Investments type, and Goal-funding eligibility.
-                Connected accounts support Goal-funding eligibility only. The
-                CLI option is <code>--goal-funding-account</code>.
+                Connected accounts support Goal-funding eligibility and partner
+                visibility. The CLI options are
+                <code>--goal-funding-account</code> and
+                <code>--partner-visibility</code>.
               </p>
               <p class="text-gray-600 mt-3">
                 DELETE archives an owned manual account without deleting its
@@ -1095,6 +1133,34 @@ sloth-agent auth logout</code></pre>
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
                   class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/portfolio</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Returns savings and investments from the
+                <code>mine</code>, <code>partner</code>, or
+                <code>household</code> planning view. Partner accounts appear
+                only when their owner shared a balance or linked holdings.
+                Household totals use the viewer's budget currency and exclude
+                other currencies without converting them.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Use <code>sloth-agent portfolio --view household</code>. The CLI
+                waits up to 45 seconds for eligible linked balances to refresh.
+                Sharing does not change ownership, transaction access, Goal
+                funding, or who can move money. Partner transactions,
+                activities, fees, notes, provider identifiers, and Goal
+                assignments are not returned.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
                   >GET · POST · PATCH · DELETE</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1223,6 +1289,37 @@ sloth-agent auth logout</code></pre>
                 data. The response includes structured refresh status and still
                 returns readable cached transactions if refresh work continues
                 or fails.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Set <code>includePending=true</code> to include the current
+                normalized pending snapshot from the normal refresh flow. Sloth
+                Money replaces this bounded snapshot after each fully successful
+                refresh, including when no pending rows remain. Pending rows are
+                explicitly non-writable. The response distinguishes
+                <code>current</code> from <code>unavailable</code>; it never
+                treats an unavailable snapshot as an empty one.
+              </p>
+            </article>
+
+            <article
+              id="partner-status-endpoint"
+              class="border border-gray-200 rounded-lg p-5 scroll-mt-24"
+            >
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/partner-status</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Returns read-only partner connection state, the current
+                settlement balance, and paginated sent or received payment
+                activity. Balance and payment amounts use integer pence. Payment
+                references and cursors are opaque. The endpoint does not refresh
+                bank accounts or write partner data.
               </p>
             </article>
 
