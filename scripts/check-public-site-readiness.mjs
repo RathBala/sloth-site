@@ -99,7 +99,12 @@ for (const [page, canonical] of [
   [privacy, 'https://slothmoney.app/privacy/'],
   [weddingFund, 'https://slothmoney.app/wedding-fund/'],
 ]) {
-  requireText(page, `<link rel="canonical" href="${canonical}"`, canonical)
+  const canonicalTag = `<link rel="canonical" href="${canonical}"`
+  requireText(page, canonicalTag, canonical)
+
+  if (page.split(canonicalTag).length - 1 !== 1) {
+    failures.push(`${canonical} must declare exactly one canonical URL.`)
+  }
 
   if (page.includes('name="robots" content="noindex')) {
     failures.push(`${canonical} must remain indexable.`)
