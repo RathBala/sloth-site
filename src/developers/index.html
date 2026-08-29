@@ -429,7 +429,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.21.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.21.1 or newer with Node.js 22 or newer. The
                     <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -608,6 +608,12 @@ sloth-agent budget move --scope personal --from-category-id activities --to-cate
                 rows. A transaction with no category appears under
                 <code>activity.uncategorized</code>. <code>budget</code> is null
                 when no trustworthy plan exists, but activity still returns.
+              </p>
+              <p class="text-gray-600 leading-relaxed">
+                When an eligible current-period refresh completes, Sloth adds
+                the latest configured backing-account check to your Budget
+                balance audit. A same-day cached read does not add another
+                checkpoint.
               </p>
               <p class="text-gray-600 leading-relaxed">
                 A budget update file contains 1 to 100 unique allocations. Each
@@ -1221,6 +1227,11 @@ sloth-agent auth logout</code></pre>
                 activities, fees, notes, provider identifiers, and Goal
                 assignments are not returned.
               </p>
+              <p class="text-gray-600 mt-3">
+                A completed balance refresh updates the Budget balance audit for
+                configured backing accounts. A same-day cached read does not add
+                another checkpoint.
+              </p>
             </article>
 
             <article class="border border-gray-200 rounded-lg p-5">
@@ -1355,6 +1366,11 @@ sloth-agent auth logout</code></pre>
                 data. The response includes structured refresh status and still
                 returns readable cached transactions if refresh work continues
                 or fails.
+              </p>
+              <p class="text-gray-600 mt-3">
+                A completed transaction refresh updates the Budget balance audit
+                for configured backing accounts. A same-day cached read does not
+                add another checkpoint.
               </p>
               <p class="text-gray-600 mt-3">
                 Set <code>includePending=true</code> to include the current
@@ -1593,6 +1609,10 @@ sloth-agent auth logout</code></pre>
                 Account reads never trigger bank refreshes. Transaction reads
                 may refresh linked bank data once each UTC day and report the
                 result.
+              </p>
+              <p class="text-gray-600 mt-3">
+                A completed eligible refresh updates your Budget balance audit.
+                A same-day cached read does not add another audit checkpoint.
               </p>
             </div>
             <div class="bg-gray-50 rounded-lg p-5">
