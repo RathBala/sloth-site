@@ -61,6 +61,27 @@ assert.equal(
   'privacy policy should describe Agent API goal access'
 )
 assert.equal(
+  /read forecast scenarios and their account contributions/.test(
+    normalizedPrivacyPage
+  ),
+  true,
+  'privacy policy should describe Agent API scenario reads'
+)
+assert.equal(
+  /create, update, activate, or delete forecast scenarios/.test(
+    normalizedPrivacyPage
+  ),
+  true,
+  'privacy policy should describe Agent API scenario changes'
+)
+assert.equal(
+  /preview create, update, activate, or delete scenario actions and receive the recalculated Goals without saving changes/.test(
+    normalizedPrivacyPage
+  ),
+  true,
+  'privacy policy should describe view-only Agent API scenario previews'
+)
+assert.equal(
   /partner can see a shared Goal, but not the personal account assigned to fund it, its label, reference, or balance/.test(
     normalizedPrivacyPage
   ),

@@ -121,6 +121,18 @@ const requiredSnippets = [
   '<code>isSpent</code>',
   '/api/agent/v1/goals',
   '/api/agent/v1/goals/preview',
+  'sloth-agent scenarios',
+  'sloth-agent scenarios create',
+  'sloth-agent scenarios update',
+  'sloth-agent scenarios activate',
+  'sloth-agent scenarios delete',
+  '--recurring-amount 100',
+  '--one-off-amount',
+  '--clear-recurring',
+  '/api/agent/v1/scenarios',
+  '/api/agent/v1/scenarios/preview',
+  '/api/agent/v1/scenarios/:monthKey/activate',
+  'Sixteen API resources',
   '<code>fundingAccountRef</code>',
   '<code>forecastMonthKey</code>',
   '<code>forecastBasis</code>',
@@ -148,6 +160,9 @@ const requiredCopy = [
   'An assignment can change an owned transaction’s sharing, categorisation, or both.',
   'does not contact Sloth Money',
   'A successful preview does not guarantee that applying the assignment will succeed.',
+  'A recurring contribution continues until a later active scenario changes it.',
+  'Scenarios change the forecast. They do not move money.',
+  'Scenario previews use view-only access and perform zero writes.',
   'Account reads are cache-only and do not contact a bank or refresh balances.',
   'Investment reads are cache-only and do not contact SnapTrade.',
   'Partner accounts appear only when their owner shared a balance or linked holdings.',
@@ -288,6 +303,32 @@ if (!llmsText.includes('assigned-budget movements')) {
 }
 if (!llmsText.includes('server-backed goal previews')) {
   throw new Error('llms.txt must advertise server-backed goal previews.')
+}
+if (!llmsText.includes('server-backed scenario previews')) {
+  throw new Error('llms.txt must advertise server-backed scenario previews.')
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes('read forecast scenarios and their account contributions')
+) {
+  throw new Error('Privacy copy must disclose Agent API scenario reads.')
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes('create, update, activate, or delete forecast scenarios')
+) {
+  throw new Error('Privacy copy must disclose Agent API scenario changes.')
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes(
+      'preview create, update, activate, or delete scenario actions and receive the recalculated Goals without saving changes'
+    )
+) {
+  throw new Error('Privacy copy must disclose view-only scenario previews.')
 }
 if (
   !privacyPage

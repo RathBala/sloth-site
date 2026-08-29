@@ -11,7 +11,7 @@
 
     <meta
       name="description"
-      content="Use the Sloth Agent API and CLI to inspect accounts, investments, and budgets, attach reviewed receipt items, manage transaction notifications, share and categorise transactions, update planned amounts, and manage goals."
+      content="Use the Sloth Agent API and CLI to inspect accounts, investments, and budgets, manage Goal forecast scenarios, attach reviewed receipt items, manage transaction notifications, share and categorise transactions, update planned amounts, and manage goals."
     />
     <meta
       name="keywords"
@@ -24,7 +24,7 @@
     />
     <meta
       property="og:description"
-      content="Inspect accounts, investments, and budgets, update planned amounts, manage goals, and categorize your Sloth Money data."
+      content="Inspect accounts, investments, and budgets, update planned amounts, manage goals and forecast scenarios, and categorize your Sloth Money data."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://slothmoney.app/developers/" />
@@ -246,10 +246,11 @@
               Use a personal access token, a small CLI, or direct HTTP requests
               to inspect accounts, investments, and budgets, update planned
               amounts, manage which linked accounts fund your goals, manage
-              goals and budget categories, read booked and pending transactions,
-              reconcile partner payments and balances, set payment notification
-              rules, ask for partner context, and write category assignments.
-              You stay in control of access, expiry, and revocation.
+              goals, forecast scenarios, and budget categories, read booked and
+              pending transactions, reconcile partner payments and balances, set
+              payment notification rules, ask for partner context, and write
+              category assignments. You stay in control of access, expiry, and
+              revocation.
             </p>
             <p class="text-base sm:text-lg font-semibold text-gray-800 mb-8">
               An assignment can change an owned transaction’s sharing,
@@ -316,6 +317,9 @@ sloth-agent goals
 sloth-agent goals create --name "Emergency fund" \
   --target-amount 12000 --target-month 2027-06 --type keep \
   --account-ref sloth_account_v1_... --apply
+sloth-agent scenarios create --month 2026-09 \
+  --name "Deposit £100 into the shopping pot each month?" \
+  --account-ref sloth_account_v1_... --recurring-amount 100
 sloth-agent portfolio --view household
 sloth-agent accounts update --account-ref sloth_account_v1_... --partner-visibility holdings --apply
 sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
@@ -341,7 +345,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 manage categories and line items, move assigned budget money,
                 update planned budgets, manage accounts, set payment
                 notification rules, scan a contract for its renewal date,
-                request explanations, or manage goals.
+                request explanations, or manage goals and forecast scenarios.
               </p>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
@@ -350,10 +354,10 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 Read before writing
               </h2>
               <p class="text-gray-600 leading-relaxed">
-                Pull accounts, investments, budgets, goals, categories, and
-                transactions first. Account, budget, goal, category, line-item,
-                assignment, and notification-rule writes are previews until you
-                add
+                Pull accounts, investments, budgets, goals, scenarios,
+                categories, and transactions first. Account, budget, goal,
+                category, line-item, scenario, assignment, and notification-rule
+                writes are previews until you add
                 <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                   >--apply</code
                 >. Assignment, budget, and notification-rule previews validate
@@ -425,7 +429,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.20.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.21.0 or newer with Node.js 22 or newer. The
                     <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -553,6 +557,34 @@ sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
                 <code>projectionThroughMonthKey</code> for the final month
                 tested.
               </p>
+              <section id="scenario-cli" class="space-y-4">
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                ><code>sloth-agent scenarios
+sloth-agent scenarios create --month 2026-09 --name "Deposit £100 into the shopping pot each month?" --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --recurring-amount 100
+sloth-agent scenarios create --month 2026-09 --name "Add a £50 bonus?" --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --one-off-amount 50 --apply
+sloth-agent scenarios update --month 2026-09 --option-id yes --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --recurring-amount 125
+sloth-agent scenarios update --month 2026-09 --option-id yes --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --clear-recurring --apply
+sloth-agent scenarios activate --month 2026-09 --option-id no --apply
+sloth-agent scenarios delete --month 2026-09 --apply</code></pre>
+                <p class="text-gray-600 leading-relaxed">
+                  A scenario is a month-anchored choice in the Goal forecast.
+                  Creating one adds No and Yes options and activates Yes. A
+                  recurring contribution continues until a later active scenario
+                  changes it. A one-off contribution applies only in that month.
+                  Scenarios change the forecast. They do not move money.
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                  Scenario previews use view-only access and perform zero
+                  writes. They return the proposed scenario and recalculated
+                  Goals. Add
+                  <code>--apply</code> only after reviewing that result. On
+                  update, <code>--recurring-amount 0</code> stops the earlier
+                  amount, while <code>--clear-recurring</code> inherits the
+                  earlier amount. Contribution changes use the active option
+                  when <code>--option-id</code> is omitted.
+                </p>
+              </section>
               <pre
                 class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent budget --scope personal --period 2026-08
@@ -918,7 +950,7 @@ sloth-agent auth logout</code></pre>
             <h2
               class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
             >
-              Fifteen API resources
+              Sixteen API resources
             </h2>
             <p class="text-lg text-gray-600 leading-relaxed">
               Every request uses
@@ -977,6 +1009,41 @@ sloth-agent auth logout</code></pre>
                 is no restore command. Shared, disconnected, or inaccessible
                 accounts return Account not found. The CLI previews PATCH and
                 DELETE locally until you add <code>--apply</code>.
+              </p>
+            </article>
+
+            <article
+              id="scenario-api"
+              class="border border-gray-200 rounded-lg p-5"
+            >
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  >GET · POST · PATCH · DELETE</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/scenarios</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Lists month-anchored scenarios, their options, active option,
+                and account contributions. <code>POST</code> creates the common
+                No/Yes choice and activates Yes. Update and delete requests use
+                <code class="break-all">/api/agent/v1/scenarios/:monthKey</code
+                >. Select an existing option with
+                <code class="break-all"
+                  >/api/agent/v1/scenarios/:monthKey/activate</code
+                >.
+              </p>
+              <p class="text-gray-600 mt-3">
+                <code class="break-all"
+                  >POST /api/agent/v1/scenarios/preview</code
+                >
+                accepts a strict create, update, activate, or delete action. It
+                works with view-only access, performs zero writes, and returns
+                the proposed scenario plus recalculated Goals. Applied requests
+                require Allow changes. Scenario contributions affect forecasts
+                only and never transfer money.
               </p>
             </article>
 
