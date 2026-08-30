@@ -1271,6 +1271,12 @@ body[data-planner-stage='results'] .journey-milestone {
 }
 
 @media (min-width: 62.01rem) {
+  body:not([data-planner-stage='results']) .planner-visual {
+    height: auto;
+    min-height: 100svh;
+    align-self: stretch;
+  }
+
   .planner-content-inner {
     padding-top: clamp(1.5rem, 3vh, 2.5rem);
     padding-bottom: 1.5rem;

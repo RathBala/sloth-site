@@ -53,6 +53,28 @@ const listen = () =>
     })
   })
 
+const assertStageFitsViewport = async (
+  page,
+  actionSelector,
+  stageName,
+  viewportHeight
+) => {
+  const measurements = await page.evaluate((selector) => {
+    const action = document.querySelector(selector)
+
+    return {
+      documentOverflow: document.documentElement.scrollHeight - innerHeight,
+      actionBottom: action?.getBoundingClientRect().bottom,
+    }
+  }, actionSelector)
+
+  assert(
+    measurements.documentOverflow <= 1,
+    `the ${stageName} step must fit without vertical scrolling; overflow=${measurements.documentOverflow}`
+  )
+  assert(measurements.actionBottom <= viewportHeight)
+}
+
 const html = await readFile(pagePath, 'utf8')
 const plannerImage = await stat(
   join(srcRoot, 'assets', 'images', 'home-planner-journey.webp')
@@ -117,6 +139,11 @@ assert.match(
   html,
   /What home price are you thinking about\?/,
   'the home-price question should sound like the user is estimating a real home'
+)
+assert.doesNotMatch(
+  html,
+  /Start with the money you have now\. We will look at future home costs later\.|A rough starting point is enough\. Every figure stays adjustable\.|Pick a route to explore\. This is a planning choice, not a commitment\.|We will start at £300,000\. You can move it later\./,
+  'wizard steps should not repeat removable helper copy'
 )
 assert.match(
   html,
@@ -216,20 +243,16 @@ try {
     0,
     'the current savings screen must not ask about a future mortgage budget'
   )
-  const savingsViewport = await page.evaluate(() => ({
-    documentOverflow: document.documentElement.scrollHeight - innerHeight,
-    nextBottom: document.querySelector('#savings-next')?.getBoundingClientRect()
-      .bottom,
-    privacyBottom: document
-      .querySelector('.planner-privacy-note')
-      ?.getBoundingClientRect().bottom,
-  }))
-  assert(
-    savingsViewport.documentOverflow <= 1,
-    `the deposit step must fit without vertical scrolling; overflow=${savingsViewport.documentOverflow}`
+  await assertStageFitsViewport(
+    page,
+    '#savings-next',
+    'deposit',
+    desktopViewport.height
   )
-  assert(savingsViewport.nextBottom <= desktopViewport.height)
-  assert(savingsViewport.privacyBottom <= desktopViewport.height)
+  const privacyBox = await page.locator('.planner-privacy-note').boundingBox()
+  assert(
+    privacyBox && privacyBox.y + privacyBox.height <= desktopViewport.height
+  )
 
   await page.locator('#deposit-saved').fill('5250')
   await page.locator('#monthly-saving').fill('123')
@@ -238,12 +261,47 @@ try {
   await assert.doesNotReject(() =>
     page.locator('#planner-home:not([hidden])').waitFor()
   )
+  await assertStageFitsViewport(
+    page,
+    '#home-next',
+    'home',
+    desktopViewport.height
+  )
   await page.locator('[name="region"][value="england-ni"]').check()
   await page.locator('[name="propertyType"][value="house"]').check()
   await page
     .getByLabel('What home price are you thinking about?')
     .fill('287501')
   await page.locator('#home-next').click()
+
+  await page.locator('#planner-buying .education-card').evaluate((details) => {
+    details.open = true
+  })
+  const buyingScrollCoverage = await page.evaluate(() => {
+    const visual = document.querySelector('.planner-visual')
+    window.scrollTo({ top: 200 })
+    const bottomElement = document.elementFromPoint(20, innerHeight - 2)
+
+    return {
+      documentCanScroll: document.documentElement.scrollHeight > innerHeight,
+      leftBottomIsArtwork: Boolean(bottomElement?.closest('.planner-visual')),
+      visualBottom: visual.getBoundingClientRect().bottom + window.scrollY,
+    }
+  })
+  assert.equal(buyingScrollCoverage.documentCanScroll, true)
+  assert.equal(
+    buyingScrollCoverage.leftBottomIsArtwork,
+    true,
+    'a scrollable wizard step must keep artwork behind the full left column'
+  )
+  assert(
+    buyingScrollCoverage.visualBottom >=
+      (await page.evaluate(() => document.documentElement.scrollHeight)) - 1
+  )
+  await page.evaluate(() => window.scrollTo({ top: 0 }))
+  await page.locator('#planner-buying .education-card').evaluate((details) => {
+    details.open = false
+  })
 
   await page.locator('[name="ownershipType"][value="whole"]').check()
   await page.locator('[name="firstTimeBuyer"][value="yes"]').check()
