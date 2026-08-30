@@ -175,6 +175,7 @@ const requiredCopy = [
   'Partner personal accounts are excluded.',
   'Provider account IDs, account numbers, sort codes, and IBANs are not returned.',
   'The first transaction read each UTC day may refresh linked bank data.',
+  'A quota_exceeded reason means the UTC-day provider refresh allowance is exhausted. Cached booked transactions remain available.',
   'A completed eligible refresh updates your Budget balance audit. A same-day cached read does not add another audit checkpoint.',
   "--include-pending reuses the transaction command's normal refresh; it does not force another refresh.",
   'Pending rows appear in a separate pending block',

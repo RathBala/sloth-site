@@ -429,7 +429,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.22.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.22.1 or newer with Node.js 22 or newer. The
                     <code class="text-sm bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -1366,6 +1366,11 @@ sloth-agent auth logout</code></pre>
                 data. The response includes structured refresh status and still
                 returns readable cached transactions if refresh work continues
                 or fails.
+              </p>
+              <p class="text-gray-600 mt-3">
+                A <code>quota_exceeded</code> reason means the UTC-day provider
+                refresh allowance is exhausted. Cached booked transactions
+                remain available.
               </p>
               <p class="text-gray-600 mt-3">
                 A completed transaction refresh updates the Budget balance audit
