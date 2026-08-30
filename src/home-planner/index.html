@@ -801,6 +801,143 @@
                   </details>
                 </aside>
 
+                <section
+                  class="mortgage-choice-card"
+                  aria-labelledby="mortgage-choice-heading"
+                  aria-live="polite"
+                >
+                  <div class="mortgage-choice-heading">
+                    <div>
+                      <p class="panel-kicker">Mortgage setup</p>
+                      <h3 id="mortgage-choice-heading">
+                        Choose how the mortgage is repaid
+                      </h3>
+                      <p>See the monthly cost and what you would still owe.</p>
+                    </div>
+                    <span class="mortgage-choice-icon" aria-hidden="true">
+                      <i data-lucide="landmark"></i>
+                    </span>
+                  </div>
+
+                  <fieldset class="repayment-options">
+                    <legend>Repayment method</legend>
+                    <label class="repayment-option">
+                      <input
+                        id="repayment-method-repayment"
+                        type="radio"
+                        name="repaymentMethod"
+                        value="repayment"
+                        checked
+                      />
+                      <span class="repayment-option-topline">
+                        <strong>Repayment</strong>
+                        <span class="selection-mark" aria-hidden="true">
+                          <i data-lucide="check" aria-hidden="true"></i>
+                          <span>Selected</span>
+                        </span>
+                      </span>
+                      <span
+                        class="repayment-option-payment"
+                        id="repayment-option-payment"
+                      ></span>
+                      <small
+                        id="repayment-option-balance"
+                        class="repayment-option-balance"
+                      ></small>
+                      <span class="repayment-option-note">
+                        Clears the amount borrowed over the term.
+                      </span>
+                    </label>
+
+                    <label class="repayment-option repayment-option-warn">
+                      <input
+                        id="repayment-method-interest-only"
+                        type="radio"
+                        name="repaymentMethod"
+                        value="interest-only"
+                      />
+                      <span class="repayment-option-topline">
+                        <strong>Interest-only</strong>
+                        <span class="selection-mark" aria-hidden="true">
+                          <i data-lucide="check" aria-hidden="true"></i>
+                          <span>Selected</span>
+                        </span>
+                      </span>
+                      <span
+                        class="repayment-option-payment"
+                        id="interest-only-option-payment"
+                      ></span>
+                      <small
+                        id="interest-only-option-balance"
+                        class="repayment-option-balance"
+                      ></small>
+                      <span class="repayment-option-note">
+                        Needs a separate plan to repay the amount borrowed.
+                      </span>
+                    </label>
+                  </fieldset>
+
+                  <div class="rate-and-balance">
+                    <fieldset class="rate-options">
+                      <legend>How should the rate behave?</legend>
+                      <div class="rate-option-buttons">
+                        <label>
+                          <input
+                            id="rate-type-fixed"
+                            type="radio"
+                            name="rateType"
+                            value="fixed"
+                            checked
+                          />
+                          <span>Fixed</span>
+                        </label>
+                        <label>
+                          <input
+                            id="rate-type-tracker"
+                            type="radio"
+                            name="rateType"
+                            value="tracker"
+                          />
+                          <span>Tracker</span>
+                        </label>
+                      </div>
+                      <p id="rate-type-explanation"></p>
+                    </fieldset>
+
+                    <div class="balance-summary">
+                      <span>At the end of the term</span>
+                      <strong id="selected-end-balance"></strong>
+                    </div>
+                  </div>
+
+                  <div class="balance-comparison">
+                    <div class="balance-comparison-heading">
+                      <strong>How the balance changes</strong>
+                      <span id="balance-comparison-term"></span>
+                    </div>
+                    <div class="balance-table" role="table">
+                      <div class="balance-row balance-row-heading" role="row">
+                        <span role="columnheader">Method</span>
+                        <span role="columnheader" id="balance-year-one"></span>
+                        <span role="columnheader" id="balance-year-two"></span>
+                        <span role="columnheader">End</span>
+                      </div>
+                      <div class="balance-row" role="row">
+                        <strong role="rowheader">Repayment</strong>
+                        <span role="cell" id="repayment-balance-one"></span>
+                        <span role="cell" id="repayment-balance-two"></span>
+                        <span role="cell">£0</span>
+                      </div>
+                      <div class="balance-row" role="row">
+                        <strong role="rowheader">Interest-only</strong>
+                        <span role="cell" id="interest-only-balance-one"></span>
+                        <span role="cell" id="interest-only-balance-two"></span>
+                        <span role="cell" id="interest-only-balance-end"></span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
                 <div class="plan-panel" aria-live="polite">
                   <section class="reality-card">
                     <div>
@@ -857,7 +994,9 @@
                       </div>
                       <dl class="cost-breakdown">
                         <div>
-                          <dt>Mortgage repayment</dt>
+                          <dt id="breakdown-mortgage-label">
+                            Mortgage repayment
+                          </dt>
                           <dd id="breakdown-mortgage"></dd>
                         </div>
                         <div id="breakdown-rent-row" hidden>
@@ -936,61 +1075,6 @@
                     <div class="scenario-table" id="deposit-scenarios"></div>
                   </section>
 
-                  <section class="mortgage-guide">
-                    <div class="panel-heading">
-                      <div>
-                        <p class="panel-kicker">Mortgage routes</p>
-                        <h3>What might suit you?</h3>
-                      </div>
-                      <i data-lucide="route" aria-hidden="true"></i>
-                    </div>
-                    <div class="mortgage-options">
-                      <details open>
-                        <summary>
-                          <span>
-                            <strong>Fixed-rate repayment</strong>
-                            <small>More predictable monthly payments</small>
-                          </span>
-                          <i data-lucide="chevron-down" aria-hidden="true"></i>
-                        </summary>
-                        <p>
-                          The rate stays fixed for an agreed period. That can
-                          help when a stable monthly figure matters, but fees
-                          and early repayment charges can change the overall
-                          value.
-                        </p>
-                      </details>
-                      <details>
-                        <summary>
-                          <span>
-                            <strong>Tracker repayment</strong>
-                            <small>Payments can fall or rise</small>
-                          </span>
-                          <i data-lucide="chevron-down" aria-hidden="true"></i>
-                        </summary>
-                        <p>
-                          The rate follows another rate, often the Bank of
-                          England base rate. It can suit a flexible budget, but
-                          your payment can increase.
-                        </p>
-                      </details>
-                      <details>
-                        <summary>
-                          <span>
-                            <strong>Shared ownership</strong>
-                            <small>Smaller deposit, more moving parts</small>
-                          </span>
-                          <i data-lucide="chevron-down" aria-hidden="true"></i>
-                        </summary>
-                        <p>
-                          You mortgage the share you buy and pay rent on the
-                          rest. Compare the mortgage, rent, service charge and
-                          future staircasing costs together.
-                        </p>
-                      </details>
-                    </div>
-                  </section>
-
                   <section class="planner-disclaimer">
                     <i data-lucide="info" aria-hidden="true"></i>
                     <div>
@@ -1005,9 +1089,18 @@
                         <summary>Sources and assumptions</summary>
                         <ul>
                           <li>
-                            Mortgage affordability and rate types:
+                            Repayment and interest-only mortgages:
                             <a
-                              href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-affordability-calculator"
+                              href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-repayment-options"
+                              target="_blank"
+                              rel="noreferrer"
+                              >MoneyHelper</a
+                            >
+                          </li>
+                          <li>
+                            Fixed and tracker rates:
+                            <a
+                              href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-interest-rate-options"
                               target="_blank"
                               rel="noreferrer"
                               >MoneyHelper</a

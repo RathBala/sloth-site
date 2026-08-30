@@ -787,17 +787,20 @@ details[open] > summary > svg {
 .results-layout {
   display: grid;
   grid-template-columns: minmax(15rem, 0.72fr) minmax(28rem, 1.28fr);
+  grid-template-areas:
+    'levers mortgage-choice'
+    'levers plan';
   gap: 1.15rem;
   margin-top: 2rem;
 }
 
 .lever-panel,
+.mortgage-choice-card,
 .reality-card,
 .result-metrics article,
 .breakdown-card,
 .borrowing-card,
 .scenario-card,
-.mortgage-guide,
 .planner-disclaimer {
   border: 1px solid var(--planner-border);
   border-radius: 1.15rem;
@@ -808,6 +811,7 @@ details[open] > summary > svg {
 .lever-panel {
   position: sticky;
   top: 0;
+  grid-area: levers;
   height: fit-content;
   padding: 1.15rem;
 }
@@ -904,8 +908,317 @@ details[open] > summary > svg {
 }
 
 .plan-panel {
+  grid-area: plan;
   display: grid;
   gap: 1rem;
+}
+
+.mortgage-choice-card {
+  grid-area: mortgage-choice;
+  padding: 1.35rem;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.mortgage-choice-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mortgage-choice-heading h3 {
+  margin: 0.1rem 0 0;
+  color: var(--planner-ink);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+}
+
+.mortgage-choice-heading p:last-child {
+  margin: 0.45rem 0 0;
+  color: var(--planner-copy);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.mortgage-choice-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 0.8rem;
+  background: #ddf7e3;
+  color: var(--planner-focus);
+}
+
+.mortgage-choice-icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.repayment-options,
+.rate-options {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.repayment-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.15rem;
+}
+
+.repayment-options legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.rate-options legend {
+  display: block;
+  margin: 0 0 0.5rem;
+  color: var(--planner-ink-soft);
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+
+.repayment-option {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  gap: 0.25rem;
+  padding: 1rem;
+  border: 1px solid var(--planner-border);
+  border-radius: 1rem;
+  background: var(--planner-surface-soft);
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.repayment-option input,
+.rate-option-buttons input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.repayment-option:has(input:checked) {
+  border-color: rgba(11, 143, 85, 0.65);
+  background: #e7f8e9;
+  box-shadow: 0 0 0 0.16rem rgba(11, 143, 85, 0.1);
+}
+
+.repayment-option-warn:has(input:checked) {
+  border-color: rgba(178, 92, 46, 0.58);
+  background: #fff3ec;
+  box-shadow: 0 0 0 0.16rem rgba(178, 92, 46, 0.09);
+}
+
+.repayment-option:has(input:focus-visible),
+.rate-option-buttons label:has(input:focus-visible) {
+  outline: 0.2rem solid rgba(11, 143, 85, 0.4);
+  outline-offset: 0.15rem;
+}
+
+.repayment-option-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.repayment-option-topline > strong {
+  color: var(--planner-ink);
+  font-size: 0.88rem;
+}
+
+.selection-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--planner-focus);
+  font-size: 0.62rem;
+  font-weight: 800;
+  opacity: 0;
+}
+
+.repayment-option-warn .selection-mark {
+  color: #9a4e2b;
+}
+
+.selection-mark svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.repayment-option:has(input:checked) .selection-mark {
+  opacity: 1;
+}
+
+.repayment-option-payment {
+  color: var(--planner-ink);
+  font-size: clamp(1.45rem, 2.6vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1.1;
+}
+
+.repayment-option-balance {
+  color: var(--planner-ink-soft);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.repayment-option-note {
+  margin-top: 0.35rem;
+  color: var(--planner-muted);
+  font-size: 0.66rem;
+  line-height: 1.4;
+}
+
+.rate-and-balance {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(11rem, 0.66fr);
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.rate-options,
+.balance-summary {
+  padding: 0.85rem;
+  border: 1px solid var(--planner-border);
+  border-radius: 0.85rem;
+  background: #fff;
+}
+
+.rate-option-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0.2rem;
+  border-radius: 0.65rem;
+  background: #e7eee9;
+}
+
+.rate-option-buttons label {
+  position: relative;
+  min-width: 0;
+}
+
+.rate-option-buttons span {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--planner-ink-soft);
+  font-size: 0.72rem;
+  font-weight: 750;
+  text-align: center;
+}
+
+.rate-option-buttons label:has(input:checked) span {
+  background: #fff;
+  box-shadow: 0 0.2rem 0.6rem rgba(15, 53, 42, 0.1);
+  color: var(--planner-ink);
+}
+
+.rate-options p {
+  margin: 0.55rem 0 0;
+  color: var(--planner-muted);
+  font-size: 0.65rem;
+  line-height: 1.45;
+}
+
+.balance-summary {
+  display: grid;
+  align-content: center;
+  gap: 0.3rem;
+  background: #f4f0ff;
+}
+
+.balance-summary span {
+  color: var(--planner-muted);
+  font-size: 0.66rem;
+}
+
+.balance-summary strong {
+  color: var(--planner-ink);
+  font-size: 1rem;
+  letter-spacing: -0.03em;
+}
+
+.balance-comparison {
+  margin-top: 0.75rem;
+  padding: 0.85rem;
+  border-radius: 0.85rem;
+  background: #f8faf8;
+}
+
+.balance-comparison-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.balance-comparison-heading strong {
+  color: var(--planner-ink);
+  font-size: 0.76rem;
+}
+
+.balance-comparison-heading span {
+  color: var(--planner-muted);
+  font-size: 0.63rem;
+}
+
+.balance-table {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.65rem;
+}
+
+.balance-row {
+  display: grid;
+  grid-template-columns: minmax(6rem, 1.2fr) repeat(3, minmax(3.5rem, 0.75fr));
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.balance-row strong,
+.balance-row span {
+  min-width: 0;
+  color: var(--planner-copy);
+  font-size: 0.64rem;
+}
+
+.balance-row strong {
+  color: var(--planner-ink-soft);
+  font-weight: 750;
+}
+
+.balance-row span:not(:first-child) {
+  text-align: right;
+}
+
+.balance-row-heading {
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(8, 61, 47, 0.1);
+}
+
+.balance-row-heading span {
+  color: var(--planner-muted);
+  font-size: 0.59rem;
+  font-weight: 700;
 }
 
 .reality-card {
@@ -1015,7 +1328,6 @@ details[open] > summary > svg {
 
 .breakdown-card,
 .scenario-card,
-.mortgage-guide,
 .planner-disclaimer {
   padding: 1.1rem;
 }
@@ -1145,52 +1457,6 @@ details[open] > summary > svg {
   line-height: 1.4;
 }
 
-.mortgage-options {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.65rem;
-  margin-top: 1rem;
-}
-
-.mortgage-options details {
-  margin: 0;
-  background: var(--planner-surface-soft);
-}
-
-.mortgage-options summary {
-  align-items: flex-start;
-  padding: 0.8rem;
-}
-
-.mortgage-options summary span {
-  min-width: 0;
-}
-
-.mortgage-options strong,
-.mortgage-options small {
-  display: block;
-}
-
-.mortgage-options strong {
-  font-size: 0.76rem;
-}
-
-.mortgage-options small {
-  margin-top: 0.2rem;
-  color: var(--planner-muted);
-  font-size: 0.65rem;
-  font-weight: 550;
-  line-height: 1.4;
-}
-
-.mortgage-options p {
-  margin: 0;
-  padding: 0 0.8rem 0.8rem;
-  color: var(--planner-copy);
-  font-size: 0.69rem;
-  line-height: 1.5;
-}
-
 .planner-disclaimer {
   display: flex;
   gap: 0.85rem;
@@ -1279,7 +1545,7 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .planner-page,
   .planner-shell {
-    height: 100svh;
+    height: 100%;
     min-height: 0;
     overflow: hidden;
   }
@@ -1287,14 +1553,14 @@ body[data-planner-stage='results'] .journey-milestone {
   .planner-visual {
     position: sticky;
     top: 0;
-    height: 100svh;
-    min-height: 100svh;
+    height: 100%;
+    min-height: 0;
     align-self: start;
   }
 
   .planner-content,
   body[data-planner-stage='results'] .planner-content {
-    height: 100svh;
+    height: 100%;
     min-height: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -1557,6 +1823,10 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .results-layout {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      'mortgage-choice'
+      'levers'
+      'plan';
   }
 
   .lever-panel {
@@ -1578,7 +1848,8 @@ body[data-planner-stage='results'] .journey-milestone {
   .choice-grid-three,
   .education-grid,
   .result-columns,
-  .mortgage-options {
+  .repayment-options,
+  .rate-and-balance {
     grid-template-columns: 1fr;
   }
 
@@ -1611,6 +1882,28 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .reality-card {
     display: grid;
+  }
+
+  .mortgage-choice-card {
+    padding: 1rem;
+  }
+
+  .mortgage-choice-heading h3 {
+    font-size: 1.35rem;
+  }
+
+  .repayment-option-payment {
+    font-size: 1.75rem;
+  }
+
+  .balance-row {
+    grid-template-columns: minmax(5.5rem, 1fr) repeat(3, minmax(2.8rem, 0.6fr));
+    gap: 0.35rem;
+  }
+
+  .balance-row strong,
+  .balance-row span {
+    font-size: 0.58rem;
   }
 
   .plan-status {

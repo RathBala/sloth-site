@@ -9,6 +9,7 @@ import { chromium } from 'playwright'
 const root = fileURLToPath(new URL('..', import.meta.url))
 const srcRoot = join(root, 'src')
 const pagePath = join(srcRoot, 'home-planner', 'index.html')
+const plannerStylesPath = join(srcRoot, 'assets', 'css', 'home-planner.css')
 
 const mimeTypes = new Map([
   ['.css', 'text/css; charset=utf-8'],
@@ -96,6 +97,7 @@ const measureIndependentPanelScroll = (page, targetScrollTop) =>
   }, targetScrollTop)
 
 const html = await readFile(pagePath, 'utf8')
+const plannerStyles = await readFile(plannerStylesPath, 'utf8')
 const plannerImage = await stat(
   join(srcRoot, 'assets', 'images', 'home-planner-journey.webp')
 )
@@ -110,6 +112,12 @@ assert(
 assert(
   plannerFallbackImage.size <= 300 * 1024,
   `the first-view JPEG fallback must stay within 300 KB; size=${plannerFallbackImage.size}`
+)
+
+assert.match(
+  plannerStyles,
+  /@media \(min-width: 62\.01rem\)[\s\S]*?\.planner-page,\s*\.planner-shell \{\s*height: 100%;[\s\S]*?\.planner-visual \{[\s\S]*?height: 100%;[\s\S]*?\.planner-content,[\s\S]*?height: 100%;/,
+  'desktop panels must inherit one root viewport height so the fixed artwork reaches the painted bottom edge'
 )
 
 assert.doesNotMatch(
@@ -189,6 +197,21 @@ assert.match(
   html,
   /Nothing is saved\. Your answers clear when you leave\./,
   'the transient persistence contract must be clear'
+)
+assert.match(
+  html,
+  /name="repaymentMethod"[\s\S]*?value="repayment"[\s\S]*?value="interest-only"/,
+  'repayment and interest-only must be prominent, selectable scenarios'
+)
+assert.match(
+  html,
+  /name="rateType"[\s\S]*?value="fixed"[\s\S]*?value="tracker"/,
+  'fixed and tracker must remain a separate rate choice'
+)
+assert.doesNotMatch(
+  html,
+  /class="mortgage-guide"/,
+  'the old buried mortgage guide must be removed'
 )
 
 let browser
@@ -380,6 +403,81 @@ try {
     'programmatically focused stage headings must not show a browser-default outline'
   )
 
+  await page.locator('#lever-home-price').fill('1000000')
+  await page.locator('#lever-deposit').fill('40')
+  await page.locator('#lever-rate').fill('4')
+  await page.locator('#lever-term').fill('30')
+  assert.equal(
+    await page
+      .locator('[name="repaymentMethod"][value="repayment"]')
+      .isChecked(),
+    true,
+    'repayment should be the default comparison'
+  )
+  assert.equal(
+    await page.locator('[name="rateType"][value="fixed"]').isChecked(),
+    true,
+    'fixed should be the default rate behaviour'
+  )
+  assert.equal(
+    await page.locator('#repayment-option-payment').textContent(),
+    '£2,864/mo'
+  )
+  assert.equal(
+    await page.locator('#interest-only-option-payment').textContent(),
+    '£2,000/mo'
+  )
+  assert.equal(
+    await page.locator('#repayment-option-balance').textContent(),
+    '£0 left after 30 years'
+  )
+  assert.equal(
+    await page.locator('#interest-only-option-balance').textContent(),
+    '£600,000 left after 30 years'
+  )
+
+  await page.locator('[name="repaymentMethod"][value="interest-only"]').check()
+  assert.equal(
+    await page.locator('#result-mortgage-payment').textContent(),
+    '£2,000/mo',
+    'interest-only should update the headline mortgage payment'
+  )
+  assert.equal(
+    await page.locator('#result-total-monthly').textContent(),
+    '£3,258 a month',
+    'interest-only should update the full monthly picture'
+  )
+  assert.equal(
+    await page.locator('#result-loan').textContent(),
+    '£600,000 interest-only mortgage'
+  )
+  assert.equal(
+    await page.locator('#selected-end-balance').textContent(),
+    '£600,000 left at the end'
+  )
+
+  await page.locator('[name="rateType"][value="tracker"]').check()
+  assert.match(
+    await page.locator('#rate-type-explanation').textContent(),
+    /can rise or fall/i,
+    'tracker should explain that the assumed payment can change'
+  )
+  assert.equal(
+    await page.locator('#result-mortgage-payment').textContent(),
+    '£2,000/mo',
+    'changing rate behaviour should not alter the current-rate calculation'
+  )
+
+  await page.locator('[name="repaymentMethod"][value="repayment"]').check()
+  assert.equal(
+    await page.locator('#result-mortgage-payment').textContent(),
+    '£2,864/mo'
+  )
+  assert.equal(
+    await page.locator('#selected-end-balance').textContent(),
+    '£0 left at the end'
+  )
+
   const mortgageBefore = await page
     .locator('#result-mortgage-payment')
     .textContent()
@@ -479,6 +577,49 @@ try {
   await mobilePage.locator('#planner-start').click()
   await assert.doesNotReject(() =>
     mobilePage.locator('#savings-next').waitFor({ state: 'visible' })
+  )
+  await mobilePage.locator('#deposit-saved').fill('5000')
+  await mobilePage.locator('#monthly-saving').fill('500')
+  await mobilePage.locator('#savings-next').click()
+  await mobilePage.locator('[name="region"][value="not-sure"]').check()
+  await mobilePage.locator('#home-price').fill('300000')
+  await mobilePage.locator('[name="propertyType"][value="house"]').check()
+  await mobilePage.locator('#home-next').click()
+  await mobilePage.locator('[name="ownershipType"][value="whole"]').check()
+  await mobilePage.locator('[name="firstTimeBuyer"][value="yes"]').check()
+  await mobilePage.locator('#buying-next').click()
+  await mobilePage.locator('#mortgage-budget').fill('1500')
+  await mobilePage.locator('#annual-income').fill('60000')
+  await mobilePage.locator('#budget-next').click()
+
+  const mobileResultOrder = await mobilePage.evaluate(() => ({
+    choiceTop: document
+      .querySelector('.mortgage-choice-card')
+      .getBoundingClientRect().top,
+    leverTop: document.querySelector('.lever-panel').getBoundingClientRect()
+      .top,
+    widthOverflow: document.documentElement.scrollWidth - innerWidth,
+  }))
+  assert(
+    mobileResultOrder.choiceTop < mobileResultOrder.leverTop,
+    'the mortgage choice must appear before the assumptions on mobile'
+  )
+  assert(
+    mobileResultOrder.widthOverflow <= 1,
+    `mobile results must not overflow horizontally; overflow=${mobileResultOrder.widthOverflow}`
+  )
+
+  await mobilePage.locator('#repayment-method-repayment').focus()
+  await mobilePage.locator('#repayment-method-repayment').press('ArrowRight')
+  assert.equal(
+    await mobilePage.locator('#repayment-method-interest-only').isChecked(),
+    true,
+    'the repayment choice should support native arrow-key selection'
+  )
+  assert.match(
+    await mobilePage.locator('#selected-end-balance').textContent(),
+    /left at the end/,
+    'keyboard selection must update the visible result'
   )
 
   console.log('Home planner interaction checks passed.')

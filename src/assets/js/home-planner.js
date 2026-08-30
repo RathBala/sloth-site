@@ -1,5 +1,6 @@
 import {
   calculateHomePlan,
+  calculateMortgageBalance,
   PROPERTY_TAX_UPDATED_AT,
 } from './home-planner-calculator.mjs'
 
@@ -168,6 +169,7 @@ function initializePlanner() {
     ownershipType: checkedValue('ownershipType'),
     propertyType: checkedValue('propertyType'),
     region: checkedValue('region'),
+    repaymentMethod: checkedValue('repaymentMethod'),
     serviceCharge: inputNumber('lever-service'),
     sharedOwnershipPercent: inputNumber('lever-shared-percent'),
     termYears: inputNumber('lever-term'),
@@ -227,6 +229,22 @@ function initializePlanner() {
       0,
       plan.monthlyHomeCost - plan.monthlyMortgagePayment
     )
+    const rateType = checkedValue('rateType')
+    const isInterestOnly = plan.repaymentMethod === 'interest-only'
+    const balanceYearOne = Math.round(input.termYears / 3)
+    const balanceYearTwo = Math.round((input.termYears * 2) / 3)
+    const repaymentBalanceOne = calculateMortgageBalance(
+      plan.mortgagePrincipal,
+      input.annualInterestRate,
+      input.termYears,
+      balanceYearOne
+    )
+    const repaymentBalanceTwo = calculateMortgageBalance(
+      plan.mortgagePrincipal,
+      input.annualInterestRate,
+      input.termYears,
+      balanceYearTwo
+    )
 
     byId('result-deposit-percent').textContent = `${input.depositPercent}%`
     byId('result-rate').textContent = `${input.annualInterestRate.toFixed(1)}%`
@@ -243,6 +261,40 @@ function initializePlanner() {
     )}/mo`
     byId('result-furnishings').textContent = formatMoney(input.furnishingBudget)
     byId('result-buying-fees').textContent = formatMoney(input.buyingFees)
+
+    byId('repayment-option-payment').textContent = `${formatMoney(
+      plan.monthlyRepaymentPayment
+    )}/mo`
+    byId('interest-only-option-payment').textContent = `${formatMoney(
+      plan.monthlyInterestOnlyPayment
+    )}/mo`
+    byId('repayment-option-balance').textContent =
+      `£0 left after ${input.termYears} years`
+    byId('interest-only-option-balance').textContent = `${formatMoney(
+      plan.mortgagePrincipal
+    )} left after ${input.termYears} years`
+    byId('selected-end-balance').textContent = isInterestOnly
+      ? `${formatMoney(plan.mortgageBalanceAtEnd)} left at the end`
+      : '£0 left at the end'
+    byId('rate-type-explanation').textContent =
+      rateType === 'tracker'
+        ? 'Follows another rate, so this payment can rise or fall.'
+        : 'Keeps this rate for an agreed deal period, then usually changes.'
+    byId('balance-comparison-term').textContent =
+      `${input.termYears}-year term at ${input.annualInterestRate.toFixed(1)}%`
+    byId('balance-year-one').textContent = `Year ${balanceYearOne}`
+    byId('balance-year-two').textContent = `Year ${balanceYearTwo}`
+    byId('repayment-balance-one').textContent = formatMoney(repaymentBalanceOne)
+    byId('repayment-balance-two').textContent = formatMoney(repaymentBalanceTwo)
+    byId('interest-only-balance-one').textContent = formatMoney(
+      plan.mortgagePrincipal
+    )
+    byId('interest-only-balance-two').textContent = formatMoney(
+      plan.mortgagePrincipal
+    )
+    byId('interest-only-balance-end').textContent = formatMoney(
+      plan.mortgagePrincipal
+    )
 
     byId('result-total-monthly').textContent = `${formatMoney(
       plan.monthlyHomeCost
@@ -275,7 +327,7 @@ function initializePlanner() {
     )}/mo`
     byId('result-loan').textContent = `${formatMoney(
       plan.mortgagePrincipal
-    )} repayment mortgage`
+    )} ${isInterestOnly ? 'interest-only' : 'repayment'} mortgage`
     byId('result-cash-needed').textContent = formatMoney(plan.cashNeeded)
     byId('result-cash-shortfall').textContent = `${formatMoney(
       plan.cashShortfall
@@ -290,6 +342,9 @@ function initializePlanner() {
     byId('breakdown-mortgage').textContent = formatMoney(
       plan.monthlyMortgagePayment
     )
+    byId('breakdown-mortgage-label').textContent = isInterestOnly
+      ? 'Interest-only payment'
+      : 'Mortgage repayment'
     byId('breakdown-rent-row').hidden = plan.monthlySharedRent === 0
     byId('breakdown-rent').textContent = formatMoney(plan.monthlySharedRent)
     byId('breakdown-maintenance').textContent = formatMoney(
@@ -348,6 +403,8 @@ function initializePlanner() {
           ? '6000'
           : '7000'
     byId('lever-buying-fees').value = '4000'
+    byId('repayment-method-repayment').checked = true
+    byId('rate-type-fixed').checked = true
     byId('tax-rates-date').textContent =
       `Property tax assumptions checked ${PROPERTY_TAX_UPDATED_AT}.`
     renderPlan()
@@ -424,6 +481,10 @@ function initializePlanner() {
       '.lever-panel input[type="range"]:not(#lever-home-price-range)'
     )
     .forEach((input) => input.addEventListener('input', renderPlan))
+
+  document
+    .querySelectorAll('[name="repaymentMethod"], [name="rateType"]')
+    .forEach((input) => input.addEventListener('change', renderPlan))
 
   const syncHomePriceRange = (homePrice) => {
     homePriceRange.value = String(homePriceToSlider(homePrice, homePriceLimits))

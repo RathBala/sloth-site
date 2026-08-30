@@ -3,12 +3,25 @@ import test from 'node:test'
 
 import {
   calculateHomePlan,
+  calculateInterestOnlyPayment,
+  calculateMortgageBalance,
   calculateMortgagePayment,
   calculatePropertyTax,
 } from '../src/assets/js/home-planner-calculator.mjs'
 
 test('calculates a repayment mortgage with monthly compounding', () => {
   assert.equal(Math.round(calculateMortgagePayment(240000, 5, 30)), 1288)
+})
+
+test('calculates the £600,000 worked example shown in the planner', () => {
+  assert.equal(Math.round(calculateMortgagePayment(600000, 4, 30)), 2864)
+})
+
+test('compares repayment and interest-only costs for the same mortgage', () => {
+  assert.equal(calculateInterestOnlyPayment(600000, 4), 2000)
+  assert.equal(Math.round(calculateMortgageBalance(600000, 4, 30, 10)), 472704)
+  assert.equal(Math.round(calculateMortgageBalance(600000, 4, 30, 20)), 282926)
+  assert.equal(Math.round(calculateMortgageBalance(600000, 4, 30, 30)), 0)
 })
 
 test('uses current first-home property tax bands across the UK', () => {
@@ -51,6 +64,39 @@ test('keeps current savings separate from future home costs', () => {
   assert.equal(Math.round(plan.monthlyHomeCost), 2124)
   assert.equal(Math.round(plan.monthlyMortgageHeadroom), 51)
   assert.equal(plan.incomeBorrowingEstimate, 270000)
+  assert.equal(plan.mortgageBalanceAtEnd, 0)
+})
+
+test('keeps the capital due at the end of an interest-only mortgage', () => {
+  const plan = calculateHomePlan({
+    annualIncome: 150000,
+    annualInterestRate: 4,
+    buyingFees: 4000,
+    depositPercent: 40,
+    depositSaved: 5000,
+    firstTimeBuyer: 'no',
+    furnishingBudget: 8000,
+    homePrice: 1000000,
+    maintenancePercent: 1,
+    monthlyBills: 425,
+    monthlyMortgageBudget: 3000,
+    monthlySaving: 1000,
+    ownershipType: 'whole',
+    propertyType: 'house',
+    region: 'england-ni',
+    repaymentMethod: 'interest-only',
+    serviceCharge: 0,
+    sharedOwnershipPercent: 40,
+    termYears: 30,
+  })
+
+  assert.equal(plan.mortgagePrincipal, 600000)
+  assert.equal(plan.monthlyMortgagePayment, 2000)
+  assert.equal(plan.monthlyRepaymentPayment.toFixed(2), '2864.49')
+  assert.equal(plan.monthlyInterestOnlyPayment, 2000)
+  assert.equal(plan.mortgageBalanceAtEnd, 600000)
+  assert.equal(Math.round(plan.monthlyHomeCost), 3258)
+  assert.equal(plan.monthlyMortgageHeadroom, 1000)
 })
 
 test('shows rent on the unowned share for shared ownership', () => {

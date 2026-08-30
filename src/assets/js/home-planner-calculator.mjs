@@ -41,6 +41,40 @@ export function calculateMortgagePayment(principal, annualRate, termYears) {
   return loan * ((monthlyRate * compound) / (compound - 1))
 }
 
+export function calculateInterestOnlyPayment(principal, annualRate) {
+  return (numberOrZero(principal) * numberOrZero(annualRate)) / 1200
+}
+
+export function calculateMortgageBalance(
+  principal,
+  annualRate,
+  termYears,
+  elapsedYears
+) {
+  const loan = numberOrZero(principal)
+  const totalMonths = Math.max(1, Math.round(numberOrZero(termYears) * 12))
+  const elapsedMonths = Math.min(
+    totalMonths,
+    Math.max(0, Math.round(numberOrZero(elapsedYears) * 12))
+  )
+
+  if (loan === 0 || elapsedMonths === totalMonths) return 0
+
+  const monthlyPayment = calculateMortgagePayment(loan, annualRate, termYears)
+  const monthlyRate = numberOrZero(annualRate) / 100 / 12
+
+  if (monthlyRate === 0) {
+    return Math.max(0, loan - monthlyPayment * elapsedMonths)
+  }
+
+  const elapsedCompound = (1 + monthlyRate) ** elapsedMonths
+  return Math.max(
+    0,
+    loan * elapsedCompound -
+      monthlyPayment * ((elapsedCompound - 1) / monthlyRate)
+  )
+}
+
 export function calculatePropertyTax(price, region, firstTimeBuyer) {
   const value = numberOrZero(price)
   const isFirstTimeBuyer = firstTimeBuyer === 'yes'
@@ -98,11 +132,23 @@ export function calculateHomePlan(input) {
   )
   const depositRequired = purchasedValue * (depositPercent / 100)
   const mortgagePrincipal = Math.max(0, purchasedValue - depositRequired)
-  const monthlyMortgagePayment = calculateMortgagePayment(
+  const repaymentMethod =
+    input.repaymentMethod === 'interest-only' ? 'interest-only' : 'repayment'
+  const monthlyRepaymentPayment = calculateMortgagePayment(
     mortgagePrincipal,
     input.annualInterestRate,
     input.termYears
   )
+  const monthlyInterestOnlyPayment = calculateInterestOnlyPayment(
+    mortgagePrincipal,
+    input.annualInterestRate
+  )
+  const monthlyMortgagePayment =
+    repaymentMethod === 'interest-only'
+      ? monthlyInterestOnlyPayment
+      : monthlyRepaymentPayment
+  const mortgageBalanceAtEnd =
+    repaymentMethod === 'interest-only' ? mortgagePrincipal : 0
   const monthlySharedRent =
     ownershipType === 'shared'
       ? (Math.max(0, homePrice - purchasedValue) *
@@ -154,13 +200,17 @@ export function calculateHomePlan(input) {
     monthsToCashNeeded,
     monthlyBills,
     monthlyHomeCost,
+    monthlyInterestOnlyPayment,
     monthlyMaintenance,
     monthlyMortgageHeadroom,
     monthlyMortgagePayment,
+    monthlyRepaymentPayment,
     monthlySharedRent,
+    mortgageBalanceAtEnd,
     mortgagePrincipal,
     propertyTax,
     purchasedValue,
+    repaymentMethod,
     serviceCharge,
     sharedOwnershipPercent,
   }
