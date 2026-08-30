@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Can you afford your dream home? | Sloth Money</title>
+    <link rel="canonical" href="https://slothmoney.app/home-planner/" />
+
+    <meta name="theme-color" content="#073f32" />
+    <meta
+      name="description"
+      content="Explore your deposit timeline, mortgage scenarios, and the costs people miss when planning to own a home."
+    />
+    <meta
+      property="og:title"
+      content="Can you afford your dream home? | Sloth Money"
+    />
+    <meta
+      property="og:description"
+      content="Explore your deposit timeline, mortgage scenarios, and the costs people miss when planning to own a home."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://slothmoney.app/home-planner/" />
+    <meta
+      property="og:image"
+      content="https://slothmoney.app/assets/images/sloth-money-logo-icon.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Can you afford your dream home? | Sloth Money"
+    />
+    <meta
+      name="twitter:description"
+      content="Explore your deposit timeline, mortgage scenarios, and the costs people miss when planning to own a home."
+    />
+    <meta
+      name="twitter:image"
+      content="https://slothmoney.app/assets/images/sloth-money-logo-icon.png"
+    />
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="../assets/images/sloth-money-logo-icon.png"
+    />
+    <link rel="manifest" href="../site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="preload"
+      href="../assets/images/home-planner-journey.webp"
+      as="image"
+      type="image/webp"
+    />
+    <link href="../assets/css/home-planner.css" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@0.468.0"></script>
+    <script src="../assets/js/posthog-config.js"></script>
+    <script>
+      !(function (t, e) {
+        var o, n, p, r
+        e.__SV ||
+          ((window.posthog = e),
+          (e._i = []),
+          (e.init = function (i, s, a) {
+            function g(t, e) {
+              var o = e.split('.')
+              2 == o.length && ((t = t[o[0]]), (e = o[1])),
+                (t[e] = function () {
+                  t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                })
+            }
+            ;((p = t.createElement('script')).type = 'text/javascript'),
+              (p.crossOrigin = 'anonymous'),
+              (p.async = !0),
+              (p.src =
+                s.api_host.replace('.i.posthog.com', '-assets.i.posthog.com') +
+                '/static/array.js'),
+              (r = t.getElementsByTagName('script')[0]).parentNode.insertBefore(
+                p,
+                r
+              )
+            var u = e
+            for (
+              void 0 !== a ? (u = e[a] = []) : (a = 'posthog'),
+                u.people = u.people || [],
+                u.toString = function (t) {
+                  var e = 'posthog'
+                  return (
+                    'posthog' !== a && (e += '.' + a), t || (e += ' (stub)'), e
+                  )
+                },
+                u.people.toString = function () {
+                  return u.toString(1) + '.people (stub)'
+                },
+                o =
+                  'init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug'.split(
+                    ' '
+                  ),
+                n = 0;
+              n < o.length;
+              n++
+            )
+              g(u, o[n])
+            e._i.push([i, s, a])
+          }),
+          (e.__SV = 1))
+      })(document, window.posthog || [])
+    </script>
+  </head>
+  <body class="planner-page" data-planner-stage="intro">
+    <main class="planner-shell" aria-label="Sloth Money home planner">
+      <section class="planner-visual" aria-label="Your path towards a home">
+        <picture>
+          <source
+            srcset="../assets/images/home-planner-journey.webp"
+            type="image/webp"
+          />
+          <img
+            class="planner-journey-image"
+            src="../assets/images/home-planner-journey.jpg"
+            width="1134"
+            height="1416"
+            alt="Two sloths looking along a glowing path towards a warmly lit home"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
+
+        <div class="journey-milestone milestone-deposit" aria-hidden="true">
+          <span class="milestone-gem milestone-gem-yellow">
+            <i data-lucide="gem"></i>
+          </span>
+          <span>Deposit</span>
+        </div>
+        <div class="journey-milestone milestone-mortgage" aria-hidden="true">
+          <span class="milestone-gem milestone-gem-green">
+            <i data-lucide="gem"></i>
+          </span>
+          <span>Mortgage</span>
+        </div>
+        <div class="journey-milestone milestone-rest" aria-hidden="true">
+          <span class="milestone-gem milestone-gem-purple">
+            <i data-lucide="gem"></i>
+          </span>
+          <span>The rest</span>
+        </div>
+      </section>
+
+      <section class="planner-content">
+        <div class="planner-content-inner">
+          <a class="planner-brand" href="/" aria-label="Sloth Money home">
+            <img
+              src="../assets/images/sloth-money-logo-icon.webp"
+              width="48"
+              height="48"
+              alt=""
+            />
+            <span>Sloth Money</span>
+          </a>
+
+          <ol class="planner-progress" aria-label="Planner progress" hidden>
+            <li data-progress-step="1"><span>1</span><small>Deposit</small></li>
+            <li data-progress-step="2"><span>2</span><small>Home</small></li>
+            <li data-progress-step="3"><span>3</span><small>Route</small></li>
+            <li data-progress-step="4"><span>4</span><small>Budget</small></li>
+          </ol>
+
+          <form class="planner-stages" id="home-planner-form" novalidate>
+            <section
+              class="planner-stage planner-intro"
+              id="planner-intro"
+              aria-labelledby="planner-heading"
+            >
+              <h1 id="planner-heading">Can you afford your dream home?</h1>
+              <p class="planner-lead">
+                See what your savings could unlock, what the mortgage might
+                cost, and the expenses that are easy to miss.
+              </p>
+
+              <ul
+                class="planner-benefits"
+                aria-label="What your plan will show"
+              >
+                <li>
+                  <span class="benefit-icon"
+                    ><i data-lucide="calendar-days"></i
+                  ></span>
+                  <span>Your deposit timeline</span>
+                </li>
+                <li>
+                  <span class="benefit-icon"><i data-lucide="house"></i></span>
+                  <span>Your mortgage scenarios</span>
+                </li>
+                <li>
+                  <span class="benefit-icon"><i data-lucide="search"></i></span>
+                  <span>The costs people miss</span>
+                </li>
+              </ul>
+
+              <a
+                class="planner-primary-action"
+                id="planner-start"
+                href="#planner-savings"
+                data-analytics-cta="home-planner-start"
+              >
+                <span>Explore my home plan</span>
+                <i data-lucide="arrow-right" aria-hidden="true"></i>
+              </a>
+
+              <p class="planner-trust">
+                <i data-lucide="shield-check" aria-hidden="true"></i>
+                <span>No signup. Rough numbers are fine. About 3 minutes.</span>
+              </p>
+            </section>
+
+            <section
+              class="planner-stage planner-step-screen"
+              id="planner-savings"
+              aria-labelledby="savings-heading"
+              hidden
+            >
+              <button class="planner-back" type="button" data-back="intro">
+                <i data-lucide="arrow-left" aria-hidden="true"></i>
+                <span>Back</span>
+              </button>
+              <p class="planner-step">Step 1 of 4</p>
+              <h2 id="savings-heading" tabindex="-1">Your deposit today</h2>
+              <p class="questions-lead">
+                Start with the money you have now. We will look at future home
+                costs later.
+              </p>
+
+              <div class="money-fields">
+                <label class="money-field" for="deposit-saved">
+                  <span>How much have you saved for a deposit so far?</span>
+                  <span class="money-input-wrap">
+                    <span class="currency-prefix" aria-hidden="true">£</span>
+                    <input
+                      id="deposit-saved"
+                      name="depositSaved"
+                      type="number"
+                      min="0"
+                      step="100"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      required
+                    />
+                  </span>
+                </label>
+
+                <label class="money-field" for="monthly-saving">
+                  <span>How much are you adding each month?</span>
+                  <span class="money-input-wrap">
+                    <span class="currency-prefix" aria-hidden="true">£</span>
+                    <input
+                      id="monthly-saving"
+                      name="monthlySaving"
+                      type="number"
+                      min="0"
+                      step="50"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      required
+                    />
+                  </span>
+                </label>
+              </div>
+
+              <div class="planner-actions">
+                <button
+                  class="planner-primary-action"
+                  id="savings-next"
+                  type="button"
+                >
+                  <span>Tell me about the home</span>
+                  <i data-lucide="arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              <p class="planner-privacy-note">
+                <i data-lucide="lock-keyhole" aria-hidden="true"></i>
+                <span
+                  >Nothing is saved. Your answers clear when you leave.</span
+                >
+              </p>
+            </section>
+
+            <section
+              class="planner-stage planner-step-screen"
+              id="planner-home"
+              aria-labelledby="home-heading"
+              hidden
+            >
+              <button class="planner-back" type="button" data-back="savings">
+                <i data-lucide="arrow-left" aria-hidden="true"></i>
+                <span>Back</span>
+              </button>
+              <p class="planner-step">Step 2 of 4</p>
+              <h2 id="home-heading" tabindex="-1">Picture the home</h2>
+              <p class="questions-lead">
+                A rough starting point is enough. Every figure stays adjustable.
+              </p>
+
+              <fieldset class="choice-group compact-choice-group">
+                <legend>Which part of the UK are you considering?</legend>
+                <div class="choice-grid choice-grid-four">
+                  <label class="choice-card">
+                    <input type="radio" name="region" value="england-ni" />
+                    <span>England or Northern Ireland</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                  <label class="choice-card">
+                    <input type="radio" name="region" value="scotland" />
+                    <span>Scotland</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                  <label class="choice-card">
+                    <input type="radio" name="region" value="wales" />
+                    <span>Wales</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                  <label class="choice-card">
+                    <input
+                      type="radio"
+                      name="region"
+                      value="not-sure"
+                      checked
+                    />
+                    <span>Not sure</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                </div>
+              </fieldset>
+
+              <label class="money-field" for="home-price">
+                <span>What price should we start with?</span>
+                <span class="money-input-wrap">
+                  <span class="currency-prefix" aria-hidden="true">£</span>
+                  <input
+                    id="home-price"
+                    name="homePrice"
+                    type="number"
+                    min="50000"
+                    max="2000000"
+                    step="5000"
+                    value="300000"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    required
+                  />
+                </span>
+              </label>
+              <label class="uncertain-toggle">
+                <input id="home-price-not-sure" type="checkbox" />
+                <span class="toggle-box"
+                  ><i data-lucide="check" aria-hidden="true"></i
+                ></span>
+                <span>
+                  <strong>I am not sure yet</strong>
+                  <small
+                    >We will start at £300,000. You can move it later.</small
+                  >
+                </span>
+              </label>
+
+              <fieldset class="choice-group compact-choice-group">
+                <legend>What kind of home are you picturing?</legend>
+                <div class="choice-grid choice-grid-three">
+                  <label class="choice-card">
+                    <input type="radio" name="propertyType" value="house" />
+                    <i data-lucide="house" aria-hidden="true"></i>
+                    <span>House</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                  <label class="choice-card">
+                    <input type="radio" name="propertyType" value="flat" />
+                    <i data-lucide="building-2" aria-hidden="true"></i>
+                    <span>Flat</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                  <label class="choice-card">
+                    <input
+                      type="radio"
+                      name="propertyType"
+                      value="not-sure"
+                      checked
+                    />
+                    <i data-lucide="circle-help" aria-hidden="true"></i>
+                    <span>Not sure</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="planner-actions">
+                <button
+                  class="planner-primary-action"
+                  id="home-next"
+                  type="button"
+                >
+                  <span>Choose how to buy</span>
+                  <i data-lucide="arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </section>
+
+            <section
+              class="planner-stage planner-step-screen"
+              id="planner-buying"
+              aria-labelledby="buying-heading"
+              hidden
+            >
+              <button class="planner-back" type="button" data-back="home">
+                <i data-lucide="arrow-left" aria-hidden="true"></i>
+                <span>Back</span>
+              </button>
+              <p class="planner-step">Step 3 of 4</p>
+              <h2 id="buying-heading" tabindex="-1">How might you buy?</h2>
+              <p class="questions-lead">
+                Pick a route to explore. This is a planning choice, not a
+                commitment.
+              </p>
+
+              <fieldset class="choice-group ownership-group">
+                <legend>Which route should we model?</legend>
+                <div class="ownership-options">
+                  <label class="ownership-card">
+                    <input type="radio" name="ownershipType" value="whole" />
+                    <span class="ownership-icon"
+                      ><i data-lucide="key-round" aria-hidden="true"></i
+                    ></span>
+                    <span>
+                      <strong>Buy the whole home</strong>
+                      <small
+                        >Use a deposit and mortgage for the full price.</small
+                      >
+                    </span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                  <label class="ownership-card">
+                    <input type="radio" name="ownershipType" value="shared" />
+                    <span class="ownership-icon"
+                      ><i data-lucide="split" aria-hidden="true"></i
+                    ></span>
+                    <span>
+                      <strong>Shared ownership</strong>
+                      <small>Buy a share, then pay rent on the rest.</small>
+                    </span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                  <label class="ownership-card">
+                    <input
+                      type="radio"
+                      name="ownershipType"
+                      value="not-sure"
+                      checked
+                    />
+                    <span class="ownership-icon"
+                      ><i data-lucide="circle-help" aria-hidden="true"></i
+                    ></span>
+                    <span>
+                      <strong>Not sure</strong>
+                      <small
+                        >Start with a standard purchase and compare
+                        later.</small
+                      >
+                    </span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                </div>
+              </fieldset>
+
+              <details class="education-card">
+                <summary>
+                  <span>What do these routes mean?</span>
+                  <i data-lucide="chevron-down" aria-hidden="true"></i>
+                </summary>
+                <div class="education-grid">
+                  <div>
+                    <strong>Buy the whole home</strong>
+                    <p>
+                      You own the property. A larger deposit can reduce the
+                      mortgage and monthly repayment.
+                    </p>
+                    <small
+                      >Trade-off: more cash is usually needed upfront.</small
+                    >
+                  </div>
+                  <div>
+                    <strong>Shared ownership</strong>
+                    <p>
+                      You buy 10% to 75% and pay rent on the share you do not
+                      own.
+                    </p>
+                    <small
+                      >Trade-off: lower deposit, but rent and service charges
+                      remain.</small
+                    >
+                  </div>
+                </div>
+              </details>
+
+              <fieldset class="choice-group compact-choice-group">
+                <legend>Would everyone buying be a first-time buyer?</legend>
+                <div class="choice-grid choice-grid-three">
+                  <label class="choice-card">
+                    <input type="radio" name="firstTimeBuyer" value="yes" />
+                    <span>Yes</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                  <label class="choice-card">
+                    <input type="radio" name="firstTimeBuyer" value="no" />
+                    <span>No</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                  <label class="choice-card">
+                    <input
+                      type="radio"
+                      name="firstTimeBuyer"
+                      value="not-sure"
+                      checked
+                    />
+                    <span>Not sure</span>
+                    <i data-lucide="circle-check" aria-hidden="true"></i>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="planner-actions">
+                <button
+                  class="planner-primary-action"
+                  id="buying-next"
+                  type="button"
+                >
+                  <span>Set my future budget</span>
+                  <i data-lucide="arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </section>
+
+            <section
+              class="planner-stage planner-step-screen"
+              id="planner-budget"
+              aria-labelledby="budget-heading"
+              hidden
+            >
+              <button class="planner-back" type="button" data-back="buying">
+                <i data-lucide="arrow-left" aria-hidden="true"></i>
+                <span>Back</span>
+              </button>
+              <p class="planner-step">Step 4 of 4</p>
+              <h2 id="budget-heading" tabindex="-1">
+                What would feel comfortable later?
+              </h2>
+              <p class="questions-lead">
+                Now think about the future. Start with the mortgage payment
+                alone. We will reveal the rest on your plan.
+              </p>
+
+              <div class="money-fields">
+                <label class="money-field" for="mortgage-budget">
+                  <span
+                    >How much would you put towards a mortgage each month?</span
+                  >
+                  <span class="money-input-wrap">
+                    <span class="currency-prefix" aria-hidden="true">£</span>
+                    <input
+                      id="mortgage-budget"
+                      name="mortgageBudget"
+                      type="number"
+                      min="0"
+                      step="50"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      required
+                    />
+                  </span>
+                </label>
+
+                <label class="money-field" for="annual-income">
+                  <span>What is your combined yearly income before tax?</span>
+                  <span class="field-hint"
+                    >Optional. It lets us show a rough lender-style borrowing
+                    check.</span
+                  >
+                  <span class="money-input-wrap">
+                    <span class="currency-prefix" aria-hidden="true">£</span>
+                    <input
+                      id="annual-income"
+                      name="annualIncome"
+                      type="number"
+                      min="0"
+                      step="1000"
+                      inputmode="decimal"
+                      autocomplete="off"
+                    />
+                  </span>
+                </label>
+              </div>
+
+              <label class="uncertain-toggle">
+                <input id="income-not-sure" type="checkbox" />
+                <span class="toggle-box"
+                  ><i data-lucide="check" aria-hidden="true"></i
+                ></span>
+                <span>
+                  <strong>I would rather skip income</strong>
+                  <small>Your plan still works without it.</small>
+                </span>
+              </label>
+
+              <div class="planner-actions">
+                <button
+                  class="planner-primary-action"
+                  id="budget-next"
+                  type="button"
+                >
+                  <span>Show my home plan</span>
+                  <i data-lucide="sparkles" aria-hidden="true"></i>
+                </button>
+              </div>
+            </section>
+
+            <section
+              class="planner-stage planner-results"
+              id="planner-results"
+              aria-labelledby="results-heading"
+              hidden
+            >
+              <div class="results-header">
+                <button class="planner-back" id="results-back" type="button">
+                  <i data-lucide="arrow-left" aria-hidden="true"></i>
+                  <span>Back</span>
+                </button>
+                <p class="planner-step">Your live plan</p>
+                <h2 id="results-heading" tabindex="-1">Move the levers</h2>
+                <p class="questions-lead">
+                  Change any assumption. Your deposit, mortgage and real monthly
+                  cost will move together.
+                </p>
+              </div>
+
+              <div class="results-layout">
+                <aside class="lever-panel" aria-labelledby="levers-heading">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="panel-kicker">Your assumptions</p>
+                      <h3 id="levers-heading">Try another version</h3>
+                    </div>
+                    <i data-lucide="sliders-horizontal" aria-hidden="true"></i>
+                  </div>
+
+                  <label class="lever-row" for="lever-home-price">
+                    <span>Home price</span>
+                    <output
+                      id="result-home-price"
+                      for="lever-home-price"
+                    ></output>
+                    <input
+                      id="lever-home-price"
+                      type="range"
+                      min="50000"
+                      max="1000000"
+                      step="5000"
+                    />
+                  </label>
+                  <label class="lever-row" for="lever-deposit">
+                    <span>Deposit</span>
+                    <output
+                      id="result-deposit-percent"
+                      for="lever-deposit"
+                    ></output>
+                    <input
+                      id="lever-deposit"
+                      type="range"
+                      min="5"
+                      max="30"
+                      step="1"
+                      value="10"
+                    />
+                  </label>
+                  <label class="lever-row" for="lever-rate">
+                    <span>Interest rate</span>
+                    <output id="result-rate" for="lever-rate"></output>
+                    <input
+                      id="lever-rate"
+                      type="range"
+                      min="2"
+                      max="10"
+                      step="0.1"
+                      value="5"
+                    />
+                  </label>
+                  <label class="lever-row" for="lever-term">
+                    <span>Mortgage term</span>
+                    <output id="result-term" for="lever-term"></output>
+                    <input
+                      id="lever-term"
+                      type="range"
+                      min="15"
+                      max="40"
+                      step="1"
+                      value="30"
+                    />
+                  </label>
+                  <label
+                    class="lever-row shared-ownership-lever"
+                    for="lever-shared-percent"
+                    hidden
+                  >
+                    <span>Share you buy</span>
+                    <output
+                      id="result-shared-percent"
+                      for="lever-shared-percent"
+                    ></output>
+                    <input
+                      id="lever-shared-percent"
+                      type="range"
+                      min="10"
+                      max="75"
+                      step="5"
+                      value="40"
+                    />
+                  </label>
+
+                  <details class="cost-levers">
+                    <summary>
+                      <span>Adjust the costs people miss</span>
+                      <i data-lucide="chevron-down" aria-hidden="true"></i>
+                    </summary>
+                    <div>
+                      <label class="lever-row" for="lever-maintenance">
+                        <span>Yearly repair cushion</span>
+                        <output
+                          id="result-maintenance-percent"
+                          for="lever-maintenance"
+                        ></output>
+                        <input
+                          id="lever-maintenance"
+                          type="range"
+                          min="0.25"
+                          max="2"
+                          step="0.25"
+                          value="1"
+                        />
+                      </label>
+                      <label class="lever-row" for="lever-bills">
+                        <span>Bills and insurance</span>
+                        <output id="result-bills" for="lever-bills"></output>
+                        <input
+                          id="lever-bills"
+                          type="range"
+                          min="150"
+                          max="900"
+                          step="25"
+                          value="425"
+                        />
+                      </label>
+                      <label class="lever-row" for="lever-service">
+                        <span>Service charge</span>
+                        <output
+                          id="result-service"
+                          for="lever-service"
+                        ></output>
+                        <input
+                          id="lever-service"
+                          type="range"
+                          min="0"
+                          max="600"
+                          step="25"
+                          value="0"
+                        />
+                      </label>
+                      <label class="lever-row" for="lever-furnishings">
+                        <span>Furnishings</span>
+                        <output
+                          id="result-furnishings"
+                          for="lever-furnishings"
+                        ></output>
+                        <input
+                          id="lever-furnishings"
+                          type="range"
+                          min="0"
+                          max="30000"
+                          step="500"
+                          value="7000"
+                        />
+                      </label>
+                      <label class="lever-row" for="lever-buying-fees">
+                        <span>Legal, survey and moving</span>
+                        <output
+                          id="result-buying-fees"
+                          for="lever-buying-fees"
+                        ></output>
+                        <input
+                          id="lever-buying-fees"
+                          type="range"
+                          min="1000"
+                          max="12000"
+                          step="500"
+                          value="4000"
+                        />
+                      </label>
+                    </div>
+                  </details>
+                </aside>
+
+                <div class="plan-panel" aria-live="polite">
+                  <section class="reality-card">
+                    <div>
+                      <p class="panel-kicker">The full monthly picture</p>
+                      <p class="reality-total" id="result-total-monthly"></p>
+                      <p class="reality-surprise" id="result-surprise"></p>
+                    </div>
+                    <span class="plan-status" id="plan-status"></span>
+                  </section>
+
+                  <div class="result-metrics">
+                    <article>
+                      <span class="metric-icon yellow"
+                        ><i data-lucide="calendar-clock" aria-hidden="true"></i
+                      ></span>
+                      <small>Ready in</small>
+                      <strong id="result-timeline"></strong>
+                      <span id="result-timeline-detail"></span>
+                    </article>
+                    <article>
+                      <span class="metric-icon green"
+                        ><i data-lucide="landmark" aria-hidden="true"></i
+                      ></span>
+                      <small>Mortgage</small>
+                      <strong id="result-mortgage-payment"></strong>
+                      <span id="result-loan"></span>
+                    </article>
+                    <article>
+                      <span class="metric-icon purple"
+                        ><i data-lucide="wallet-cards" aria-hidden="true"></i
+                      ></span>
+                      <small>Cash before moving</small>
+                      <strong id="result-cash-needed"></strong>
+                      <span id="result-cash-shortfall"></span>
+                    </article>
+                    <article>
+                      <span class="metric-icon blue"
+                        ><i data-lucide="receipt-text" aria-hidden="true"></i
+                      ></span>
+                      <small>Property tax estimate</small>
+                      <strong id="result-property-tax"></strong>
+                      <span id="result-tax-note"></span>
+                    </article>
+                  </div>
+
+                  <div class="result-columns">
+                    <section class="breakdown-card">
+                      <div class="panel-heading">
+                        <div>
+                          <p class="panel-kicker">Every month</p>
+                          <h3>Beyond the mortgage</h3>
+                        </div>
+                        <i data-lucide="pie-chart" aria-hidden="true"></i>
+                      </div>
+                      <dl class="cost-breakdown">
+                        <div>
+                          <dt>Mortgage repayment</dt>
+                          <dd id="breakdown-mortgage"></dd>
+                        </div>
+                        <div id="breakdown-rent-row" hidden>
+                          <dt>Rent on the unowned share</dt>
+                          <dd id="breakdown-rent"></dd>
+                        </div>
+                        <div>
+                          <dt>Repairs and maintenance cushion</dt>
+                          <dd id="breakdown-maintenance"></dd>
+                        </div>
+                        <div>
+                          <dt>Bills and home insurance</dt>
+                          <dd id="breakdown-bills"></dd>
+                        </div>
+                        <div>
+                          <dt>Service charge</dt>
+                          <dd id="breakdown-service"></dd>
+                        </div>
+                      </dl>
+                    </section>
+
+                    <section class="breakdown-card">
+                      <div class="panel-heading">
+                        <div>
+                          <p class="panel-kicker">Before you move</p>
+                          <h3>Cash to prepare</h3>
+                        </div>
+                        <i data-lucide="piggy-bank" aria-hidden="true"></i>
+                      </div>
+                      <dl class="cost-breakdown">
+                        <div>
+                          <dt>Deposit</dt>
+                          <dd id="breakdown-deposit"></dd>
+                        </div>
+                        <div>
+                          <dt>Property tax estimate</dt>
+                          <dd id="breakdown-tax"></dd>
+                        </div>
+                        <div>
+                          <dt>Legal, survey and moving</dt>
+                          <dd id="breakdown-buying-fees"></dd>
+                        </div>
+                        <div>
+                          <dt>Furnishings</dt>
+                          <dd id="breakdown-furnishings"></dd>
+                        </div>
+                        <div class="breakdown-total">
+                          <dt>Total</dt>
+                          <dd id="breakdown-cash-total"></dd>
+                        </div>
+                      </dl>
+                    </section>
+                  </div>
+
+                  <section class="borrowing-card" id="borrowing-check">
+                    <span><i data-lucide="gauge" aria-hidden="true"></i></span>
+                    <div>
+                      <strong id="borrowing-heading"
+                        >Your borrowing check</strong
+                      >
+                      <p id="borrowing-copy"></p>
+                    </div>
+                  </section>
+
+                  <section class="scenario-card">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="panel-kicker">Three deposit paths</p>
+                        <h3>See the trade-off</h3>
+                      </div>
+                      <i
+                        data-lucide="git-compare-arrows"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                    <div class="scenario-table" id="deposit-scenarios"></div>
+                  </section>
+
+                  <section class="mortgage-guide">
+                    <div class="panel-heading">
+                      <div>
+                        <p class="panel-kicker">Mortgage routes</p>
+                        <h3>What might suit you?</h3>
+                      </div>
+                      <i data-lucide="route" aria-hidden="true"></i>
+                    </div>
+                    <div class="mortgage-options">
+                      <details open>
+                        <summary>
+                          <span>
+                            <strong>Fixed-rate repayment</strong>
+                            <small>More predictable monthly payments</small>
+                          </span>
+                          <i data-lucide="chevron-down" aria-hidden="true"></i>
+                        </summary>
+                        <p>
+                          The rate stays fixed for an agreed period. That can
+                          help when a stable monthly figure matters, but fees
+                          and early repayment charges can change the overall
+                          value.
+                        </p>
+                      </details>
+                      <details>
+                        <summary>
+                          <span>
+                            <strong>Tracker repayment</strong>
+                            <small>Payments can fall or rise</small>
+                          </span>
+                          <i data-lucide="chevron-down" aria-hidden="true"></i>
+                        </summary>
+                        <p>
+                          The rate follows another rate, often the Bank of
+                          England base rate. It can suit a flexible budget, but
+                          your payment can increase.
+                        </p>
+                      </details>
+                      <details>
+                        <summary>
+                          <span>
+                            <strong>Shared ownership</strong>
+                            <small>Smaller deposit, more moving parts</small>
+                          </span>
+                          <i data-lucide="chevron-down" aria-hidden="true"></i>
+                        </summary>
+                        <p>
+                          You mortgage the share you buy and pay rent on the
+                          rest. Compare the mortgage, rent, service charge and
+                          future staircasing costs together.
+                        </p>
+                      </details>
+                    </div>
+                  </section>
+
+                  <section class="planner-disclaimer">
+                    <i data-lucide="info" aria-hidden="true"></i>
+                    <div>
+                      <strong>A planning view, not a mortgage offer</strong>
+                      <p>
+                        Lenders use their own affordability checks. Rates, tax,
+                        rent, bills and repair costs can change. Check figures
+                        with a mortgage adviser, lender and solicitor before you
+                        act.
+                      </p>
+                      <details>
+                        <summary>Sources and assumptions</summary>
+                        <ul>
+                          <li>
+                            Mortgage affordability and rate types:
+                            <a
+                              href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-affordability-calculator"
+                              target="_blank"
+                              rel="noreferrer"
+                              >MoneyHelper</a
+                            >
+                          </li>
+                          <li>
+                            England and Northern Ireland property tax:
+                            <a
+                              href="https://www.gov.uk/stamp-duty-land-tax/residential-property-rates"
+                              target="_blank"
+                              rel="noreferrer"
+                              >GOV.UK</a
+                            >
+                          </li>
+                          <li>
+                            Scotland and Wales rates:
+                            <a
+                              href="https://www.gov.scot/publications/scottish-budget-2026-2027/"
+                              target="_blank"
+                              rel="noreferrer"
+                              >Scottish Government</a
+                            >
+                            and
+                            <a
+                              href="https://www.gov.wales/land-transaction-tax-rates-and-bands"
+                              target="_blank"
+                              rel="noreferrer"
+                              >Welsh Government</a
+                            >
+                          </li>
+                        </ul>
+                        <p id="tax-rates-date"></p>
+                      </details>
+                    </div>
+                  </section>
+
+                  <button class="planner-reset" id="planner-reset" type="reset">
+                    Start again
+                  </button>
+                </div>
+              </div>
+            </section>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="../assets/js/posthog-analytics.js" defer></script>
+    <script type="module" src="../assets/js/home-planner.js"></script>
+    <script src="/visitor-tracker.js"></script>
+  </body>
+</html>

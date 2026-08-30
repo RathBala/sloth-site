@@ -2,45 +2,47 @@
 
 - No actionable P0/P1/P2 findings remain.
 
-**Source Visual Truth**
+**Source visual truth**
 
-- User reference screenshot: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-f4d1c730-7173-46e1-9bce-cd8aa6dff344.png`
+- Selected concept: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-ffaf6e6e-6470-4e60-b222-d3195c7193d1.png`.
+- The concept's `Free home ownership planner` eyebrow remains intentionally omitted at the user's request.
+- The page now reaches every viewport edge. The warm panel still has its own task padding; the removed padding was the outer page frame.
 
-**Implementation Evidence**
+**Fresh implementation evidence**
 
-- Local URL: `http://127.0.0.1:4173`
-- Desktop screenshot: `/tmp/sloth-saver-options-desktop.png`
-- Mobile screenshot: `/tmp/sloth-saver-options-mobile.png`
-- Viewport: desktop `1440px` wide, mobile `390px` wide
-- State: homepage saver-choice section at `#archetype-flow-heading`
+- Local URL: `http://127.0.0.1:3000/home-planner/`.
+- Desktop intro: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-final-desktop.png`.
+- Desktop live plan: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-final-results.png`.
+- Mobile intro: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-final-mobile.png`.
+- Mobile deposit step: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-final-mobile-savings.png`.
+- Source comparison: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-final-reference-comparison.png`.
+- Desktop viewport and shell: `1440 × 1024`, origin `0, 0`, with zero horizontal or vertical document overflow.
+- Mobile viewport: `390 × 844`, with zero horizontal overflow.
 
-**Required Fidelity Surfaces**
+**Required fidelity surfaces**
 
-- Fonts and typography: Manrope remains the site font. The heading is now a compact H2-scale prompt, `What kind of saver are you?`, and the card labels are live HTML text.
-- Spacing and layout rhythm: The two-card structure is compact enough to fit within the section viewport on desktop and keeps both mobile card labels visible.
-- Colors and visual tokens: The section keeps Sloth's dark green hero background, mint framed cards, yellow Solo accent, and lavender Couple accent. Focus and hover states use the same green/mint token family.
-- Image quality and asset fidelity: New low-poly raster sloth assets support the Solo and Couple options. Logo, hero mascot, and archetype sloth assets should share warm tan and caramel-brown fur, cream face markings, and dark brown eye patches. Text, card borders, underlines, paths, hover states, and focus states are code-rendered.
-- Copy and content: The section now offers only `Solo` and `Couple`, with matching app-entry links and analytics CTA names.
+- Typography and hierarchy: Manrope, Sloth green, the two-line dream-home headline, mint action, and concise benefit list preserve the approved concept.
+- Composition: the low-poly journey remains on the left and the curved warm task panel remains on the right. Desktop is full bleed; mobile becomes an art banner over the task panel.
+- Interaction: present-day savings, dream home, buying route, and future budget are four distinct steps. The live-plan screen connects all inputs through adjustable levers.
+- Uncertainty: explicit `Not sure` or skip choices are available for location, home type, price, buying route, first-time buyer status, and income where appropriate.
+- Education: buying-route and mortgage-route explanations use progressive disclosure so the main task remains scannable.
+- Accessibility: native inputs back the custom controls, the active step uses `aria-current="step"`, programmatic focus moves to each new stage, Back restores the previous action, and reduced-motion preferences are respected.
+- Asset delivery: the critical `1134 × 1416` journey art is preloaded as a 144 KB WebP with a compressed JPEG fallback. The automated planner check enforces 200 KB WebP and 300 KB fallback budgets.
 
-**Open Questions**
+**End-to-end browser result**
+
+- Example inputs: £25,000 saved, £1,000 saved monthly, £350,000 house in England or Northern Ireland, first-time buyer, £1,600 future mortgage comfort figure, and £70,000 combined gross income.
+- Result: £1,691 monthly mortgage, £2,408 full monthly home cost, £49,500 cash target, and a 2 year 1 month savings timeline.
+- Whole-home results hide shared-ownership-only rent and share controls. Shared ownership remains covered by the calculation tests.
+- The mobile first deposit screen does not contain the future mortgage-budget question.
+
+**Intentional differences**
+
+- The live HTML milestone labels use Lucide diamond icons rather than the concept's rendered gem artwork so they remain crisp and accessible.
+- The results state gives more width to the warm panel than the intro concept needs, because the live levers and linked cost cards require a denser working surface.
+
+**Open questions**
 
 - None blocking.
-
-**Patches Made Since Previous QA Pass**
-
-- Replaced the old archetype copy with the saver prompt and Solo/Couple options.
-- Added separate raster card-art assets: `sloth-archetype-solo-art.webp` and `sloth-archetype-couple-art.webp`.
-- Reduced the card width, card height, heading scale, and decorative path height so the choice block no longer bleeds off screen.
-- Moved the saver-choice width cap into component CSS so the static page does not depend on a newly generated Tailwind arbitrary utility.
-- Regenerated the logo icon and homepage guide mascot with brown sloth coloring to match the archetype assets.
-
-**Implementation Checklist**
-
-- Keep sloth/gem artwork as assets.
-- Keep editable text, card borders, containers, and interaction states in code.
-
-**Follow-up Polish**
-
-- P3: Generate transparent, character-only sloth/gem assets if sharper raster art is needed later.
 
 final result: passed

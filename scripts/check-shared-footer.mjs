@@ -43,6 +43,10 @@ if (!sharedFooterSource.includes('href="/developers/"')) {
   failures.push('src/assets/js/shared-footer.js must include /developers/.')
 }
 
+if (!sharedFooterSource.includes('href="/home-planner/"')) {
+  failures.push('src/assets/js/shared-footer.js must include /home-planner/.')
+}
+
 if (!sharedFooterSource.includes('href="/privacy/"')) {
   failures.push('src/assets/js/shared-footer.js must include /privacy/.')
 }

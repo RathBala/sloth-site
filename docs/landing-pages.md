@@ -20,6 +20,18 @@ The homepage saver cards stay intentionally light: **Solo** links straight to th
 - **Trust:** **`Private, practical, and built for shared planning`** (encryption, read-only access, shared finances) sits **after** the free-beta block and before the closing CTA.
 - **Access:** The same free-beta block as [`src/index.html`](../src/index.html) appears after the FAQ. It promises permanent full access to people who join during the beta, includes one connected partner while linked, and requires no card. The primary button retains the historical `data-analytics-cta="wedding-pricing-start"` placement identifier so funnel continuity is preserved.
 
+## Home planner
+
+- **URL:** `https://slothmoney.app/home-planner/` (Netlify serves [`src/home-planner/index.html`](../src/home-planner/index.html)).
+- **Purpose:** A no-signup entry point for people who want a realistic view of what home ownership could cost. The opening screen introduces deposit timelines, mortgage scenarios, and the less obvious costs of owning a home before asking for financial figures.
+- **Flow:** Four short steps keep present and future questions separate: current deposit savings, the rough home and location, the buying route, then the future mortgage payment that would feel comfortable. Location, property type, buying route, first-time buyer status, home price, and income all offer an explicit uncertain or skip path where appropriate.
+- **Results:** The live plan links all assumptions together. Visitors can move home price, deposit, interest rate, term, shared-ownership share, bills, maintenance, service charge, furnishings, and buying-fee levers. The page recalculates the repayment mortgage, cash target, savings timeline, UK property-tax estimate, real monthly home cost, 5% / 10% / 20% deposit scenarios, and an optional rough 4.5× income check.
+- **Guidance:** Buying-route and mortgage-route explanations use progressive disclosure. Figures are planning estimates, not a mortgage offer, and the results link to the government and MoneyHelper sources behind the assumptions.
+- **Persistence:** Answers exist only in the current page. They are not written to local storage, cookies, URLs, the Sloth app, or a backend, and they clear on refresh or navigation.
+- **Discovery:** The page is indexable, appears in `sitemap.xml` and `llms.txt`, and is linked from the shared site footer.
+- **Tracking:** The page reuses the existing memory-only `landing_view` and `cta_clicked` events. `home-planner-start` records that the visitor opened the first questions. Reaching the live plan records `home_planner_completed` with categorical route choices only. Exact savings, income, price, mortgage, bill, or other financial values are never sent.
+- **Visual:** The first view follows the approved visual-first split concept. The custom low-poly home journey is served as WebP with a compressed JPEG fallback; HTML owns the logo, labels, copy, controls, and form fields.
+
 ## Developers
 
 - **URL:** `https://slothmoney.app/developers/` (Netlify serves [`src/developers/index.html`](../src/developers/index.html))

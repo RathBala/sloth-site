@@ -44,6 +44,7 @@ const [
   developers,
   privacy,
   weddingFund,
+  homePlanner,
   markMe,
   robots,
   sitemap,
@@ -57,6 +58,7 @@ const [
   readSource('developers/index.html'),
   readSource('privacy/index.html'),
   readSource('wedding-fund/index.html'),
+  readSource('home-planner/index.html'),
   readSource('mark-me.html'),
   readSource('robots.txt'),
   readSource('sitemap.xml'),
@@ -98,6 +100,7 @@ for (const [page, canonical] of [
   [developers, 'https://slothmoney.app/developers/'],
   [privacy, 'https://slothmoney.app/privacy/'],
   [weddingFund, 'https://slothmoney.app/wedding-fund/'],
+  [homePlanner, 'https://slothmoney.app/home-planner/'],
 ]) {
   const canonicalTag = `<link rel="canonical" href="${canonical}"`
   requireText(page, canonicalTag, canonical)
@@ -133,6 +136,17 @@ for (const metadata of [
       'Use your own agent to inspect budgets, accounts, and investments, update plans, and categorize Sloth Money transactions.',
     url: 'https://slothmoney.app/developers/',
     image: 'https://slothmoney.app/assets/images/sloth%20logo%20black.png',
+  },
+  {
+    page: homePlanner,
+    location: 'src/home-planner/index.html',
+    title: 'Can you afford your dream home? | Sloth Money',
+    openGraphDescription:
+      'Explore your deposit timeline, mortgage scenarios, and the costs people miss when planning to own a home.',
+    twitterDescription:
+      'Explore your deposit timeline, mortgage scenarios, and the costs people miss when planning to own a home.',
+    url: 'https://slothmoney.app/home-planner/',
+    image: 'https://slothmoney.app/assets/images/sloth-money-logo-icon.png',
   },
 ]) {
   requireMeta(
@@ -194,7 +208,31 @@ for (const metadata of [
 }
 
 requireText(home, 'href="/developers/"', 'src/index.html')
+requireText(home, 'href="/home-planner/"', 'src/index.html')
 requireText(markMe, 'name="robots" content="noindex', 'src/mark-me.html')
+
+requireText(
+  homePlanner,
+  'Can you afford your dream home?',
+  'src/home-planner/index.html'
+)
+requireText(
+  homePlanner,
+  'data-analytics-cta="home-planner-start"',
+  'src/home-planner/index.html'
+)
+requireText(homePlanner, 'Move the levers', 'src/home-planner/index.html')
+requireText(
+  homePlanner,
+  'Sources and assumptions',
+  'src/home-planner/index.html'
+)
+
+if (/Free home ownership planner/i.test(homePlanner)) {
+  failures.push(
+    'src/home-planner/index.html must not restore the removed planner eyebrow.'
+  )
+}
 
 if (!homeSocialImage || !developerSocialImage) {
   failures.push('Social preview images must exist in the deploy artifact.')
@@ -218,6 +256,7 @@ for (const pageUrl of [
   'https://slothmoney.app/developers/',
   'https://slothmoney.app/privacy/',
   'https://slothmoney.app/wedding-fund/',
+  'https://slothmoney.app/home-planner/',
 ]) {
   requireText(sitemap, `<loc>${pageUrl}</loc>`, 'src/sitemap.xml')
 }
@@ -230,6 +269,8 @@ for (const [expected, location] of [
   ['from = "/wedding-fund"', 'netlify.toml'],
   ['to = "/wedding-fund/"', 'netlify.toml'],
   ['status = 301', 'netlify.toml'],
+  ['from = "/home-planner"', 'netlify.toml'],
+  ['to = "/home-planner/"', 'netlify.toml'],
 ]) {
   requireText(netlifyConfig, expected, location)
 }
@@ -252,6 +293,7 @@ if (sitemap.includes('/.netlify/functions/')) {
 const htmlFiles = (await collectHtmlFiles(srcDir)).sort()
 const classifiedHtmlFiles = [
   'developers/index.html',
+  'home-planner/index.html',
   'index.html',
   'mark-me.html',
   'privacy/index.html',

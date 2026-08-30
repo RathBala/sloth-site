@@ -32,6 +32,7 @@ assert.equal(
 const marketingPages = [
   'src/index.html',
   'src/wedding-fund/index.html',
+  'src/home-planner/index.html',
   'src/developers/index.html',
 ]
 
@@ -143,6 +144,29 @@ const posthogSource = fs.readFileSync(
   path.join(root, 'src/assets/js/posthog-analytics.js'),
   'utf8'
 )
+
+const homePlannerSource = fs.readFileSync(
+  path.join(root, 'src/assets/js/home-planner.js'),
+  'utf8'
+)
+assert.equal(
+  homePlannerSource.includes("posthog.capture('home_planner_completed'"),
+  true,
+  'the home planner should record its privacy-safe completion outcome'
+)
+for (const forbiddenField of [
+  'deposit_saved',
+  'monthly_saving',
+  'mortgage_budget',
+  'annual_income',
+  'home_price',
+]) {
+  assert.equal(
+    homePlannerSource.includes(forbiddenField),
+    false,
+    `home-planner analytics must not include exact financial field ${forbiddenField}`
+  )
+}
 assert.equal(
   posthogSource.includes('autocapture: true'),
   false,

@@ -20,6 +20,7 @@
     "check:copy": "node ./scripts/check-home-copy.mjs",
     "check:developer-auth": "node ./scripts/check-developer-auth-docs.mjs",
     "check:footer": "node ./scripts/check-shared-footer.mjs",
+    "check:home-planner": "node --test ./scripts/home-planner-calculations.test.mjs && node ./scripts/check-home-planner.mjs",
     "check:public-site": "node ./scripts/check-public-site-readiness.mjs",
     "check:tracking": "node ./scripts/check-tracking-privacy.mjs",
     "lint": "prettier --check .",

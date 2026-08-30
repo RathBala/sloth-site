@@ -8,3 +8,8 @@
   from = "/wedding-fund"
   to = "/wedding-fund/"
   status = 301
+
+[[redirects]]
+  from = "/home-planner"
+  to = "/home-planner/"
+  status = 301

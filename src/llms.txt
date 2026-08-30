@@ -7,6 +7,7 @@
 - [Sloth Money](https://slothmoney.app/): Product overview and permanent free-beta access.
 - [Developer guide](https://slothmoney.app/developers/): Agent API authentication, CLI setup, account and investment views, current and historical budget activity, transaction filtering by opaque account reference, receipt extraction and confirmed receipt items, planned-budget updates, assigned-budget movements, transaction sharing and split changes, transaction notification rules and transient contract renewal-date extraction, server-backed goal previews, server-backed scenario previews, account-funded goal forecasts, month-anchored scenario contributions, goal priority ordering, transaction categorization, endpoints, and safe write workflows.
 - [Privacy policy](https://slothmoney.app/privacy/): How Sloth Money handles personal and financial data.
+- [Home planner](https://slothmoney.app/home-planner/): Start a private, no-signup plan for a deposit, mortgage scenarios, and the costs people often miss when buying a home.
 
 ## Developer resources
 

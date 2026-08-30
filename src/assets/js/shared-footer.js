@@ -16,6 +16,10 @@ const sharedFooterHtml = `
 
         <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm font-medium tracking-wide text-gray-400">
           <a
+            href="/home-planner/"
+            class="text-gray-400 hover:text-green transition-colors duration-200"
+          >Home planner</a>
+          <a
             href="/developers/"
             class="text-gray-400 hover:text-green transition-colors duration-200"
           >Developers</a>
