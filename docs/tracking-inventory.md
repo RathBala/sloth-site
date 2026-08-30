@@ -4,14 +4,16 @@ This is the source of truth for Sloth Money marketing-site tracking, visit alert
 
 Public privacy copy should be checked against this inventory before it is edited. The public policy does not need to link to this document.
 
-Agent API mutations and durable transaction-assignment operations are product
+Agent API mutations, connected-account custom names, and durable transaction-assignment operations are product
 operations owned by the sibling `sloth-budget` server, not marketing-site
 tracking. Their privacy-safe PostHog and Railway fields are inventoried in
 `sloth-budget/docs/tracking-inventory.md`. The assignment operation stores only
 the minimum instructions, ownership and progress state, and ordered results
 needed for interrupted clients to recover. It expires those records after seven
-days and then deletes them. This site adds no telemetry for the CLI or
-operation-status requests.
+days and then deletes them. This site adds no telemetry for the CLI,
+account-name changes, or operation-status requests. The public privacy copy
+remains accurate because custom names stay inside authenticated product data
+and are not added to marketing tracking.
 
 ## Inventory
 

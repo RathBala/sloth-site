@@ -311,6 +311,10 @@ sloth-agent accounts update --account-ref sloth_account_v1_... \
   --account-name "Stocks & Shares ISA" \
   --ownership individual --balance-amount 12500.75 \
   --account-type investments --goal-funding-account true --apply
+sloth-agent accounts update --account-ref sloth_account_v1_... \
+  --account-name "House deposit" --apply
+sloth-agent accounts update --account-ref sloth_account_v1_... \
+  --use-provider-name --apply
 sloth-agent accounts remove --account-ref sloth_account_v1_...
 sloth-agent accounts remove --account-ref sloth_account_v1_... --apply
 sloth-agent goals
@@ -982,9 +986,10 @@ sloth-agent auth logout</code></pre>
                 Returns the existing personal accounts and enabled shared joint
                 accounts visible to the signed-in user. Partner personal
                 accounts are excluded. Each row has an opaque
-                <code>accountRef</code>, saved account and institution labels,
-                <code>accountType</code>, ownership, source, native balance and
-                currency when known, <code>lastBalanceUpdatedAt</code>, and
+                <code>accountRef</code>, effective account and institution
+                labels, <code>accountType</code>, ownership, source, native
+                balance and currency when known,
+                <code>lastBalanceUpdatedAt</code>, and
                 <code>connectionState</code>.
                 <code>isGoalFundingAccount</code> shows whether Goals and active
                 scenario contributions may use the account.
@@ -1004,8 +1009,11 @@ sloth-agent auth logout</code></pre>
                 partial updates. Manual accounts can change institution, name,
                 currency, and ownership. Balance-only accounts can also change
                 balance, Savings/Investments type, and Goal-funding eligibility.
-                Connected accounts support Goal-funding eligibility and partner
-                visibility. The CLI options are
+                Connected accounts also support a private Sloth name. Send
+                <code>accountName</code> as a string to set it, or
+                <code>null</code> to return to the latest provider name. Manual
+                accounts still require a non-empty name. The CLI options are
+                <code>--account-name</code>, <code>--use-provider-name</code>,
                 <code>--goal-funding-account</code> and
                 <code>--partner-visibility</code>.
               </p>
