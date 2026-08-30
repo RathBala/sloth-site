@@ -245,7 +245,7 @@
                       name="depositSaved"
                       type="number"
                       min="0"
-                      step="100"
+                      step="1"
                       inputmode="decimal"
                       autocomplete="off"
                       required
@@ -262,7 +262,7 @@
                       name="monthlySaving"
                       type="number"
                       min="0"
-                      step="50"
+                      step="1"
                       inputmode="decimal"
                       autocomplete="off"
                       required
@@ -338,16 +338,16 @@
               </fieldset>
 
               <label class="money-field" for="home-price">
-                <span>What price should we start with?</span>
+                <span>What home price are you thinking about?</span>
                 <span class="money-input-wrap">
                   <span class="currency-prefix" aria-hidden="true">£</span>
                   <input
                     id="home-price"
                     name="homePrice"
                     type="number"
-                    min="50000"
-                    max="2000000"
-                    step="5000"
+                    min="25000"
+                    max="20000000"
+                    step="1"
                     value="300000"
                     inputmode="decimal"
                     autocomplete="off"
@@ -574,7 +574,7 @@
                       name="mortgageBudget"
                       type="number"
                       min="0"
-                      step="50"
+                      step="1"
                       inputmode="decimal"
                       autocomplete="off"
                       required
@@ -595,7 +595,7 @@
                       name="annualIncome"
                       type="number"
                       min="0"
-                      step="1000"
+                      step="1"
                       inputmode="decimal"
                       autocomplete="off"
                     />
@@ -655,20 +655,27 @@
                     <i data-lucide="sliders-horizontal" aria-hidden="true"></i>
                   </div>
 
-                  <label class="lever-row" for="lever-home-price">
-                    <span>Home price</span>
-                    <output
-                      id="result-home-price"
-                      for="lever-home-price"
-                    ></output>
+                  <div class="lever-row lever-row-price">
+                    <label for="lever-home-price">Home price</label>
+                    <span class="lever-price-input">
+                      <span aria-hidden="true">£</span>
+                      <input
+                        id="lever-home-price"
+                        type="number"
+                        step="1"
+                        inputmode="numeric"
+                        aria-label="Exact home price"
+                      />
+                    </span>
                     <input
-                      id="lever-home-price"
+                      id="lever-home-price-range"
                       type="range"
-                      min="50000"
-                      max="1000000"
-                      step="5000"
+                      min="0"
+                      max="1000"
+                      step="1"
+                      aria-label="Home price slider"
                     />
-                  </label>
+                  </div>
                   <label class="lever-row" for="lever-deposit">
                     <span>Deposit</span>
                     <output
@@ -678,8 +685,8 @@
                     <input
                       id="lever-deposit"
                       type="range"
-                      min="5"
-                      max="30"
+                      min="0"
+                      max="100"
                       step="1"
                       value="10"
                     />

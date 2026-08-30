@@ -22,6 +22,39 @@ const formatMoney = (value) => moneyFormatter.format(Math.round(value || 0))
 const inputNumber = (id) => Number(byId(id)?.value || 0)
 const checkedValue = (name) =>
   document.querySelector(`input[name="${name}"]:checked`)?.value || 'not-sure'
+const clampNumber = (value, min, max) =>
+  Math.min(max, Math.max(min, Number(value) || 0))
+
+const homePriceToSlider = (value, limits) => {
+  const clampedValue = clampNumber(value, limits.min, limits.max)
+  const scale = Math.log(limits.max / limits.min)
+
+  return Math.round(
+    (Math.log(clampedValue / limits.min) / scale) * limits.sliderMax
+  )
+}
+
+const sliderToHomePrice = (value, limits) => {
+  const position = clampNumber(value, 0, limits.sliderMax)
+  const scale = Math.log(limits.max / limits.min)
+  const rawPrice = limits.min * Math.exp((position / limits.sliderMax) * scale)
+  const rounding =
+    rawPrice < 500000
+      ? 5000
+      : rawPrice < 2000000
+        ? 10000
+        : rawPrice < 5000000
+          ? 25000
+          : rawPrice < 10000000
+            ? 50000
+            : 100000
+
+  return clampNumber(
+    Math.round(rawPrice / rounding) * rounding,
+    limits.min,
+    limits.max
+  )
+}
 
 const formatTimeline = (months) => {
   if (!Number.isFinite(months)) return 'No timeline yet'
@@ -37,14 +70,18 @@ const formatTimeline = (months) => {
 
 function initializePlanner() {
   const form = byId('home-planner-form')
-  const content = document.querySelector('.planner-content-inner')
+  const wizardHomePrice = byId('home-price')
+  const exactHomePrice = byId('lever-home-price')
+  const homePriceRange = byId('lever-home-price-range')
   const progress = document.querySelector('.planner-progress')
   const stages = new Map(
     stageNames.map((name) => [name, byId(`planner-${name}`)])
   )
   const requiredElements = [
     form,
-    content,
+    wizardHomePrice,
+    exactHomePrice,
+    homePriceRange,
     progress,
     byId('planner-start'),
     ...stages.values(),
@@ -53,6 +90,14 @@ function initializePlanner() {
   if (requiredElements.some((element) => !element)) {
     console.warn('[home-planner] Required planner elements are missing.')
     return
+  }
+
+  exactHomePrice.min = wizardHomePrice.min
+  exactHomePrice.max = wizardHomePrice.max
+  const homePriceLimits = {
+    max: Number(wizardHomePrice.max),
+    min: Number(wizardHomePrice.min),
+    sliderMax: Number(homePriceRange.max),
   }
 
   const updateIcons = () => {
@@ -85,7 +130,6 @@ function initializePlanner() {
     document.body.dataset.plannerStage = name
     updateProgress(name)
 
-    content.scrollTo({ top: 0 })
     window.scrollTo({ top: 0 })
 
     const focusTarget = focusId ? byId(focusId) : null
@@ -181,7 +225,6 @@ function initializePlanner() {
       plan.monthlyHomeCost - plan.monthlyMortgagePayment
     )
 
-    byId('result-home-price').textContent = formatMoney(input.homePrice)
     byId('result-deposit-percent').textContent = `${input.depositPercent}%`
     byId('result-rate').textContent = `${input.annualInterestRate.toFixed(1)}%`
     byId('result-term').textContent = `${input.termYears} years`
@@ -284,7 +327,9 @@ function initializePlanner() {
     const propertyType = checkedValue('propertyType')
     const ownershipType = checkedValue('ownershipType')
 
-    byId('lever-home-price').value = byId('home-price').value || '300000'
+    const homePrice = byId('home-price').value || '300000'
+    byId('lever-home-price').value = homePrice
+    syncHomePriceRange(homePrice)
     byId('lever-deposit').value = '10'
     byId('lever-rate').value = '5'
     byId('lever-term').value = '30'
@@ -372,8 +417,40 @@ function initializePlanner() {
   })
 
   document
-    .querySelectorAll('.lever-panel input[type="range"]')
+    .querySelectorAll(
+      '.lever-panel input[type="range"]:not(#lever-home-price-range)'
+    )
     .forEach((input) => input.addEventListener('input', renderPlan))
+
+  const syncHomePriceRange = (homePrice) => {
+    homePriceRange.value = String(homePriceToSlider(homePrice, homePriceLimits))
+    homePriceRange.setAttribute('aria-valuetext', formatMoney(homePrice))
+  }
+
+  exactHomePrice.addEventListener('input', () => {
+    if (!exactHomePrice.value || !exactHomePrice.checkValidity()) return
+
+    syncHomePriceRange(exactHomePrice.value)
+    renderPlan()
+  })
+
+  exactHomePrice.addEventListener('change', () => {
+    const homePrice = clampNumber(
+      exactHomePrice.value,
+      homePriceLimits.min,
+      homePriceLimits.max
+    )
+    exactHomePrice.value = String(homePrice)
+    syncHomePriceRange(homePrice)
+    renderPlan()
+  })
+
+  homePriceRange.addEventListener('input', () => {
+    const homePrice = sliderToHomePrice(homePriceRange.value, homePriceLimits)
+    exactHomePrice.value = String(homePrice)
+    homePriceRange.setAttribute('aria-valuetext', formatMoney(homePrice))
+    renderPlan()
+  })
 
   form.addEventListener('reset', () => {
     window.setTimeout(() => {

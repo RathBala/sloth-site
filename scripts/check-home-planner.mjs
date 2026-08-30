@@ -115,6 +115,31 @@ assert.match(
 )
 assert.match(
   html,
+  /What home price are you thinking about\?/,
+  'the home-price question should sound like the user is estimating a real home'
+)
+assert.match(
+  html,
+  /id="annual-income"[\s\S]*?step="1"/,
+  'yearly income must accept any whole-pound amount'
+)
+assert.match(
+  html,
+  /id="lever-deposit"[\s\S]*?min="0"[\s\S]*?max="100"/,
+  'the deposit lever must cover 0% through 100%'
+)
+assert.match(
+  html,
+  /id="home-price"[\s\S]*?min="25000"[\s\S]*?max="20000000"[\s\S]*?step="1"/,
+  'the wizard home-price input must own the supported £25,000 through £20 million range'
+)
+assert.match(
+  html,
+  /id="lever-home-price-range"[\s\S]*?min="0"[\s\S]*?max="1000"/,
+  'the home-price slider must use a broad, non-linear scale'
+)
+assert.match(
+  html,
   /Nothing is saved\. Your answers clear when you leave\./,
   'the transient persistence contract must be clear'
 )
@@ -124,8 +149,9 @@ let browser
 try {
   const baseUrl = await listen()
   browser = await chromium.launch()
+  const desktopViewport = { width: 1440, height: 748 }
   const page = await browser.newPage({
-    viewport: { width: 1440, height: 1024 },
+    viewport: desktopViewport,
   })
 
   await page.route('**/*', (route) => {
@@ -159,7 +185,7 @@ try {
   assert(desktopFrame.widthOverflow <= 1)
   assert(desktopFrame.shell)
   assert.equal(Math.round(desktopFrame.shell.width), 1440)
-  assert.equal(Math.round(desktopFrame.shell.height), 1024)
+  assert.equal(Math.round(desktopFrame.shell.height), 748)
 
   await assert.doesNotReject(() =>
     page.locator('#planner-intro:not([hidden])').waitFor()
@@ -190,9 +216,23 @@ try {
     0,
     'the current savings screen must not ask about a future mortgage budget'
   )
+  const savingsViewport = await page.evaluate(() => ({
+    documentOverflow: document.documentElement.scrollHeight - innerHeight,
+    nextBottom: document.querySelector('#savings-next')?.getBoundingClientRect()
+      .bottom,
+    privacyBottom: document
+      .querySelector('.planner-privacy-note')
+      ?.getBoundingClientRect().bottom,
+  }))
+  assert(
+    savingsViewport.documentOverflow <= 1,
+    `the deposit step must fit without vertical scrolling; overflow=${savingsViewport.documentOverflow}`
+  )
+  assert(savingsViewport.nextBottom <= desktopViewport.height)
+  assert(savingsViewport.privacyBottom <= desktopViewport.height)
 
-  await page.locator('#deposit-saved').fill('25000')
-  await page.locator('#monthly-saving').fill('1000')
+  await page.locator('#deposit-saved').fill('5250')
+  await page.locator('#monthly-saving').fill('123')
   await page.locator('#savings-next').click()
 
   await assert.doesNotReject(() =>
@@ -200,7 +240,9 @@ try {
   )
   await page.locator('[name="region"][value="england-ni"]').check()
   await page.locator('[name="propertyType"][value="house"]').check()
-  await page.locator('#home-price').fill('350000')
+  await page
+    .getByLabel('What home price are you thinking about?')
+    .fill('287501')
   await page.locator('#home-next').click()
 
   await page.locator('[name="ownershipType"][value="whole"]').check()
@@ -210,20 +252,40 @@ try {
   await assert.doesNotReject(() =>
     page.locator('#planner-budget:not([hidden])').waitFor()
   )
-  await page.locator('#mortgage-budget').fill('1600')
-  await page.locator('#annual-income').fill('70000')
+  await page.locator('#mortgage-budget').fill('1500')
+  await page.locator('#annual-income').fill('5400')
   await page.locator('#budget-next').click()
 
   await assert.doesNotReject(() =>
     page.locator('#planner-results:not([hidden])').waitFor()
   )
-  assert.match(
-    await page.locator('#result-home-price').textContent(),
-    /350,000/
+  assert.equal(
+    await page.locator('#lever-home-price').inputValue(),
+    '287501',
+    'the exact home-price control should preserve the amount entered in the wizard'
   )
-  assert.match(
-    await page.locator('#result-property-tax').textContent(),
-    /2,500/
+  assert.deepEqual(
+    await page.locator('#lever-home-price').evaluate((input) => ({
+      max: input.max,
+      min: input.min,
+      step: input.step,
+    })),
+    { max: '20000000', min: '25000', step: '1' },
+    'the result control should inherit the canonical wizard price range'
+  )
+  const startingPriceSlider = Number(
+    await page.locator('#lever-home-price-range').inputValue()
+  )
+  assert(
+    startingPriceSlider > 300 && startingPriceSlider < 500,
+    'an ordinary home price should remain usable around the middle of the broad slider'
+  )
+  assert.equal(
+    await page
+      .locator('#annual-income')
+      .evaluate((input) => input.checkValidity()),
+    true,
+    'an exact yearly income such as £5,400 must remain valid'
   )
   assert.equal(
     await page.locator('.shared-ownership-lever').isVisible(),
@@ -251,6 +313,51 @@ try {
     .locator('#result-mortgage-payment')
     .textContent()
   assert.notEqual(mortgageAfter, mortgageBefore)
+  await page.locator('#lever-deposit').fill('100')
+  assert.equal(
+    await page.locator('#result-mortgage-payment').textContent(),
+    '£0/mo',
+    'a 100% deposit should produce no mortgage repayment'
+  )
+
+  await page.locator('#lever-home-price').fill('20000000')
+  assert.equal(
+    await page.locator('#lever-home-price-range').inputValue(),
+    '1000',
+    'the exact home price and broad slider should stay synchronized'
+  )
+  assert.equal(
+    await page
+      .locator('#lever-home-price-range')
+      .getAttribute('aria-valuetext'),
+    '£20,000,000',
+    'the broad slider should announce the real home price rather than its internal scale'
+  )
+
+  const resultsScrolling = await page.evaluate(() => {
+    const inner = document.querySelector('.planner-content-inner')
+    const visual = document.querySelector('.planner-visual')
+    const visualTopBefore = visual.getBoundingClientRect().top
+    window.scrollTo({ top: 500 })
+    return {
+      documentCanScroll: document.documentElement.scrollHeight > innerHeight,
+      innerOverflowY: getComputedStyle(inner).overflowY,
+      innerScrollTop: inner.scrollTop,
+      visualTopAfter: visual.getBoundingClientRect().top,
+      visualTopBefore,
+      windowScrollY: window.scrollY,
+      widthOverflow: document.documentElement.scrollWidth - innerWidth,
+    }
+  })
+  assert.equal(resultsScrolling.documentCanScroll, true)
+  assert.equal(resultsScrolling.innerOverflowY, 'visible')
+  assert.equal(resultsScrolling.innerScrollTop, 0)
+  assert(resultsScrolling.windowScrollY > 0)
+  assert(
+    resultsScrolling.visualTopAfter < resultsScrolling.visualTopBefore,
+    'the illustrated and content panels should move together with the document'
+  )
+  assert(resultsScrolling.widthOverflow <= 1)
 
   const plannerCaptures = await page.evaluate(() => window.__plannerCaptures)
   const completion = plannerCaptures.find(

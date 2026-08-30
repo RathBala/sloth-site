@@ -59,7 +59,7 @@ input:focus-visible {
 .planner-page {
   width: 100%;
   min-height: 100svh;
-  overflow: hidden;
+  overflow-x: hidden;
   background: var(--planner-surface);
   color: var(--planner-ink);
   font-family: 'Manrope', sans-serif;
@@ -67,16 +67,19 @@ input:focus-visible {
 }
 
 .planner-shell {
-  width: 100vw;
-  height: 100svh;
+  width: 100%;
+  min-height: 100svh;
   display: grid;
   grid-template-columns: minmax(0, 54fr) minmax(31rem, 46fr);
-  overflow: hidden;
+  align-items: stretch;
+  overflow: visible;
   background: #073f32;
 }
 
 .planner-visual {
   position: relative;
+  height: 100svh;
+  align-self: start;
   min-width: 0;
   overflow: hidden;
   background: #073f32;
@@ -180,19 +183,16 @@ input:focus-visible {
   position: relative;
   z-index: 3;
   min-width: 0;
-  height: 100svh;
+  min-height: 100svh;
   margin-left: -4rem;
-  overflow: hidden;
+  overflow: visible;
   border-radius: clamp(5rem, 8vw, 8rem) 0 0 clamp(5rem, 8vw, 8rem);
   background: var(--planner-surface);
 }
 
 .planner-content-inner {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  min-height: 100svh;
   padding: clamp(2.5rem, 5vh, 4.5rem) clamp(3.25rem, 5vw, 5.75rem);
-  scrollbar-gutter: stable;
 }
 
 .planner-brand {
@@ -847,6 +847,43 @@ details[open] > summary > svg {
   font-weight: 800;
 }
 
+.lever-price-input {
+  position: relative;
+  display: flex;
+  width: 9.25rem;
+  align-items: center;
+  justify-self: end;
+}
+
+.lever-price-input > span {
+  position: absolute;
+  left: 0.65rem;
+  color: var(--planner-muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+.lever-price-input input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.35rem 0.55rem 0.35rem 1.45rem;
+  border: 1px solid var(--planner-border);
+  border-radius: 0.55rem;
+  background: #fff;
+  color: var(--planner-ink);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-align: right;
+  appearance: textfield;
+}
+
+.lever-price-input input::-webkit-inner-spin-button,
+.lever-price-input input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
 .lever-row input[type='range'] {
   grid-column: 1 / -1;
   width: 100%;
@@ -1233,6 +1270,141 @@ body[data-planner-stage='results'] .journey-milestone {
   }
 }
 
+@media (min-width: 62.01rem) {
+  .planner-content-inner {
+    padding-top: clamp(1.5rem, 3vh, 2.5rem);
+    padding-bottom: 1.5rem;
+  }
+
+  .planner-brand {
+    gap: 0.65rem;
+    font-size: clamp(1.2rem, 1.75vw, 1.55rem);
+  }
+
+  .planner-brand img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .planner-progress {
+    margin-top: 1rem;
+  }
+
+  .planner-progress::before {
+    top: 0.85rem;
+  }
+
+  .planner-progress li {
+    gap: 0.2rem;
+    font-size: 0.64rem;
+  }
+
+  .planner-progress li span {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .planner-stage,
+  .planner-results {
+    margin-top: clamp(1.15rem, 2.6vh, 2rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .planner-intro {
+    margin-top: clamp(3rem, 10vh, 6rem);
+  }
+
+  .planner-back {
+    margin-bottom: 0.65rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .planner-step {
+    margin-bottom: 0.35rem;
+  }
+
+  .planner-step-screen h2 {
+    font-size: clamp(2.2rem, 3.2vw, 3.15rem);
+  }
+
+  .planner-step-screen .questions-lead {
+    margin-top: 0.75rem;
+    font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+    line-height: 1.45;
+  }
+
+  .planner-step-screen .money-fields {
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .planner-step-screen .money-field {
+    gap: 0.35rem;
+    margin-top: 0.85rem;
+  }
+
+  .planner-step-screen .money-field input {
+    min-height: 3.2rem;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+  }
+
+  .planner-step-screen .planner-actions {
+    margin-top: 1rem;
+  }
+
+  .planner-step-screen .planner-primary-action {
+    min-height: 3.65rem;
+  }
+
+  .planner-step-screen .planner-privacy-note {
+    margin-top: 0.7rem;
+  }
+
+  .planner-step-screen .choice-group {
+    margin-top: 0.9rem;
+  }
+
+  .planner-step-screen .choice-group legend {
+    margin-bottom: 0.45rem;
+  }
+
+  .planner-step-screen .choice-card {
+    min-height: 2.9rem;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .planner-step-screen .ownership-options {
+    gap: 0.5rem;
+  }
+
+  .planner-step-screen .ownership-card {
+    min-height: 4rem;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+  }
+
+  .planner-step-screen .ownership-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .planner-step-screen .education-card {
+    margin-top: 0.65rem;
+  }
+
+  .planner-step-screen .education-card summary {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
+
+  .planner-step-screen .uncertain-toggle {
+    margin-top: 0.55rem;
+  }
+}
+
 @media (max-width: 75rem) {
   .planner-shell {
     grid-template-columns: minmax(0, 50fr) minmax(29rem, 50fr);
@@ -1271,8 +1443,11 @@ body[data-planner-stage='results'] .journey-milestone {
   }
 
   .planner-visual {
+    position: relative;
+    top: auto;
     height: 13.75rem;
     min-height: 13.75rem;
+    align-self: auto;
   }
 
   .planner-journey-image {
