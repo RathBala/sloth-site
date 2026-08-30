@@ -176,6 +176,7 @@ const requiredCopy = [
   'Provider account IDs, account numbers, sort codes, and IBANs are not returned.',
   'The first transaction read each UTC day may refresh linked bank data.',
   'A quota_exceeded reason means the UTC-day provider refresh allowance is exhausted. Cached booked transactions remain available.',
+  'A checkpoint_failed reason means provider work completed, but the Budget balance-audit checkpoint failed. Cached booked transactions remain available, and a same-day read retries only that checkpoint.',
   'A completed eligible refresh updates your Budget balance audit. A same-day cached read does not add another audit checkpoint.',
   "--include-pending reuses the transaction command's normal refresh; it does not force another refresh.",
   'Pending rows appear in a separate pending block',
