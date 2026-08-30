@@ -1271,10 +1271,40 @@ body[data-planner-stage='results'] .journey-milestone {
 }
 
 @media (min-width: 62.01rem) {
-  body:not([data-planner-stage='results']) .planner-visual {
-    height: auto;
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .planner-page,
+  .planner-shell {
+    height: 100svh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .planner-visual {
+    position: sticky;
+    top: 0;
+    height: 100svh;
     min-height: 100svh;
-    align-self: stretch;
+    align-self: start;
+  }
+
+  .planner-content,
+  body[data-planner-stage='results'] .planner-content {
+    height: 100svh;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+
+  .planner-content-inner,
+  body[data-planner-stage='results'] .planner-content-inner {
+    min-height: 100%;
   }
 
   .planner-content-inner {

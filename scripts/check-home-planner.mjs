@@ -75,6 +75,26 @@ const assertStageFitsViewport = async (
   assert(measurements.actionBottom <= viewportHeight)
 }
 
+const measureIndependentPanelScroll = (page, targetScrollTop) =>
+  page.evaluate((scrollTop) => {
+    const content = document.querySelector('.planner-content')
+    const visual = document.querySelector('.planner-visual')
+    const visualTopBefore = visual.getBoundingClientRect().top
+    content.scrollTo({ top: scrollTop })
+
+    return {
+      documentCanScroll: document.documentElement.scrollHeight > innerHeight,
+      panelCanScroll: content.scrollHeight > content.clientHeight,
+      panelOverflowY: getComputedStyle(content).overflowY,
+      panelScrollTop: content.scrollTop,
+      visualBottom: visual.getBoundingClientRect().bottom,
+      visualTopAfter: visual.getBoundingClientRect().top,
+      visualTopBefore,
+      widthOverflow: document.documentElement.scrollWidth - innerWidth,
+      windowScrollY: window.scrollY,
+    }
+  }, targetScrollTop)
+
 const html = await readFile(pagePath, 'utf8')
 const plannerImage = await stat(
   join(srcRoot, 'assets', 'images', 'home-planner-journey.webp')
@@ -277,28 +297,18 @@ try {
   await page.locator('#planner-buying .education-card').evaluate((details) => {
     details.open = true
   })
-  const buyingScrollCoverage = await page.evaluate(() => {
-    const visual = document.querySelector('.planner-visual')
-    window.scrollTo({ top: 200 })
-    const bottomElement = document.elementFromPoint(20, innerHeight - 2)
-
-    return {
-      documentCanScroll: document.documentElement.scrollHeight > innerHeight,
-      leftBottomIsArtwork: Boolean(bottomElement?.closest('.planner-visual')),
-      visualBottom: visual.getBoundingClientRect().bottom + window.scrollY,
-    }
-  })
-  assert.equal(buyingScrollCoverage.documentCanScroll, true)
+  const buyingScrollCoverage = await measureIndependentPanelScroll(page, 200)
+  assert.equal(buyingScrollCoverage.documentCanScroll, false)
+  assert.equal(buyingScrollCoverage.panelCanScroll, true)
+  assert.equal(buyingScrollCoverage.panelOverflowY, 'auto')
+  assert(buyingScrollCoverage.panelScrollTop > 0)
+  assert.equal(buyingScrollCoverage.windowScrollY, 0)
   assert.equal(
-    buyingScrollCoverage.leftBottomIsArtwork,
-    true,
-    'a scrollable wizard step must keep artwork behind the full left column'
+    buyingScrollCoverage.visualTopAfter,
+    buyingScrollCoverage.visualTopBefore,
+    'scrolling a wizard step must not move the illustrated panel'
   )
-  assert(
-    buyingScrollCoverage.visualBottom >=
-      (await page.evaluate(() => document.documentElement.scrollHeight)) - 1
-  )
-  await page.evaluate(() => window.scrollTo({ top: 0 }))
+  assert.equal(buyingScrollCoverage.visualBottom, desktopViewport.height)
   await page.locator('#planner-buying .education-card').evaluate((details) => {
     details.open = false
   })
@@ -309,6 +319,13 @@ try {
 
   await assert.doesNotReject(() =>
     page.locator('#planner-budget:not([hidden])').waitFor()
+  )
+  assert.equal(
+    await page
+      .locator('.planner-content')
+      .evaluate((content) => content.scrollTop),
+    0,
+    'each stage should start at the top of the independently scrolling panel'
   )
   await page.locator('#mortgage-budget').fill('1500')
   await page.locator('#annual-income').fill('5400')
@@ -392,28 +409,16 @@ try {
     'the broad slider should announce the real home price rather than its internal scale'
   )
 
-  const resultsScrolling = await page.evaluate(() => {
-    const inner = document.querySelector('.planner-content-inner')
-    const visual = document.querySelector('.planner-visual')
-    const visualTopBefore = visual.getBoundingClientRect().top
-    window.scrollTo({ top: 500 })
-    return {
-      documentCanScroll: document.documentElement.scrollHeight > innerHeight,
-      innerOverflowY: getComputedStyle(inner).overflowY,
-      innerScrollTop: inner.scrollTop,
-      visualTopAfter: visual.getBoundingClientRect().top,
-      visualTopBefore,
-      windowScrollY: window.scrollY,
-      widthOverflow: document.documentElement.scrollWidth - innerWidth,
-    }
-  })
-  assert.equal(resultsScrolling.documentCanScroll, true)
-  assert.equal(resultsScrolling.innerOverflowY, 'visible')
-  assert.equal(resultsScrolling.innerScrollTop, 0)
-  assert(resultsScrolling.windowScrollY > 0)
-  assert(
-    resultsScrolling.visualTopAfter < resultsScrolling.visualTopBefore,
-    'the illustrated and content panels should move together with the document'
+  const resultsScrolling = await measureIndependentPanelScroll(page, 500)
+  assert.equal(resultsScrolling.documentCanScroll, false)
+  assert.equal(resultsScrolling.panelCanScroll, true)
+  assert.equal(resultsScrolling.panelOverflowY, 'auto')
+  assert(resultsScrolling.panelScrollTop > 0)
+  assert.equal(resultsScrolling.windowScrollY, 0)
+  assert.equal(
+    resultsScrolling.visualTopAfter,
+    resultsScrolling.visualTopBefore,
+    'scrolling the results panel must not move the illustrated panel'
   )
   assert(resultsScrolling.widthOverflow <= 1)
 

@@ -73,6 +73,7 @@ function initializePlanner() {
   const wizardHomePrice = byId('home-price')
   const exactHomePrice = byId('lever-home-price')
   const homePriceRange = byId('lever-home-price-range')
+  const plannerContent = document.querySelector('.planner-content')
   const progress = document.querySelector('.planner-progress')
   const stages = new Map(
     stageNames.map((name) => [name, byId(`planner-${name}`)])
@@ -82,6 +83,7 @@ function initializePlanner() {
     wizardHomePrice,
     exactHomePrice,
     homePriceRange,
+    plannerContent,
     progress,
     byId('planner-start'),
     ...stages.values(),
@@ -131,6 +133,7 @@ function initializePlanner() {
     updateProgress(name)
 
     window.scrollTo({ top: 0 })
+    plannerContent.scrollTop = 0
 
     const focusTarget = focusId ? byId(focusId) : null
     focusTarget?.focus({ preventScroll: true })
