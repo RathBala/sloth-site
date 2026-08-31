@@ -716,7 +716,6 @@ input:focus-visible {
 }
 
 .education-card summary,
-.cost-levers summary,
 .mortgage-options summary,
 .planner-disclaimer summary {
   display: flex;
@@ -903,6 +902,14 @@ details[open] > summary > svg {
   background: var(--planner-surface-soft);
 }
 
+.cost-levers h4 {
+  margin: 0;
+  padding: 0.9rem 1rem 0;
+  color: var(--planner-ink);
+  font-size: 0.84rem;
+  font-weight: 750;
+}
+
 .cost-levers > div {
   padding: 0 1rem 1rem;
 }
@@ -932,13 +939,6 @@ details[open] > summary > svg {
   font-size: clamp(1.35rem, 2vw, 1.75rem);
   letter-spacing: -0.045em;
   line-height: 1.12;
-}
-
-.mortgage-choice-heading p:last-child {
-  margin: 0.45rem 0 0;
-  color: var(--planner-copy);
-  font-size: 0.78rem;
-  line-height: 1.45;
 }
 
 .mortgage-choice-icon {
@@ -1026,6 +1026,31 @@ details[open] > summary > svg {
   box-shadow: 0 0 0 0.16rem rgba(178, 92, 46, 0.09);
 }
 
+.repayment-option-mixed:has(input:checked) {
+  border-color: rgba(124, 77, 190, 0.55);
+  background: #f4efff;
+  box-shadow: 0 0 0 0.16rem rgba(124, 77, 190, 0.08);
+}
+
+.repayment-option-mixed {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.repayment-option-mixed .repayment-option-topline,
+.repayment-option-mixed .repayment-option-note {
+  grid-column: 1 / -1;
+}
+
+.repayment-option-mixed .repayment-option-balance {
+  text-align: right;
+}
+
+.repayment-option-mixed .selection-mark {
+  color: #7650ad;
+}
+
 .repayment-option:has(input:focus-visible),
 .rate-option-buttons label:has(input:focus-visible) {
   outline: 0.2rem solid rgba(11, 143, 85, 0.4);
@@ -1088,15 +1113,54 @@ details[open] > summary > svg {
   line-height: 1.4;
 }
 
-.rate-and-balance {
+.part-and-part-control {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(11rem, 0.66fr);
-  gap: 0.75rem;
+  grid-template-columns: 1fr auto;
+  gap: 0.55rem 1rem;
+  margin-top: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid #d8caef;
+  border-radius: 0.85rem;
+  background: #f7f3ff;
+  color: var(--planner-ink-soft);
+}
+
+.part-and-part-control[hidden] {
+  display: none;
+}
+
+.part-and-part-control span {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.part-and-part-control strong,
+.part-and-part-control output {
+  color: var(--planner-ink);
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.part-and-part-control small {
+  color: var(--planner-muted);
+  font-size: 0.64rem;
+}
+
+.part-and-part-control input {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 0.35rem;
+  margin: 0.15rem 0;
+  border-radius: 999px;
+  background: #ded3ef;
+  accent-color: #7650ad;
+}
+
+.rate-and-balance {
   margin-top: 0.75rem;
 }
 
-.rate-options,
-.balance-summary {
+.rate-options {
   padding: 0.85rem;
   border: 1px solid var(--planner-border);
   border-radius: 0.85rem;
@@ -1137,24 +1201,6 @@ details[open] > summary > svg {
   color: var(--planner-muted);
   font-size: 0.65rem;
   line-height: 1.45;
-}
-
-.balance-summary {
-  display: grid;
-  align-content: center;
-  gap: 0.3rem;
-  background: #f4f0ff;
-}
-
-.balance-summary span {
-  color: var(--planner-muted);
-  font-size: 0.66rem;
-}
-
-.balance-summary strong {
-  color: var(--planner-ink);
-  font-size: 1rem;
-  letter-spacing: -0.03em;
 }
 
 .balance-comparison {
@@ -1332,6 +1378,75 @@ details[open] > summary > svg {
   padding: 1.1rem;
 }
 
+.planner-signup-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 1.15rem;
+  background: var(--planner-ink);
+  box-shadow: 0 1rem 2.5rem rgba(8, 61, 47, 0.16);
+}
+
+.planner-signup-cta .panel-kicker {
+  color: #87e99a;
+}
+
+.planner-signup-cta h3 {
+  margin: 0.2rem 0 0;
+  color: #fff;
+  font-size: clamp(1.35rem, 2.1vw, 1.8rem);
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+}
+
+.planner-signup-cta p:last-child {
+  max-width: 35rem;
+  margin: 0.55rem 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+.planner-signup-actions {
+  display: grid;
+  justify-items: stretch;
+  gap: 0.35rem;
+  min-width: 15rem;
+}
+
+.planner-signup-actions a {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.8rem;
+  background: var(--planner-primary);
+  color: var(--planner-ink);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+.planner-signup-actions a:hover {
+  background: #a1f2a3;
+}
+
+.planner-signup-actions a:focus-visible,
+.planner-reset:focus-visible {
+  outline: 0.2rem solid #fff;
+  outline-offset: 0.15rem;
+}
+
+.planner-signup-actions a svg {
+  width: 1rem;
+  height: 1rem;
+}
+
 .cost-breakdown {
   display: grid;
   gap: 0.6rem;
@@ -1497,12 +1612,12 @@ details[open] > summary > svg {
 }
 
 .planner-reset {
-  justify-self: start;
-  padding: 0.65rem 0;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.75rem;
   border: 0;
   background: transparent;
-  color: var(--planner-focus);
-  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.72rem;
   font-weight: 750;
 }
 
@@ -1848,7 +1963,6 @@ body[data-planner-stage='results'] .journey-milestone {
   .choice-grid-three,
   .education-grid,
   .result-columns,
-  .repayment-options,
   .rate-and-balance {
     grid-template-columns: 1fr;
   }
@@ -1859,6 +1973,27 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .result-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .repayment-options {
+    grid-template-columns: 1fr;
+  }
+
+  .repayment-option-mixed {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .repayment-option-mixed .repayment-option-balance {
+    text-align: left;
+  }
+
+  .planner-signup-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .planner-signup-actions {
+    min-width: 0;
   }
 
   .scenario-table {

@@ -200,8 +200,43 @@ assert.match(
 )
 assert.match(
   html,
-  /name="repaymentMethod"[\s\S]*?value="repayment"[\s\S]*?value="interest-only"/,
-  'repayment and interest-only must be prominent, selectable scenarios'
+  /name="repaymentMethod"[\s\S]*?value="repayment"[\s\S]*?value="interest-only"[\s\S]*?value="part-and-part"/,
+  'repayment, part-and-part and interest-only must be prominent, selectable scenarios'
+)
+assert.match(
+  html,
+  /id="part-repayment-percent"[\s\S]*?min="5"[\s\S]*?max="95"/,
+  'part-and-part must let the user adjust how much of the loan repays capital'
+)
+assert.doesNotMatch(
+  html,
+  /Change any assumption\. Your deposit, mortgage and real monthly[\s\S]*?move together\./,
+  'the results heading must not repeat how the levers work'
+)
+assert.doesNotMatch(
+  html,
+  /See the monthly cost and what you would still owe\./,
+  'the mortgage choice heading must stay concise'
+)
+assert.doesNotMatch(
+  html,
+  /class="balance-summary"|id="selected-end-balance"/,
+  'the redundant selected end-balance panel must be removed'
+)
+assert.doesNotMatch(
+  html,
+  /<details class="cost-levers">/,
+  'the missed-cost levers must stay expanded rather than use an accordion'
+)
+assert.match(
+  html,
+  /class="cost-levers"[\s\S]*?Adjust the costs people miss[\s\S]*?id="lever-maintenance"/,
+  'the expanded missed-cost container must keep its heading and controls'
+)
+assert.match(
+  html,
+  /class="planner-signup-cta"[\s\S]*?href="https:\/\/budget\.slothmoney\.app"[\s\S]*?data-analytics-cta="home-planner-results-cta"/,
+  'the results must end with a tracked Sloth Money signup CTA'
 )
 assert.match(
   html,
@@ -428,12 +463,63 @@ try {
     '£2,000/mo'
   )
   assert.equal(
+    await page.locator('#part-and-part-option-payment').textContent(),
+    '£2,432/mo'
+  )
+  assert.equal(
     await page.locator('#repayment-option-balance').textContent(),
     '£0 left after 30 years'
   )
   assert.equal(
     await page.locator('#interest-only-option-balance').textContent(),
     '£600,000 left after 30 years'
+  )
+
+  await page.locator('[name="repaymentMethod"][value="part-and-part"]').check()
+  assert.equal(
+    await page.locator('#result-mortgage-payment').textContent(),
+    '£2,432/mo',
+    'part-and-part should combine repayment and interest-only payments'
+  )
+  assert.equal(
+    await page.locator('#result-total-monthly').textContent(),
+    '£3,691 a month'
+  )
+  assert.equal(
+    await page.locator('#result-loan').textContent(),
+    '£600,000 part-and-part mortgage'
+  )
+  assert.equal(
+    await page.locator('#part-and-part-option-balance').textContent(),
+    '£300,000 left after 30 years'
+  )
+  assert.equal(await page.locator('#part-and-part-control').isVisible(), true)
+  await page.locator('#part-repayment-percent').fill('75')
+  assert.equal(
+    await page.locator('#result-mortgage-payment').textContent(),
+    '£2,648/mo',
+    'adjusting the repayment share should update the mixed monthly payment'
+  )
+  assert.equal(
+    await page.locator('#part-and-part-option-balance').textContent(),
+    '£150,000 left after 30 years'
+  )
+
+  assert.equal(
+    await page.locator('.cost-levers').evaluate((node) => node.tagName),
+    'SECTION'
+  )
+  assert.equal(await page.locator('#lever-maintenance').isVisible(), true)
+  assert.match(
+    await page.locator('#result-surprise').textContent(),
+    /bills and repairs/,
+    'the surprise line should use natural list copy'
+  )
+  assert.equal(await page.locator('.planner-signup-cta').isVisible(), true)
+  assert.match(
+    await page.locator('.planner-signup-cta a').getAttribute('href'),
+    /^https:\/\/budget\.slothmoney\.app/,
+    'the signup CTA should lead to the Sloth Money app'
   )
 
   await page.locator('[name="repaymentMethod"][value="interest-only"]').check()
@@ -450,10 +536,6 @@ try {
   assert.equal(
     await page.locator('#result-loan').textContent(),
     '£600,000 interest-only mortgage'
-  )
-  assert.equal(
-    await page.locator('#selected-end-balance').textContent(),
-    '£600,000 left at the end'
   )
 
   await page.locator('[name="rateType"][value="tracker"]').check()
@@ -472,10 +554,6 @@ try {
   assert.equal(
     await page.locator('#result-mortgage-payment').textContent(),
     '£2,864/mo'
-  )
-  assert.equal(
-    await page.locator('#selected-end-balance').textContent(),
-    '£0 left at the end'
   )
 
   const mortgageBefore = await page
@@ -616,10 +694,35 @@ try {
     true,
     'the repayment choice should support native arrow-key selection'
   )
+  await mobilePage
+    .locator('#repayment-method-interest-only')
+    .press('ArrowRight')
+  assert.equal(
+    await mobilePage.locator('#repayment-method-part-and-part').isChecked(),
+    true,
+    'all three repayment choices should support native arrow-key selection'
+  )
   assert.match(
-    await mobilePage.locator('#selected-end-balance').textContent(),
-    /left at the end/,
+    await mobilePage.locator('#result-loan').textContent(),
+    /part-and-part mortgage/,
     'keyboard selection must update the visible result'
+  )
+  const mobileMixedCardLayout = await mobilePage.evaluate(() => {
+    const payment = document
+      .querySelector('#part-and-part-option-payment')
+      .getBoundingClientRect()
+    const balance = document
+      .querySelector('#part-and-part-option-balance')
+      .getBoundingClientRect()
+
+    return {
+      balanceTop: balance.top,
+      paymentBottom: payment.bottom,
+    }
+  })
+  assert(
+    mobileMixedCardLayout.paymentBottom <= mobileMixedCardLayout.balanceTop,
+    'the part-and-part payment and remaining balance must not overlap on mobile'
   )
 
   console.log('Home planner interaction checks passed.')

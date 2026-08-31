@@ -132,8 +132,18 @@ export function calculateHomePlan(input) {
   )
   const depositRequired = purchasedValue * (depositPercent / 100)
   const mortgagePrincipal = Math.max(0, purchasedValue - depositRequired)
-  const repaymentMethod =
-    input.repaymentMethod === 'interest-only' ? 'interest-only' : 'repayment'
+  const repaymentMethod = ['interest-only', 'part-and-part'].includes(
+    input.repaymentMethod
+  )
+    ? input.repaymentMethod
+    : 'repayment'
+  const partRepaymentPercent = Math.min(
+    95,
+    Math.max(5, numberOrZero(input.partRepaymentPercent) || 50)
+  )
+  const partRepaymentPrincipal =
+    mortgagePrincipal * (partRepaymentPercent / 100)
+  const partInterestOnlyPrincipal = mortgagePrincipal - partRepaymentPrincipal
   const monthlyRepaymentPayment = calculateMortgagePayment(
     mortgagePrincipal,
     input.annualInterestRate,
@@ -143,12 +153,28 @@ export function calculateHomePlan(input) {
     mortgagePrincipal,
     input.annualInterestRate
   )
+  const monthlyPartAndPartPayment =
+    calculateMortgagePayment(
+      partRepaymentPrincipal,
+      input.annualInterestRate,
+      input.termYears
+    ) +
+    calculateInterestOnlyPayment(
+      partInterestOnlyPrincipal,
+      input.annualInterestRate
+    )
   const monthlyMortgagePayment =
     repaymentMethod === 'interest-only'
       ? monthlyInterestOnlyPayment
-      : monthlyRepaymentPayment
+      : repaymentMethod === 'part-and-part'
+        ? monthlyPartAndPartPayment
+        : monthlyRepaymentPayment
   const mortgageBalanceAtEnd =
-    repaymentMethod === 'interest-only' ? mortgagePrincipal : 0
+    repaymentMethod === 'interest-only'
+      ? mortgagePrincipal
+      : repaymentMethod === 'part-and-part'
+        ? partInterestOnlyPrincipal
+        : 0
   const monthlySharedRent =
     ownershipType === 'shared'
       ? (Math.max(0, homePrice - purchasedValue) *
@@ -204,10 +230,14 @@ export function calculateHomePlan(input) {
     monthlyMaintenance,
     monthlyMortgageHeadroom,
     monthlyMortgagePayment,
+    monthlyPartAndPartPayment,
     monthlyRepaymentPayment,
     monthlySharedRent,
     mortgageBalanceAtEnd,
     mortgagePrincipal,
+    partInterestOnlyPrincipal,
+    partRepaymentPercent,
+    partRepaymentPrincipal,
     propertyTax,
     purchasedValue,
     repaymentMethod,

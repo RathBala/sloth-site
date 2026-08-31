@@ -623,10 +623,6 @@
                 </button>
                 <p class="planner-step">Your live plan</p>
                 <h2 id="results-heading" tabindex="-1">Move the levers</h2>
-                <p class="questions-lead">
-                  Change any assumption. Your deposit, mortgage and real monthly
-                  cost will move together.
-                </p>
               </div>
 
               <div class="results-layout">
@@ -719,11 +715,13 @@
                     />
                   </label>
 
-                  <details class="cost-levers">
-                    <summary>
-                      <span>Adjust the costs people miss</span>
-                      <i data-lucide="chevron-down" aria-hidden="true"></i>
-                    </summary>
+                  <section
+                    class="cost-levers"
+                    aria-labelledby="cost-levers-heading"
+                  >
+                    <h4 id="cost-levers-heading">
+                      Adjust the costs people miss
+                    </h4>
                     <div>
                       <label class="lever-row" for="lever-maintenance">
                         <span>Yearly repair cushion</span>
@@ -798,7 +796,7 @@
                         />
                       </label>
                     </div>
-                  </details>
+                  </section>
                 </aside>
 
                 <section
@@ -812,7 +810,6 @@
                       <h3 id="mortgage-choice-heading">
                         Choose how the mortgage is repaid
                       </h3>
-                      <p>See the monthly cost and what you would still owe.</p>
                     </div>
                     <span class="mortgage-choice-icon" aria-hidden="true">
                       <i data-lucide="landmark"></i>
@@ -875,7 +872,58 @@
                         Needs a separate plan to repay the amount borrowed.
                       </span>
                     </label>
+
+                    <label class="repayment-option repayment-option-mixed">
+                      <input
+                        id="repayment-method-part-and-part"
+                        type="radio"
+                        name="repaymentMethod"
+                        value="part-and-part"
+                      />
+                      <span class="repayment-option-topline">
+                        <strong>Part-and-part</strong>
+                        <span class="selection-mark" aria-hidden="true">
+                          <i data-lucide="check" aria-hidden="true"></i>
+                          <span>Selected</span>
+                        </span>
+                      </span>
+                      <span
+                        class="repayment-option-payment"
+                        id="part-and-part-option-payment"
+                      ></span>
+                      <small
+                        id="part-and-part-option-balance"
+                        class="repayment-option-balance"
+                      ></small>
+                      <span class="repayment-option-note">
+                        Repays some capital and leaves the rest to clear later.
+                      </span>
+                    </label>
                   </fieldset>
+
+                  <label
+                    class="part-and-part-control"
+                    id="part-and-part-control"
+                    for="part-repayment-percent"
+                    hidden
+                  >
+                    <span>
+                      <strong>Share on repayment</strong>
+                      <small>The rest stays interest-only.</small>
+                    </span>
+                    <output
+                      id="part-repayment-percent-output"
+                      for="part-repayment-percent"
+                    ></output>
+                    <input
+                      id="part-repayment-percent"
+                      type="range"
+                      min="5"
+                      max="95"
+                      step="5"
+                      value="50"
+                    />
+                  </label>
 
                   <div class="rate-and-balance">
                     <fieldset class="rate-options">
@@ -903,11 +951,6 @@
                       </div>
                       <p id="rate-type-explanation"></p>
                     </fieldset>
-
-                    <div class="balance-summary">
-                      <span>At the end of the term</span>
-                      <strong id="selected-end-balance"></strong>
-                    </div>
                   </div>
 
                   <div class="balance-comparison">
@@ -927,6 +970,12 @@
                         <span role="cell" id="repayment-balance-one"></span>
                         <span role="cell" id="repayment-balance-two"></span>
                         <span role="cell">£0</span>
+                      </div>
+                      <div class="balance-row" role="row">
+                        <strong role="rowheader">Part-and-part</strong>
+                        <span role="cell" id="part-and-part-balance-one"></span>
+                        <span role="cell" id="part-and-part-balance-two"></span>
+                        <span role="cell" id="part-and-part-balance-end"></span>
                       </div>
                       <div class="balance-row" role="row">
                         <strong role="rowheader">Interest-only</strong>
@@ -1075,6 +1124,33 @@
                     <div class="scenario-table" id="deposit-scenarios"></div>
                   </section>
 
+                  <section class="planner-signup-cta">
+                    <div>
+                      <p class="panel-kicker">Ready to make it real?</p>
+                      <h3>Turn your home plan into progress</h3>
+                      <p>
+                        Build a budget around your goal, track your savings and
+                        test new scenarios as life changes.
+                      </p>
+                    </div>
+                    <div class="planner-signup-actions">
+                      <a
+                        href="https://budget.slothmoney.app"
+                        data-analytics-cta="home-planner-results-cta"
+                      >
+                        Start planning with Sloth Money
+                        <i data-lucide="arrow-right" aria-hidden="true"></i>
+                      </a>
+                      <button
+                        class="planner-reset"
+                        id="planner-reset"
+                        type="reset"
+                      >
+                        Start again
+                      </button>
+                    </div>
+                  </section>
+
                   <section class="planner-disclaimer">
                     <i data-lucide="info" aria-hidden="true"></i>
                     <div>
@@ -1092,6 +1168,15 @@
                             Repayment and interest-only mortgages:
                             <a
                               href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-repayment-options"
+                              target="_blank"
+                              rel="noreferrer"
+                              >MoneyHelper</a
+                            >
+                          </li>
+                          <li>
+                            Part-and-part mortgages:
+                            <a
+                              href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/ways-of-repaying-an-interest-only-mortgage"
                               target="_blank"
                               rel="noreferrer"
                               >MoneyHelper</a
@@ -1136,10 +1221,6 @@
                       </details>
                     </div>
                   </section>
-
-                  <button class="planner-reset" id="planner-reset" type="reset">
-                    Start again
-                  </button>
                 </div>
               </div>
             </section>

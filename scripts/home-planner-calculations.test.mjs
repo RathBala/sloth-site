@@ -99,6 +99,40 @@ test('keeps the capital due at the end of an interest-only mortgage', () => {
   assert.equal(plan.monthlyMortgageHeadroom, 1000)
 })
 
+test('splits a part-and-part mortgage between repayment and interest-only', () => {
+  const plan = calculateHomePlan({
+    annualIncome: 150000,
+    annualInterestRate: 4,
+    buyingFees: 4000,
+    depositPercent: 40,
+    depositSaved: 5000,
+    firstTimeBuyer: 'no',
+    furnishingBudget: 8000,
+    homePrice: 1000000,
+    maintenancePercent: 1,
+    monthlyBills: 425,
+    monthlyMortgageBudget: 3000,
+    monthlySaving: 1000,
+    ownershipType: 'whole',
+    partRepaymentPercent: 50,
+    propertyType: 'house',
+    region: 'england-ni',
+    repaymentMethod: 'part-and-part',
+    serviceCharge: 0,
+    sharedOwnershipPercent: 40,
+    termYears: 30,
+  })
+
+  assert.equal(plan.mortgagePrincipal, 600000)
+  assert.equal(plan.partRepaymentPrincipal, 300000)
+  assert.equal(plan.partInterestOnlyPrincipal, 300000)
+  assert.equal(plan.monthlyPartAndPartPayment.toFixed(2), '2432.25')
+  assert.equal(plan.monthlyMortgagePayment.toFixed(2), '2432.25')
+  assert.equal(plan.mortgageBalanceAtEnd, 300000)
+  assert.equal(Math.round(plan.monthlyHomeCost), 3691)
+  assert.equal(Math.round(plan.monthlyMortgageHeadroom), 568)
+})
+
 test('shows rent on the unowned share for shared ownership', () => {
   const plan = calculateHomePlan({
     annualIncome: 50000,
