@@ -1,40 +1,35 @@
-# Home planner mortgage comparison design QA
+# Home planner tracker and closing CTA design QA
 
-- source visual truth path: `/Users/rathbala/.codex/generated_images/01a03293-f755-7e42-9ef8-716b35c1d2e9/exec-01fb5591-57b9-4f17-830d-45685bb5b57d.png`
-- implementation screenshot path: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-three-column-desktop.png`
-- responsive screenshot paths: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-three-column-narrow.png` and `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-three-column-mobile.png`
-- viewport: desktop `1440 × 1024` CSS pixels; narrow desktop `1024 × 768`; mobile override `390 × 844`
-- dimensions and normalization: source `1487 × 1058` pixels; desktop implementation `1440 × 1024` pixels at 1× density; narrow capture `1024 × 768`; the in-app browser produced a `375 × 812` visible mobile capture. The full-view comparison center-crops both desktop artifacts to `720 × 512` before placing them side by side.
-- state: £1,000,000 home, 40% deposit, £600,000 mortgage, 4.0% rate, 30-year term; Part-and-part selected with 50% on repayment and 50% interest-only
-- full-view comparison evidence: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-three-column-comparison.png`
-- focused region evidence: the narrow and mobile screenshots above show all three mortgage choices, selected state, split control and balance table at readable size
+- source visual truth paths: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-945cb916-b427-499b-ac52-5da9c518bb2f.png` and `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-abb99511-add9-4651-ab21-7a303757ca90.png`
+- implementation screenshot paths: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-tracker-impact-desktop.png` and `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-full-width-cta-desktop.png`
+- responsive screenshot paths: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-tracker-impact-mobile.png` and `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-full-width-cta-mobile.png`
+- viewport: desktop `1440 × 1024` CSS pixels; mobile `390 × 844`
+- state: £300,000 home, 10% deposit, £270,000 mortgage, 5.0% assumed rate, 30-year term, repayment selected, Tracker selected, sources expanded
+- combined comparison evidence: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-tracker-comparison.png` and `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-cta-comparison.png`
 
 ## Findings
 
 No actionable P0, P1, or P2 differences remain.
 
-- Fonts and typography: the implementation retains the existing Manrope type system and strong payment hierarchy. Card copy now contains only the method, monthly payment and end balance. All three titles remain on one line at the tight `1024px` desktop viewport.
-- Spacing and layout rhythm: the three methods use equal-width cards in one desktop row, with matching height and padding. The split control sits below the row only when Part-and-part is selected. Mobile deliberately stacks the same cards at full width so the figures remain readable.
-- Colors and visual tokens: every method uses the same neutral surface and the same green selected treatment. The split slider also uses the standard planner surface, border and focus tokens. No mortgage method has a purple or warning-coloured variant.
-- Image quality and asset fidelity: the existing optimized low-poly home-planner art and Lucide icon set remain unchanged and sharp. No substitute art, handcrafted icon, CSS drawing or placeholder asset was introduced.
-- Copy and content: repeated explanatory sentences were removed from the cards. “Left at the end” is intentionally shorter because the term is already visible in the adjacent assumptions and balance table.
-
-The source concept shows two mortgage cards because it predates the Part-and-part requirement. The latest user direction intentionally overrides that detail with three equal columns. The implementation preserves the concept's comparison-first hierarchy while fitting the additional choice without shrinking the surrounding controls.
+- Tracker feedback: the selected Tracker state now pairs the segmented control with a high-salience worked illustration. It shows the monthly payment at one percentage point above the user's assumed rate, followed by the short explanation that a tracker payment can rise or fall. The current-rate plan remains unchanged, so the illustration does not imply that the tool knows a future lender benchmark or margin.
+- Closing hierarchy: the signup CTA now occupies its own full-width row after the lever column and the complete plan column, including the planning disclaimer and expanded sources. It spans the whole results workspace to the right of the fixed artwork.
+- Spacing and alignment: desktop measurements confirm that the CTA's left and right edges match the results grid exactly. It begins below both the lever panel and the expanded sources. Mobile preserves the same reading order with equal content widths and no horizontal overflow.
+- Colors and visual tokens: the new rate illustration uses the existing soft surface, ink, muted text and border system. The CTA keeps the existing dark-green conversion treatment. No new color family or one-off accent was introduced.
+- Typography and copy: the illustration is concise enough to scan next to the mortgage setup without competing with the payment cards. CTA copy is unchanged and remains the final conversion message after the planning evidence.
+- Image quality and asset fidelity: the fixed optimized home-planner artwork and existing Lucide icon set remain unchanged and sharp.
 
 ## Comparison history
 
-1. The earlier implementation placed Part-and-part in a full-width row beneath Repayment and Interest-only. The latest direction required all three choices to have equal prominence in one row. The desktop grid now uses three equal tracks and all method-specific colour variants have been removed. Post-fix evidence: `home-planner-three-column-desktop.png`.
-2. The first narrow-desktop pass allowed the Part-and-part title to wrap because its selected check consumed inline width. The check is now positioned independently, leaving all three titles on one line. Post-fix evidence: `home-planner-three-column-narrow.png`.
-3. The mobile pass confirmed the cards stack at equal full width, the selected state remains obvious without relying on colour alone, and the Part-and-part split control stays directly attached to the choice. Post-fix evidence: `home-planner-three-column-mobile.png`.
-4. The final full-view and focused comparisons found no remaining actionable P0/P1/P2 differences.
+1. The reference Tracker state changed only a low-contrast helper sentence, so the control appeared inert. The implementation adds a concrete `+1 percentage point example` row with the corresponding monthly payment and rate.
+2. The reference CTA sat inside the plan column before the disclaimer and sources. The implementation moves it after the complete two-column results grid and spans both result columns.
+3. Desktop and mobile captures confirm that the new placement does not create overflow, clipping, or a competing scroll region.
 
 ## Interaction and responsive checks
 
-- Repayment, Interest-only and Part-and-part update the headline mortgage payment, full monthly cost, mortgage description and deposit scenarios.
-- Part-and-part exposes a live 5% to 95% repayment-share slider and updates its payment and outstanding balance immediately.
-- Native radio controls support Tab and arrow-key selection with a visible focus state. No additional shortcut is warranted for this short, one-off comparison.
-- Automated browser measurements confirm equal card widths and top alignment on desktop, no container overflow, and identical selected background, border and shadow styles for all three methods.
-- Desktop keeps the illustrated panel fixed while the right side scrolls. Mobile places the mortgage choices before the assumptions and has no horizontal overflow.
+- Fixed and Tracker remain native radio choices with Tab and arrow-key support plus visible focus styling. No additional keyboard shortcut is warranted for this short, one-off comparison.
+- Tracker updates the worked illustration for Repayment, Interest-only, and Part-and-part because it reuses the selected mortgage method and all live lever values.
+- Changing the interest rate, term, deposit, home price, or Part-and-part split immediately recalculates the Tracker illustration.
+- The CTA stays below the expanded sources on desktop and mobile, and the desktop artwork remains fixed while the right content panel scrolls.
 - Browser console errors checked: none from the planner implementation.
 
 ## Follow-up polish

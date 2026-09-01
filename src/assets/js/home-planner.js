@@ -236,6 +236,11 @@ function initializePlanner() {
       plan.monthlyHomeCost - plan.monthlyMortgagePayment
     )
     const rateType = checkedValue('rateType')
+    const trackerExampleRate = input.annualInterestRate + 1
+    const trackerExamplePlan = calculateHomePlan({
+      ...input,
+      annualInterestRate: trackerExampleRate,
+    })
     const isInterestOnly = plan.repaymentMethod === 'interest-only'
     const isPartAndPart = plan.repaymentMethod === 'part-and-part'
     const balanceYearOne = Math.round(input.termYears / 3)
@@ -302,10 +307,23 @@ function initializePlanner() {
     byId('part-repayment-percent-output').textContent =
       `${plan.partRepaymentPercent}%`
     byId('part-and-part-control').hidden = !isPartAndPart
+    byId('rate-impact-label').textContent =
+      rateType === 'tracker'
+        ? '+1 percentage point example'
+        : 'Your current assumption'
+    byId('rate-impact-value').textContent = `${formatMoney(
+      rateType === 'tracker'
+        ? trackerExamplePlan.monthlyMortgagePayment
+        : plan.monthlyMortgagePayment
+    )}/mo at ${
+      rateType === 'tracker'
+        ? trackerExampleRate.toFixed(1)
+        : input.annualInterestRate.toFixed(1)
+    }%`
     byId('rate-type-explanation').textContent =
       rateType === 'tracker'
-        ? 'Follows another rate, so this payment can rise or fall.'
-        : 'Keeps this rate for an agreed deal period, then usually changes.'
+        ? 'A tracker follows another rate, so your payment can rise or fall.'
+        : 'A fixed rate usually stays set for the deal period.'
     byId('balance-comparison-term').textContent =
       `${input.termYears}-year term at ${input.annualInterestRate.toFixed(1)}%`
     byId('balance-year-one').textContent = `Year ${balanceYearOne}`

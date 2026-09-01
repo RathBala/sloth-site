@@ -260,6 +260,11 @@ assert.match(
 )
 assert.match(
   html,
+  /id="rate-impact-label"[\s\S]*?id="rate-impact-value"/,
+  'the rate choice must expose a prominent worked payment illustration'
+)
+assert.match(
+  html,
   /name="rateType"[\s\S]*?value="fixed"[\s\S]*?value="tracker"/,
   'fixed and tracker must remain a separate rate choice'
 )
@@ -598,6 +603,52 @@ try {
     'the signup CTA should lead to the Sloth Money app'
   )
 
+  await page.locator('.planner-disclaimer details').evaluate((details) => {
+    details.open = true
+  })
+  const closingLayout = await page.evaluate(() => {
+    const box = (selector) => {
+      const bounds = document.querySelector(selector)?.getBoundingClientRect()
+      return bounds
+        ? {
+            bottom: bounds.bottom,
+            left: bounds.left,
+            right: bounds.right,
+            top: bounds.top,
+          }
+        : null
+    }
+
+    return {
+      cta: box('.planner-signup-cta'),
+      disclaimer: box('.planner-disclaimer'),
+      layout: box('.results-layout'),
+      lever: box('.lever-panel'),
+      nestedInPlan: Boolean(
+        document.querySelector('.plan-panel .planner-signup-cta')
+      ),
+    }
+  })
+  assert(closingLayout.cta)
+  assert(closingLayout.disclaimer)
+  assert(closingLayout.layout)
+  assert(closingLayout.lever)
+  assert.equal(
+    closingLayout.nestedInPlan,
+    false,
+    'the signup CTA should follow the complete two-column results content'
+  )
+  assert(
+    closingLayout.cta.top >=
+      Math.max(closingLayout.disclaimer.bottom, closingLayout.lever.bottom) - 1,
+    'the signup CTA should sit below both the levers and sources and assumptions'
+  )
+  assert(
+    Math.abs(closingLayout.cta.left - closingLayout.layout.left) <= 1 &&
+      Math.abs(closingLayout.cta.right - closingLayout.layout.right) <= 1,
+    'the signup CTA should span the full results width to the right of the artwork'
+  )
+
   await page.locator('[name="repaymentMethod"][value="interest-only"]').check()
   assert.equal(
     await page.locator('#result-mortgage-payment').textContent(),
@@ -619,6 +670,15 @@ try {
     await page.locator('#rate-type-explanation').textContent(),
     /can rise or fall/i,
     'tracker should explain that the assumed payment can change'
+  )
+  assert.equal(
+    await page.locator('#rate-impact-label').textContent(),
+    '+1 percentage point example'
+  )
+  assert.equal(
+    await page.locator('#rate-impact-value').textContent(),
+    '£2,500/mo at 5.0%',
+    'tracker should show a concrete higher-rate illustration for the selected mortgage method'
   )
   assert.equal(
     await page.locator('#result-mortgage-payment').textContent(),

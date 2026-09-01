@@ -788,7 +788,8 @@ details[open] > summary > svg {
   grid-template-columns: minmax(15rem, 0.72fr) minmax(28rem, 1.28fr);
   grid-template-areas:
     'levers mortgage-choice'
-    'levers plan';
+    'levers plan'
+    'cta cta';
   gap: 1.15rem;
   margin-top: 2rem;
 }
@@ -1153,6 +1154,30 @@ details[open] > summary > svg {
   color: var(--planner-ink);
 }
 
+.rate-impact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.55rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.55rem;
+  background: var(--planner-surface-soft);
+}
+
+.rate-impact span {
+  color: var(--planner-muted);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.rate-impact strong {
+  color: var(--planner-ink);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-align: right;
+}
+
 .rate-options p {
   margin: 0.55rem 0 0;
   color: var(--planner-muted);
@@ -1336,6 +1361,7 @@ details[open] > summary > svg {
 }
 
 .planner-signup-cta {
+  grid-area: cta;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 1.5rem;
@@ -1898,7 +1924,8 @@ body[data-planner-stage='results'] .journey-milestone {
     grid-template-areas:
       'mortgage-choice'
       'levers'
-      'plan';
+      'plan'
+      'cta';
   }
 
   .lever-panel {
@@ -1938,6 +1965,16 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .planner-signup-cta {
     grid-template-columns: 1fr;
+  }
+
+  .rate-impact {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .rate-impact strong {
+    text-align: left;
   }
 
   .planner-signup-actions {
