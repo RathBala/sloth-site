@@ -292,14 +292,13 @@ function initializePlanner() {
     byId('part-and-part-option-payment').textContent = `${formatMoney(
       plan.monthlyPartAndPartPayment
     )}/mo`
-    byId('repayment-option-balance').textContent =
-      `£0 left after ${input.termYears} years`
+    byId('repayment-option-balance').textContent = '£0 left at the end'
     byId('interest-only-option-balance').textContent = `${formatMoney(
       plan.mortgagePrincipal
-    )} left after ${input.termYears} years`
+    )} left at the end`
     byId('part-and-part-option-balance').textContent = `${formatMoney(
       plan.partInterestOnlyPrincipal
-    )} left after ${input.termYears} years`
+    )} left at the end`
     byId('part-repayment-percent-output').textContent =
       `${plan.partRepaymentPercent}%`
     byId('part-and-part-control').hidden = !isPartAndPart

@@ -204,6 +204,26 @@ assert.match(
   'repayment, part-and-part and interest-only must be prominent, selectable scenarios'
 )
 assert.match(
+  plannerStyles,
+  /\.repayment-options\s*\{[\s\S]*?grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/,
+  'the three repayment methods must share one equal-width desktop row'
+)
+assert.doesNotMatch(
+  html,
+  /repayment-option-(?:warn|mixed)|repayment-option-note/,
+  'repayment methods must share one concise card pattern without colour-coded variants'
+)
+assert.match(
+  plannerStyles,
+  /\.part-and-part-control\s*\{[\s\S]*?background:\s*var\(--planner-surface-soft\)/,
+  'the part-and-part split control must use the planner design tokens'
+)
+assert.match(
+  plannerStyles,
+  /\.part-and-part-control input\s*\{[\s\S]*?accent-color:\s*var\(--planner-focus\)/,
+  'the part-and-part slider must use the standard planner accent'
+)
+assert.match(
   html,
   /id="part-repayment-percent"[\s\S]*?min="5"[\s\S]*?max="95"/,
   'part-and-part must let the user adjust how much of the loan repays capital'
@@ -468,11 +488,67 @@ try {
   )
   assert.equal(
     await page.locator('#repayment-option-balance').textContent(),
-    '£0 left after 30 years'
+    '£0 left at the end'
   )
   assert.equal(
     await page.locator('#interest-only-option-balance').textContent(),
-    '£600,000 left after 30 years'
+    '£600,000 left at the end'
+  )
+
+  const repaymentChoiceLayout = await page.evaluate(() => {
+    const options = [...document.querySelectorAll('.repayment-option')]
+    const container = document
+      .querySelector('.repayment-options')
+      .getBoundingClientRect()
+    const cards = options.map((option) => {
+      const bounds = option.getBoundingClientRect()
+
+      return {
+        left: bounds.left,
+        right: bounds.right,
+        top: bounds.top,
+        width: bounds.width,
+      }
+    })
+
+    return {
+      cards,
+      containerRight: container.right,
+    }
+  })
+  assert.equal(repaymentChoiceLayout.cards.length, 3)
+  assert(
+    repaymentChoiceLayout.cards.every(
+      (card) =>
+        Math.abs(card.top - repaymentChoiceLayout.cards[0].top) <= 1 &&
+        Math.abs(card.width - repaymentChoiceLayout.cards[0].width) <= 1 &&
+        card.right <= repaymentChoiceLayout.containerRight + 1
+    ),
+    'all three repayment methods must align in an equal-width row without overflowing'
+  )
+
+  const selectedMethodStyles = []
+  for (const method of ['repayment', 'interest-only', 'part-and-part']) {
+    await page.locator(`[name="repaymentMethod"][value="${method}"]`).check()
+    await page.waitForTimeout(180)
+    selectedMethodStyles.push(
+      await page
+        .locator(`[name="repaymentMethod"][value="${method}"]`)
+        .evaluate((input) => {
+          const styles = getComputedStyle(input.closest('.repayment-option'))
+
+          return {
+            backgroundColor: styles.backgroundColor,
+            borderColor: styles.borderColor,
+            boxShadow: styles.boxShadow,
+          }
+        })
+    )
+  }
+  assert.deepEqual(
+    selectedMethodStyles.slice(1),
+    [selectedMethodStyles[0], selectedMethodStyles[0]],
+    'every selected repayment method must use the same visual treatment'
   )
 
   await page.locator('[name="repaymentMethod"][value="part-and-part"]').check()
@@ -491,7 +567,7 @@ try {
   )
   assert.equal(
     await page.locator('#part-and-part-option-balance').textContent(),
-    '£300,000 left after 30 years'
+    '£300,000 left at the end'
   )
   assert.equal(await page.locator('#part-and-part-control').isVisible(), true)
   await page.locator('#part-repayment-percent').fill('75')
@@ -502,7 +578,7 @@ try {
   )
   assert.equal(
     await page.locator('#part-and-part-option-balance').textContent(),
-    '£150,000 left after 30 years'
+    '£150,000 left at the end'
   )
 
   assert.equal(

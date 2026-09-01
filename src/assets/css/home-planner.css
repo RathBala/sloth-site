@@ -967,8 +967,8 @@ details[open] > summary > svg {
 
 .repayment-options {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
   margin-top: 1.15rem;
 }
 
@@ -995,7 +995,7 @@ details[open] > summary > svg {
   display: grid;
   min-width: 0;
   gap: 0.25rem;
-  padding: 1rem;
+  padding: 0.85rem;
   border: 1px solid var(--planner-border);
   border-radius: 1rem;
   background: var(--planner-surface-soft);
@@ -1020,37 +1020,6 @@ details[open] > summary > svg {
   box-shadow: 0 0 0 0.16rem rgba(11, 143, 85, 0.1);
 }
 
-.repayment-option-warn:has(input:checked) {
-  border-color: rgba(178, 92, 46, 0.58);
-  background: #fff3ec;
-  box-shadow: 0 0 0 0.16rem rgba(178, 92, 46, 0.09);
-}
-
-.repayment-option-mixed:has(input:checked) {
-  border-color: rgba(124, 77, 190, 0.55);
-  background: #f4efff;
-  box-shadow: 0 0 0 0.16rem rgba(124, 77, 190, 0.08);
-}
-
-.repayment-option-mixed {
-  grid-column: 1 / -1;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-}
-
-.repayment-option-mixed .repayment-option-topline,
-.repayment-option-mixed .repayment-option-note {
-  grid-column: 1 / -1;
-}
-
-.repayment-option-mixed .repayment-option-balance {
-  text-align: right;
-}
-
-.repayment-option-mixed .selection-mark {
-  color: #7650ad;
-}
-
 .repayment-option:has(input:focus-visible),
 .rate-option-buttons label:has(input:focus-visible) {
   outline: 0.2rem solid rgba(11, 143, 85, 0.4);
@@ -1058,29 +1027,23 @@ details[open] > summary > svg {
 }
 
 .repayment-option-topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  display: block;
 }
 
 .repayment-option-topline > strong {
   color: var(--planner-ink);
-  font-size: 0.88rem;
+  font-size: 0.78rem;
+  line-height: 1.25;
 }
 
 .selection-mark {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.75rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
   color: var(--planner-focus);
-  font-size: 0.62rem;
-  font-weight: 800;
   opacity: 0;
-}
-
-.repayment-option-warn .selection-mark {
-  color: #9a4e2b;
 }
 
 .selection-mark svg {
@@ -1094,7 +1057,7 @@ details[open] > summary > svg {
 
 .repayment-option-payment {
   color: var(--planner-ink);
-  font-size: clamp(1.45rem, 2.6vw, 2.15rem);
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
   font-weight: 800;
   letter-spacing: -0.055em;
   line-height: 1.1;
@@ -1102,15 +1065,9 @@ details[open] > summary > svg {
 
 .repayment-option-balance {
   color: var(--planner-ink-soft);
-  font-size: 0.72rem;
+  font-size: 0.63rem;
   font-weight: 750;
-}
-
-.repayment-option-note {
-  margin-top: 0.35rem;
-  color: var(--planner-muted);
-  font-size: 0.66rem;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .part-and-part-control {
@@ -1119,9 +1076,9 @@ details[open] > summary > svg {
   gap: 0.55rem 1rem;
   margin-top: 0.75rem;
   padding: 0.85rem 1rem;
-  border: 1px solid #d8caef;
+  border: 1px solid var(--planner-border);
   border-radius: 0.85rem;
-  background: #f7f3ff;
+  background: var(--planner-surface-soft);
   color: var(--planner-ink-soft);
 }
 
@@ -1152,8 +1109,8 @@ details[open] > summary > svg {
   height: 0.35rem;
   margin: 0.15rem 0;
   border-radius: 999px;
-  background: #ded3ef;
-  accent-color: #7650ad;
+  background: #d8e7dd;
+  accent-color: var(--planner-focus);
 }
 
 .rate-and-balance {
@@ -1977,15 +1934,6 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .repayment-options {
     grid-template-columns: 1fr;
-  }
-
-  .repayment-option-mixed {
-    grid-column: auto;
-    grid-template-columns: 1fr;
-  }
-
-  .repayment-option-mixed .repayment-option-balance {
-    text-align: left;
   }
 
   .planner-signup-cta {
