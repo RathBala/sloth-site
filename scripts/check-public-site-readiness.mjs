@@ -211,6 +211,17 @@ requireText(home, 'href="/developers/"', 'src/index.html')
 requireText(home, 'href="/home-planner/"', 'src/index.html')
 requireText(markMe, 'name="robots" content="noindex', 'src/mark-me.html')
 
+for (const [page, location] of [
+  [home, 'src/index.html'],
+  [weddingFund, 'src/wedding-fund/index.html'],
+  [developers, 'src/developers/index.html'],
+]) {
+  requireText(page, 'data-tools-menu', location)
+  requireText(page, '>Tools<', location)
+  requireText(page, 'href="/home-planner/"', location)
+  requireText(page, '>Home planner<', location)
+}
+
 requireText(
   homePlanner,
   'Can you afford your dream home?',

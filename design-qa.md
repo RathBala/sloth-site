@@ -37,3 +37,32 @@ No actionable P0, P1, or P2 differences remain.
 No P3 follow-up is required for this iteration.
 
 final result: passed
+
+---
+
+# Public Tools navigation and signup handoff design QA
+
+- source visual truth path: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/tools-nav-before-desktop.png`
+- implementation screenshot paths: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/tools-nav-desktop.png` and `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/tools-nav-mobile.png`
+- viewport: desktop `1440 × 900` CSS pixels; mobile `390 × 844`
+- combined comparison evidence: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/tools-nav-comparison.png`
+
+## Findings
+
+No actionable P0, P1, or P2 differences remain.
+
+- Navigation hierarchy: Tools sits before the existing Sign in and Join actions, so it reads as product exploration rather than another account action.
+- Desktop interaction: the native details control exposes one focused destination without widening or restructuring the existing header. The menu stays above hero content and uses the existing white surface, green accent, border, radius and shadow system.
+- Mobile interaction: Home planner appears first in the existing mobile menu, followed by a divider and the unchanged account actions. The card stays within the 390-pixel viewport with no horizontal overflow.
+- Copy: the item names the tool and its three concrete outputs - deposit, mortgage and real home costs - without repeating the planner introduction.
+- Signup handoff: the results CTA keeps its existing visual treatment and now targets the app's explicit signup intent instead of the default authentication mode.
+- Image quality and asset fidelity: no raster assets changed. The menu reuses the site's existing Lucide icon set and logo assets.
+
+## Interaction and responsive checks
+
+- Tools uses native summary/details keyboard behaviour with visible focus and an ordinary destination link.
+- Desktop and mobile both expose the same Home planner destination.
+- The existing sticky header remains above the menu and the mobile menu keeps its existing expanded-state control.
+- No keyboard shortcut is warranted for a low-frequency public navigation menu.
+
+final result: passed

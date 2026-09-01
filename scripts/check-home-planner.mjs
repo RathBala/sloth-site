@@ -255,7 +255,7 @@ assert.match(
 )
 assert.match(
   html,
-  /class="planner-signup-cta"[\s\S]*?href="https:\/\/budget\.slothmoney\.app"[\s\S]*?data-analytics-cta="home-planner-results-cta"/,
+  /class="planner-signup-cta"[\s\S]*?href="https:\/\/budget\.slothmoney\.app\/\?intent=signup"[\s\S]*?data-analytics-cta="home-planner-results-cta"/,
   'the results must end with a tracked Sloth Money signup CTA'
 )
 assert.match(
@@ -597,10 +597,10 @@ try {
     'the surprise line should use natural list copy'
   )
   assert.equal(await page.locator('.planner-signup-cta').isVisible(), true)
-  assert.match(
+  assert.equal(
     await page.locator('.planner-signup-cta a').getAttribute('href'),
-    /^https:\/\/budget\.slothmoney\.app/,
-    'the signup CTA should lead to the Sloth Money app'
+    'https://budget.slothmoney.app/?intent=signup&entry_point=home-planner-results-cta&cta_id=home-planner-results-cta',
+    'the signup CTA should open the Sloth Money account-creation flow'
   )
 
   await page.locator('.planner-disclaimer details').evaluate((details) => {

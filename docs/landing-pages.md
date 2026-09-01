@@ -29,7 +29,7 @@ The homepage saver cards stay intentionally light: **Solo** links straight to th
 - **Scrolling:** The wizard and results use the document's single scrollbar. On desktop, the illustrated journey and warm content panel both move with the page; there is no separate right-panel scrollbar.
 - **Guidance:** Buying-route and mortgage-route explanations use progressive disclosure. Figures are planning estimates, not a mortgage offer, and the results link to the government and MoneyHelper sources behind the assumptions.
 - **Persistence:** Answers exist only in the current page. They are not written to local storage, cookies, URLs, the Sloth app, or a backend, and they clear on refresh or navigation.
-- **Discovery:** The page is indexable, appears in `sitemap.xml` and `llms.txt`, and is linked from the shared site footer.
+- **Discovery:** The page is indexable, appears in `sitemap.xml` and `llms.txt`, and is linked from the primary `Tools` navigation on the homepage, wedding-fund page, and developer page as well as the shared site footer.
 - **Tracking:** The page reuses the existing memory-only `landing_view` and `cta_clicked` events. `home-planner-start` records that the visitor opened the first questions. Reaching the live plan records `home_planner_completed` with categorical route choices only. Exact savings, income, price, mortgage, bill, or other financial values are never sent.
 - **Visual:** The first view follows the approved visual-first split concept. The custom low-poly home journey is served as WebP with a compressed JPEG fallback; HTML owns the logo, labels, copy, controls, and form fields.
 

@@ -1147,6 +1147,44 @@
               >
             </a>
             <div class="flex items-center gap-2 sm:gap-4">
+              <details data-tools-menu class="group relative hidden sm:block">
+                <summary
+                  class="flex cursor-pointer list-none items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold tracking-wide text-emerald-50 transition-colors duration-200 hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-light/70"
+                >
+                  <span>Tools</span>
+                  <i
+                    data-lucide="chevron-down"
+                    class="h-4 w-4 transition-transform duration-200 group-open:rotate-180"
+                    aria-hidden="true"
+                  ></i>
+                </summary>
+                <div
+                  class="absolute right-0 top-full z-20 mt-3 w-80 rounded-2xl border border-gray-200 bg-white p-2 text-gray-900 shadow-2xl shadow-green-really-dark/20"
+                >
+                  <a
+                    href="/home-planner/"
+                    class="group/tool flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-green/5 focus:outline-none focus:ring-2 focus:ring-green/40"
+                  >
+                    <span
+                      class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green/10 text-green"
+                    >
+                      <i
+                        data-lucide="house"
+                        class="h-5 w-5"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                    <span>
+                      <span class="block font-bold text-green-really-dark"
+                        >Home planner</span
+                      >
+                      <span class="mt-0.5 block text-sm leading-5 text-gray-600"
+                        >Plan your deposit, mortgage and real home costs.</span
+                      >
+                    </span>
+                  </a>
+                </div>
+              </details>
               <a
                 class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold tracking-wide text-emerald-50 hover:text-white transition-colors duration-200"
                 href="https://budget.slothmoney.app"
@@ -1207,24 +1245,57 @@
             <div
               class="rounded-2xl border border-white/10 bg-white/95 shadow-lg p-4 space-y-3"
             >
-              <div class="text-sm font-semibold tracking-wide text-green-dark">
-                Get started
+              <div class="space-y-2">
+                <div
+                  class="text-sm font-semibold tracking-wide text-green-dark"
+                >
+                  Tools
+                </div>
+                <a
+                  href="/home-planner/"
+                  class="flex items-start gap-3 rounded-xl border border-green/15 bg-green/5 p-3 text-left transition-colors hover:bg-green/10 focus:outline-none focus:ring-2 focus:ring-green/40"
+                >
+                  <span
+                    class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green/10 text-green"
+                  >
+                    <i
+                      data-lucide="house"
+                      class="h-5 w-5"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                  <span>
+                    <span class="block font-bold text-green-really-dark"
+                      >Home planner</span
+                    >
+                    <span class="mt-0.5 block text-sm leading-5 text-gray-600"
+                      >Plan your deposit, mortgage and real home costs.</span
+                    >
+                  </span>
+                </a>
               </div>
-              <div class="space-y-3">
-                <a
-                  class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-bold tracking-wide bg-green hover:bg-green-dark text-white rounded-xl shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
-                  href="https://budget.slothmoney.app"
-                  data-analytics-cta="mobile-menu-start"
+              <div class="border-t border-gray-200 pt-3">
+                <div
+                  class="text-sm font-semibold tracking-wide text-green-dark"
                 >
-                  Join the free beta
-                </a>
-                <a
-                  class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-medium tracking-wide text-gray-800 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:text-gray-900 hover:border-gray-300 transition"
-                  href="https://budget.slothmoney.app"
-                  data-analytics-cta="mobile-menu-sign-in"
-                >
-                  Sign in
-                </a>
+                  Get started
+                </div>
+                <div class="mt-3 space-y-3">
+                  <a
+                    class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-bold tracking-wide bg-green hover:bg-green-dark text-white rounded-xl shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
+                    href="https://budget.slothmoney.app"
+                    data-analytics-cta="mobile-menu-start"
+                  >
+                    Join the free beta
+                  </a>
+                  <a
+                    class="w-full inline-flex items-center justify-center px-4 py-3 text-base font-medium tracking-wide text-gray-800 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:text-gray-900 hover:border-gray-300 transition"
+                    href="https://budget.slothmoney.app"
+                    data-analytics-cta="mobile-menu-sign-in"
+                  >
+                    Sign in
+                  </a>
+                </div>
               </div>
             </div>
           </div>
