@@ -3,31 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sloth Money - Shared money plans for couples</title>
+    <title>Sloth Money - Take the work out of money</title>
     <link rel="canonical" href="https://slothmoney.app/" />
 
     <!-- Status bar + theme colors -->
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" content="#013d29" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
 
     <!-- SEO Meta Tags -->
     <meta
       name="description"
-      content="Sloth Money helps couples turn awkward money admin into a shared system. Build goals, contributions, and progress together - without spreadsheet chaos."
+      content="Take the work out of money with automated transaction categorisation, budget suggestions, savings goal scenarios, and the Sloth CLI and Agent API."
     />
     <meta
       name="keywords"
-      content="couples finance, shared money plan, couples budgeting, shared savings goals, financial alignment, budget together"
+      content="personal finance automation, transaction categorisation, budget suggestions, savings goals, financial API, personal finance CLI"
     />
 
     <!-- Open Graph Meta Tags -->
     <meta
       property="og:title"
-      content="Sloth Money - Shared money plans for couples"
+      content="Sloth Money - Take the work out of money"
     />
     <meta
       property="og:description"
-      content="Turn awkward money admin into a shared system. Build goals, contributions, and progress together - without spreadsheet chaos."
+      content="Automated transaction categorisation, budget suggestions, savings goal scenarios, and an Agent API built to take work off your plate."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://slothmoney.app/" />
@@ -40,11 +43,11 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Sloth Money - Shared money plans for couples"
+      content="Sloth Money - Take the work out of money"
     />
     <meta
       name="twitter:description"
-      content="Turn awkward money admin into a shared system. Build goals, contributions, and progress together - without spreadsheet chaos."
+      content="Automated transaction categorisation, budget suggestions, savings goal scenarios, and an Agent API built to take work off your plate."
     />
     <meta
       name="twitter:image"
@@ -75,6 +78,12 @@
       href="/assets/images/sloth-money-logo-icon.png"
     />
     <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/images/sloth-money-garden-hero.webp"
+      type="image/webp"
+    />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -86,10 +95,6 @@
 
     <!-- Styles -->
     <link href="./output.css" rel="stylesheet" />
-    <script>
-      document.documentElement.classList.add('js')
-    </script>
-
     <style>
       @keyframes floatCard {
         0%,
@@ -124,17 +129,6 @@
         }
       }
 
-      @keyframes archetypeContentIn {
-        0% {
-          opacity: 0;
-          transform: translateY(18px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
       .animate-float-card {
         animation: floatCard 8s ease-in-out infinite;
       }
@@ -145,21 +139,6 @@
 
       .animate-pulse-line {
         animation: pulseLine 3s ease-in-out infinite;
-      }
-
-      .hero-image-container {
-        -webkit-mask-image: linear-gradient(
-          to bottom,
-          black 0%,
-          black 65%,
-          transparent 100%
-        );
-        mask-image: linear-gradient(
-          to bottom,
-          black 0%,
-          black 65%,
-          transparent 100%
-        );
       }
 
       .sloth-logo-lockup {
@@ -193,14 +172,11 @@
         position: absolute;
         inset: 0;
         z-index: -2;
-        background-image: linear-gradient(
-            180deg,
-            rgba(1, 48, 31, 0.08) 0%,
-            rgba(1, 48, 31, 0.32) 100%
-          ),
-          url('assets/images/sloth-hero-leafy-bg.svg');
-        background-position: center top;
-        background-size: cover;
+        background: linear-gradient(
+          180deg,
+          rgba(1, 48, 31, 0.08) 0%,
+          rgba(1, 48, 31, 0.32) 100%
+        );
       }
 
       .sloth-hero::after {
@@ -229,45 +205,6 @@
         color: #c4ffc7;
       }
 
-      .sloth-hero-side-leaf {
-        display: none;
-        position: absolute;
-        z-index: 0;
-        width: clamp(11rem, 25vw, 24rem);
-        height: auto;
-        pointer-events: none;
-        filter: drop-shadow(0 24px 42px rgba(1, 38, 25, 0.28));
-      }
-
-      .sloth-hero-side-leaf-left {
-        top: clamp(9rem, 23vh, 15rem);
-        left: max(-7.5rem, -8vw);
-        opacity: 0.66;
-        transform: rotate(-18deg);
-      }
-
-      .sloth-hero-side-leaf-right {
-        top: clamp(18rem, 39vh, 27rem);
-        right: max(-8rem, -7vw);
-        opacity: 0.62;
-        transform: scaleX(-1) rotate(-12deg);
-      }
-
-      .sloth-hero-content {
-        z-index: 1;
-      }
-
-      @media (max-width: 1535px) {
-        .sloth-hero-side-leaf {
-          display: block;
-        }
-      }
-
-      .sloth-subhead-keyword {
-        color: #c4ffc7;
-        font-weight: 800;
-      }
-
       .sloth-cta-row {
         align-items: stretch;
         justify-content: center;
@@ -279,607 +216,207 @@
         }
       }
 
-      .sloth-guide-sidekick {
-        width: clamp(4.1rem, 12vw, 6.3rem);
-        filter: drop-shadow(0 18px 28px rgba(1, 38, 25, 0.34));
-      }
-
-      .sloth-hero-mascot {
-        display: block;
-        margin: 0 auto clamp(0.75rem, 1.7vw, 1.15rem);
-      }
-
-      .sloth-dashboard-hero {
-        max-width: min(100%, 26rem);
-        min-width: 0;
-        filter: drop-shadow(0 34px 56px rgba(1, 24, 16, 0.34));
-      }
-
-      .sloth-dashboard-hero picture {
-        display: block;
-        min-width: 0;
-      }
-
-      .sloth-dashboard-hero img {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-      }
-
-      .sloth-archetype-flow {
-        --archetype-frame: rgba(144, 241, 143, 0.62);
-        --archetype-panel: rgba(0, 75, 49, 0.74);
+      .sloth-hero-scene {
         position: relative;
         isolation: isolate;
-        max-width: 34rem;
+        min-height: 64rem;
+        padding-bottom: 5.5rem;
       }
 
-      .sloth-archetype-title {
-        color: #d9ffda;
-        font-size: clamp(1.45rem, 3.4vw, 2.15rem);
-        font-weight: 800;
-        line-height: 1.1;
-        scroll-margin-top: 7rem;
-        text-wrap: balance;
+      .sloth-garden-art {
+        position: absolute;
+        top: 9rem;
+        left: calc(50% + 1rem);
+        z-index: -1;
+        width: 36rem;
+        max-width: none;
+        height: auto;
+        transform: translateX(-50%);
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          transparent 0,
+          #000 7rem
+        );
+        mask-image: linear-gradient(to bottom, transparent 0, #000 7rem);
       }
 
-      .sloth-archetype-title::before,
-      .sloth-archetype-title::after {
+      .sloth-hero-copy {
+        max-width: 54rem;
+      }
+
+      .sloth-hero-support {
+        position: relative;
+        isolation: isolate;
+        width: min(100%, 52rem);
+        margin: 1.25rem auto 0;
+        padding: 0.125rem clamp(0.5rem, 2vw, 1rem) 0.65rem;
+      }
+
+      .sloth-hero-support::before {
         content: '';
-        display: none;
-        width: clamp(4rem, 12vw, 7.5rem);
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(144, 241, 143, 0.82),
-          transparent
+        position: absolute;
+        inset: -1.5rem -3.5rem -1.35rem;
+        z-index: -1;
+        border-radius: 50%;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(1, 38, 25, 0.84) 0%,
+          rgba(1, 38, 25, 0.7) 44%,
+          rgba(1, 38, 25, 0.34) 68%,
+          rgba(1, 38, 25, 0) 100%
         );
-      }
-
-      .sloth-archetype-grid {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: clamp(0.75rem, 2.3vw, 1.6rem);
-        max-width: 34rem;
-        margin: 0 auto;
-      }
-
-      .sloth-archetype-card {
-        position: relative;
-        display: flex;
-        aspect-ratio: 0.78;
-        min-height: 0;
-        flex-direction: column;
-        overflow: hidden;
-        border: 1.5px solid var(--archetype-frame);
-        border-radius: clamp(1.15rem, 2.4vw, 2rem);
-        background: linear-gradient(
-          180deg,
-          rgba(0, 83, 54, 0.92),
-          var(--archetype-panel)
-        );
-        box-shadow:
-          inset 0 0 0 1px rgba(207, 255, 198, 0.14),
-          inset 0 0 26px rgba(144, 241, 143, 0.12),
-          0 24px 42px rgba(1, 38, 25, 0.22);
-        color: #ffffff;
-        outline: none;
-        padding: clamp(0.45rem, 1.2vw, 0.75rem);
-        text-align: center;
-        transition:
-          border-color 180ms ease,
-          box-shadow 180ms ease,
-          transform 180ms ease;
-      }
-
-      .sloth-archetype-card:hover {
-        border-color: rgba(196, 255, 199, 0.86);
-        box-shadow:
-          inset 0 0 0 1px rgba(207, 255, 198, 0.2),
-          inset 0 0 30px rgba(144, 241, 143, 0.16),
-          0 28px 50px rgba(1, 38, 25, 0.28);
-        transform: translateY(-2px);
-      }
-
-      .sloth-archetype-card:focus-visible {
-        border-color: #c4ffc7;
-        box-shadow:
-          0 0 0 4px rgba(196, 255, 199, 0.24),
-          inset 0 0 0 1px rgba(207, 255, 198, 0.24),
-          0 28px 50px rgba(1, 38, 25, 0.28);
-      }
-
-      .sloth-archetype-art {
-        display: grid;
-        flex: 1;
-        min-height: 0;
-        overflow: hidden;
-        place-items: center;
-        border-radius: calc(clamp(1.15rem, 2.4vw, 2rem) - 0.45rem);
-      }
-
-      .sloth-archetype-art img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center 48%;
-        filter: drop-shadow(0 18px 24px rgba(1, 24, 16, 0.26));
-      }
-
-      .sloth-archetype-card-title {
-        font-size: clamp(1.35rem, 3.7vw, 2.5rem);
-        font-weight: 900;
-        line-height: 1;
-        text-wrap: balance;
-      }
-
-      .sloth-archetype-card-title .nowrap {
-        white-space: nowrap;
-      }
-
-      .sloth-archetype-underline {
-        display: block;
-        height: 0.18rem;
-        margin: clamp(0.4rem, 1vw, 0.55rem) auto clamp(0.45rem, 1.2vw, 0.75rem);
-        width: clamp(2.5rem, 7vw, 4rem);
-        border-radius: 999px;
-        background: var(--archetype-accent);
-        box-shadow: 0 0 12px var(--archetype-accent);
-      }
-
-      .sloth-archetype-copy {
-        color: rgba(236, 255, 236, 0.88);
-        font-size: clamp(0.95rem, 2.5vw, 1.35rem);
-        font-weight: 700;
-        line-height: 1.25;
-        padding-bottom: clamp(1.15rem, 3vw, 2rem);
-        text-wrap: balance;
-      }
-
-      .sloth-archetype-paths {
-        position: relative;
-        z-index: 0;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: clamp(0.75rem, 2.3vw, 1.6rem);
-        height: clamp(4.4rem, 9vw, 6.2rem);
-        margin-top: -0.2rem;
-        max-width: 34rem;
-        margin-right: auto;
-        margin-left: auto;
+        filter: blur(10px);
         pointer-events: none;
       }
 
-      .sloth-archetype-path {
-        position: relative;
-      }
-
-      .sloth-archetype-path::before {
-        content: '';
-        position: absolute;
-        top: -0.15rem;
-        bottom: calc(clamp(1.1rem, 3vw, 1.45rem) / 2);
-        left: 50%;
-        width: 0.18rem;
-        border-radius: 999px;
-        background: var(--archetype-accent);
-        opacity: 0.96;
-        transform: translateX(-50%);
-      }
-
-      .sloth-archetype-path.solo::before {
-        display: none;
-        box-shadow: 0 0 22px rgba(255, 241, 118, 0.34);
-      }
-
-      .sloth-archetype-path.solo::after {
-        display: none;
-      }
-
-      .sloth-archetype-path.couple::before {
-        display: none;
-      }
-
-      .sloth-archetype-path.couple::before,
-      .sloth-archetype-path.couple::after {
-        display: none;
-      }
-
-      .sloth-archetype-path::after {
-        content: '';
-        position: absolute;
-        bottom: 0.25rem;
-        left: 50%;
-        width: clamp(1.1rem, 3vw, 1.45rem);
-        aspect-ratio: 1;
-        border-radius: 38% 62% 45% 55%;
-        background: linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.86),
-          var(--archetype-accent) 46%,
-          rgba(1, 61, 41, 0.12)
-        );
-        box-shadow: 0 0 22px var(--archetype-accent);
-        transform: translateX(-50%) rotate(45deg);
-      }
-
-      .sloth-couple-connector {
-        position: absolute;
-        inset: -0.15rem 0 auto;
-        z-index: 1;
-        width: 100%;
-        height: calc(100% + clamp(2rem, 5vw, 3.5rem));
-        overflow: visible;
-      }
-
-      .sloth-couple-connector path {
-        display: none;
-        fill: none;
-        opacity: 1;
-        stroke: #cda0ff;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 0.18rem;
-        filter: drop-shadow(0 0 12px rgba(205, 160, 255, 0.5));
-        transition:
-          filter 220ms ease,
-          opacity 220ms ease;
-        vector-effect: non-scaling-stroke;
-      }
-
-      .sloth-archetype-flow[data-connector-state='solo']
-        .sloth-couple-connector
-        [data-archetype-connector='solo'],
-      .sloth-archetype-flow[data-connector-state='couple']
-        .sloth-couple-connector
-        [data-archetype-connector='couple'] {
-        display: block;
-      }
-
-      .sloth-archetype-flow[data-connector-state='unselected']
-        .sloth-couple-connector
-        path {
-        display: block;
-        opacity: 0.3;
-        filter: saturate(0.45) brightness(0.64);
-      }
-
-      .sloth-archetype-flow[data-connector-state='solo']
-        .sloth-couple-connector
-        [data-archetype-connector='solo'],
-      .sloth-archetype-flow[data-connector-state='unselected']
-        .sloth-couple-connector
-        [data-archetype-connector='solo'] {
-        stroke: #fff176;
-      }
-
-      .sloth-archetype-flow[data-connector-state='solo']
-        .sloth-couple-connector
-        [data-archetype-connector='solo'] {
-        filter: drop-shadow(0 0 12px rgba(255, 241, 118, 0.5));
-      }
-
-      .sloth-couple-branches {
-        display: none;
-        position: relative;
-        margin: 0 auto;
-        padding-top: clamp(2.4rem, 6vw, 4rem);
-        scroll-margin-top: 6.5rem;
-      }
-
-      .sloth-couple-branches.is-active {
-        display: block;
-      }
-
-      .sloth-couple-branches::before {
-        display: none;
-      }
-
-      .sloth-couple-branch-copy,
-      .sloth-couple-branch-grid {
-        transition:
-          filter 220ms ease,
-          opacity 220ms ease,
-          transform 220ms ease;
-      }
-
-      .sloth-couple-branches:not(.is-revealed):not(:target)
-        .sloth-couple-branch-copy,
-      .sloth-couple-branches:not(.is-revealed):not(:target)
-        .sloth-couple-branch-grid {
-        opacity: 0.28;
-        filter: saturate(0.45) brightness(0.64);
-        transform: translateY(0.35rem);
-      }
-
-      .sloth-couple-branches.is-revealed .sloth-couple-branch-copy,
-      .sloth-couple-branches.is-revealed .sloth-couple-branch-grid,
-      .sloth-couple-branches:target .sloth-couple-branch-copy,
-      .sloth-couple-branches:target .sloth-couple-branch-grid {
-        opacity: 1;
-        filter: none;
-        transform: none;
-      }
-
-      .sloth-couple-branch-grid[inert] {
-        pointer-events: none;
-      }
-
-      .sloth-couple-branch-copy {
-        margin: 0 auto clamp(0.9rem, 2.4vw, 1.35rem);
-        max-width: 30rem;
-        color: rgba(236, 255, 236, 0.88);
-        text-align: center;
+      .sloth-hero-support p {
         text-wrap: balance;
       }
 
-      .sloth-couple-branch-kicker {
-        color: #cda0ff;
-        font-size: 0.74rem;
-        font-weight: 900;
-        letter-spacing: 0;
-        text-transform: uppercase;
+      .sloth-hero-sign-in {
+        border-color: rgba(255, 255, 255, 0.34);
+        background: rgba(1, 38, 25, 0.78);
+        box-shadow: 0 12px 30px rgba(1, 24, 16, 0.28);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
       }
 
-      .sloth-couple-branches[data-archetype-branch-group='solo']
-        .sloth-couple-branch-kicker {
-        color: #fff176;
+      .sloth-hero-sign-in:hover {
+        background: rgba(1, 38, 25, 0.9);
       }
 
-      .sloth-couple-branch-heading {
-        margin-top: 0.25rem;
-        color: #ffffff;
-        font-size: clamp(1.2rem, 2.8vw, 1.75rem);
-        font-weight: 900;
-        line-height: 1.08;
-      }
-
-      .sloth-couple-branch-grid {
+      .sloth-feature-strip {
         display: grid;
-        gap: 0.75rem;
-        max-width: 24rem;
-        margin: 0 auto;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem;
+        width: min(100%, 72rem);
+        margin: 13rem auto 0;
+        border: 1px solid rgba(144, 241, 143, 0.42);
+        border-radius: 1.25rem;
+        background: rgba(1, 61, 41, 0.88);
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+          0 22px 44px rgba(1, 24, 16, 0.34);
+        padding: 0.65rem;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
       }
 
-      .sloth-couple-branch-card {
+      .sloth-feature-item {
         display: flex;
-        aspect-ratio: 0.78;
-        min-height: 0;
-        flex-direction: column;
-        justify-content: flex-start;
-        overflow: hidden;
-        border: 1.5px solid rgba(205, 160, 255, 0.56);
-        border-radius: clamp(1rem, 2vw, 1.45rem);
-        background: linear-gradient(
-            180deg,
-            rgba(0, 83, 54, 0.92),
-            rgba(0, 75, 49, 0.8)
-          ),
-          rgba(0, 75, 49, 0.8);
-        box-shadow:
-          inset 0 0 0 1px rgba(207, 255, 198, 0.12),
-          inset 0 0 22px rgba(205, 160, 255, 0.1),
-          0 20px 36px rgba(1, 38, 25, 0.2);
-        color: #ffffff;
-        padding: clamp(0.45rem, 1vw, 0.65rem);
-        text-align: center;
-        text-decoration: none;
-        transition:
-          border-color 180ms ease,
-          box-shadow 180ms ease,
-          transform 180ms ease;
-      }
-
-      .sloth-couple-branches[data-archetype-branch-group='solo']
-        .sloth-couple-branch-card {
-        border-color: rgba(255, 241, 118, 0.56);
-      }
-
-      .sloth-couple-branch-card:hover {
-        border-color: rgba(225, 205, 255, 0.86);
-        box-shadow:
-          inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-          0 22px 42px rgba(1, 38, 25, 0.24);
-        transform: translateY(-2px);
-      }
-
-      .sloth-couple-branches[data-archetype-branch-group='solo']
-        .sloth-couple-branch-card:hover {
-        border-color: rgba(255, 247, 176, 0.9);
-      }
-
-      .sloth-couple-branch-card:focus-visible {
-        border-color: #e1cdff;
-        box-shadow:
-          0 0 0 4px rgba(205, 160, 255, 0.24),
-          0 22px 42px rgba(1, 38, 25, 0.24);
-        outline: none;
-      }
-
-      .sloth-couple-branches[data-archetype-branch-group='solo']
-        .sloth-couple-branch-card:focus-visible {
-        border-color: #fff7b0;
-        box-shadow:
-          0 0 0 4px rgba(255, 241, 118, 0.24),
-          0 22px 42px rgba(1, 38, 25, 0.24);
-      }
-
-      .sloth-couple-branch-card[aria-current='true'] {
-        border-color: #e1cdff;
-        box-shadow:
-          0 0 0 4px rgba(205, 160, 255, 0.18),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.18),
-          0 28px 52px rgba(1, 38, 25, 0.3);
-        transform: translateY(-2px);
-      }
-
-      .sloth-couple-branches[data-archetype-branch-group='solo']
-        .sloth-couple-branch-card[aria-current='true'] {
-        border-color: #fff7b0;
-        box-shadow:
-          0 0 0 4px rgba(255, 241, 118, 0.18),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.18),
-          0 28px 52px rgba(1, 38, 25, 0.3);
-      }
-
-      .sloth-couple-branch-art {
-        display: grid;
-        flex: 1;
-        min-height: 0;
-        overflow: hidden;
-        place-items: center;
-        border-radius: calc(clamp(1rem, 2vw, 1.45rem) - 0.35rem);
-      }
-
-      .sloth-couple-branch-art img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: drop-shadow(0 16px 20px rgba(1, 24, 16, 0.22));
-      }
-
-      .sloth-couple-branch-content {
-        display: flex;
-        flex: 0 0 auto;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding: 0.85rem 0.55rem 0.95rem;
-      }
-
-      .sloth-couple-branch-title {
-        display: block;
-        font-size: clamp(1rem, 2.4vw, 1.18rem);
-        font-weight: 900;
-        line-height: 1.08;
-        text-wrap: balance;
-      }
-
-      .sloth-couple-branch-body {
-        display: block;
-        margin-top: 0.55rem;
-        color: rgba(236, 255, 236, 0.84);
-        font-size: clamp(0.78rem, 1.7vw, 0.88rem);
-        font-weight: 700;
-        line-height: 1.3;
-        text-wrap: balance;
-      }
-
-      .sloth-archetype-lock {
-        position: sticky;
-        bottom: max(1rem, env(safe-area-inset-bottom));
-        z-index: 4;
-        display: flex;
-        width: min(calc(100% - 2rem), 34rem);
-        margin: 0 auto max(1rem, env(safe-area-inset-bottom));
-        border: 1px solid rgba(205, 160, 255, 0.46);
-        border-radius: 1rem;
-        background: rgba(1, 61, 41, 0.9);
-        box-shadow:
-          inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-          0 18px 36px rgba(1, 24, 16, 0.24);
-        color: #ffffff;
-        font-size: clamp(0.9rem, 2vw, 1rem);
-        font-weight: 800;
-        line-height: 1.25;
-        gap: 0.85rem;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.85rem 1rem;
-        text-align: center;
-      }
-
-      .sloth-archetype-lock.is-bottom-stuck {
-        position: fixed;
-        right: auto;
-        bottom: max(1rem, env(safe-area-inset-bottom));
-        left: 50%;
-        width: min(calc(100vw - 2rem), 34rem);
-        margin: 0;
-        transform: translateX(-50%);
-      }
-
-      .sloth-archetype-lock[hidden] {
-        display: none;
-      }
-
-      .sloth-archetype-lock-copy {
         min-width: 0;
-        text-wrap: balance;
+        min-height: 4.5rem;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        border-radius: 0.9rem;
+        color: #f2fff2;
+        font-size: 0.8rem;
+        font-weight: 800;
+        line-height: 1.25;
+        padding: 0.7rem 0.55rem;
+        text-align: left;
       }
 
-      .sloth-archetype-lock-action {
+      .sloth-feature-item i {
+        width: 1.35rem;
+        height: 1.35rem;
         flex: 0 0 auto;
-        border-radius: 999px;
-        background: #90f18f;
-        color: #013d29;
-        font-size: 0.85rem;
-        font-weight: 900;
-        line-height: 1;
-        padding: 0.7rem 0.9rem;
       }
 
-      .sloth-archetype-results {
+      .sloth-feature-item:nth-child(1) i {
+        color: #a9ff7a;
+      }
+
+      .sloth-feature-item:nth-child(2) i {
+        color: #78e6ff;
+      }
+
+      .sloth-feature-item:nth-child(3) i {
+        color: #d3a2ff;
+      }
+
+      .sloth-feature-item:nth-child(4) i {
+        color: #ffc761;
+      }
+
+      .sloth-hero-dashboard-frame {
+        position: relative;
+        width: min(100%, 72rem);
+        margin: 1rem auto 0;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 1.35rem 1.35rem 0 0;
+        background: rgba(1, 61, 41, 0.88);
+        box-shadow: 0 32px 64px rgba(1, 24, 16, 0.38);
+        padding: 0.55rem 0.55rem 0;
+      }
+
+      .sloth-hero-dashboard-frame img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 1rem 1rem 0 0;
+      }
+
+      @media (min-width: 640px) {
+        .sloth-hero-scene {
+          min-height: 68rem;
+        }
+
+        .sloth-garden-art {
+          top: clamp(-25rem, calc(17rem - 46vw), 2rem);
+          left: 50%;
+          width: min(100%, 92.875rem);
+          transform: translateX(-50%);
+        }
+
+        .sloth-feature-strip {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 0;
+          margin-top: 13rem;
+          border-radius: 999px;
+          padding: 0.55rem 0.75rem;
+        }
+
+        .sloth-feature-item {
+          min-height: 3.5rem;
+          border-radius: 999px;
+          font-size: 0.9rem;
+          padding: 0.65rem 0.75rem;
+          text-align: center;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .sloth-hero-scene {
+          min-height: 70rem;
+        }
+
+        .sloth-garden-art {
+          top: clamp(-32.5rem, calc(9.25rem - 46vw), -19.5rem);
+        }
+
+        .sloth-hero-copy {
+          transform: translateX(clamp(-8rem, calc(13rem - 24vw), -2rem));
+        }
+
+        .sloth-feature-strip {
+          margin-top: 9rem;
+        }
+
+        .sloth-feature-item {
+          font-size: 1rem;
+        }
+      }
+
+      .sloth-home-content {
         position: relative;
         overflow: hidden;
         scroll-margin-top: 5.5rem;
         background: #f9fafb;
       }
 
-      .sloth-archetype-results.is-revealed {
-        animation: archetypeContentIn 360ms ease both;
-      }
-
-      .js .sloth-archetype-results.is-preview {
-        background: #013d29;
-        transition:
-          background 240ms ease,
-          filter 240ms ease;
-      }
-
-      .js .sloth-archetype-results.is-preview > section {
-        opacity: 0.42;
-        filter: saturate(0.48) brightness(0.62) contrast(0.82);
-        pointer-events: none;
-        transition:
-          filter 240ms ease,
-          opacity 240ms ease;
-      }
-
-      .js .sloth-archetype-results.is-preview::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        background: linear-gradient(
-          180deg,
-          rgba(1, 61, 41, 0.32),
-          rgba(1, 61, 41, 0.18)
-        );
-        pointer-events: none;
-      }
-
-      .sloth-archetype-results.is-revealed {
-        opacity: 1;
-        filter: none;
-        pointer-events: auto;
-      }
-
-      .sloth-archetype-content-anchor {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-      }
-
-      .sloth-archetype-results > section:first-of-type {
+      .sloth-home-content > section:first-of-type {
         border-top: 1px solid rgba(144, 241, 143, 0.18);
         background: radial-gradient(
             circle at 18% 0%,
@@ -894,86 +431,20 @@
           linear-gradient(180deg, #013d29 0%, #01462f 54%, #012f20 100%);
       }
 
-      .sloth-archetype-results > section:first-of-type h3 {
+      .sloth-home-content > section:first-of-type h3 {
         color: #ffffff;
       }
 
-      .sloth-archetype-results > section:first-of-type p,
-      .sloth-archetype-results > section:first-of-type li,
-      .sloth-archetype-results > section:first-of-type span {
+      .sloth-home-content > section:first-of-type p,
+      .sloth-home-content > section:first-of-type li,
+      .sloth-home-content > section:first-of-type span {
         color: rgba(236, 255, 236, 0.86);
       }
 
-      .sloth-archetype-results > section:first-of-type .bg-white {
+      .sloth-home-content > section:first-of-type .bg-white {
         border-color: rgba(144, 241, 143, 0.22);
         background-color: rgba(255, 255, 255, 0.96);
         box-shadow: 0 28px 62px rgba(1, 24, 16, 0.28);
-      }
-
-      .sloth-archetype-flow::after {
-        content: '';
-        position: absolute;
-        inset: auto -5% -4rem;
-        z-index: -1;
-        height: 14rem;
-        background: linear-gradient(
-          180deg,
-          rgba(1, 61, 41, 0),
-          rgba(1, 61, 41, 0.62) 70%,
-          transparent 100%
-        );
-      }
-
-      @media (min-width: 640px) {
-        .sloth-dashboard-hero {
-          max-width: 48rem;
-        }
-
-        .sloth-archetype-flow {
-          max-width: 66rem;
-        }
-
-        .sloth-archetype-grid,
-        .sloth-archetype-paths {
-          max-width: 39rem;
-        }
-
-        .sloth-archetype-title {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: clamp(1rem, 3vw, 1.75rem);
-        }
-
-        .sloth-archetype-title::before,
-        .sloth-archetype-title::after {
-          display: block;
-        }
-      }
-
-      @media (min-width: 1024px) {
-        .sloth-dashboard-hero {
-          max-width: min(100%, 90rem);
-        }
-
-        .sloth-archetype-grid,
-        .sloth-archetype-paths {
-          max-width: 42rem;
-        }
-      }
-
-      @media (min-width: 900px) {
-        .sloth-couple-branch-grid {
-          width: 100%;
-          max-width: 66rem;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        .sloth-couple-branches[data-archetype-branch-group='solo']
-          .sloth-couple-branch-grid {
-          max-width: 44rem;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
       }
 
       @media (max-width: 420px) {
@@ -984,87 +455,6 @@
 
         .sloth-logo-type {
           font-size: 1.35rem;
-        }
-
-        .sloth-hero-side-leaf {
-          width: 10rem;
-        }
-
-        .sloth-hero-side-leaf-left {
-          top: 10rem;
-          left: -5.75rem;
-          opacity: 0.56;
-        }
-
-        .sloth-hero-side-leaf-right {
-          top: 18.5rem;
-          right: -5.75rem;
-          opacity: 0.52;
-        }
-      }
-
-      @media (min-width: 1024px) {
-        .sloth-hero-content {
-          padding-top: clamp(5.5rem, 9vh, 7.5rem);
-          padding-bottom: clamp(2rem, 5vh, 4rem);
-        }
-
-        .sloth-hero-grid {
-          align-items: center;
-          row-gap: clamp(2rem, 4vw, 3.25rem);
-        }
-      }
-
-      @media (max-width: 520px) {
-        .sloth-archetype-flow {
-          width: calc(100% + 1rem);
-          margin-left: -0.5rem;
-        }
-
-        .sloth-archetype-card {
-          border-radius: 1.1rem;
-        }
-
-        .sloth-archetype-copy {
-          display: none;
-        }
-
-        .sloth-archetype-card-title {
-          font-size: clamp(1.2rem, 6vw, 1.55rem);
-        }
-
-        .sloth-couple-branch-card {
-          display: grid;
-          grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr);
-          align-items: stretch;
-          aspect-ratio: auto;
-          min-height: 9.25rem;
-          padding: 0.45rem;
-          text-align: left;
-        }
-
-        .sloth-couple-branch-art {
-          aspect-ratio: auto;
-          height: 100%;
-        }
-
-        .sloth-couple-branch-content {
-          justify-content: center;
-          padding: 0.55rem 0.65rem 0.55rem 0.8rem;
-        }
-
-        .sloth-couple-branch-body {
-          font-size: 0.82rem;
-        }
-
-        .sloth-archetype-lock {
-          align-items: stretch;
-          flex-direction: column;
-          border-radius: 0.95rem;
-        }
-
-        .sloth-archetype-lock-action {
-          width: 100%;
         }
       }
     </style>
@@ -1303,57 +693,36 @@
       </header>
 
       <div class="sloth-hero relative overflow-hidden text-white">
-        <img
-          src="assets/images/sloth-side-leaf.svg"
-          alt=""
-          class="sloth-hero-side-leaf sloth-hero-side-leaf-left"
-          decoding="async"
-          aria-hidden="true"
-        />
-        <img
-          src="assets/images/sloth-side-leaf.svg"
-          alt=""
-          class="sloth-hero-side-leaf sloth-hero-side-leaf-right"
-          decoding="async"
-          aria-hidden="true"
-        />
         <!-- Hero Section -->
-        <section>
+        <section class="sloth-hero-scene" aria-labelledby="home-hero-title">
+          <img
+            src="assets/images/sloth-money-garden-hero.webp"
+            alt=""
+            class="sloth-garden-art"
+            width="1024"
+            height="1536"
+            decoding="async"
+            fetchpriority="high"
+            aria-hidden="true"
+          />
           <div
-            class="sloth-hero-content relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 py-6 sm:py-14 lg:py-16"
+            class="relative z-10 max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24 pt-12 sm:pt-16 lg:pt-20"
           >
-            <div
-              class="sloth-hero-grid grid grid-cols-1 gap-8 lg:gap-14 items-center"
-            >
-              <div class="relative z-10 mx-auto max-w-6xl text-center reveal">
-                <img
-                  src="assets/images/sloth-guide-sidekick.webp"
-                  alt=""
-                  class="sloth-guide-sidekick sloth-hero-mascot"
-                  decoding="async"
-                  aria-hidden="true"
-                />
-                <h1
-                  class="sloth-hero-title mx-auto max-w-6xl text-[1.7rem] sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-[.9] tracking-tight sm:leading-[0.98]"
-                >
-                  <span class="block sm:inline">Couple finances</span>
-                  <span class="block sm:inline">actually</span>
-                  <span class="block"
-                    >made <span class="mint-line">fun.</span></span
-                  >
-                </h1>
+            <div class="sloth-hero-copy mx-auto text-center reveal">
+              <h1
+                id="home-hero-title"
+                class="sloth-hero-title mx-auto text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-[0.95] tracking-tight sm:leading-[0.95]"
+              >
+                Take the work out of
+                <span class="mint-line">money</span>
+              </h1>
 
+              <div class="sloth-hero-support">
                 <p
-                  class="mx-auto mt-5 max-w-2xl text-base sm:text-xl lg:text-2xl leading-relaxed text-emerald-50"
+                  class="mx-auto max-w-2xl text-base sm:text-xl lg:text-2xl leading-relaxed text-emerald-50"
                 >
-                  <span class="block">
-                    <strong class="sloth-subhead-keyword">Budget</strong> and
-                    <strong class="sloth-subhead-keyword">save</strong> your way
-                    to shared wealth.
-                  </span>
-                  <span class="block">
-                    More celebration, less awkwardness.
-                  </span>
+                  Sloth Money keeps your budget organised, your goals moving and
+                  the routine admin off your plate.
                 </p>
 
                 <div
@@ -1372,7 +741,7 @@
                     ></i>
                   </a>
                   <a
-                    class="inline-flex w-full items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-4 py-3.5 text-base font-extrabold tracking-wide text-white transition duration-200 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
+                    class="sloth-hero-sign-in inline-flex w-full items-center justify-center rounded-2xl border px-4 py-3.5 text-base font-extrabold tracking-wide text-white transition duration-200 focus:outline-none focus:ring-4 focus:ring-white/20 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
                     href="https://budget.slothmoney.app"
                     data-analytics-cta="hero-sign-in"
                   >
@@ -1380,376 +749,51 @@
                   </a>
                 </div>
               </div>
-
-              <div class="relative z-10 min-w-0 reveal">
-                <div
-                  class="sloth-dashboard-hero mx-auto w-full max-w-[26rem] sm:max-w-[48rem] lg:max-w-none"
-                  aria-label="Sloth Money dashboard preview"
-                >
-                  <div
-                    class="rounded-[1.75rem] border border-white/15 bg-white/10 p-2 shadow-2xl shadow-green-really-dark/25 backdrop-blur-sm sm:p-3"
-                  >
-                    <picture>
-                      <source
-                        media="(min-width: 640px)"
-                        srcset="assets/images/hero%20asset.png"
-                      />
-                      <img
-                        src="assets/images/hero%20asset%20mobile.png"
-                        alt="Sloth Money dashboard showing goal drift, month-to-date spend, and roadmap snapshot"
-                        class="rounded-[1.35rem] bg-white object-contain"
-                        decoding="async"
-                        fetchpriority="high"
-                      />
-                    </picture>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </section>
 
-        <!-- Archetype Section -->
-        <section
-          class="relative pb-10 pt-2 sm:pb-14 sm:pt-6"
-          aria-labelledby="archetype-flow-heading"
-        >
-          <div
-            class="relative max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
-          >
-            <div
-              class="sloth-archetype-flow mx-auto w-full"
-              data-active-branch-group="couple"
-              data-connector-state="unselected"
+            <ul
+              class="sloth-feature-strip reveal"
+              aria-label="Sloth Money features"
             >
-              <h2
-                id="archetype-flow-heading"
-                class="sloth-archetype-title mx-auto mb-4 max-w-xl text-center sm:mb-5"
-              >
-                What kind of saver are you?
-              </h2>
+              <li class="sloth-feature-item">
+                <i data-lucide="tags" aria-hidden="true"></i>
+                <span>Automated transaction categorisation</span>
+              </li>
+              <li class="sloth-feature-item">
+                <i data-lucide="wallet-cards" aria-hidden="true"></i>
+                <span>Budget suggestions</span>
+              </li>
+              <li class="sloth-feature-item">
+                <i data-lucide="route" aria-hidden="true"></i>
+                <span>Savings goal scenarios</span>
+              </li>
+              <li class="sloth-feature-item">
+                <i data-lucide="square-terminal" aria-hidden="true"></i>
+                <span>CLI &amp; Agent API</span>
+              </li>
+            </ul>
 
-              <div class="sloth-archetype-grid">
-                <a
-                  class="sloth-archetype-card"
-                  style="--archetype-accent: #fff176"
-                  href="#solo-archetypes"
-                  data-archetype-reveal="solo"
-                  data-analytics-cta="saver-solo"
-                  aria-label="Choose Solo saver and see solo archetypes"
-                >
-                  <span class="sloth-archetype-art" aria-hidden="true">
-                    <img
-                      src="assets/images/sloth-archetype-solo-art.webp"
-                      alt=""
-                      decoding="async"
-                      fetchpriority="high"
-                      height="1254"
-                      loading="eager"
-                      width="1254"
-                    />
-                  </span>
-                  <span class="sloth-archetype-card-title"> Solo </span>
-                  <span
-                    class="sloth-archetype-underline"
-                    aria-hidden="true"
-                  ></span>
-                </a>
-
-                <a
-                  class="sloth-archetype-card"
-                  style="--archetype-accent: #cda0ff"
-                  href="#couple-archetypes"
-                  data-archetype-reveal="couple"
-                  data-analytics-cta="saver-couple"
-                  aria-label="Choose Couple saver and see couple archetypes"
-                >
-                  <span class="sloth-archetype-art" aria-hidden="true">
-                    <img
-                      src="assets/images/sloth-archetype-couple-art.webp"
-                      alt=""
-                      decoding="async"
-                      fetchpriority="high"
-                      height="1254"
-                      loading="eager"
-                      width="1254"
-                    />
-                  </span>
-                  <span class="sloth-archetype-card-title"> Couple </span>
-                  <span
-                    class="sloth-archetype-underline"
-                    aria-hidden="true"
-                  ></span>
-                </a>
-              </div>
-
-              <div class="sloth-archetype-paths" aria-hidden="true">
-                <span
-                  class="sloth-archetype-path solo"
-                  style="--archetype-accent: #fff176"
-                ></span>
-                <span
-                  class="sloth-archetype-path couple"
-                  style="--archetype-accent: #cda0ff"
-                ></span>
-                <svg
-                  class="sloth-couple-connector"
-                  viewBox="0 0 100 100"
-                  preserveAspectRatio="none"
-                  focusable="false"
-                  aria-hidden="true"
-                >
-                  <path
-                    data-archetype-connector="solo"
-                    d="M25 0 V32 C25 55 50 50 50 76 V100"
-                  ></path>
-                  <path
-                    data-archetype-connector="couple"
-                    d="M75 0 V32 C75 55 50 50 50 76 V100"
-                  ></path>
-                </svg>
-              </div>
-
-              <div
-                id="solo-archetypes"
-                class="sloth-couple-branches"
-                aria-labelledby="solo-archetypes-heading"
-                data-archetype-branch-group="solo"
-                data-archetype-branch-lock-copy="Pick a solo style to unlock your plan."
-              >
-                <div class="sloth-couple-branch-copy">
-                  <span class="sloth-couple-branch-kicker">Solo paths</span>
-                  <h3
-                    id="solo-archetypes-heading"
-                    class="sloth-couple-branch-heading"
-                  >
-                    Pick your solo style
-                  </h3>
-                </div>
-
-                <div
-                  class="sloth-couple-branch-grid"
-                  data-archetype-branch-grid
-                  inert
-                >
-                  <a
-                    class="sloth-couple-branch-card"
-                    href="#solo-planner-content"
-                    data-archetype-trigger="solo-planner"
-                    data-analytics-cta="solo-planner"
-                    aria-controls="archetype-content"
-                    aria-expanded="false"
-                    aria-label="Choose Solo Planner archetype"
-                  >
-                    <span class="sloth-couple-branch-art" aria-hidden="true">
-                      <img
-                        src="assets/images/sloth-archetype-goal-art.webp"
-                        alt=""
-                        decoding="async"
-                        loading="lazy"
-                      />
-                    </span>
-                    <span class="sloth-couple-branch-content">
-                      <span class="sloth-couple-branch-title"> Planner </span>
-                      <span class="sloth-couple-branch-body">
-                        You like a clear target, a real number, and a plan you
-                        can keep checking.
-                      </span>
-                    </span>
-                  </a>
-
-                  <a
-                    class="sloth-couple-branch-card"
-                    href="#solo-free-spirit-content"
-                    data-archetype-trigger="solo-free-spirit"
-                    data-analytics-cta="solo-free-spirit"
-                    aria-controls="archetype-content"
-                    aria-expanded="false"
-                    aria-label="Choose Solo Free Spirit archetype"
-                  >
-                    <span class="sloth-couple-branch-art" aria-hidden="true">
-                      <img
-                        src="assets/images/sloth-archetype-zen-art.webp"
-                        alt=""
-                        decoding="async"
-                        loading="lazy"
-                      />
-                    </span>
-                    <span class="sloth-couple-branch-content">
-                      <span class="sloth-couple-branch-title">
-                        Free Spirit
-                      </span>
-                      <span class="sloth-couple-branch-body">
-                        You want the future to feel possible, without making
-                        money admin your personality.
-                      </span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-
-              <div
-                id="couple-archetypes"
-                class="sloth-couple-branches is-active"
-                aria-labelledby="couple-archetypes-heading"
-                data-archetype-branch-group="couple"
-                data-archetype-branch-lock-copy="Pick a couple dynamic to unlock your plan."
-              >
-                <div class="sloth-couple-branch-copy">
-                  <span class="sloth-couple-branch-kicker">Couple paths</span>
-                  <h3
-                    id="couple-archetypes-heading"
-                    class="sloth-couple-branch-heading"
-                  >
-                    Pick your couple dynamic
-                  </h3>
-                </div>
-
-                <div
-                  class="sloth-couple-branch-grid"
-                  data-archetype-branch-grid
-                  data-couple-branch-grid
-                  inert
-                >
-                  <a
-                    class="sloth-couple-branch-card"
-                    href="#planner-free-spirit-content"
-                    data-archetype-trigger="planner-free-spirit"
-                    data-couple-archetype-trigger="planner-free-spirit"
-                    data-analytics-cta="couple-planner-free-spirit"
-                    aria-controls="archetype-content"
-                    aria-expanded="false"
-                    aria-label="Choose Planner plus Free Spirit couple archetype"
-                  >
-                    <span class="sloth-couple-branch-art" aria-hidden="true">
-                      <img
-                        src="assets/images/sloth-couple-planner-free-spirit-art.webp"
-                        alt=""
-                        decoding="async"
-                        loading="lazy"
-                      />
-                    </span>
-                    <span class="sloth-couple-branch-content">
-                      <span class="sloth-couple-branch-title">
-                        Planner + Free Spirit
-                      </span>
-                      <span class="sloth-couple-branch-body">
-                        One partner tracks the numbers, the other dreams about
-                        the future.
-                      </span>
-                    </span>
-                  </a>
-
-                  <a
-                    class="sloth-couple-branch-card"
-                    href="#planner-planner-content"
-                    data-archetype-trigger="planner-planner"
-                    data-couple-archetype-trigger="planner-planner"
-                    data-analytics-cta="couple-planner-planner"
-                    aria-controls="archetype-content"
-                    aria-expanded="false"
-                    aria-label="Choose Planner plus Planner couple archetype"
-                  >
-                    <span class="sloth-couple-branch-art" aria-hidden="true">
-                      <img
-                        src="assets/images/sloth-couple-planner-planner-art.webp"
-                        alt=""
-                        decoding="async"
-                        loading="lazy"
-                      />
-                    </span>
-                    <span class="sloth-couple-branch-content">
-                      <span class="sloth-couple-branch-title">
-                        Planner + Planner
-                      </span>
-                      <span class="sloth-couple-branch-body">
-                        You both want the deets. All the deets. Now give them
-                        one home.
-                      </span>
-                    </span>
-                  </a>
-
-                  <a
-                    class="sloth-couple-branch-card"
-                    href="#free-spirit-free-spirit-content"
-                    data-archetype-trigger="free-spirit-free-spirit"
-                    data-couple-archetype-trigger="free-spirit-free-spirit"
-                    data-analytics-cta="couple-free-spirit-free-spirit"
-                    aria-controls="archetype-content"
-                    aria-expanded="false"
-                    aria-label="Choose Free Spirit plus Free Spirit couple archetype"
-                  >
-                    <span class="sloth-couple-branch-art" aria-hidden="true">
-                      <img
-                        src="assets/images/sloth-couple-free-spirit-free-spirit-art.webp"
-                        alt=""
-                        decoding="async"
-                        loading="lazy"
-                      />
-                    </span>
-                    <span class="sloth-couple-branch-content">
-                      <span class="sloth-couple-branch-title">
-                        Free Spirit + Free Spirit
-                      </span>
-                      <span class="sloth-couple-branch-body">
-                        You both gush about the future - just without
-                        spreadsheets.
-                      </span>
-                    </span>
-                  </a>
-                </div>
-              </div>
+            <div
+              class="sloth-hero-dashboard-frame reveal"
+              aria-label="Sloth Money dashboard preview"
+            >
+              <picture>
+                <source
+                  media="(min-width: 640px)"
+                  srcset="assets/images/hero%20asset.png"
+                />
+                <img
+                  src="assets/images/hero%20asset%20mobile.png"
+                  alt="Sloth Money dashboard showing goal drift, month-to-date spend, and roadmap snapshot"
+                  decoding="async"
+                  fetchpriority="high"
+                />
+              </picture>
             </div>
           </div>
         </section>
       </div>
-      <div
-        id="archetype-content"
-        class="sloth-archetype-results is-preview"
-        data-archetype-content
-      >
-        <span
-          id="solo-planner-content"
-          class="sloth-archetype-content-anchor"
-          tabindex="-1"
-        ></span>
-        <span
-          id="solo-free-spirit-content"
-          class="sloth-archetype-content-anchor"
-          tabindex="-1"
-        ></span>
-        <span
-          id="planner-free-spirit-content"
-          class="sloth-archetype-content-anchor"
-          tabindex="-1"
-        ></span>
-        <span
-          id="planner-planner-content"
-          class="sloth-archetype-content-anchor"
-          tabindex="-1"
-        ></span>
-        <span
-          id="free-spirit-free-spirit-content"
-          class="sloth-archetype-content-anchor"
-          tabindex="-1"
-        ></span>
-        <div
-          class="sloth-archetype-lock"
-          data-archetype-lock
-          hidden
-          role="status"
-        >
-          <span class="sloth-archetype-lock-copy" data-archetype-lock-copy>
-            Pick Solo or Couple to unlock your plan.
-          </span>
-          <button
-            class="sloth-archetype-lock-action"
-            data-archetype-lock-action
-            type="button"
-          >
-            Back to choices
-          </button>
-        </div>
+      <div class="sloth-home-content">
         <!-- Features Section -->
         <section class="py-20 sm:py-28 bg-white">
           <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
@@ -2872,7 +1916,6 @@
     <script src="assets/js/mobile-menu.js" defer></script>
     <script src="assets/js/shared-footer.js" defer></script>
     <script src="assets/js/animations.js" defer></script>
-    <script src="assets/js/archetype-flow.js" defer></script>
     <script src="assets/js/posthog-analytics.js" defer></script>
     <script>
       // Initialize Lucide icons

@@ -118,11 +118,11 @@ for (const metadata of [
   {
     page: home,
     location: 'src/index.html',
-    title: 'Sloth Money - Shared money plans for couples',
+    title: 'Sloth Money - Take the work out of money',
     openGraphDescription:
-      'Turn awkward money admin into a shared system. Build goals, contributions, and progress together - without spreadsheet chaos.',
+      'Automated transaction categorisation, budget suggestions, savings goal scenarios, and an Agent API built to take work off your plate.',
     twitterDescription:
-      'Turn awkward money admin into a shared system. Build goals, contributions, and progress together - without spreadsheet chaos.',
+      'Automated transaction categorisation, budget suggestions, savings goal scenarios, and an Agent API built to take work off your plate.',
     url: 'https://slothmoney.app/',
     image: 'https://slothmoney.app/assets/images/sloth-money-logo-icon.png',
   },
@@ -319,6 +319,7 @@ if (JSON.stringify(htmlFiles) !== JSON.stringify(classifiedHtmlFiles)) {
 
 for (const resource of [
   '# Sloth Money',
+  'Sloth Money takes the work out of managing money',
   'https://slothmoney.app/developers/',
   'https://www.npmjs.com/package/@slothmoney/agent-cli',
   'https://github.com/RathBala/sloth-agent-cli',
@@ -326,6 +327,10 @@ for (const resource of [
   'goal priority ordering',
 ]) {
   requireText(llms, resource, 'src/llms.txt')
+}
+
+if (llms.includes('helps couples build shared goals')) {
+  failures.push('src/llms.txt should not keep the old couples-first summary.')
 }
 
 if (failures.length > 0) {

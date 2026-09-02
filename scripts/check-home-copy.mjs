@@ -3,528 +3,151 @@ import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const projectRoot = path.resolve(__dirname, '..')
-const homePagePath = path.join(projectRoot, 'src/index.html')
-const weddingPagePath = path.join(projectRoot, 'src/wedding-fund/index.html')
-const developerPagePath = path.join(projectRoot, 'src/developers/index.html')
-const agentInstructionsPath = path.join(projectRoot, 'AGENTS.md')
-const visualAssetsDocPath = path.join(projectRoot, 'docs/visual-assets.md')
-const packageJsonPath = path.join(projectRoot, 'package.json')
-const archetypeFlowJsPath = path.join(
-  projectRoot,
-  'src/assets/js/archetype-flow.js'
-)
-const heroBackgroundSvgPath = path.join(
-  projectRoot,
-  'src/assets/images/sloth-hero-leafy-bg.svg'
-)
-const heroSideLeafSvgPath = path.join(
-  projectRoot,
-  'src/assets/images/sloth-side-leaf.svg'
-)
 
-const source = await readFile(homePagePath, 'utf8')
-const weddingSource = await readFile(weddingPagePath, 'utf8')
-const developerSource = await readFile(developerPagePath, 'utf8')
-const agentInstructions = await readFile(agentInstructionsPath, 'utf8')
-const visualAssetsDoc = await readFile(visualAssetsDocPath, 'utf8').catch(
-  () => ''
-)
-const packageJson = await readFile(packageJsonPath, 'utf8')
-const archetypeFlowJs = await readFile(archetypeFlowJsPath, 'utf8')
-const heroBackgroundSvg = await readFile(heroBackgroundSvgPath, 'utf8').catch(
-  () => ''
-)
-const heroSideLeafSvg = await readFile(heroSideLeafSvgPath, 'utf8').catch(
-  () => ''
-)
-const normalizedSource = source.replace(/\s+/g, ' ')
-const normalizedCss = source.replace(/\s+/g, ' ')
-const normalizedText = source.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')
-const normalizedWeddingText = weddingSource
-  .replace(/<[^>]*>/g, ' ')
-  .replace(/\s+/g, ' ')
-const normalizedDeveloperText = developerSource
-  .replace(/<[^>]*>/g, ' ')
-  .replace(/\s+/g, ' ')
-const heroBackgroundStart = source.indexOf('<div class="sloth-hero')
-const heroStart = source.indexOf('<!-- Hero Section -->')
-const heroEnd = heroStart === -1 ? -1 : source.indexOf('</section>', heroStart)
-const headlineStart = source.indexOf('<h1', heroStart)
-const headlineEnd =
-  headlineStart === -1 ? -1 : source.indexOf('</h1>', headlineStart)
-const heroHeadline =
-  headlineStart === -1 || headlineEnd === -1
-    ? ''
-    : source.slice(headlineStart, headlineEnd)
-const heroLeadIn =
-  heroStart === -1 || headlineStart === -1
-    ? ''
-    : source.slice(heroStart, headlineStart)
-const ctaRowStart = source.indexOf('class="sloth-cta-row', heroStart)
-const dashboardPreviewStart = source.indexOf(
-  'class="relative z-10 min-w-0 reveal"',
-  ctaRowStart
-)
-const ctaRowEnd =
-  ctaRowStart === -1 || dashboardPreviewStart === -1
-    ? -1
-    : dashboardPreviewStart
-const heroCtaRow =
-  ctaRowStart === -1 || ctaRowEnd === -1
-    ? ''
-    : source.slice(ctaRowStart, ctaRowEnd)
-const heroBackgroundEnd =
-  heroBackgroundStart === -1
-    ? -1
-    : source.indexOf('<!-- Features Section -->', heroBackgroundStart)
-const archetypeStart = source.indexOf('<!-- Archetype Section -->')
-const archetypeEnd =
-  archetypeStart === -1 ? -1 : source.indexOf('</section>', archetypeStart)
-const archetypeSection =
-  archetypeStart === -1 || archetypeEnd === -1
-    ? ''
-    : source.slice(archetypeStart, archetypeEnd)
-const archetypeContentOpening =
-  source.match(/<div\s+id="archetype-content"[\s\S]*?>/)?.[0] ?? ''
-const archetypeText = archetypeSection
-  .replace(/<[^>]*>/g, ' ')
-  .replace(/\s+/g, ' ')
-const roadmapHeroIndex = source.indexOf('assets/images/hero%20asset.png')
-const archetypeFlowIndex = source.indexOf('class="sloth-archetype-flow')
-const archetypeArtImgRule =
-  source.match(/\.sloth-archetype-art img\s*\{[\s\S]*?\n      \}/)?.[0] ?? ''
+const [
+  home,
+  wedding,
+  developers,
+  agentInstructions,
+  visualAssets,
+  packageJson,
+] = await Promise.all([
+  readFile(path.join(projectRoot, 'src/index.html'), 'utf8'),
+  readFile(path.join(projectRoot, 'src/wedding-fund/index.html'), 'utf8'),
+  readFile(path.join(projectRoot, 'src/developers/index.html'), 'utf8'),
+  readFile(path.join(projectRoot, 'AGENTS.md'), 'utf8'),
+  readFile(path.join(projectRoot, 'docs/visual-assets.md'), 'utf8'),
+  readFile(path.join(projectRoot, 'package.json'), 'utf8'),
+])
+
+const text = (source) =>
+  source
+    .replace(/<[^>]*>/g, ' ')
+    .replaceAll('&amp;', '&')
+    .replace(/\s+/g, ' ')
+const normalizedHome = home.replace(/\s+/g, ' ')
+const homeText = text(home)
+const weddingText = text(wedding)
+const developerText = text(developers)
+
+const heroStart = home.indexOf('<!-- Hero Section -->')
+const heroEnd = home.indexOf('<!-- Features Section -->', heroStart)
+const hero =
+  heroStart === -1 || heroEnd === -1 ? '' : home.slice(heroStart, heroEnd)
 
 const checks = [
   {
     passes:
-      normalizedText.includes('Join the free beta') &&
-      normalizedText.includes('full access is yours free forever') &&
-      normalizedText.includes(
+      homeText.includes('Join the free beta') &&
+      homeText.includes('full access is yours free forever') &&
+      homeText.includes(
         'One connected partner included while you are linked'
       ) &&
-      !normalizedText.includes('Full access for 14 days') &&
-      !normalizedText.includes('One subscription') &&
-      !normalizedText.includes('£4.99') &&
-      !source.includes('pricing-toggle.js'),
+      !homeText.includes('Full access for 14 days') &&
+      !homeText.includes('One subscription') &&
+      !homeText.includes('£4.99') &&
+      !home.includes('pricing-toggle.js'),
     message:
-      'Home access block should promise permanent free-beta access and remove trial, subscription, price, and pricing-toggle copy.',
+      'Home access copy should preserve the permanent free-beta promise.',
   },
   {
     passes:
-      normalizedWeddingText.includes('Join the free beta') &&
-      normalizedWeddingText.includes('full access is yours free forever') &&
-      normalizedWeddingText.includes(
+      weddingText.includes('Join the free beta') &&
+      weddingText.includes('full access is yours free forever') &&
+      weddingText.includes(
         'One connected partner included while you are linked'
       ) &&
-      !normalizedWeddingText.includes('Full access for 14 days') &&
-      !normalizedWeddingText.includes('One subscription') &&
-      !normalizedWeddingText.includes('£4.99') &&
-      !weddingSource.includes('pricing-toggle.js'),
+      !weddingText.includes('Full access for 14 days') &&
+      !weddingText.includes('One subscription') &&
+      !weddingText.includes('£4.99') &&
+      !wedding.includes('pricing-toggle.js'),
     message:
-      'Wedding access block should match the permanent free-beta promise and remove pricing controls.',
+      'Wedding access copy should preserve the permanent free-beta promise.',
   },
   {
     passes:
-      normalizedDeveloperText.includes('Free beta included') &&
-      normalizedDeveloperText.includes('Agent API access is included') &&
-      !normalizedDeveloperText.includes('Paid access required'),
-    message:
-      'Developer docs should explain that Agent API access is included in the free beta.',
+      developerText.includes('Free beta included') &&
+      developerText.includes('Agent API access is included') &&
+      !developerText.includes('Paid access required'),
+    message: 'Developer docs should preserve free-beta Agent API access copy.',
   },
   {
-    passes: normalizedText.includes('Couple finances actually made fun.'),
-    message:
-      'Home hero headline should lead with the agreed couple-finances-made-fun value prop.',
+    passes: homeText.includes('Take the work out of money'),
+    message: 'Home hero should use the approved headline.',
   },
   {
-    passes:
-      heroHeadline.includes(
-        '<span class="block sm:inline">Couple finances</span>'
-      ) &&
-      heroHeadline.includes('<span class="block sm:inline">actually</span>') &&
-      heroHeadline.includes('made') &&
-      heroHeadline.includes('mint-line') &&
-      heroHeadline.includes('fun.') &&
-      !heroHeadline.includes('mt-2') &&
-      heroLeadIn.includes('assets/images/sloth-guide-sidekick.webp') &&
-      heroLeadIn.includes('sloth-hero-mascot') &&
-      !heroHeadline.includes('assets/images/sloth-guide-sidekick.webp') &&
-      !heroCtaRow.includes('assets/images/sloth-guide-sidekick.webp'),
-    message:
-      'Home hero guide sidekick should sit centered above the headline, and the headline should stack actually on mobile while keeping it on the first line at desktop sizes.',
-  },
-  {
-    passes:
-      heroHeadline.includes('leading-[.9]') &&
-      heroHeadline.includes('sm:leading-[0.98]'),
-    message:
-      'Home hero headline should use tighter mobile line-height to avoid awkward wrapped-line spacing.',
-  },
-  {
-    passes:
-      heroCtaRow.includes('max-w-[21.5rem]') &&
-      heroCtaRow.includes('sm:flex-row') &&
-      heroCtaRow.includes('sm:w-auto') &&
-      !heroCtaRow.includes('max-w-2xl') &&
-      !heroCtaRow.includes('sloth-cta-actions'),
-    message:
-      'Home hero CTAs should use a compact Attio-style button pair on desktop with a narrower mobile stack.',
-  },
-  {
-    passes: !normalizedSource.includes('Pick your money mode.'),
-    message: 'Home hero headline should not lead with vague money mode copy.',
-  },
-  {
-    passes: !normalizedSource.includes('Budget together. Save together.'),
-    message:
-      'Home hero headline should avoid the old two-sentence headline wrap.',
-  },
-  {
-    passes: normalizedSource.includes(
-      '<span class="block"> <strong class="sloth-subhead-keyword">Budget</strong> and <strong class="sloth-subhead-keyword">save</strong> your way to shared wealth. </span> <span class="block"> More celebration, less awkwardness. </span>'
+    passes: homeText.includes(
+      'Sloth Money keeps your budget organised, your goals moving and the routine admin off your plate.'
     ),
-    message:
-      'Home hero support copy should emphasize Budget/save and use separate lines for shared wealth and celebration/awkwardness.',
+    message: 'Home hero should use the approved support copy.',
+  },
+  {
+    passes: [
+      'Automated transaction categorisation',
+      'Budget suggestions',
+      'Savings goal scenarios',
+      'CLI & Agent API',
+    ].every((feature) => homeText.includes(feature)),
+    message: 'Home hero should show all four approved feature callouts.',
   },
   {
     passes:
-      heroStart !== -1 &&
-      heroEnd !== -1 &&
-      roadmapHeroIndex > heroStart &&
-      roadmapHeroIndex < heroEnd,
+      hero.includes('assets/images/sloth-money-garden-hero.webp') &&
+      hero.includes('assets/images/hero%20asset.png') &&
+      hero.includes('data-analytics-cta="hero-start"') &&
+      hero.includes('data-analytics-cta="hero-sign-in"'),
     message:
-      'Home hero should use the Sloth Money roadmap dashboard image as the primary visual.',
-  },
-  {
-    passes: heroEnd !== -1 && archetypeFlowIndex > heroEnd,
-    message:
-      'Home archetype flow should sit below the hero instead of inside the hero grid.',
+      'Home hero should use the garden art, dashboard preview, and existing CTA tracking.',
   },
   {
     passes:
-      heroBackgroundStart !== -1 &&
-      heroBackgroundEnd !== -1 &&
-      heroStart > heroBackgroundStart &&
-      archetypeFlowIndex > heroBackgroundStart &&
-      archetypeFlowIndex < heroBackgroundEnd,
-    message:
-      'Home hero and archetype sections should share one continuous hero background.',
+      !normalizedHome.includes('What kind of saver are you?') &&
+      !normalizedHome.includes('Pick Solo or Couple') &&
+      !home.includes('data-archetype-lock') &&
+      !home.includes('data-archetype-reveal') &&
+      !home.includes('assets/js/archetype-flow.js') &&
+      !home.includes('is-preview'),
+    message: 'Home should remove the Solo/Couple selector and visibility gate.',
   },
   {
     passes:
-      archetypeSection.includes('sloth-archetype-card') &&
-      archetypeSection.includes(
-        'assets/images/sloth-archetype-solo-art.webp'
+      home.includes('<!-- Features Section -->') &&
+      homeText.includes(
+        'Map out your financial future from emergencies to nest eggs'
       ) &&
-      archetypeSection.includes(
-        'assets/images/sloth-archetype-couple-art.webp'
-      ) &&
-      !archetypeSection.includes('assets/images/sloth-archetype-flow.webp'),
+      homeText.includes('Built for shared finances'),
     message:
-      'Home top-level archetype cards should use the Solo and Couple sloth assets instead of the old composite image.',
+      'Home should keep the existing lower-page content in the initial HTML.',
   },
   {
     passes:
-      archetypeSection.includes('What kind of saver are you?') &&
-      !archetypeSection.includes('Or begin with your money archetype'),
+      !homeText.includes('Couple finances actually made fun.') &&
+      !home.includes('Shared money plans for couples'),
     message:
-      'Home archetype heading should ask what kind of saver the visitor is.',
-  },
-  {
-    passes:
-      archetypeText.includes(' Solo ') &&
-      archetypeText.includes(' Couple ') &&
-      !archetypeSection.includes('Goal-Chaser') &&
-      !archetypeSection.includes('Zen<br />Sloth'),
-    message: 'Home archetype cards should offer Solo and Couple only.',
-  },
-  {
-    passes:
-      archetypeSection.includes('href="#solo-archetypes"') &&
-      archetypeSection.includes('id="solo-archetypes"') &&
-      archetypeSection.includes('Pick your solo style') &&
-      archetypeSection.includes('data-archetype-trigger="solo-planner"') &&
-      archetypeSection.includes('data-archetype-trigger="solo-free-spirit"') &&
-      archetypeSection.includes(
-        'assets/images/sloth-archetype-goal-art.webp'
-      ) &&
-      archetypeSection.includes('assets/images/sloth-archetype-zen-art.webp') &&
-      archetypeSection.includes('data-analytics-cta="solo-planner"') &&
-      archetypeSection.includes('data-analytics-cta="solo-free-spirit"') &&
-      source.includes('id="solo-planner-content"') &&
-      source.includes('id="solo-free-spirit-content"') &&
-      source.includes('data-archetype-solo-planner') &&
-      source.includes('data-archetype-solo-free-spirit'),
-    message:
-      'Home Solo saver card should reveal Planner and Free Spirit solo archetype branches with tracked in-page result states.',
-  },
-  {
-    passes:
-      archetypeSection.includes('href="#couple-archetypes"') &&
-      archetypeSection.includes('id="couple-archetypes"') &&
-      archetypeSection.includes('Planner + Free Spirit') &&
-      archetypeSection.includes('Planner + Planner') &&
-      archetypeSection.includes('Free Spirit + Free Spirit') &&
-      archetypeSection.includes(
-        'assets/images/sloth-couple-planner-free-spirit-art.webp'
-      ) &&
-      archetypeSection.includes(
-        'assets/images/sloth-couple-planner-planner-art.webp'
-      ) &&
-      archetypeSection.includes(
-        'assets/images/sloth-couple-free-spirit-free-spirit-art.webp'
-      ) &&
-      archetypeSection.includes(
-        'data-analytics-cta="couple-planner-free-spirit"'
-      ) &&
-      archetypeSection.includes(
-        'data-analytics-cta="couple-planner-planner"'
-      ) &&
-      archetypeSection.includes(
-        'data-analytics-cta="couple-free-spirit-free-spirit"'
-      ),
-    message:
-      'Home Couple saver card should scroll to the three tracked couple archetype branches.',
-  },
-  {
-    passes:
-      archetypeSection.includes('href="#planner-free-spirit-content"') &&
-      archetypeSection.includes(
-        'data-couple-archetype-trigger="planner-free-spirit"'
-      ) &&
-      archetypeContentOpening.includes('data-archetype-content') &&
-      archetypeContentOpening.includes('is-preview') &&
-      !archetypeContentOpening.includes('hidden') &&
-      !archetypeContentOpening.includes('inert') &&
-      source.includes("document.documentElement.classList.add('js')") &&
-      source.includes('.sloth-archetype-results') &&
-      source.includes('.js .sloth-archetype-results.is-preview') &&
-      source.includes('background: #013d29') &&
-      source.includes('.js .sloth-archetype-results.is-preview > section') &&
-      source.includes('opacity: 0.42') &&
-      source.includes('saturate(0.48) brightness(0.62) contrast(0.82)') &&
-      source.includes('.js .sloth-archetype-results.is-preview::before') &&
-      source.includes('#013d29') &&
-      source.includes('inset: 0') &&
-      !source.includes(
-        '.js .sloth-archetype-results.is-preview {\n        opacity:'
-      ) &&
-      source.includes('.sloth-archetype-results.is-revealed') &&
-      archetypeFlowJs.includes('data-couple-archetype-trigger') &&
-      archetypeFlowJs.includes('data-archetype-trigger') &&
-      archetypeFlowJs.includes('showArchetypeContent') &&
-      archetypeFlowJs.includes("classList.add('is-preview')") &&
-      archetypeFlowJs.includes("classList.remove('is-preview')") &&
-      !archetypeFlowJs.includes('archetypeContent.hidden') &&
-      archetypeFlowJs.includes('const nextHash = `#${archetype}-content`') &&
-      archetypeFlowJs.includes('dataset.currentArchetype = archetype'),
-    message:
-      'Home Planner + Free Spirit branch should select an in-page archetype state and undim the already-present lower homepage content instead of hiding it from the page flow.',
-  },
-  {
-    passes:
-      !source.includes('data-archetype-default="Your path"') &&
-      !normalizedText.includes('Your path Planner with a roadmap') &&
-      !normalizedText.includes(
-        'Planner + Free Spirit One person holds the plan'
-      ),
-    message:
-      'Home archetype result content should not show a redundant path label above the selected plan heading.',
-  },
-  {
-    passes:
-      normalizedText.includes(
-        'One partner tracks the numbers, the other dreams about the future.'
-      ) &&
-      source.includes(
-        'Sloth Money keeps the plan visible without turning every chat into a finance meeting.'
-      ) &&
-      !source.includes(
-        'Sloth keeps the plan visible without turning every chat into a finance meeting.'
-      ),
-    message:
-      'Home Planner + Free Spirit copy should describe the dreamer plainly and use the full Sloth Money product name.',
-  },
-  {
-    passes:
-      source.includes('The planner can model it first') &&
-      source.includes('For two detail-oriented people') &&
-      !source.includes('Model it first so the answer is visible') &&
-      !source.includes('For two detail people'),
-    message:
-      'Home archetype copy should use the requested planner scenario and detail-oriented phrasing.',
-  },
-  {
-    passes:
-      source.includes('The holiday trade-off') &&
-      source.includes('The wedding plan') &&
-      source.includes('The car repair') &&
-      source.includes('The nest egg') &&
-      source.includes('Dream as big and as often as you want') &&
-      !source.includes('Play with future scenarios before committing'),
-    message:
-      'Home scenario copy should stay tied to concrete holiday, milestone, emergency, nest-egg, and free-spirit goals.',
-  },
-  {
-    passes:
-      archetypeSection.includes('data-archetype-reveal="couple"') &&
-      archetypeSection.includes('data-archetype-reveal="solo"') &&
-      archetypeSection.includes('data-archetype-branch-grid') &&
-      archetypeSection.includes('data-couple-branch-grid') &&
-      source.includes('assets/js/archetype-flow.js'),
-    message:
-      'Home Solo and Couple saver cards should reveal dimmed branches before the user can choose a branch.',
-  },
-  {
-    passes:
-      source.includes(
-        '.sloth-couple-branches:not(.is-revealed):not(:target)'
-      ) &&
-      source.includes('.sloth-couple-branches.is-revealed') &&
-      source.includes('[data-archetype-branch-group=') &&
-      source.includes('.sloth-couple-branch-grid[inert]'),
-    message:
-      'Home archetype branches should start visually dimmed and interaction-locked until revealed.',
-  },
-  {
-    passes:
-      archetypeSection.includes('sloth-couple-connector') &&
-      archetypeSection.includes('M75 0 V32 C75 55 50 50 50 76 V100') &&
-      source.includes('.sloth-archetype-path.couple::before') &&
-      source.includes('.sloth-couple-connector path') &&
-      source.includes('vector-effect: non-scaling-stroke') &&
-      source.includes('display: none') &&
-      !source.includes('left: 75%'),
-    message:
-      'Home Couple connector should be one centered merging line instead of a disconnected right-side branch line.',
-  },
-  {
-    passes:
-      source.includes('.sloth-archetype-flow') &&
-      source.includes('max-width: 42rem') &&
-      source.includes('aspect-ratio: 0.78') &&
-      source.includes('height: clamp(4.4rem, 9vw, 6.2rem)') &&
-      !source.includes('min-height: clamp(22.25rem, 62vw, 35rem)'),
-    message:
-      'Home saver cards should keep compact component-owned sizing so they do not bleed off screen.',
-  },
-  {
-    passes:
-      source.includes('.sloth-archetype-art {') &&
-      archetypeArtImgRule.includes('object-fit: cover') &&
-      archetypeArtImgRule.includes('object-position: center 48%') &&
-      !archetypeArtImgRule.includes('-webkit-mask-image') &&
-      !archetypeArtImgRule.includes('mask-image') &&
-      archetypeSection.includes('loading="eager"') &&
-      archetypeSection.includes('fetchpriority="high"'),
-    message:
-      'Home saver-card sloth art should render eagerly with unmasked, cropped images so Solo and Couple stay visible on mobile browsers.',
-  },
-  {
-    passes:
-      normalizedCss.includes('.sloth-archetype-grid, .sloth-archetype-paths') &&
-      normalizedCss.includes('max-width: 42rem') &&
-      normalizedCss.includes('max-width: 66rem') &&
-      normalizedCss.includes(
-        '.sloth-couple-branch-card { display: flex; aspect-ratio: 0.78'
-      ) &&
-      normalizedCss.includes(
-        'grid-template-columns: repeat(3, minmax(0, 1fr))'
-      ) &&
-      normalizedCss.includes(
-        '.sloth-couple-branch-art { display: grid; flex: 1'
-      ),
-    message:
-      'Home couple branch cards should use a wider desktop grid and the same card/art proportions as the Solo and Couple saver cards.',
-  },
-  {
-    passes:
-      archetypeFlowJs.includes('event.preventDefault()') &&
-      archetypeFlowJs.includes(
-        "window.history.pushState(null, '', `#${branchGroupElement.id}`)"
-      ) &&
-      archetypeFlowJs.includes('branchGroupElement?.scrollIntoView') &&
-      archetypeFlowJs.includes("behavior: 'smooth'") &&
-      archetypeFlowJs.includes("block: 'start'"),
-    message:
-      'Home saver cards should reveal their branch group and start smooth scrolling immediately from the click handler.',
-  },
-  {
-    passes:
-      archetypeSection.length > 0 &&
-      !archetypeSection.includes('absolute inset-0 opacity-70') &&
-      !archetypeSection.includes('background-image: linear-gradient') &&
-      !archetypeSection.includes('bg-[#013d29]'),
-    message:
-      'Home archetype section should not add a separate background layer that creates a divider below the hero.',
-  },
-  {
-    passes:
-      source.includes("url('assets/images/sloth-hero-leafy-bg.svg')") &&
-      !source.includes('assets/images/sloth-hero-leafy-bg.webp') &&
-      !source.includes('assets/images/sloth-hero-leafy-bg@2x.webp'),
-    message:
-      'Home hero leafy background should use the crisp SVG asset instead of the raster WebP background.',
-  },
-  {
-    passes:
-      heroBackgroundSvg.includes('<svg') &&
-      heroBackgroundSvg.includes('<polygon') &&
-      heroBackgroundSvg.includes('<linearGradient') &&
-      heroBackgroundSvg.includes('viewBox="0 0 2048 1600"') &&
-      heroBackgroundSvg.includes('id="medium-left-leaf"') &&
-      heroBackgroundSvg.includes('id="medium-right-leaf"'),
-    message:
-      'Home hero leafy SVG background should be authored vector artwork with medium-crop side leaves.',
-  },
-  {
-    passes:
-      source.includes('assets/images/sloth-side-leaf.svg') &&
-      source.includes('sloth-hero-side-leaf-left') &&
-      source.includes('sloth-hero-side-leaf-right') &&
-      heroSideLeafSvg.includes('<polygon') &&
-      heroSideLeafSvg.includes('<linearGradient'),
-    message:
-      'Home hero should place crisp SVG side leaves independently of the background crop.',
+      'Home metadata and hero should no longer use the couples-first positioning.',
   },
   {
     passes:
       agentInstructions.includes('warm tan and caramel-brown') &&
       agentInstructions.includes('green sloths') &&
-      agentInstructions.includes('logo, mascot, hero, archetype') &&
-      agentInstructions.includes('docs/visual-assets.md'),
+      agentInstructions.includes('docs/visual-assets.md') &&
+      visualAssets.includes('Actual page context beats isolated pixels') &&
+      visualAssets.includes('two post-processing attempts') &&
+      visualAssets.includes('Cache-bust browser checks') &&
+      packageJson.includes('"asset:prepare-sloth"'),
     message:
-      'AGENTS.md should document and link the warm brown sloth asset direction for future generated sloth assets.',
-  },
-  {
-    passes:
-      visualAssetsDoc.includes('Actual page context beats isolated pixels') &&
-      visualAssetsDoc.includes('two post-processing attempts') &&
-      visualAssetsDoc.includes('Cache-bust browser checks') &&
-      visualAssetsDoc.includes('warm tan and caramel-brown'),
-    message:
-      'docs/visual-assets.md should capture the repeatable visual asset workflow and loop-prevention rules.',
-  },
-  {
-    passes:
-      packageJson.includes('"asset:prepare-sloth"') &&
-      packageJson.includes('scripts/prepare-sloth-asset.mjs'),
-    message:
-      'package.json should expose the repeatable Sloth asset preparation script.',
+      'The Sloth visual asset workflow should remain documented and executable.',
   },
 ]
 
-const failures = checks
-  .filter((check) => !check.passes)
-  .map((check) => check.message)
+const failures = checks.filter(({ passes }) => !passes)
 
-if (failures.length > 0) {
-  for (const failure of failures) {
-    console.error(`[home-copy] ${failure}`)
-  }
-
-  process.exit(1)
+for (const { message } of failures) {
+  console.error(`[home-copy] ${message}`)
 }
+
+if (failures.length > 0) process.exit(1)
+
+console.log('[home-copy] Homepage copy and visibility contract passed.')

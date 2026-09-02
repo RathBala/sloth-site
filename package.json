@@ -16,7 +16,7 @@
     "build": "yarn check:repo-hygiene && yarn posthog:config && yarn check:developer-cli-docs && yarn check:developer-cli-release && yarn check:public-site && yarn build:css",
     "dev": "yarn posthog:config && concurrently \"yarn dev:css\" \"yarn dev:server\" --names \"CSS,SERVER\" --prefix-colors \"blue,green\"",
     "asset:prepare-sloth": "node ./scripts/prepare-sloth-asset.mjs",
-    "check:archetype-gate": "node ./scripts/check-archetype-gate.mjs",
+    "check:home-visibility": "node ./scripts/check-home-visibility.mjs",
     "check:copy": "node ./scripts/check-home-copy.mjs",
     "check:developer-auth": "node ./scripts/check-developer-auth-docs.mjs",
     "check:footer": "node ./scripts/check-shared-footer.mjs",

@@ -1,6 +1,6 @@
 # Sloth Money
 
-> Sloth Money helps couples build shared goals, budgets, and long-term money plans.
+> Sloth Money takes the work out of managing money with automated transaction categorisation, budget suggestions, savings goal scenarios, and an Agent API.
 
 ## Main pages
 

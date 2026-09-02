@@ -40,6 +40,69 @@ final result: passed
 
 ---
 
+# Homepage hero design QA
+
+## Findings
+
+- No actionable P0, P1, or P2 findings remain.
+
+## Source visual truth
+
+- Gem/watering composition: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-dfa6d627-897d-4bf7-b5c0-00020ab8b7de.png`
+- Dashboard/background boundary: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-673ee268-c2ed-49c4-89d2-29ab16ecbac8.png`
+- Both supplied screenshots are `2832x1492` pixels. They were normalized to `1423x740` for the side-by-side comparisons.
+
+## Implementation evidence
+
+- Local URL: `http://localhost:3017/?v=tall-garden-final-desktop`
+- Desktop fold: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/home-hero-tall-garden-desktop.jpg`
+  - Browser viewport: `1438x748` CSS pixels.
+  - Screenshot output: `1423x740` pixels.
+  - State: homepage at `scrollY: 0`.
+- Mobile fold: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/home-hero-tall-garden-mobile.jpg`
+  - Browser viewport: `390x844` CSS pixels.
+  - Screenshot output: `375x812` pixels.
+  - State: homepage at `scrollY: 0`.
+- Full dashboard and lower garden: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/home-dashboard-tall-garden.jpg`
+  - Browser viewport: `1438x1000` CSS pixels.
+  - Screenshot output: `1423x990` pixels.
+  - State: homepage at `scrollY: 600`; the complete dashboard and leafy padding below it are visible.
+- Full-view comparison: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/tall-garden-hero-before-after.jpg`
+- Focused lower-boundary comparison: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/tall-garden-dashboard-before-after.jpg`
+
+## Fidelity review
+
+- Fonts and typography: Manrope, headline scale, button labels, feature labels, and type hierarchy are unchanged. The desktop copy group moves left responsively to preserve clear separation from the regenerated mascot.
+- Spacing and layout rhythm: all four gem shapes fit above the feature strip at the desktop fold. The mobile fold also shows all four gems and the watering interaction. The hero now leaves at least `64px` of background breathing room below the dashboard.
+- Colors and tokens: the existing deep emerald, mint, cyan, purple, amber, and warm caramel palette is preserved.
+- Image quality and asset fidelity: the new `1024x1536` WebP preserves the low-poly garden and warm-brown mascot, makes the water land on the orange gem, and adds a substantial leafy foreground. The optimized critical asset is `115,424` bytes.
+- Copy and content: no customer-facing copy changed.
+- Interactions and diagnostics: both hero CTAs retain their signup/sign-in destinations and analytics identifiers. No browser errors were reported. Local-only warnings for disabled PostHog and the unavailable visit-alert function are expected in this preview environment.
+
+## Comparison history
+
+1. **P1 - Water landed beside the orange gem and the four-gem set was obscured.**
+   - Fix: regenerated the garden, then made one targeted edit that moved the orange gem under the existing water stream. Repositioned the tall asset responsively so all four gem shapes remain visible at desktop and mobile folds.
+   - Post-fix evidence: `tall-garden-hero-before-after.jpg` and both final fold screenshots.
+2. **P1 - The leafy artwork ended partway down the dashboard.**
+   - Fix: outpainted the scene into a tall `2:3` canvas with an extended leafy foreground and added explicit hero padding below the dashboard.
+   - Post-fix evidence: `tall-garden-dashboard-before-after.jpg`; the dashboard is complete and leafy artwork remains visible below it.
+3. **P2 - Raising the new art initially placed the mascot behind the hero copy.**
+   - Fix: shifted the desktop copy group left with a viewport-aware offset while keeping the feature strip centered.
+   - Post-fix evidence: final desktop fold screenshot; copy and mascot no longer collide.
+
+## Open questions
+
+- None blocking.
+
+## Follow-up polish
+
+- The generated `1024px`-wide source is enlarged on wide desktop displays. It remains visually clean at the tested size, but a future higher-resolution generation would improve retina sharpness if the asset becomes a long-term campaign centerpiece.
+
+final result: passed
+
+---
+
 # Public Tools navigation and signup handoff design QA
 
 - source visual truth path: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/tools-nav-before-desktop.png`
