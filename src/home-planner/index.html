@@ -205,7 +205,7 @@
               <a
                 class="planner-primary-action"
                 id="planner-start"
-                href="#planner-savings"
+                href="#deposit"
                 data-analytics-cta="home-planner-start"
               >
                 <span>Explore my home plan</span>
@@ -330,31 +330,33 @@
                 </div>
               </fieldset>
 
-              <label class="money-field" for="home-price">
-                <span>What home price are you thinking about?</span>
-                <span class="money-input-wrap">
-                  <span class="currency-prefix" aria-hidden="true">£</span>
-                  <input
-                    id="home-price"
-                    name="homePrice"
-                    type="number"
-                    min="25000"
-                    max="20000000"
-                    step="1"
-                    value="300000"
-                    inputmode="decimal"
-                    autocomplete="off"
-                    required
-                  />
-                </span>
-              </label>
-              <label class="uncertain-toggle">
-                <input id="home-price-not-sure" type="checkbox" />
-                <span class="toggle-box"
-                  ><i data-lucide="check" aria-hidden="true"></i
-                ></span>
-                <strong>I am not sure yet</strong>
-              </label>
+              <div class="question-block">
+                <label class="money-field" for="home-price">
+                  <span>What home price are you thinking about?</span>
+                  <span class="money-input-wrap">
+                    <span class="currency-prefix" aria-hidden="true">£</span>
+                    <input
+                      id="home-price"
+                      name="homePrice"
+                      type="number"
+                      min="25000"
+                      max="20000000"
+                      step="1"
+                      value="300000"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      required
+                    />
+                  </span>
+                </label>
+                <label class="uncertain-toggle">
+                  <input id="home-price-not-sure" type="checkbox" />
+                  <span class="toggle-box"
+                    ><i data-lucide="check" aria-hidden="true"></i
+                  ></span>
+                  <strong>I am not sure yet</strong>
+                </label>
+              </div>
 
               <fieldset class="choice-group compact-choice-group">
                 <legend>What kind of home are you picturing?</legend>
@@ -547,56 +549,74 @@
               </p>
 
               <div class="money-fields">
-                <label class="money-field" for="mortgage-budget">
-                  <span
-                    >How much would you put towards a mortgage each month?</span
-                  >
-                  <span class="money-input-wrap">
-                    <span class="currency-prefix" aria-hidden="true">£</span>
-                    <input
-                      id="mortgage-budget"
-                      name="mortgageBudget"
-                      type="number"
-                      min="0"
-                      step="1"
-                      inputmode="decimal"
-                      autocomplete="off"
-                      required
-                    />
-                  </span>
-                </label>
+                <div class="question-block">
+                  <label class="money-field" for="mortgage-budget">
+                    <span
+                      >How much would you put towards a mortgage each
+                      month?</span
+                    >
+                    <span class="money-input-wrap">
+                      <span class="currency-prefix" aria-hidden="true">£</span>
+                      <input
+                        id="mortgage-budget"
+                        name="mortgageBudget"
+                        type="number"
+                        min="0"
+                        step="1"
+                        inputmode="decimal"
+                        autocomplete="off"
+                        required
+                      />
+                    </span>
+                  </label>
+                  <label class="uncertain-toggle">
+                    <input id="mortgage-budget-not-sure" type="checkbox" />
+                    <span class="toggle-box"
+                      ><i data-lucide="check" aria-hidden="true"></i
+                    ></span>
+                    <span>
+                      <strong>Not sure yet</strong>
+                      <small
+                        >Use £1,500 as a starting point. You can adjust it on
+                        your plan.</small
+                      >
+                    </span>
+                  </label>
+                </div>
 
-                <label class="money-field" for="annual-income">
-                  <span>What is your combined yearly income before tax?</span>
-                  <span class="field-hint"
-                    >Optional. It lets us show a rough lender-style borrowing
-                    check.</span
-                  >
-                  <span class="money-input-wrap">
-                    <span class="currency-prefix" aria-hidden="true">£</span>
-                    <input
-                      id="annual-income"
-                      name="annualIncome"
-                      type="number"
-                      min="0"
-                      step="1"
-                      inputmode="decimal"
-                      autocomplete="off"
-                    />
-                  </span>
-                </label>
+                <div class="question-block">
+                  <label class="money-field" for="annual-income">
+                    <span>What is your combined yearly income before tax?</span>
+                    <span class="field-hint"
+                      >Optional. It lets us show a rough lender-style borrowing
+                      check.</span
+                    >
+                    <span class="money-input-wrap">
+                      <span class="currency-prefix" aria-hidden="true">£</span>
+                      <input
+                        id="annual-income"
+                        name="annualIncome"
+                        type="number"
+                        min="0"
+                        step="1"
+                        inputmode="decimal"
+                        autocomplete="off"
+                      />
+                    </span>
+                  </label>
+
+                  <label class="uncertain-toggle">
+                    <input id="income-not-sure" type="checkbox" />
+                    <span class="toggle-box"
+                      ><i data-lucide="check" aria-hidden="true"></i
+                    ></span>
+                    <span>
+                      <strong>I would rather skip income</strong>
+                      <small>Your plan still works without it.</small>
+                    </span>
+                  </label>
+                </div>
               </div>
-
-              <label class="uncertain-toggle">
-                <input id="income-not-sure" type="checkbox" />
-                <span class="toggle-box"
-                  ><i data-lucide="check" aria-hidden="true"></i
-                ></span>
-                <span>
-                  <strong>I would rather skip income</strong>
-                  <small>Your plan still works without it.</small>
-                </span>
-              </label>
 
               <div class="planner-actions">
                 <button
@@ -626,566 +646,600 @@
               </div>
 
               <div class="results-layout">
-                <aside class="lever-panel" aria-labelledby="levers-heading">
-                  <div class="panel-heading">
-                    <div>
-                      <p class="panel-kicker">Your assumptions</p>
-                      <h3 id="levers-heading">Try another version</h3>
-                    </div>
-                    <i data-lucide="sliders-horizontal" aria-hidden="true"></i>
-                  </div>
-
-                  <div class="lever-row lever-row-price">
-                    <label for="lever-home-price">Home price</label>
-                    <span class="lever-price-input">
-                      <span aria-hidden="true">£</span>
-                      <input
-                        id="lever-home-price"
-                        type="number"
-                        step="1"
-                        inputmode="numeric"
-                        aria-label="Exact home price"
-                      />
-                    </span>
-                    <input
-                      id="lever-home-price-range"
-                      type="range"
-                      min="0"
-                      max="1000"
-                      step="1"
-                      aria-label="Home price slider"
-                    />
-                  </div>
-                  <label class="lever-row" for="lever-deposit">
-                    <span>Deposit</span>
-                    <output
-                      id="result-deposit-percent"
-                      for="lever-deposit"
-                    ></output>
-                    <input
-                      id="lever-deposit"
-                      type="range"
-                      min="0"
-                      max="100"
-                      step="1"
-                      value="10"
-                    />
-                  </label>
-                  <label class="lever-row" for="lever-rate">
-                    <span>Interest rate</span>
-                    <output id="result-rate" for="lever-rate"></output>
-                    <input
-                      id="lever-rate"
-                      type="range"
-                      min="2"
-                      max="10"
-                      step="0.1"
-                      value="5"
-                    />
-                  </label>
-                  <label class="lever-row" for="lever-term">
-                    <span>Mortgage term</span>
-                    <output id="result-term" for="lever-term"></output>
-                    <input
-                      id="lever-term"
-                      type="range"
-                      min="15"
-                      max="40"
-                      step="1"
-                      value="30"
-                    />
-                  </label>
-                  <label
-                    class="lever-row shared-ownership-lever"
-                    for="lever-shared-percent"
-                    hidden
-                  >
-                    <span>Share you buy</span>
-                    <output
-                      id="result-shared-percent"
-                      for="lever-shared-percent"
-                    ></output>
-                    <input
-                      id="lever-shared-percent"
-                      type="range"
-                      min="10"
-                      max="75"
-                      step="5"
-                      value="40"
-                    />
-                  </label>
-
-                  <section
-                    class="cost-levers"
-                    aria-labelledby="cost-levers-heading"
-                  >
-                    <h4 id="cost-levers-heading">
-                      Adjust the costs people miss
-                    </h4>
-                    <div>
-                      <label class="lever-row" for="lever-maintenance">
-                        <span>Yearly repair cushion</span>
-                        <output
-                          id="result-maintenance-percent"
-                          for="lever-maintenance"
-                        ></output>
-                        <input
-                          id="lever-maintenance"
-                          type="range"
-                          min="0.25"
-                          max="2"
-                          step="0.25"
-                          value="1"
-                        />
-                      </label>
-                      <label class="lever-row" for="lever-bills">
-                        <span>Bills and insurance</span>
-                        <output id="result-bills" for="lever-bills"></output>
-                        <input
-                          id="lever-bills"
-                          type="range"
-                          min="150"
-                          max="900"
-                          step="25"
-                          value="425"
-                        />
-                      </label>
-                      <label class="lever-row" for="lever-service">
-                        <span>Service charge</span>
-                        <output
-                          id="result-service"
-                          for="lever-service"
-                        ></output>
-                        <input
-                          id="lever-service"
-                          type="range"
-                          min="0"
-                          max="600"
-                          step="25"
-                          value="0"
-                        />
-                      </label>
-                      <label class="lever-row" for="lever-furnishings">
-                        <span>Furnishings</span>
-                        <output
-                          id="result-furnishings"
-                          for="lever-furnishings"
-                        ></output>
-                        <input
-                          id="lever-furnishings"
-                          type="range"
-                          min="0"
-                          max="30000"
-                          step="500"
-                          value="7000"
-                        />
-                      </label>
-                      <label class="lever-row" for="lever-buying-fees">
-                        <span>Legal, survey and moving</span>
-                        <output
-                          id="result-buying-fees"
-                          for="lever-buying-fees"
-                        ></output>
-                        <input
-                          id="lever-buying-fees"
-                          type="range"
-                          min="1000"
-                          max="12000"
-                          step="500"
-                          value="4000"
-                        />
-                      </label>
-                    </div>
-                  </section>
-                </aside>
-
-                <section
-                  class="mortgage-choice-card"
-                  aria-labelledby="mortgage-choice-heading"
-                  aria-live="polite"
-                >
-                  <div class="mortgage-choice-heading">
-                    <div>
-                      <p class="panel-kicker">Mortgage setup</p>
-                      <h3 id="mortgage-choice-heading">
-                        Choose how the mortgage is repaid
-                      </h3>
-                    </div>
-                    <span class="mortgage-choice-icon" aria-hidden="true">
-                      <i data-lucide="landmark"></i>
-                    </span>
-                  </div>
-
-                  <fieldset class="repayment-options">
-                    <legend>Repayment method</legend>
-                    <label class="repayment-option">
-                      <input
-                        id="repayment-method-repayment"
-                        type="radio"
-                        name="repaymentMethod"
-                        value="repayment"
-                        checked
-                      />
-                      <span class="repayment-option-topline">
-                        <strong>Repayment</strong>
-                        <span class="selection-mark" aria-hidden="true">
-                          <i data-lucide="check" aria-hidden="true"></i>
-                        </span>
-                      </span>
-                      <span
-                        class="repayment-option-payment"
-                        id="repayment-option-payment"
-                      ></span>
-                      <small
-                        id="repayment-option-balance"
-                        class="repayment-option-balance"
-                      ></small>
-                    </label>
-
-                    <label class="repayment-option">
-                      <input
-                        id="repayment-method-interest-only"
-                        type="radio"
-                        name="repaymentMethod"
-                        value="interest-only"
-                      />
-                      <span class="repayment-option-topline">
-                        <strong>Interest-only</strong>
-                        <span class="selection-mark" aria-hidden="true">
-                          <i data-lucide="check" aria-hidden="true"></i>
-                        </span>
-                      </span>
-                      <span
-                        class="repayment-option-payment"
-                        id="interest-only-option-payment"
-                      ></span>
-                      <small
-                        id="interest-only-option-balance"
-                        class="repayment-option-balance"
-                      ></small>
-                    </label>
-
-                    <label class="repayment-option">
-                      <input
-                        id="repayment-method-part-and-part"
-                        type="radio"
-                        name="repaymentMethod"
-                        value="part-and-part"
-                      />
-                      <span class="repayment-option-topline">
-                        <strong>Part-and-part</strong>
-                        <span class="selection-mark" aria-hidden="true">
-                          <i data-lucide="check" aria-hidden="true"></i>
-                        </span>
-                      </span>
-                      <span
-                        class="repayment-option-payment"
-                        id="part-and-part-option-payment"
-                      ></span>
-                      <small
-                        id="part-and-part-option-balance"
-                        class="repayment-option-balance"
-                      ></small>
-                    </label>
-                  </fieldset>
-
-                  <label
-                    class="part-and-part-control"
-                    id="part-and-part-control"
-                    for="part-repayment-percent"
-                    hidden
-                  >
-                    <span>
-                      <strong>Share on repayment</strong>
-                      <small>The rest stays interest-only.</small>
-                    </span>
-                    <output
-                      id="part-repayment-percent-output"
-                      for="part-repayment-percent"
-                    ></output>
-                    <input
-                      id="part-repayment-percent"
-                      type="range"
-                      min="5"
-                      max="95"
-                      step="5"
-                      value="50"
-                    />
-                  </label>
-
-                  <div class="rate-and-balance">
-                    <fieldset class="rate-options">
-                      <legend>How should the rate behave?</legend>
-                      <div class="rate-option-buttons">
-                        <label>
-                          <input
-                            id="rate-type-fixed"
-                            type="radio"
-                            name="rateType"
-                            value="fixed"
-                            checked
-                          />
-                          <span>Fixed</span>
-                        </label>
-                        <label>
-                          <input
-                            id="rate-type-tracker"
-                            type="radio"
-                            name="rateType"
-                            value="tracker"
-                          />
-                          <span>Tracker</span>
-                        </label>
-                      </div>
-                      <div class="rate-impact">
-                        <span id="rate-impact-label"></span>
-                        <strong id="rate-impact-value"></strong>
-                      </div>
-                      <p id="rate-type-explanation"></p>
-                    </fieldset>
-                  </div>
-
-                  <div class="balance-comparison">
-                    <div class="balance-comparison-heading">
-                      <strong>How the balance changes</strong>
-                      <span id="balance-comparison-term"></span>
-                    </div>
-                    <div class="balance-table" role="table">
-                      <div class="balance-row balance-row-heading" role="row">
-                        <span role="columnheader">Method</span>
-                        <span role="columnheader" id="balance-year-one"></span>
-                        <span role="columnheader" id="balance-year-two"></span>
-                        <span role="columnheader">End</span>
-                      </div>
-                      <div class="balance-row" role="row">
-                        <strong role="rowheader">Repayment</strong>
-                        <span role="cell" id="repayment-balance-one"></span>
-                        <span role="cell" id="repayment-balance-two"></span>
-                        <span role="cell">£0</span>
-                      </div>
-                      <div class="balance-row" role="row">
-                        <strong role="rowheader">Part-and-part</strong>
-                        <span role="cell" id="part-and-part-balance-one"></span>
-                        <span role="cell" id="part-and-part-balance-two"></span>
-                        <span role="cell" id="part-and-part-balance-end"></span>
-                      </div>
-                      <div class="balance-row" role="row">
-                        <strong role="rowheader">Interest-only</strong>
-                        <span role="cell" id="interest-only-balance-one"></span>
-                        <span role="cell" id="interest-only-balance-two"></span>
-                        <span role="cell" id="interest-only-balance-end"></span>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                <div class="plan-panel" aria-live="polite">
-                  <section class="reality-card">
-                    <div>
-                      <p class="panel-kicker">The full monthly picture</p>
-                      <p class="reality-total" id="result-total-monthly"></p>
-                      <p class="reality-surprise" id="result-surprise"></p>
-                    </div>
-                    <span class="plan-status" id="plan-status"></span>
-                  </section>
-
-                  <div class="result-metrics">
-                    <article>
-                      <span class="metric-icon yellow"
-                        ><i data-lucide="calendar-clock" aria-hidden="true"></i
-                      ></span>
-                      <small>Ready in</small>
-                      <strong id="result-timeline"></strong>
-                      <span id="result-timeline-detail"></span>
-                    </article>
-                    <article>
-                      <span class="metric-icon green"
-                        ><i data-lucide="landmark" aria-hidden="true"></i
-                      ></span>
-                      <small>Mortgage</small>
-                      <strong id="result-mortgage-payment"></strong>
-                      <span id="result-loan"></span>
-                    </article>
-                    <article>
-                      <span class="metric-icon purple"
-                        ><i data-lucide="wallet-cards" aria-hidden="true"></i
-                      ></span>
-                      <small>Cash before moving</small>
-                      <strong id="result-cash-needed"></strong>
-                      <span id="result-cash-shortfall"></span>
-                    </article>
-                    <article>
-                      <span class="metric-icon blue"
-                        ><i data-lucide="receipt-text" aria-hidden="true"></i
-                      ></span>
-                      <small>Property tax estimate</small>
-                      <strong id="result-property-tax"></strong>
-                      <span id="result-tax-note"></span>
-                    </article>
-                  </div>
-
-                  <div class="result-columns">
-                    <section class="breakdown-card">
-                      <div class="panel-heading">
-                        <div>
-                          <p class="panel-kicker">Every month</p>
-                          <h3>Beyond the mortgage</h3>
-                        </div>
-                        <i data-lucide="pie-chart" aria-hidden="true"></i>
-                      </div>
-                      <dl class="cost-breakdown">
-                        <div>
-                          <dt id="breakdown-mortgage-label">
-                            Mortgage repayment
-                          </dt>
-                          <dd id="breakdown-mortgage"></dd>
-                        </div>
-                        <div id="breakdown-rent-row" hidden>
-                          <dt>Rent on the unowned share</dt>
-                          <dd id="breakdown-rent"></dd>
-                        </div>
-                        <div>
-                          <dt>Repairs and maintenance cushion</dt>
-                          <dd id="breakdown-maintenance"></dd>
-                        </div>
-                        <div>
-                          <dt>Bills and home insurance</dt>
-                          <dd id="breakdown-bills"></dd>
-                        </div>
-                        <div>
-                          <dt>Service charge</dt>
-                          <dd id="breakdown-service"></dd>
-                        </div>
-                      </dl>
-                    </section>
-
-                    <section class="breakdown-card">
-                      <div class="panel-heading">
-                        <div>
-                          <p class="panel-kicker">Before you move</p>
-                          <h3>Cash to prepare</h3>
-                        </div>
-                        <i data-lucide="piggy-bank" aria-hidden="true"></i>
-                      </div>
-                      <dl class="cost-breakdown">
-                        <div>
-                          <dt>Deposit</dt>
-                          <dd id="breakdown-deposit"></dd>
-                        </div>
-                        <div>
-                          <dt>Property tax estimate</dt>
-                          <dd id="breakdown-tax"></dd>
-                        </div>
-                        <div>
-                          <dt>Legal, survey and moving</dt>
-                          <dd id="breakdown-buying-fees"></dd>
-                        </div>
-                        <div>
-                          <dt>Furnishings</dt>
-                          <dd id="breakdown-furnishings"></dd>
-                        </div>
-                        <div class="breakdown-total">
-                          <dt>Total</dt>
-                          <dd id="breakdown-cash-total"></dd>
-                        </div>
-                      </dl>
-                    </section>
-                  </div>
-
-                  <section class="borrowing-card" id="borrowing-check">
-                    <span><i data-lucide="gauge" aria-hidden="true"></i></span>
-                    <div>
-                      <strong id="borrowing-heading"
-                        >Your borrowing check</strong
-                      >
-                      <p id="borrowing-copy"></p>
-                    </div>
-                  </section>
-
-                  <section class="scenario-card">
+                <div class="results-main">
+                  <aside class="lever-panel" aria-labelledby="levers-heading">
                     <div class="panel-heading">
                       <div>
-                        <p class="panel-kicker">Three deposit paths</p>
-                        <h3>See the trade-off</h3>
+                        <p class="panel-kicker">Your assumptions</p>
+                        <h3 id="levers-heading">Try another version</h3>
                       </div>
                       <i
-                        data-lucide="git-compare-arrows"
+                        data-lucide="sliders-horizontal"
                         aria-hidden="true"
                       ></i>
                     </div>
-                    <div class="scenario-table" id="deposit-scenarios"></div>
-                  </section>
 
-                  <section class="planner-disclaimer">
-                    <i data-lucide="info" aria-hidden="true"></i>
-                    <div>
-                      <strong>A planning view, not a mortgage offer</strong>
-                      <p>
-                        Lenders use their own affordability checks. Rates, tax,
-                        rent, bills and repair costs can change. Check figures
-                        with a mortgage adviser, lender and solicitor before you
-                        act.
-                      </p>
-                      <details>
-                        <summary>Sources and assumptions</summary>
-                        <ul>
-                          <li>
-                            Repayment and interest-only mortgages:
-                            <a
-                              href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-repayment-options"
-                              target="_blank"
-                              rel="noreferrer"
-                              >MoneyHelper</a
-                            >
-                          </li>
-                          <li>
-                            Part-and-part mortgages:
-                            <a
-                              href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/ways-of-repaying-an-interest-only-mortgage"
-                              target="_blank"
-                              rel="noreferrer"
-                              >MoneyHelper</a
-                            >
-                          </li>
-                          <li>
-                            Fixed and tracker rates:
-                            <a
-                              href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-interest-rate-options"
-                              target="_blank"
-                              rel="noreferrer"
-                              >MoneyHelper</a
-                            >
-                          </li>
-                          <li>
-                            England and Northern Ireland property tax:
-                            <a
-                              href="https://www.gov.uk/stamp-duty-land-tax/residential-property-rates"
-                              target="_blank"
-                              rel="noreferrer"
-                              >GOV.UK</a
-                            >
-                          </li>
-                          <li>
-                            Scotland and Wales rates:
-                            <a
-                              href="https://www.gov.scot/publications/scottish-budget-2026-2027/"
-                              target="_blank"
-                              rel="noreferrer"
-                              >Scottish Government</a
-                            >
-                            and
-                            <a
-                              href="https://www.gov.wales/land-transaction-tax-rates-and-bands"
-                              target="_blank"
-                              rel="noreferrer"
-                              >Welsh Government</a
-                            >
-                          </li>
-                        </ul>
-                        <p id="tax-rates-date"></p>
-                      </details>
+                    <div class="lever-row lever-row-price">
+                      <label for="lever-home-price">Home price</label>
+                      <span class="lever-price-input">
+                        <span aria-hidden="true">£</span>
+                        <input
+                          id="lever-home-price"
+                          type="number"
+                          step="1"
+                          inputmode="numeric"
+                          aria-label="Exact home price"
+                        />
+                      </span>
+                      <input
+                        id="lever-home-price-range"
+                        type="range"
+                        min="0"
+                        max="1000"
+                        step="1"
+                        aria-label="Home price slider"
+                      />
+                    </div>
+                    <label class="lever-row" for="lever-deposit">
+                      <span>Deposit</span>
+                      <output
+                        id="result-deposit-percent"
+                        for="lever-deposit"
+                      ></output>
+                      <input
+                        id="lever-deposit"
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="1"
+                        value="10"
+                      />
+                    </label>
+                    <label class="lever-row" for="lever-rate">
+                      <span>Interest rate</span>
+                      <output id="result-rate" for="lever-rate"></output>
+                      <input
+                        id="lever-rate"
+                        type="range"
+                        min="2"
+                        max="10"
+                        step="0.1"
+                        value="5"
+                      />
+                    </label>
+                    <label class="lever-row" for="lever-term">
+                      <span>Mortgage term</span>
+                      <output id="result-term" for="lever-term"></output>
+                      <input
+                        id="lever-term"
+                        type="range"
+                        min="15"
+                        max="40"
+                        step="1"
+                        value="30"
+                      />
+                    </label>
+                    <label
+                      class="lever-row shared-ownership-lever"
+                      for="lever-shared-percent"
+                      hidden
+                    >
+                      <span>Share you buy</span>
+                      <output
+                        id="result-shared-percent"
+                        for="lever-shared-percent"
+                      ></output>
+                      <input
+                        id="lever-shared-percent"
+                        type="range"
+                        min="10"
+                        max="75"
+                        step="5"
+                        value="40"
+                      />
+                    </label>
+
+                    <section
+                      class="cost-levers"
+                      aria-labelledby="cost-levers-heading"
+                    >
+                      <h4 id="cost-levers-heading">
+                        Adjust the costs people miss
+                      </h4>
+                      <div>
+                        <label class="lever-row" for="lever-maintenance">
+                          <span>Yearly repair cushion</span>
+                          <output
+                            id="result-maintenance-percent"
+                            for="lever-maintenance"
+                          ></output>
+                          <input
+                            id="lever-maintenance"
+                            type="range"
+                            min="0.25"
+                            max="2"
+                            step="0.25"
+                            value="1"
+                          />
+                        </label>
+                        <label class="lever-row" for="lever-bills">
+                          <span>Bills and insurance</span>
+                          <output id="result-bills" for="lever-bills"></output>
+                          <input
+                            id="lever-bills"
+                            type="range"
+                            min="150"
+                            max="900"
+                            step="25"
+                            value="425"
+                          />
+                        </label>
+                        <label class="lever-row" for="lever-service">
+                          <span>Service charge</span>
+                          <output
+                            id="result-service"
+                            for="lever-service"
+                          ></output>
+                          <input
+                            id="lever-service"
+                            type="range"
+                            min="0"
+                            max="600"
+                            step="25"
+                            value="0"
+                          />
+                        </label>
+                        <label class="lever-row" for="lever-furnishings">
+                          <span>Furnishings</span>
+                          <output
+                            id="result-furnishings"
+                            for="lever-furnishings"
+                          ></output>
+                          <input
+                            id="lever-furnishings"
+                            type="range"
+                            min="0"
+                            max="30000"
+                            step="500"
+                            value="7000"
+                          />
+                        </label>
+                        <label class="lever-row" for="lever-buying-fees">
+                          <span>Legal, survey and moving</span>
+                          <output
+                            id="result-buying-fees"
+                            for="lever-buying-fees"
+                          ></output>
+                          <input
+                            id="lever-buying-fees"
+                            type="range"
+                            min="1000"
+                            max="12000"
+                            step="500"
+                            value="4000"
+                          />
+                        </label>
+                      </div>
+                    </section>
+                  </aside>
+
+                  <section
+                    class="mortgage-choice-card"
+                    aria-labelledby="mortgage-choice-heading"
+                    aria-live="polite"
+                  >
+                    <div class="mortgage-choice-heading">
+                      <div>
+                        <p class="panel-kicker">Mortgage setup</p>
+                        <h3 id="mortgage-choice-heading">
+                          Choose how the mortgage is repaid
+                        </h3>
+                      </div>
+                      <span class="mortgage-choice-icon" aria-hidden="true">
+                        <i data-lucide="landmark"></i>
+                      </span>
+                    </div>
+
+                    <fieldset class="repayment-options">
+                      <legend>Repayment method</legend>
+                      <label class="repayment-option">
+                        <input
+                          id="repayment-method-repayment"
+                          type="radio"
+                          name="repaymentMethod"
+                          value="repayment"
+                          checked
+                        />
+                        <span class="repayment-option-topline">
+                          <strong>Repayment</strong>
+                          <span class="selection-mark" aria-hidden="true">
+                            <i data-lucide="check" aria-hidden="true"></i>
+                          </span>
+                        </span>
+                        <span
+                          class="repayment-option-payment"
+                          id="repayment-option-payment"
+                        ></span>
+                        <small
+                          id="repayment-option-balance"
+                          class="repayment-option-balance"
+                        ></small>
+                      </label>
+
+                      <label class="repayment-option">
+                        <input
+                          id="repayment-method-interest-only"
+                          type="radio"
+                          name="repaymentMethod"
+                          value="interest-only"
+                        />
+                        <span class="repayment-option-topline">
+                          <strong>Interest-only</strong>
+                          <span class="selection-mark" aria-hidden="true">
+                            <i data-lucide="check" aria-hidden="true"></i>
+                          </span>
+                        </span>
+                        <span
+                          class="repayment-option-payment"
+                          id="interest-only-option-payment"
+                        ></span>
+                        <small
+                          id="interest-only-option-balance"
+                          class="repayment-option-balance"
+                        ></small>
+                      </label>
+
+                      <label class="repayment-option">
+                        <input
+                          id="repayment-method-part-and-part"
+                          type="radio"
+                          name="repaymentMethod"
+                          value="part-and-part"
+                        />
+                        <span class="repayment-option-topline">
+                          <strong>Part-and-part</strong>
+                          <span class="selection-mark" aria-hidden="true">
+                            <i data-lucide="check" aria-hidden="true"></i>
+                          </span>
+                        </span>
+                        <span
+                          class="repayment-option-payment"
+                          id="part-and-part-option-payment"
+                        ></span>
+                        <small
+                          id="part-and-part-option-balance"
+                          class="repayment-option-balance"
+                        ></small>
+                      </label>
+                    </fieldset>
+
+                    <label
+                      class="part-and-part-control"
+                      id="part-and-part-control"
+                      for="part-repayment-percent"
+                      hidden
+                    >
+                      <span>
+                        <strong>Share on repayment</strong>
+                        <small>The rest stays interest-only.</small>
+                      </span>
+                      <output
+                        id="part-repayment-percent-output"
+                        for="part-repayment-percent"
+                      ></output>
+                      <input
+                        id="part-repayment-percent"
+                        type="range"
+                        min="5"
+                        max="95"
+                        step="5"
+                        value="50"
+                      />
+                    </label>
+
+                    <div class="rate-and-balance">
+                      <fieldset class="rate-options">
+                        <legend>How should the rate behave?</legend>
+                        <div class="rate-option-buttons">
+                          <label>
+                            <input
+                              id="rate-type-fixed"
+                              type="radio"
+                              name="rateType"
+                              value="fixed"
+                              checked
+                            />
+                            <span>Fixed</span>
+                          </label>
+                          <label>
+                            <input
+                              id="rate-type-tracker"
+                              type="radio"
+                              name="rateType"
+                              value="tracker"
+                            />
+                            <span>Tracker</span>
+                          </label>
+                        </div>
+                        <div class="rate-impact">
+                          <span id="rate-impact-label"></span>
+                          <strong id="rate-impact-value"></strong>
+                        </div>
+                        <p id="rate-type-explanation"></p>
+                      </fieldset>
+                    </div>
+
+                    <div class="balance-comparison">
+                      <div class="balance-comparison-heading">
+                        <strong>How the balance changes</strong>
+                        <span id="balance-comparison-term"></span>
+                      </div>
+                      <div class="balance-table" role="table">
+                        <div class="balance-row balance-row-heading" role="row">
+                          <span role="columnheader">Method</span>
+                          <span
+                            role="columnheader"
+                            id="balance-year-one"
+                          ></span>
+                          <span
+                            role="columnheader"
+                            id="balance-year-two"
+                          ></span>
+                          <span role="columnheader">End</span>
+                        </div>
+                        <div class="balance-row" role="row">
+                          <strong role="rowheader">Repayment</strong>
+                          <span role="cell" id="repayment-balance-one"></span>
+                          <span role="cell" id="repayment-balance-two"></span>
+                          <span role="cell">£0</span>
+                        </div>
+                        <div class="balance-row" role="row">
+                          <strong role="rowheader">Part-and-part</strong>
+                          <span
+                            role="cell"
+                            id="part-and-part-balance-one"
+                          ></span>
+                          <span
+                            role="cell"
+                            id="part-and-part-balance-two"
+                          ></span>
+                          <span
+                            role="cell"
+                            id="part-and-part-balance-end"
+                          ></span>
+                        </div>
+                        <div class="balance-row" role="row">
+                          <strong role="rowheader">Interest-only</strong>
+                          <span
+                            role="cell"
+                            id="interest-only-balance-one"
+                          ></span>
+                          <span
+                            role="cell"
+                            id="interest-only-balance-two"
+                          ></span>
+                          <span
+                            role="cell"
+                            id="interest-only-balance-end"
+                          ></span>
+                        </div>
+                      </div>
                     </div>
                   </section>
+
+                  <div class="plan-panel" aria-live="polite">
+                    <section class="reality-card">
+                      <div>
+                        <p class="panel-kicker">The full monthly picture</p>
+                        <p class="reality-total" id="result-total-monthly"></p>
+                        <p class="reality-surprise" id="result-surprise"></p>
+                      </div>
+                      <span class="plan-status" id="plan-status"></span>
+                    </section>
+
+                    <div class="result-metrics">
+                      <article>
+                        <span class="metric-icon yellow"
+                          ><i
+                            data-lucide="calendar-clock"
+                            aria-hidden="true"
+                          ></i
+                        ></span>
+                        <small>Ready in</small>
+                        <strong id="result-timeline"></strong>
+                        <span id="result-timeline-detail"></span>
+                      </article>
+                      <article>
+                        <span class="metric-icon green"
+                          ><i data-lucide="landmark" aria-hidden="true"></i
+                        ></span>
+                        <small>Mortgage</small>
+                        <strong id="result-mortgage-payment"></strong>
+                        <span id="result-loan"></span>
+                      </article>
+                      <article>
+                        <span class="metric-icon purple"
+                          ><i data-lucide="wallet-cards" aria-hidden="true"></i
+                        ></span>
+                        <small>Cash before moving</small>
+                        <strong id="result-cash-needed"></strong>
+                        <span id="result-cash-shortfall"></span>
+                      </article>
+                      <article>
+                        <span class="metric-icon blue"
+                          ><i data-lucide="receipt-text" aria-hidden="true"></i
+                        ></span>
+                        <small>Property tax estimate</small>
+                        <strong id="result-property-tax"></strong>
+                        <span id="result-tax-note"></span>
+                      </article>
+                    </div>
+
+                    <div class="result-columns">
+                      <section class="breakdown-card">
+                        <div class="panel-heading">
+                          <div>
+                            <p class="panel-kicker">Every month</p>
+                            <h3>Beyond the mortgage</h3>
+                          </div>
+                          <i data-lucide="pie-chart" aria-hidden="true"></i>
+                        </div>
+                        <dl class="cost-breakdown">
+                          <div>
+                            <dt id="breakdown-mortgage-label">
+                              Mortgage repayment
+                            </dt>
+                            <dd id="breakdown-mortgage"></dd>
+                          </div>
+                          <div id="breakdown-rent-row" hidden>
+                            <dt>Rent on the unowned share</dt>
+                            <dd id="breakdown-rent"></dd>
+                          </div>
+                          <div>
+                            <dt>Repairs and maintenance cushion</dt>
+                            <dd id="breakdown-maintenance"></dd>
+                          </div>
+                          <div>
+                            <dt>Bills and home insurance</dt>
+                            <dd id="breakdown-bills"></dd>
+                          </div>
+                          <div>
+                            <dt>Service charge</dt>
+                            <dd id="breakdown-service"></dd>
+                          </div>
+                        </dl>
+                      </section>
+
+                      <section class="breakdown-card">
+                        <div class="panel-heading">
+                          <div>
+                            <p class="panel-kicker">Before you move</p>
+                            <h3>Cash to prepare</h3>
+                          </div>
+                          <i data-lucide="piggy-bank" aria-hidden="true"></i>
+                        </div>
+                        <dl class="cost-breakdown">
+                          <div>
+                            <dt>Deposit</dt>
+                            <dd id="breakdown-deposit"></dd>
+                          </div>
+                          <div>
+                            <dt>Property tax estimate</dt>
+                            <dd id="breakdown-tax"></dd>
+                          </div>
+                          <div>
+                            <dt>Legal, survey and moving</dt>
+                            <dd id="breakdown-buying-fees"></dd>
+                          </div>
+                          <div>
+                            <dt>Furnishings</dt>
+                            <dd id="breakdown-furnishings"></dd>
+                          </div>
+                          <div class="breakdown-total">
+                            <dt>Total</dt>
+                            <dd id="breakdown-cash-total"></dd>
+                          </div>
+                        </dl>
+                      </section>
+                    </div>
+
+                    <section class="borrowing-card" id="borrowing-check">
+                      <span
+                        ><i data-lucide="gauge" aria-hidden="true"></i
+                      ></span>
+                      <div>
+                        <strong id="borrowing-heading"
+                          >Your borrowing check</strong
+                        >
+                        <p id="borrowing-copy"></p>
+                      </div>
+                    </section>
+
+                    <section class="scenario-card">
+                      <div class="panel-heading">
+                        <div>
+                          <p class="panel-kicker">Three deposit paths</p>
+                          <h3>See the trade-off</h3>
+                        </div>
+                        <i
+                          data-lucide="git-compare-arrows"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                      <div class="scenario-table" id="deposit-scenarios"></div>
+                    </section>
+
+                    <section class="planner-disclaimer">
+                      <i data-lucide="info" aria-hidden="true"></i>
+                      <div>
+                        <strong>A planning view, not a mortgage offer</strong>
+                        <p>
+                          Lenders use their own affordability checks. Rates,
+                          tax, rent, bills and repair costs can change. Check
+                          figures with a mortgage adviser, lender and solicitor
+                          before you act.
+                        </p>
+                        <details>
+                          <summary>Sources and assumptions</summary>
+                          <ul>
+                            <li>
+                              Repayment and interest-only mortgages:
+                              <a
+                                href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-repayment-options"
+                                target="_blank"
+                                rel="noreferrer"
+                                >MoneyHelper</a
+                              >
+                            </li>
+                            <li>
+                              Part-and-part mortgages:
+                              <a
+                                href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/ways-of-repaying-an-interest-only-mortgage"
+                                target="_blank"
+                                rel="noreferrer"
+                                >MoneyHelper</a
+                              >
+                            </li>
+                            <li>
+                              Fixed and tracker rates:
+                              <a
+                                href="https://www.moneyhelper.org.uk/en/homes/buying-a-home/mortgage-interest-rate-options"
+                                target="_blank"
+                                rel="noreferrer"
+                                >MoneyHelper</a
+                              >
+                            </li>
+                            <li>
+                              England and Northern Ireland property tax:
+                              <a
+                                href="https://www.gov.uk/stamp-duty-land-tax/residential-property-rates"
+                                target="_blank"
+                                rel="noreferrer"
+                                >GOV.UK</a
+                              >
+                            </li>
+                            <li>
+                              Scotland and Wales rates:
+                              <a
+                                href="https://www.gov.scot/publications/scottish-budget-2026-2027/"
+                                target="_blank"
+                                rel="noreferrer"
+                                >Scottish Government</a
+                              >
+                              and
+                              <a
+                                href="https://www.gov.wales/land-transaction-tax-rates-and-bands"
+                                target="_blank"
+                                rel="noreferrer"
+                                >Welsh Government</a
+                              >
+                            </li>
+                          </ul>
+                          <p id="tax-rates-date"></p>
+                        </details>
+                      </div>
+                    </section>
+                  </div>
                 </div>
 
                 <section class="planner-signup-cta">

@@ -15,6 +15,8 @@ When writing or editing **user-facing copy** (landing pages, CTAs, headings, met
 - For visual changes, do not rely only on DOM/CSS checks or isolated screenshots. Capture and inspect the exact viewport state the user will see, including the transition area before and after the changed element.
 - If the user is reacting to a screenshot, reproduce that scroll position and compare against it before finalizing.
 - When checking color or dimming changes, verify the full composed result in the browser screenshot rather than inferring from a single CSS property.
+- For multi-step forms, inspect every question-group boundary at real desktop and mobile sizes. Treat readable type and clear grouping as the priority; allow the content panel to scroll instead of compressing text and spacing merely to fit one viewport.
+- Wait for entrance and stage-transition motion to settle before taking verification screenshots. Reject faded or displaced mid-animation captures.
 
 ## Tracking Inventory
 

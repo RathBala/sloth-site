@@ -70,7 +70,7 @@ input:focus-visible {
   width: 100%;
   min-height: 100svh;
   display: grid;
-  grid-template-columns: minmax(0, 54fr) minmax(31rem, 46fr);
+  grid-template-columns: minmax(0, 52fr) minmax(31rem, 48fr);
   align-items: stretch;
   overflow: visible;
   background: #073f32;
@@ -193,6 +193,7 @@ input:focus-visible {
 .planner-content-inner {
   min-height: 100svh;
   padding: clamp(2.5rem, 5vh, 4.5rem) clamp(3.25rem, 5vw, 5.75rem);
+  padding-right: clamp(2rem, 3vw, 3.75rem);
 }
 
 .planner-brand {
@@ -218,7 +219,7 @@ input:focus-visible {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
-  max-width: 31rem;
+  width: 100%;
   margin: 2rem 0 0;
   padding: 0;
   list-style: none;
@@ -245,7 +246,7 @@ input:focus-visible {
   justify-items: center;
   gap: 0.35rem;
   color: #829087;
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
@@ -277,7 +278,6 @@ input:focus-visible {
 
 .planner-stage {
   width: 100%;
-  max-width: 39rem;
   margin: clamp(3rem, 9vh, 7rem) 0 2rem;
   animation: planner-stage-in 240ms ease both;
 }
@@ -402,7 +402,7 @@ input:focus-visible {
   gap: 0.65rem;
   margin: 1.3rem 0 0;
   color: var(--planner-muted);
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   font-weight: 500;
   line-height: 1.45;
 }
@@ -435,7 +435,7 @@ input:focus-visible {
 .panel-kicker {
   margin: 0 0 0.65rem;
   color: #14844f;
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -443,7 +443,25 @@ input:focus-visible {
 
 .money-fields {
   display: grid;
-  gap: 1.15rem;
+  gap: 1.8rem;
+  margin-top: 1.8rem;
+}
+
+.question-block {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.question-block .money-field,
+.question-block .uncertain-toggle {
+  margin-top: 0;
+}
+
+.question-block + .choice-group {
+  margin-top: 1.8rem;
+}
+
+.choice-group + .question-block {
   margin-top: 1.8rem;
 }
 
@@ -452,7 +470,7 @@ input:focus-visible {
   gap: 0.5rem;
   margin-top: 1.4rem;
   color: #263d35;
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   font-weight: 750;
   line-height: 1.4;
 }
@@ -463,7 +481,7 @@ input:focus-visible {
 
 .field-hint {
   color: var(--planner-muted);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 500;
 }
 
@@ -524,7 +542,7 @@ input:focus-visible {
 .choice-group legend {
   margin-bottom: 0.7rem;
   color: #263d35;
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   font-weight: 750;
 }
 
@@ -554,7 +572,7 @@ input:focus-visible {
   border-radius: 0.9rem;
   background: rgba(255, 255, 255, 0.72);
   color: var(--planner-ink-soft);
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   font-weight: 700;
   text-align: center;
   transition:
@@ -660,13 +678,13 @@ input:focus-visible {
 }
 
 .uncertain-toggle strong {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .uncertain-toggle small {
   margin-top: 0.15rem;
   color: var(--planner-muted);
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   line-height: 1.45;
 }
 
@@ -694,13 +712,13 @@ input:focus-visible {
 
 .ownership-card strong {
   color: var(--planner-ink);
-  font-size: 0.92rem;
+  font-size: 0.96rem;
 }
 
 .ownership-card small {
   margin-top: 0.15rem;
   color: var(--planner-muted);
-  font-size: 0.76rem;
+  font-size: 0.84rem;
   font-weight: 550;
   line-height: 1.4;
 }
@@ -724,7 +742,7 @@ input:focus-visible {
   gap: 1rem;
   padding: 0.9rem 1rem;
   color: var(--planner-ink);
-  font-size: 0.84rem;
+  font-size: 0.9rem;
   font-weight: 750;
   list-style: none;
 }
@@ -758,7 +776,7 @@ details[open] > summary > svg {
 
 .education-grid strong {
   color: var(--planner-ink);
-  font-size: 0.8rem;
+  font-size: 0.88rem;
 }
 
 .education-grid p,
@@ -766,7 +784,7 @@ details[open] > summary > svg {
   display: block;
   margin: 0.35rem 0 0;
   color: var(--planner-copy);
-  font-size: 0.73rem;
+  font-size: 0.82rem;
   line-height: 1.5;
 }
 
@@ -785,13 +803,17 @@ details[open] > summary > svg {
 
 .results-layout {
   display: grid;
+  gap: 1.15rem;
+  margin-top: 2rem;
+}
+
+.results-main {
+  display: grid;
   grid-template-columns: minmax(15rem, 0.72fr) minmax(28rem, 1.28fr);
   grid-template-areas:
     'levers mortgage-choice'
-    'levers plan'
-    'cta cta';
+    'levers plan';
   gap: 1.15rem;
-  margin-top: 2rem;
 }
 
 .lever-panel,
@@ -842,7 +864,7 @@ details[open] > summary > svg {
   gap: 0.45rem 0.75rem;
   margin-top: 1.1rem;
   color: var(--planner-ink-soft);
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 700;
 }
 
@@ -863,7 +885,7 @@ details[open] > summary > svg {
   position: absolute;
   left: 0.65rem;
   color: var(--planner-muted);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   font-weight: 800;
   pointer-events: none;
 }
@@ -876,7 +898,7 @@ details[open] > summary > svg {
   border-radius: 0.55rem;
   background: #fff;
   color: var(--planner-ink);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   font-weight: 800;
   text-align: right;
   appearance: textfield;
@@ -907,7 +929,7 @@ details[open] > summary > svg {
   margin: 0;
   padding: 0.9rem 1rem 0;
   color: var(--planner-ink);
-  font-size: 0.84rem;
+  font-size: 0.9rem;
   font-weight: 750;
 }
 
@@ -987,7 +1009,7 @@ details[open] > summary > svg {
   display: block;
   margin: 0 0 0.5rem;
   color: var(--planner-ink-soft);
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   font-weight: 750;
 }
 
@@ -1033,7 +1055,7 @@ details[open] > summary > svg {
 
 .repayment-option-topline > strong {
   color: var(--planner-ink);
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   line-height: 1.25;
 }
 
@@ -1066,7 +1088,7 @@ details[open] > summary > svg {
 
 .repayment-option-balance {
   color: var(--planner-ink-soft);
-  font-size: 0.63rem;
+  font-size: 0.78rem;
   font-weight: 750;
   line-height: 1.35;
 }
@@ -1095,13 +1117,13 @@ details[open] > summary > svg {
 .part-and-part-control strong,
 .part-and-part-control output {
   color: var(--planner-ink);
-  font-size: 0.74rem;
+  font-size: 0.84rem;
   font-weight: 800;
 }
 
 .part-and-part-control small {
   color: var(--planner-muted);
-  font-size: 0.64rem;
+  font-size: 0.78rem;
 }
 
 .part-and-part-control input {
@@ -1143,7 +1165,7 @@ details[open] > summary > svg {
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
   color: var(--planner-ink-soft);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 750;
   text-align: center;
 }
@@ -1167,13 +1189,13 @@ details[open] > summary > svg {
 
 .rate-impact span {
   color: var(--planner-muted);
-  font-size: 0.62rem;
+  font-size: 0.78rem;
   font-weight: 700;
 }
 
 .rate-impact strong {
   color: var(--planner-ink);
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   font-weight: 800;
   text-align: right;
 }
@@ -1181,7 +1203,7 @@ details[open] > summary > svg {
 .rate-options p {
   margin: 0.55rem 0 0;
   color: var(--planner-muted);
-  font-size: 0.65rem;
+  font-size: 0.78rem;
   line-height: 1.45;
 }
 
@@ -1201,12 +1223,12 @@ details[open] > summary > svg {
 
 .balance-comparison-heading strong {
   color: var(--planner-ink);
-  font-size: 0.76rem;
+  font-size: 0.84rem;
 }
 
 .balance-comparison-heading span {
   color: var(--planner-muted);
-  font-size: 0.63rem;
+  font-size: 0.78rem;
 }
 
 .balance-table {
@@ -1226,7 +1248,7 @@ details[open] > summary > svg {
 .balance-row span {
   min-width: 0;
   color: var(--planner-copy);
-  font-size: 0.64rem;
+  font-size: 0.78rem;
 }
 
 .balance-row strong {
@@ -1245,7 +1267,7 @@ details[open] > summary > svg {
 
 .balance-row-heading span {
   color: var(--planner-muted);
-  font-size: 0.59rem;
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
@@ -1270,7 +1292,7 @@ details[open] > summary > svg {
 .reality-surprise {
   margin: 0.65rem 0 0;
   color: var(--planner-copy);
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   line-height: 1.5;
 }
 
@@ -1280,7 +1302,7 @@ details[open] > summary > svg {
   border-radius: 999px;
   background: #fff;
   color: var(--planner-ink-soft);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 750;
   line-height: 1.35;
   text-align: center;
@@ -1338,7 +1360,7 @@ details[open] > summary > svg {
 .result-metrics small,
 .result-metrics span:not(.metric-icon) {
   color: var(--planner-muted);
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   line-height: 1.35;
 }
 
@@ -1361,11 +1383,11 @@ details[open] > summary > svg {
 }
 
 .planner-signup-cta {
-  grid-area: cta;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 1.5rem;
   align-items: center;
+  margin-top: 1rem;
   padding: 1.5rem;
   border-radius: 1.15rem;
   background: var(--planner-ink);
@@ -1388,7 +1410,7 @@ details[open] > summary > svg {
   max-width: 35rem;
   margin: 0.55rem 0 0;
   color: rgba(255, 255, 255, 0.76);
-  font-size: 0.74rem;
+  font-size: 0.84rem;
   line-height: 1.55;
 }
 
@@ -1409,7 +1431,7 @@ details[open] > summary > svg {
   border-radius: 0.8rem;
   background: var(--planner-primary);
   color: var(--planner-ink);
-  font-size: 0.75rem;
+  font-size: 0.84rem;
   font-weight: 800;
   text-align: center;
   text-decoration: none;
@@ -1452,7 +1474,7 @@ details[open] > summary > svg {
 .cost-breakdown dt,
 .cost-breakdown dd {
   margin: 0;
-  font-size: 0.72rem;
+  font-size: 0.82rem;
 }
 
 .cost-breakdown dt {
@@ -1501,13 +1523,13 @@ details[open] > summary > svg {
 
 .borrowing-card strong {
   color: var(--planner-ink);
-  font-size: 0.84rem;
+  font-size: 0.9rem;
 }
 
 .borrowing-card p {
   margin: 0.25rem 0 0;
   color: var(--planner-copy);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   line-height: 1.45;
 }
 
@@ -1544,14 +1566,14 @@ details[open] > summary > svg {
 .scenario-option span {
   margin-top: 0.5rem;
   color: var(--planner-ink-soft);
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
 .scenario-option small {
   margin-top: 0.2rem;
   color: var(--planner-muted);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   line-height: 1.4;
 }
 
@@ -1570,14 +1592,14 @@ details[open] > summary > svg {
 
 .planner-disclaimer strong {
   color: var(--planner-ink);
-  font-size: 0.8rem;
+  font-size: 0.88rem;
 }
 
 .planner-disclaimer p,
 .planner-disclaimer li,
 .planner-disclaimer a {
   color: var(--planner-copy);
-  font-size: 0.69rem;
+  font-size: 0.82rem;
   line-height: 1.55;
 }
 
@@ -1600,7 +1622,7 @@ details[open] > summary > svg {
   border: 0;
   background: transparent;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 750;
 }
 
@@ -1696,7 +1718,7 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .planner-progress li {
     gap: 0.2rem;
-    font-size: 0.64rem;
+    font-size: 0.78rem;
   }
 
   .planner-progress li span {
@@ -1735,13 +1757,13 @@ body[data-planner-stage='results'] .journey-milestone {
   }
 
   .planner-step-screen .money-fields {
-    gap: 0.7rem;
+    gap: 1.4rem;
     margin-top: 1rem;
   }
 
   .planner-step-screen .money-field {
     gap: 0.35rem;
-    margin-top: 0.85rem;
+    margin-top: 1rem;
   }
 
   .planner-step-screen .money-field input {
@@ -1763,7 +1785,7 @@ body[data-planner-stage='results'] .journey-milestone {
   }
 
   .planner-step-screen .choice-group {
-    margin-top: 0.9rem;
+    margin-top: 1.25rem;
   }
 
   .planner-step-screen .choice-group legend {
@@ -1801,7 +1823,20 @@ body[data-planner-stage='results'] .journey-milestone {
   }
 
   .planner-step-screen .uncertain-toggle {
-    margin-top: 0.55rem;
+    margin-top: 0.75rem;
+  }
+
+  .planner-step-screen .question-block .money-field,
+  .planner-step-screen .question-block .uncertain-toggle {
+    margin-top: 0;
+  }
+
+  .planner-step-screen .question-block + .choice-group {
+    margin-top: 1.6rem;
+  }
+
+  .planner-step-screen .choice-group + .question-block {
+    margin-top: 1.6rem;
   }
 }
 
@@ -1811,8 +1846,8 @@ body[data-planner-stage='results'] .journey-milestone {
   }
 
   .planner-content-inner {
-    padding-right: 3rem;
-    padding-left: 4.5rem;
+    padding-right: 2.25rem;
+    padding-left: 4rem;
   }
 
   .journey-milestone {
@@ -1823,7 +1858,7 @@ body[data-planner-stage='results'] .journey-milestone {
     grid-template-columns: 15rem minmax(0, 1fr);
   }
 
-  .results-layout {
+  .results-main {
     grid-template-columns: 15rem minmax(26rem, 1fr);
   }
 }
@@ -1919,13 +1954,12 @@ body[data-planner-stage='results'] .journey-milestone {
     min-height: 3.8rem;
   }
 
-  .results-layout {
+  .results-main {
     grid-template-columns: 1fr;
     grid-template-areas:
       'mortgage-choice'
       'levers'
-      'plan'
-      'cta';
+      'plan';
   }
 
   .lever-panel {
@@ -2023,7 +2057,7 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .balance-row strong,
   .balance-row span {
-    font-size: 0.58rem;
+    font-size: 0.75rem;
   }
 
   .plan-status {
