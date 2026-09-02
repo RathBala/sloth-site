@@ -68,6 +68,12 @@ try {
       viewport: { width: 1438, height: 748 },
       checksAboveFold: true,
     },
+    {
+      name: 'wide-desktop',
+      viewport: { width: 2048, height: 1200 },
+      checksAboveFold: true,
+      checksFullBleedArt: true,
+    },
   ]
 
   if (screenshotDir) {
@@ -77,7 +83,12 @@ try {
     })
   }
 
-  for (const { name, viewport, checksAboveFold = false } of viewports) {
+  for (const {
+    name,
+    viewport,
+    checksAboveFold = false,
+    checksFullBleedArt = false,
+  } of viewports) {
     const page = await browser.newPage({ viewport })
     await page.goto(baseUrl, { waitUntil: 'domcontentloaded' })
 
@@ -203,6 +214,13 @@ try {
     if (viewport.width >= 640) {
       const gardenArt = await page.locator('.sloth-garden-art').boundingBox()
       assert(gardenArt, 'garden artwork should render')
+      if (checksFullBleedArt) {
+        const gardenRight = gardenArt.x + gardenArt.width
+        assert(
+          gardenArt.x <= 1 && gardenRight >= viewport.width - 1,
+          `garden artwork should cover the full ${viewport.width}px viewport; rendered from ${gardenArt.x}px to ${gardenRight}px`
+        )
+      }
       const gardenBottom = gardenArt.y + gardenArt.height
       assert(
         gardenBottom >= dashboardBottom + 64,
