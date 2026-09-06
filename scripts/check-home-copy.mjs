@@ -74,13 +74,13 @@ const featureFourSection = featuresSection.slice(featureFourStart)
 const checks = [
   {
     passes:
-      featuresText.includes('Put your money admin on autopilot') &&
+      !featuresText.includes('Put your money admin on autopilot') &&
       featuresText.includes('Automated transaction categorisation') &&
       featuresText.includes('Budget suggestions') &&
       featuresText.includes('Savings goal scenarios') &&
       featuresText.includes('CLI & Agent API'),
     message:
-      'Home features should mirror the four capabilities promised in the hero.',
+      'Home features should open directly with the four capabilities, without a competing introduction.',
   },
   {
     passes:
@@ -125,14 +125,15 @@ const checks = [
       featureTwoSection.includes(
         'assets/images/feature-budget-suggestions-mobile.webp'
       ) &&
-      featureThreeSection.includes('assets/images/benefit%20four.png') &&
       featureThreeSection.includes(
-        'assets/images/benefit%20four%20-%20mobile.png'
+        'assets/images/feature-scenarios-desktop.webp'
       ) &&
-      featureFourSection.includes(
-        'assets/images/feature-agent-cli-desktop.svg'
+      featureThreeSection.includes(
+        'assets/images/feature-scenarios-mobile.webp'
       ) &&
-      featureFourSection.includes('assets/images/feature-agent-cli-mobile.svg'),
+      featureFourSection.includes('data-cli-example') &&
+      featureFourSection.includes('sloth-agent budget move') &&
+      featureFourSection.includes('&quot;dryRun&quot;: true'),
     message:
       'Each home capability should use its matching desktop and mobile product visual.',
   },
@@ -219,7 +220,7 @@ const checks = [
   {
     passes:
       home.includes('<!-- Features Section -->') &&
-      homeText.includes('Put your money admin on autopilot') &&
+      homeText.includes('Automated transaction categorisation') &&
       homeText.includes('Built for shared finances'),
     message:
       'Home should keep the existing lower-page content in the initial HTML.',

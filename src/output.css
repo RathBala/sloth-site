@@ -941,8 +941,20 @@ video {
   max-width: 21.5rem;
 }
 
+.max-w-\[348px\] {
+  max-width: 348px;
+}
+
+.max-w-\[374px\] {
+  max-width: 374px;
+}
+
 .max-w-\[390px\] {
   max-width: 390px;
+}
+
+.max-w-\[70rem\] {
+  max-width: 70rem;
 }
 
 .max-w-\[76rem\] {
@@ -1157,12 +1169,20 @@ video {
   white-space: nowrap;
 }
 
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
+
 .text-wrap {
   text-wrap: wrap;
 }
 
 .text-balance {
   text-wrap: balance;
+}
+
+.break-words {
+  overflow-wrap: break-word;
 }
 
 .break-all {
@@ -1252,6 +1272,11 @@ video {
 .bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
 .bg-gray-950 {
@@ -1507,6 +1532,10 @@ video {
   padding-top: 1rem;
 }
 
+.pt-6 {
+  padding-top: 1.5rem;
+}
+
 .pt-8 {
   padding-top: 2rem;
 }
@@ -1628,6 +1657,11 @@ video {
   color: rgb(243 244 246 / var(--tw-text-opacity));
 }
 
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -1666,6 +1700,11 @@ video {
 .text-green-dark {
   --tw-text-opacity: 1;
   color: rgb(3 140 115 / var(--tw-text-opacity));
+}
+
+.text-green-light {
+  --tw-text-opacity: 1;
+  color: rgb(150 242 148 / var(--tw-text-opacity));
 }
 
 .text-green-really-dark {
@@ -2248,6 +2287,10 @@ html {
     flex-direction: row;
   }
 
+  .sm\:gap-10 {
+    gap: 2.5rem;
+  }
+
   .sm\:gap-6 {
     gap: 1.5rem;
   }
@@ -2265,6 +2308,10 @@ html {
     padding: 3rem;
   }
 
+  .sm\:p-4 {
+    padding: 1rem;
+  }
+
   .sm\:p-6 {
     padding: 1.5rem;
   }
@@ -2276,6 +2323,11 @@ html {
   .sm\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  .sm\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .sm\:py-20 {
@@ -2336,6 +2388,11 @@ html {
   .sm\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .sm\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 
   .sm\:leading-\[0\.95\] {
@@ -2415,8 +2472,24 @@ html {
     width: 28rem;
   }
 
+  .lg\:max-w-4xl {
+    max-width: 56rem;
+  }
+
+  .lg\:max-w-\[46rem\] {
+    max-width: 46rem;
+  }
+
+  .lg\:max-w-none {
+    max-width: none;
+  }
+
   .lg\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .lg\:grid-cols-4 {

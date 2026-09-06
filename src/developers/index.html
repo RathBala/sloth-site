@@ -765,9 +765,9 @@ sloth-agent budget fill --scope personal --mode auto --apply --expected-preview 
 }</code></pre>
               <p class="text-gray-600">
                 These previews contact Sloth Money and require
-                <code>agent:read</code>. They make no budget or movement-history writes, including when they
-                project new-period carryover. Apply requires
-                <code>agent:write</code>, the same inputs, and
+                <code>agent:read</code>. They make no budget or movement-history
+                writes, including when they project new-period carryover. Apply
+                requires <code>agent:write</code>, the same inputs, and
                 <code>--expected-preview</code>. Changed funding returns a
                 conflict: preview again and review the new amounts before
                 applying. After an uncertain response, check the budget before
@@ -778,7 +778,8 @@ sloth-agent budget fill --scope personal --mode auto --apply --expected-preview 
                 the web category order. Partial auto-fills are allowed. Manual
                 top-ups or overrides exceeding To Assign cannot apply. Funding
                 and category movement history save together. No-op requests
-                leave budgets and movement history unchanged, and planned targets never change.
+                leave budgets and movement history unchanged, and planned
+                targets never change.
               </p>
               <p class="text-gray-600">
                 Both commands support <code>--scope personal|joint</code>,
