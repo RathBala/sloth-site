@@ -5,6 +5,17 @@ import {
 } from './home-planner-calculator.mjs'
 
 const stageNames = ['intro', 'savings', 'home', 'buying', 'budget', 'results']
+const stageRoutes = {
+  budget: 'budget',
+  buying: 'route',
+  home: 'home',
+  intro: '',
+  results: 'plan',
+  savings: 'deposit',
+}
+const routeStages = new Map(
+  Object.entries(stageRoutes).map(([stage, route]) => [route, stage])
+)
 const stepNumbers = {
   budget: 4,
   buying: 3,
@@ -84,6 +95,8 @@ function initializePlanner() {
   const stages = new Map(
     stageNames.map((name) => [name, byId(`planner-${name}`)])
   )
+  let plannerHistoryPosition = Number(history.state?.plannerPosition || 0)
+  let pendingBackFocus = null
   const requiredElements = [
     form,
     wizardHomePrice,
@@ -143,6 +156,29 @@ function initializePlanner() {
 
     const focusTarget = focusId ? byId(focusId) : null
     focusTarget?.focus({ preventScroll: true })
+  }
+
+  const stageFromLocation = () =>
+    routeStages.get(location.hash.replace(/^#/, '')) || 'intro'
+
+  const stageUrl = (name) => {
+    const route = stageRoutes[name]
+    return `${location.pathname}${location.search}${route ? `#${route}` : ''}`
+  }
+
+  const updateStageRoute = (name, mode = 'push') => {
+    if (mode === 'push') plannerHistoryPosition += 1
+
+    history[mode === 'push' ? 'pushState' : 'replaceState'](
+      { plannerPosition: plannerHistoryPosition, plannerStage: name },
+      '',
+      stageUrl(name)
+    )
+  }
+
+  const navigateToStage = (name, focusId, mode = 'push') => {
+    showStage(name, focusId)
+    updateStageRoute(name, mode)
   }
 
   const validateStep = (name) => {
@@ -483,21 +519,48 @@ function initializePlanner() {
     })
   }
 
+  const stageEntryFocus = {
+    budget: 'budget-heading',
+    buying: 'buying-heading',
+    home: 'home-heading',
+    intro: 'planner-start',
+    results: 'results-heading',
+    savings: 'savings-heading',
+  }
+
+  const navigateBack = (name, focusId) => {
+    if (plannerHistoryPosition > 0) {
+      pendingBackFocus = focusId
+      history.back()
+      return
+    }
+
+    navigateToStage(name, focusId, 'replace')
+  }
+
+  window.addEventListener('popstate', (event) => {
+    const name = stageFromLocation()
+    plannerHistoryPosition = Number(event.state?.plannerPosition || 0)
+    if (name === 'results') prepareResults()
+    showStage(name, pendingBackFocus || stageEntryFocus[name])
+    pendingBackFocus = null
+  })
+
   byId('planner-start').addEventListener('click', (event) => {
     event.preventDefault()
-    showStage('savings', 'deposit-saved')
+    navigateToStage('savings', 'deposit-saved')
   })
 
   byId('savings-next').addEventListener('click', () => {
-    if (validateStep('savings')) showStage('home', 'home-heading')
+    if (validateStep('savings')) navigateToStage('home', 'home-heading')
   })
 
   byId('home-next').addEventListener('click', () => {
-    if (validateStep('home')) showStage('buying', 'buying-heading')
+    if (validateStep('home')) navigateToStage('buying', 'buying-heading')
   })
 
   byId('buying-next').addEventListener('click', () => {
-    showStage('budget', 'budget-heading')
+    navigateToStage('budget', 'budget-heading')
   })
 
   byId('budget-next').addEventListener('click', () => {
@@ -505,7 +568,7 @@ function initializePlanner() {
 
     prepareResults()
     captureCompletion()
-    showStage('results', 'results-heading')
+    navigateToStage('results', 'results-heading')
   })
 
   document.querySelectorAll('[data-back]').forEach((button) => {
@@ -519,12 +582,12 @@ function initializePlanner() {
             : previous === 'home'
               ? 'home-next'
               : 'buying-next'
-      showStage(previous, focusId)
+      navigateBack(previous, focusId)
     })
   })
 
   byId('results-back').addEventListener('click', () => {
-    showStage('budget', 'budget-next')
+    navigateBack('budget', 'budget-next')
   })
 
   byId('home-price-not-sure').addEventListener('change', (event) => {
@@ -535,6 +598,11 @@ function initializePlanner() {
   byId('income-not-sure').addEventListener('change', (event) => {
     byId('annual-income').readOnly = event.currentTarget.checked
     if (event.currentTarget.checked) byId('annual-income').value = ''
+  })
+
+  byId('mortgage-budget-not-sure').addEventListener('change', (event) => {
+    byId('mortgage-budget').readOnly = event.currentTarget.checked
+    if (event.currentTarget.checked) byId('mortgage-budget').value = '1500'
   })
 
   document
@@ -583,12 +651,16 @@ function initializePlanner() {
     window.setTimeout(() => {
       byId('home-price').readOnly = false
       byId('annual-income').readOnly = false
-      showStage('intro', 'planner-start')
+      byId('mortgage-budget').readOnly = false
+      navigateToStage('intro', 'planner-start', 'replace')
     })
   })
 
   updateIcons()
-  showStage('intro')
+  const initialStage = stageFromLocation()
+  if (initialStage === 'results') prepareResults()
+  showStage(initialStage)
+  updateStageRoute(initialStage, 'replace')
 }
 
 if (document.readyState === 'loading') {

@@ -24,7 +24,8 @@
     "check:public-site": "node ./scripts/check-public-site-readiness.mjs",
     "check:tracking": "node ./scripts/check-tracking-privacy.mjs",
     "lint": "prettier --check .",
-    "typecheck": "node ./scripts/typecheck.mjs"
+    "typecheck": "node ./scripts/typecheck.mjs",
+    "check:typography": "node ./scripts/check-site-typography.mjs"
   },
   "devDependencies": {
     "browser-sync": "^3.0.4",

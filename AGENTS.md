@@ -4,6 +4,13 @@
 
 When writing or editing **user-facing copy** (landing pages, CTAs, headings, meta text), read and follow [`.cursor/skills/copywriting/SKILL.md`](.cursor/skills/copywriting/SKILL.md) - including punchy headings, concision, specificity (name what people are saving toward or catching up on), punctuation (e.g. spaced hyphen instead of em dash for sentence bridges), and scannable structure.
 
+## Public copy conventions
+
+Use concise, specific headings and short paragraphs. Name the money task and the
+next action. Avoid vague recovery phrases; use a spaced hyphen or a new sentence
+instead of an em dash. These repo-wide conventions are canonical here; the
+copywriting skill supplies examples and its pre-writing checklist.
+
 ## Visual Asset Direction
 
 - Generated Sloth Money sloth assets should use warm tan and caramel-brown fur like the current Solo/Couple archetype cards. Keep cream face markings and dark brown eye patches for recognizability.
@@ -15,6 +22,8 @@ When writing or editing **user-facing copy** (landing pages, CTAs, headings, met
 - For visual changes, do not rely only on DOM/CSS checks or isolated screenshots. Capture and inspect the exact viewport state the user will see, including the transition area before and after the changed element.
 - If the user is reacting to a screenshot, reproduce that scroll position and compare against it before finalizing.
 - When checking color or dimming changes, verify the full composed result in the browser screenshot rather than inferring from a single CSS property.
+- For multi-step forms, inspect every question-group boundary at real desktop and mobile sizes. Treat readable type and clear grouping as the priority; allow the content panel to scroll instead of compressing text and spacing merely to fit one viewport.
+- Wait for entrance and stage-transition motion to settle before taking verification screenshots. Reject faded or displaced mid-animation captures.
 
 ## Tracking Inventory
 

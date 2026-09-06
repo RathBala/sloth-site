@@ -147,16 +147,19 @@
           (e.__SV = 1))
       })(document, window.posthog || [])
     </script>
+    <link href="../assets/css/site-typography.css" rel="stylesheet" />
   </head>
-  <body class="bg-white text-gray-900 font-sans antialiased pb-24 sm:pb-0">
+  <body
+    class="site-page site-wedding bg-white text-gray-900 font-sans antialiased pb-24 sm:pb-0"
+  >
     <main>
       <header
         class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-sm"
       >
         <div
-          class="max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
+          class="max-w-[115rem] mx-auto px-4 md:px-6 lg:px-12 xl:px-16 2xl:px-24"
         >
-          <nav class="flex items-center justify-between h-16 sm:h-20">
+          <nav class="flex items-center justify-between h-16 md:h-20">
             <a href="/" class="flex items-center gap-3">
               <img
                 class="h-10 w-auto"
@@ -166,10 +169,10 @@
               />
               <span class="font-bold text-xl text-gray-900">Sloth Money</span>
             </a>
-            <div class="flex items-center gap-2 sm:gap-4">
-              <details data-tools-menu class="group relative hidden sm:block">
+            <div class="flex items-center gap-2 md:gap-4">
+              <details data-tools-menu class="group relative hidden md:block">
                 <summary
-                  class="flex cursor-pointer list-none items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-green/50"
+                  class="flex cursor-pointer list-none items-center gap-1.5 rounded-lg px-4 py-2 site-note font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-green/50"
                 >
                   <span>Tools</span>
                   <i
@@ -198,22 +201,23 @@
                       <span class="block font-bold text-green-really-dark"
                         >Home planner</span
                       >
-                      <span class="mt-0.5 block text-sm leading-5 text-gray-600"
-                        >Plan your deposit, mortgage and real home costs.</span
+                      <span
+                        class="mt-0.5 block site-note leading-5 text-gray-600"
+                        >Plan what it takes to afford your dream home.</span
                       >
                     </span>
                   </a>
                 </div>
               </details>
               <a
-                class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
+                class="hidden md:inline-flex items-center justify-center px-4 py-2 site-note font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
                 href="https://budget.slothmoney.app"
                 data-analytics-cta="wedding-header-sign-in"
               >
                 Sign in
               </a>
               <a
-                class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
+                class="hidden md:inline-flex items-center justify-center px-5 py-2.5 site-note font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
                 href="https://budget.slothmoney.app"
                 data-analytics-cta="wedding-header-start"
               >
@@ -222,7 +226,7 @@
               <button
                 id="mobile-menu-toggle"
                 type="button"
-                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green sm:hidden"
+                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green md:hidden"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -260,13 +264,13 @@
           </nav>
           <div
             id="mobile-menu"
-            class="sm:hidden hidden border-t border-gray-100 mt-3 pt-4 pb-6"
+            class="md:hidden hidden border-t border-gray-100 mt-3 pt-4 pb-6"
           >
             <div
               class="rounded-2xl border border-gray-200 bg-white/90 shadow-lg p-4 space-y-3"
             >
               <div class="space-y-2">
-                <div class="text-sm font-medium tracking-wide text-gray-500">
+                <div class="site-note font-medium tracking-wide text-gray-500">
                   Tools
                 </div>
                 <a
@@ -286,14 +290,14 @@
                     <span class="block font-bold text-green-really-dark"
                       >Home planner</span
                     >
-                    <span class="mt-0.5 block text-sm leading-5 text-gray-600"
-                      >Plan your deposit, mortgage and real home costs.</span
+                    <span class="mt-0.5 block site-note leading-5 text-gray-600"
+                      >Plan what it takes to afford your dream home.</span
                     >
                   </span>
                 </a>
               </div>
               <div class="border-t border-gray-200 pt-3">
-                <div class="text-sm font-medium tracking-wide text-gray-500">
+                <div class="site-note font-medium tracking-wide text-gray-500">
                   Get started
                 </div>
                 <div class="mt-3 space-y-3">
@@ -327,9 +331,7 @@
           class="relative max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12"
         >
           <div class="text-center">
-            <div
-              class="relative flex justify-center mb-0 sm:-mb-6 lg:-mb-10 reveal"
-            >
+            <div class="relative flex justify-center mb-4 sm:mb-6 reveal">
               <div
                 class="relative w-72 sm:w-96 lg:w-[28rem] h-28 sm:h-36 lg:h-40 hero-image-container overflow-hidden"
               >
@@ -352,7 +354,7 @@
             </h1>
 
             <p
-              class="max-w-5xl mx-auto text-lg sm:text-xl text-gray-600 leading-relaxed mb-6 sm:mb-8 reveal text-balance"
+              class="max-w-5xl mx-auto text-gray-600 mb-6 sm:mb-8 reveal text-balance"
             >
               Sloth Money builds a roadmap for couples to achieve their wedding
               fund on time.
@@ -418,7 +420,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2
             id="problem-heading"
-            class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3 text-center reveal"
+            class="font-bold text-gray-900 mb-3 text-center reveal"
           >
             Wedding saving gets messy when there is no shared plan
           </h2>
@@ -445,7 +447,7 @@
               <h3 class="font-semibold text-gray-900 mb-2">
                 Savings split across places
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Accounts, notes, and mental math make it hard to know what is
                 actually set aside for the wedding.
               </p>
@@ -465,7 +467,7 @@
               <h3 class="font-semibold text-gray-900 mb-2">
                 One person holds the plan
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Someone has to remember the target, the timeline, and what every
                 new cost means for the plan.
               </p>
@@ -485,7 +487,7 @@
               <h3 class="font-semibold text-gray-900 mb-2">
                 The "next month" trap
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 You ease off on saving, promise to add more next month, repeat -
                 and the wedding fund falls behind target.
               </p>
@@ -502,10 +504,7 @@
           <div
             class="max-w-3xl mx-auto text-center mb-14 sm:mb-16 lg:mb-20 reveal"
           >
-            <h2
-              id="built-for-heading"
-              class="font-bold text-2xl sm:text-3xl text-gray-900 mb-2"
-            >
+            <h2 id="built-for-heading" class="font-bold text-gray-900 mb-2">
               Built for real wedding planning, not spreadsheet juggling
             </h2>
           </div>
@@ -514,12 +513,10 @@
             class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
           >
             <div class="space-y-6">
-              <h3
-                class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
-              >
+              <h3 class="font-bold text-gray-900">
                 Set the goal, timeline, and monthly amounts
               </h3>
-              <p class="text-lg text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Pick your wedding target, your date, and what you will each put
                 in each month - so you start from a shared plan, not a guess.
               </p>
@@ -552,12 +549,10 @@
             class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
           >
             <div class="space-y-6 lg:order-2">
-              <h3
-                class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
-              >
+              <h3 class="font-bold text-gray-900">
                 Stay on track month to month
               </h3>
-              <p class="text-lg text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Use a simple budget to protect the monthly amounts you want to
                 put towards your wedding fund.
               </p>
@@ -590,12 +585,10 @@
             class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
           >
             <div class="space-y-6">
-              <h3
-                class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
-              >
+              <h3 class="font-bold text-gray-900">
                 Adjust before surprises become setbacks
               </h3>
-              <p class="text-lg text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Model changes like higher costs or a slower saving month and see
                 how that affects your timeline before it catches you out.
               </p>
@@ -628,12 +621,10 @@
             class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-12 sm:mb-16 reveal"
           >
             <div class="space-y-6 lg:order-2">
-              <h3
-                class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
-              >
+              <h3 class="font-bold text-gray-900">
                 Stay aligned without constant check-ins
               </h3>
-              <p class="text-lg text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Both of you can see the same goal, the same progress, and the
                 same plan in one place.
               </p>
@@ -696,7 +687,7 @@
           <div class="text-center mb-10 reveal">
             <h2
               id="wedding-web-app-heading"
-              class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3"
+              class="font-bold text-gray-900 mb-3"
             >
               Use it like an app - without the App Store
             </h2>
@@ -719,10 +710,10 @@
                   aria-hidden="true"
                 ></i>
               </div>
-              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+              <p class="text-gray-900 font-medium tracking-wide mb-1">
                 One tap from home
               </p>
-              <p class="text-xs text-gray-500 leading-relaxed">
+              <p class="text-gray-500">
                 Pin to your home screen so your roadmap opens like any other
                 app.
               </p>
@@ -739,10 +730,10 @@
                   aria-hidden="true"
                 ></i>
               </div>
-              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+              <p class="text-gray-900 font-medium tracking-wide mb-1">
                 No App Store
               </p>
-              <p class="text-xs text-gray-500 leading-relaxed">
+              <p class="text-gray-500">
                 Start in the browser - skip the store and the extra install
                 step.
               </p>
@@ -759,10 +750,10 @@
                   aria-hidden="true"
                 ></i>
               </div>
-              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+              <p class="text-gray-900 font-medium tracking-wide mb-1">
                 Same account everywhere
               </p>
-              <p class="text-xs text-gray-500 leading-relaxed">
+              <p class="text-gray-500">
                 Pick up where you left off on phone, tablet, or desktop.
               </p>
             </div>
@@ -777,7 +768,7 @@
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2
             id="faq-heading"
-            class="font-bold text-2xl sm:text-3xl text-gray-900 mb-8 text-center reveal"
+            class="font-bold text-gray-900 mb-8 text-center reveal"
           >
             Frequently asked questions
           </h2>
@@ -786,7 +777,7 @@
               <h3 class="font-semibold text-gray-900 mb-2">
                 Do both of us need to be money experts?
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 No. The point is to make the plan easier to see and easier to
                 follow. One of you can set it up and invite the other in.
               </p>
@@ -795,7 +786,7 @@
               <h3 class="font-semibold text-gray-900 mb-2">
                 Can we still keep some finances separate?
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Yes. You can work towards a shared wedding goal without merging
                 everything or turning every expense into a joint budget.
               </p>
@@ -804,7 +795,7 @@
               <h3 class="font-semibold text-gray-900 mb-2">
                 What if we are only just getting started?
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 That is exactly when this is most useful. Starting early helps
                 you set a realistic target, choose a contribution plan, and spot
                 gaps sooner.
@@ -814,7 +805,7 @@
               <h3 class="font-semibold text-gray-900 mb-2">
                 Do we have to connect accounts?
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 No. You can start manually and add more detail later if you want
                 to.
               </p>
@@ -823,7 +814,7 @@
               <h3 class="font-semibold text-gray-900 mb-2">
                 What if costs change halfway through?
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 That is normal. Sloth Money helps you adjust the plan early, so
                 changes do not quietly throw you off track.
               </p>
@@ -838,13 +829,10 @@
       >
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-12 reveal">
-            <h2
-              id="pricing-heading"
-              class="font-bold text-3xl sm:text-4xl text-gray-900 mb-4"
-            >
+            <h2 id="pricing-heading" class="font-bold text-gray-900 mb-4">
               Join the free beta
             </h2>
-            <p class="max-w-2xl mx-auto text-lg text-gray-600">
+            <p class="max-w-2xl mx-auto text-gray-600">
               One plan. Two people. A shared roadmap to the life you're
               building.
             </p>
@@ -857,10 +845,10 @@
               class="lg:col-span-3 bg-gray-50 rounded-3xl p-8 sm:p-12 border border-gray-200 shadow-sm flex flex-col justify-between"
             >
               <div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                <h3 class="font-bold text-gray-900 mb-4">
                   Start your shared journey
                 </h3>
-                <p class="text-gray-600 text-lg mb-8 max-w-md">
+                <p class="text-gray-600 mb-8 max-w-md">
                   Join now and full access is yours free forever. Start your
                   wedding roadmap, then invite one partner when you are ready to
                   plan together.
@@ -917,33 +905,33 @@
             >
               <div class="w-full">
                 <p
-                  class="text-sm font-bold uppercase tracking-[0.18em] text-green mb-3"
+                  class="font-bold uppercase tracking-[0.18em] text-green mb-3"
                 >
                   Free beta
                 </p>
-                <p class="text-5xl font-extrabold text-gray-900 mb-3">£0</p>
-                <p class="text-lg font-semibold text-gray-700 mb-6">
+                <p class="font-extrabold text-gray-900 mb-3">£0</p>
+                <p class="font-semibold text-gray-700 mb-6">
                   Forever for beta users
                 </p>
                 <div class="flex flex-col gap-1 mb-6">
                   <div
-                    class="flex items-center justify-center gap-1.5 text-sm font-medium text-green"
+                    class="flex items-center justify-center gap-1.5 site-note font-medium text-green"
                   >
                     <i data-lucide="check" class="w-4 h-4"></i>
                     <span>No card required</span>
                   </div>
                   <div
-                    class="flex items-center justify-center gap-1.5 text-sm font-medium text-green"
+                    class="flex items-center justify-center gap-1.5 site-note font-medium text-green"
                   >
                     <i data-lucide="check" class="w-4 h-4"></i>
                     <span>No forced feedback prompts</span>
                   </div>
                 </div>
-                <p class="text-sm text-gray-500 mb-8">
+                <p class="text-gray-500 mb-8">
                   Everyone who joins during the beta keeps full access.
                 </p>
 
-                <div class="space-y-4 text-sm text-gray-500">
+                <div class="space-y-4 site-note text-gray-500">
                   <p>No ads or hidden fees.</p>
                   <p>Your data stays private and secure.</p>
                 </div>
@@ -959,13 +947,10 @@
       >
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-10 reveal">
-            <h2
-              id="trust-heading"
-              class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3"
-            >
+            <h2 id="trust-heading" class="font-bold text-gray-900 mb-3">
               Private, practical, and built for shared planning
             </h2>
-            <p class="max-w-xl mx-auto text-gray-600 text-sm sm:text-base">
+            <p class="max-w-xl mx-auto text-gray-600">
               Built with privacy and trust as non-negotiables - the same
               standards as the rest of Sloth Money.
             </p>
@@ -992,10 +977,10 @@
                   ></path>
                 </svg>
               </div>
-              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+              <p class="text-gray-900 font-medium tracking-wide mb-1">
                 Bank-level encryption
               </p>
-              <p class="text-xs text-gray-500">Protecting every connection</p>
+              <p class="text-gray-500">Protecting every connection</p>
             </div>
             <div
               class="bg-white rounded-xl p-6 text-center border border-gray-200"
@@ -1024,10 +1009,10 @@
                   ></path>
                 </svg>
               </div>
-              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+              <p class="text-gray-900 font-medium tracking-wide mb-1">
                 Read-only account access
               </p>
-              <p class="text-xs text-gray-500">We cannot move your money</p>
+              <p class="text-gray-500">We cannot move your money</p>
             </div>
             <div
               class="bg-white rounded-xl p-6 text-center border border-gray-200"
@@ -1050,10 +1035,10 @@
                   ></path>
                 </svg>
               </div>
-              <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+              <p class="text-gray-900 font-medium tracking-wide mb-1">
                 Built for shared finances
               </p>
-              <p class="text-xs text-gray-500">
+              <p class="text-gray-500">
                 Plan together while keeping personal autonomy
               </p>
             </div>
@@ -1066,13 +1051,10 @@
         aria-labelledby="final-heading"
       >
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
-          <h2
-            id="final-heading"
-            class="font-bold text-2xl sm:text-4xl text-gray-900 mb-5 leading-tight"
-          >
+          <h2 id="final-heading" class="font-bold text-gray-900 mb-5">
             Create your wedding fund with one clear shared plan
           </h2>
-          <p class="text-base sm:text-lg text-gray-600 mb-10 leading-relaxed">
+          <p class="text-gray-600 mb-10">
             Set the target, choose your contributions, see your timeline, and
             make wedding decisions together with less stress.
           </p>
@@ -1097,7 +1079,7 @@
               ></path>
             </svg>
           </a>
-          <p class="text-sm font-medium tracking-wide text-gray-500 mt-6">
+          <p class="font-medium tracking-wide text-gray-500 mt-6">
             Free forever when you join the beta - one connected partner included
           </p>
         </div>

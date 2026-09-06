@@ -43,6 +43,11 @@ The homepage saver cards stay intentionally light: **Solo** links straight to th
 - **Budget activity:** Document the optional period, current-only refresh,
   historical cache-only behavior, money in/out/net rows, truly uncategorized
   activity, nullable budget, and single-currency boundary.
+- **Transaction metadata:** Booked and opt-in pending rows may include normalized
+  `counterpartyName` and `transactionReference` fields. Provider-native debtor,
+  creditor, and raw remittance fields stay private. The existing privacy policy
+  already covers transaction counterparties and references, and this change
+  adds no processor, retention, logging, or analytics behavior.
 - **Investments:** Account totals and nested holdings overlap. Tell readers not
   to add them together or silently add values in different currencies.
 - **Primary CTA:** `Open Sloth Money`, pointing to `https://budget.slothmoney.app`. The page assumes token creation happens inside the app, not through public token-management API docs.
@@ -63,3 +68,45 @@ Do not call the live `/.netlify/functions/track-visit` endpoint as a test. Run `
 ## Build
 
 `yarn build` regenerates PostHog config and compiles Tailwind to `src/output.css`. Deploy the `src` directory (see [`netlify.toml`](../netlify.toml)).
+
+## Public-site typography
+
+`src/assets/css/site-typography.css` owns the shared public-page type roles.
+The homepage and wedding page use 18px mobile / 22px desktop body copy,
+24px / 28px card titles, 32–56px section headings and 30–44px feature headings.
+The developer and privacy pages use 18px / 20px body copy and 28–40px section
+headings for longer reading. Navigation uses 18px; footer text and code use
+16px through the shared `site-note` role. Desktop navigation starts at 768px so the larger labels have room.
+Page HTML keeps layout utilities and semantic role classes rather than competing
+per-element font-size utilities. Colours and layouts remain with their existing
+owners, with shared muted copy colour in the typography sheet.
+
+The home planner owns its separate stylesheet and uses `--planner-text-small`
+(16px) and `--planner-text-body` (18px). Its questions and results can scroll
+inside the existing content panel. Calculations, saved/session behaviour and
+analytics are unchanged. The owner-only `/mark-me.html` utility and raster
+product screenshots are not marketing typography surfaces and remain unchanged.
+No changes are required in the authenticated budget app or its APIs.
+
+Run `yarn check:typography` for text-size floors and page overflow across all five
+public routes at 390px, 768px and 1440px, plus a 16px minimum for all rendered
+text and keyboard operation of desktop/mobile navigation. Set `SITE_TYPOGRAPHY_SCREENSHOT_DIR` to
+capture each homepage section and the other page entrances. The check serves the
+current checkout on an available local port and closes its browser and server.
+`yarn check:home-visibility` checks that the homepage CTA stays above the fold;
+readability takes priority over fitting the entire feature strip into one screen.
+`yarn check:home-planner` checks the complete planner interaction and scrolling.
+
+Local review requires no authentication:
+
+```bash
+yarn dev
+```
+
+Open http://localhost:3000 and stop the preview with Ctrl+C.
+
+The homepage feature strip is a compact summary, not body copy. Its component
+owns 16px semibold labels with 1.3 line spacing and non-shrinking icons; body
+copy rules exclude those items. It uses two columns below 1024px and four above.
+`check:typography` guards its label size, weight, icon width and desktop height,
+so minimum readability checks cannot accidentally approve oversized labels.

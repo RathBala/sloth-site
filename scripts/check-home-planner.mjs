@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { existsSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { readFile, stat } from 'node:fs/promises'
 import { extname, join } from 'node:path'
@@ -8,6 +9,12 @@ import { chromium } from 'playwright'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const srcRoot = join(root, 'src')
+const homePagePath = join(srcRoot, 'index.html')
+const navPagePaths = [
+  homePagePath,
+  join(srcRoot, 'developers', 'index.html'),
+  join(srcRoot, 'wedding-fund', 'index.html'),
+]
 const pagePath = join(srcRoot, 'home-planner', 'index.html')
 const plannerStylesPath = join(srcRoot, 'assets', 'css', 'home-planner.css')
 
@@ -96,6 +103,10 @@ const measureIndependentPanelScroll = (page, targetScrollTop) =>
     }
   }, targetScrollTop)
 
+const homeHtml = await readFile(homePagePath, 'utf8')
+const navHtml = (
+  await Promise.all(navPagePaths.map((path) => readFile(path, 'utf8')))
+).join('\n')
 const html = await readFile(pagePath, 'utf8')
 const plannerStyles = await readFile(plannerStylesPath, 'utf8')
 const plannerImage = await stat(
@@ -152,6 +163,21 @@ assert.match(
   html,
   /name="mortgageBudget"/,
   'future mortgage budget input must be present'
+)
+assert.match(
+  html,
+  /id="mortgage-budget-not-sure"/,
+  'future mortgage budget must offer a not-sure-yet choice'
+)
+assert.equal(
+  navHtml.match(/Plan what it takes to afford your dream home\./g)?.length,
+  navPagePaths.length * 2,
+  'every desktop and mobile tools menu must use the agreed Home Planner description'
+)
+assert.doesNotMatch(
+  navHtml,
+  /Plan your deposit, mortgage(?:,| and)/,
+  'the replaced Home Planner menu description must not remain on a nav-owning page'
 )
 assert.match(
   html,
@@ -278,7 +304,9 @@ let browser
 
 try {
   const baseUrl = await listen()
-  browser = await chromium.launch()
+  browser = await chromium.launch(
+    existsSync(chromium.executablePath()) ? {} : { channel: 'chrome' }
+  )
   const desktopViewport = { width: 1440, height: 748 }
   const page = await browser.newPage({
     viewport: desktopViewport,
@@ -337,6 +365,11 @@ try {
     'starting the planner should focus the first financial input'
   )
   assert.equal(
+    await page.evaluate(() => location.hash),
+    '#deposit',
+    'the deposit step must have its own URL state'
+  )
+  assert.equal(
     await page.locator('[data-progress-step="1"]').getAttribute('aria-current'),
     'step',
     'the progress indicator should announce the current step'
@@ -364,18 +397,110 @@ try {
   await assert.doesNotReject(() =>
     page.locator('#planner-home:not([hidden])').waitFor()
   )
-  await assertStageFitsViewport(
-    page,
-    '#home-next',
-    'home',
-    desktopViewport.height
+  assert.equal(
+    await page.evaluate(() => location.hash),
+    '#home',
+    'the home step must have its own URL state'
   )
+  await page.goBack()
+  await page.waitForFunction(() => location.hash === '#deposit')
+  assert.equal(await page.locator('#planner-savings').isVisible(), true)
+  await page.goForward()
+  await page.waitForFunction(() => location.hash === '#home')
+  assert.equal(await page.locator('#planner-home').isVisible(), true)
+
+  const homeLayout = await page.evaluate(() => {
+    const contentElement = document.querySelector('.planner-content-inner')
+    const contentInner = contentElement.getBoundingClientRect()
+    const contentStyle = getComputedStyle(contentElement)
+    const progress = document
+      .querySelector('.planner-progress')
+      .getBoundingClientRect()
+    const stage = document
+      .querySelector('#planner-home')
+      .getBoundingClientRect()
+    const uncertainToggle = document
+      .querySelector('#home-price-not-sure')
+      .closest('.uncertain-toggle')
+      .getBoundingClientRect()
+    const nextQuestion = document
+      .querySelector('#planner-home .choice-group:last-of-type')
+      .getBoundingClientRect()
+    const previousQuestion = document
+      .querySelector('#planner-home .choice-group:first-of-type')
+      .getBoundingClientRect()
+    const questionBlock = document
+      .querySelector('#planner-home .question-block')
+      .getBoundingClientRect()
+    const contentLeft =
+      contentInner.left + Number.parseFloat(contentStyle.paddingLeft)
+    const contentRight =
+      contentInner.right - Number.parseFloat(contentStyle.paddingRight)
+
+    return {
+      choiceFontSize: Number.parseFloat(
+        getComputedStyle(document.querySelector('#planner-home .choice-card'))
+          .fontSize
+      ),
+      leftGap: stage.left - contentLeft,
+      moneyLabelFontSize: Number.parseFloat(
+        getComputedStyle(document.querySelector('#planner-home .money-field'))
+          .fontSize
+      ),
+      progressFontSize: Number.parseFloat(
+        getComputedStyle(document.querySelector('.planner-progress li'))
+          .fontSize
+      ),
+      progressWidth: progress.width,
+      previousQuestionGap: questionBlock.top - previousQuestion.bottom,
+      questionGap: nextQuestion.top - uncertainToggle.bottom,
+      rightGap: contentRight - stage.right,
+      stageWidth: stage.width,
+    }
+  })
+  assert(homeLayout.progressFontSize >= 12)
+  assert(homeLayout.moneyLabelFontSize >= 15)
+  assert(homeLayout.choiceFontSize >= 14)
+  assert(Math.abs(homeLayout.progressWidth - homeLayout.stageWidth) <= 1)
+  assert(homeLayout.rightGap <= homeLayout.leftGap + 16)
+  assert(
+    homeLayout.previousQuestionGap >= 24,
+    `separate questions need a visible break; gap=${homeLayout.previousQuestionGap}`
+  )
+  assert(
+    homeLayout.questionGap >= 24,
+    `related question groups need a visible break; gap=${homeLayout.questionGap}`
+  )
+  await page.setViewportSize({ width: 2048, height: 1000 })
+  const wideHomeAlignment = await page.evaluate(() => {
+    const contentElement = document.querySelector('.planner-content-inner')
+    const contentInner = contentElement.getBoundingClientRect()
+    const contentStyle = getComputedStyle(contentElement)
+    const stage = document
+      .querySelector('#planner-home')
+      .getBoundingClientRect()
+    const contentLeft =
+      contentInner.left + Number.parseFloat(contentStyle.paddingLeft)
+    const contentRight =
+      contentInner.right - Number.parseFloat(contentStyle.paddingRight)
+
+    return {
+      leftGap: stage.left - contentLeft,
+      rightGap: contentRight - stage.right,
+    }
+  })
+  assert(
+    Math.abs(wideHomeAlignment.rightGap - wideHomeAlignment.leftGap) <= 16,
+    `wide desktop content must use balanced horizontal space; left=${wideHomeAlignment.leftGap}, right=${wideHomeAlignment.rightGap}`
+  )
+  await page.setViewportSize(desktopViewport)
   await page.locator('[name="region"][value="england-ni"]').check()
   await page.locator('[name="propertyType"][value="house"]').check()
   await page
     .getByLabel('What home price are you thinking about?')
     .fill('287501')
   await page.locator('#home-next').click()
+  assert.equal(await page.evaluate(() => location.hash), '#route')
 
   await page.locator('#planner-buying .education-card').evaluate((details) => {
     details.open = true
@@ -403,6 +528,7 @@ try {
   await assert.doesNotReject(() =>
     page.locator('#planner-budget:not([hidden])').waitFor()
   )
+  assert.equal(await page.evaluate(() => location.hash), '#budget')
   assert.equal(
     await page
       .locator('.planner-content')
@@ -410,13 +536,22 @@ try {
     0,
     'each stage should start at the top of the independently scrolling panel'
   )
-  await page.locator('#mortgage-budget').fill('1500')
+  await page.locator('#mortgage-budget-not-sure').check()
+  assert.equal(await page.locator('#mortgage-budget').isEditable(), false)
+  assert.equal(await page.locator('#mortgage-budget').inputValue(), '1500')
   await page.locator('#annual-income').fill('5400')
   await page.locator('#budget-next').click()
 
   await assert.doesNotReject(() =>
     page.locator('#planner-results:not([hidden])').waitFor()
   )
+  assert.equal(await page.evaluate(() => location.hash), '#plan')
+  await page.goBack()
+  await page.waitForFunction(() => location.hash === '#budget')
+  assert.equal(await page.locator('#planner-budget').isVisible(), true)
+  await page.goForward()
+  await page.waitForFunction(() => location.hash === '#plan')
+  assert.equal(await page.locator('#planner-results').isVisible(), true)
   assert.equal(
     await page.locator('#lever-home-price').inputValue(),
     '287501',
@@ -462,6 +597,21 @@ try {
     'none',
     'programmatically focused stage headings must not show a browser-default outline'
   )
+
+  const resultsType = await page.evaluate(() => ({
+    balance: Number.parseFloat(
+      getComputedStyle(document.querySelector('.balance-row span')).fontSize
+    ),
+    disclaimer: Number.parseFloat(
+      getComputedStyle(document.querySelector('.planner-disclaimer p')).fontSize
+    ),
+    lever: Number.parseFloat(
+      getComputedStyle(document.querySelector('.lever-row')).fontSize
+    ),
+  }))
+  assert(resultsType.balance >= 16)
+  assert(resultsType.disclaimer >= 16)
+  assert(resultsType.lever >= 16)
 
   await page.locator('#lever-home-price').fill('1000000')
   await page.locator('#lever-deposit').fill('40')
@@ -734,6 +884,24 @@ try {
   )
   assert(resultsScrolling.widthOverflow <= 1)
 
+  await page.locator('.planner-content').evaluate((content) => {
+    content.scrollTop = content.scrollHeight
+  })
+  await page.evaluate(() => new Promise(requestAnimationFrame))
+  const ctaSeparation = await page.evaluate(() => {
+    const levers = document
+      .querySelector('.lever-panel')
+      .getBoundingClientRect()
+    const cta = document
+      .querySelector('.planner-signup-cta')
+      .getBoundingClientRect()
+    return cta.top - levers.bottom
+  })
+  assert(
+    ctaSeparation >= 16,
+    `the results CTA must stay visually separate from the levers; gap=${ctaSeparation}`
+  )
+
   const plannerCaptures = await page.evaluate(() => window.__plannerCaptures)
   const completion = plannerCaptures.find(
     ({ event }) => event === 'home_planner_completed'
@@ -755,7 +923,9 @@ try {
     'returning from results should restore focus to the previous action'
   )
 
-  await page.reload({ waitUntil: 'domcontentloaded' })
+  await page.goto(`${baseUrl}/home-planner/`, {
+    waitUntil: 'domcontentloaded',
+  })
   await page.locator('#planner-start').click()
   assert.equal(
     await page.locator('#deposit-saved').inputValue(),
@@ -859,6 +1029,37 @@ try {
   assert(
     mobileMixedCardLayout.paymentBottom <= mobileMixedCardLayout.balanceTop,
     'the part-and-part payment and remaining balance must not overlap on mobile'
+  )
+
+  await page.goto(`${baseUrl}/home-planner/#home`, {
+    waitUntil: 'domcontentloaded',
+  })
+  assert.equal(
+    await page.locator('#planner-home').isVisible(),
+    true,
+    'a Home Planner step URL must restore that step on reload'
+  )
+
+  await page.setViewportSize(desktopViewport)
+  await page.goto(`${baseUrl}/`, { waitUntil: 'domcontentloaded' })
+  const toolsMenu = page.locator('[data-tools-menu]')
+  await toolsMenu.locator('summary').click()
+  assert.equal(await toolsMenu.getAttribute('open'), '')
+  await page.locator('h1').first().click()
+  assert.equal(
+    await toolsMenu.getAttribute('open'),
+    null,
+    'clicking away must dismiss the desktop tools menu'
+  )
+  await toolsMenu.locator('summary').click()
+  await toolsMenu.locator('summary').press('Escape')
+  assert.equal(await toolsMenu.getAttribute('open'), null)
+  assert.equal(
+    await page.evaluate(
+      () => document.activeElement?.closest('summary') !== null
+    ),
+    true,
+    'Escape must dismiss the tools menu and retain focus on its trigger'
   )
 
   console.log('Home planner interaction checks passed.')

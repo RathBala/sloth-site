@@ -48,6 +48,7 @@ const baseUrl = await new Promise((resolve) => {
 })
 
 let browser
+console.log(`[home-visibility] Serving ${srcRoot} at ${baseUrl}`)
 
 try {
   browser = await chromium.launch(
@@ -60,18 +61,19 @@ try {
     {
       name: 'mobile',
       viewport: { width: 390, height: 844 },
-      checksAboveFold: true,
+      checksPrimaryActionAboveFold: true,
     },
     { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+    { name: 'tablet', viewport: { width: 640, height: 960 } },
     {
       name: 'desktop-fold',
       viewport: { width: 1438, height: 748 },
-      checksAboveFold: true,
+      checksPrimaryActionAboveFold: true,
     },
     {
       name: 'wide-desktop',
       viewport: { width: 2048, height: 1200 },
-      checksAboveFold: true,
+      checksPrimaryActionAboveFold: true,
       checksFullBleedArt: true,
     },
   ]
@@ -86,10 +88,11 @@ try {
   for (const {
     name,
     viewport,
-    checksAboveFold = false,
+    checksPrimaryActionAboveFold = false,
     checksFullBleedArt = false,
   } of viewports) {
     const page = await browser.newPage({ viewport })
+    page.setDefaultTimeout(15000)
     await page.goto(baseUrl, { waitUntil: 'domcontentloaded' })
 
     await page.evaluate(async () => {
@@ -117,13 +120,16 @@ try {
     )
     await assert.doesNotReject(() =>
       page
-        .getByText('Automated transaction categorisation', { exact: true })
+        .getByRole('heading', {
+          name: 'Automated transaction categorisation',
+          exact: true,
+        })
         .waitFor()
     )
     await assert.doesNotReject(() =>
       page
         .getByRole('heading', {
-          name: 'Map out your financial future from emergencies to nest eggs',
+          name: 'Use it like an app - without the App Store',
         })
         .waitFor()
     )
@@ -185,15 +191,14 @@ try {
       `homepage should not overflow horizontally at ${viewport.width}px`
     )
 
-    if (checksAboveFold) {
-      const featureStrip = await page
-        .locator('.sloth-feature-strip')
+    if (checksPrimaryActionAboveFold) {
+      const primaryAction = await page
+        .locator('[data-analytics-cta="hero-start"]')
         .boundingBox()
-      assert(featureStrip, 'feature strip should have a rendered bounding box')
-      const featureStripBottom = featureStrip.y + featureStrip.height
+      assert(primaryAction, 'the primary action should render')
       assert(
-        featureStripBottom <= viewport.height,
-        `feature strip should be fully above the fold at ${viewport.width}x${viewport.height}; bottom was ${featureStripBottom}`
+        primaryAction.y + primaryAction.height <= viewport.height,
+        `the primary action should be above the fold at ${viewport.width}x${viewport.height}`
       )
     }
 
@@ -211,7 +216,7 @@ try {
       `dashboard image should not be cropped at ${viewport.width}px`
     )
 
-    if (viewport.width >= 640) {
+    if (viewport.width >= 1024) {
       const gardenArt = await page.locator('.sloth-garden-art').boundingBox()
       assert(gardenArt, 'garden artwork should render')
       if (checksFullBleedArt) {
@@ -243,7 +248,7 @@ try {
     }
 
     const lowerSection = page.getByRole('heading', {
-      name: 'Map out your financial future from emergencies to nest eggs',
+      name: 'Use it like an app - without the App Store',
     })
     await lowerSection.scrollIntoViewIfNeeded()
     assert(
@@ -252,7 +257,12 @@ try {
     )
 
     if (screenshotDir) {
-      await page.locator('.sloth-home-content').scrollIntoViewIfNeeded()
+      await page.locator('.sloth-home-content').evaluate((element) => {
+        window.scrollTo({
+          top: element.getBoundingClientRect().top + window.scrollY,
+          behavior: 'instant',
+        })
+      })
       await page.evaluate(() =>
         Promise.all(
           [...document.querySelectorAll('.sloth-home-content img')]
@@ -265,6 +275,20 @@ try {
       )
       await page.screenshot({
         path: join(screenshotDir, `home-content-${name}.png`),
+      })
+      await page
+        .getByRole('heading', {
+          name: 'Automated transaction categorisation',
+          exact: true,
+        })
+        .evaluate((element) => {
+          window.scrollTo({
+            top: element.getBoundingClientRect().top + window.scrollY - 100,
+            behavior: 'instant',
+          })
+        })
+      await page.screenshot({
+        path: join(screenshotDir, `home-feature-${name}.png`),
       })
     }
 

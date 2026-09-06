@@ -37,7 +37,112 @@ const heroEnd = home.indexOf('<!-- Features Section -->', heroStart)
 const hero =
   heroStart === -1 || heroEnd === -1 ? '' : home.slice(heroStart, heroEnd)
 
+const featuresStart = home.indexOf('<!-- Features Section -->')
+const featuresEnd =
+  featuresStart === -1 ? -1 : home.indexOf('<!-- Web app -->', featuresStart)
+const featuresSection =
+  featuresStart === -1 || featuresEnd === -1
+    ? ''
+    : home.slice(featuresStart, featuresEnd)
+const featuresText = text(featuresSection)
+const featureOneStart = featuresSection.indexOf(
+  '<!-- Feature 1: Automated transaction categorisation -->'
+)
+const featureTwoStart = featuresSection.indexOf(
+  '<!-- Feature 2: Budget suggestions -->'
+)
+const featureThreeStart = featuresSection.indexOf(
+  '<!-- Feature 3: Savings goal scenarios -->'
+)
+const featureFourStart = featuresSection.indexOf(
+  '<!-- Feature 4: CLI and Agent API -->'
+)
+const featureOneSection = featuresSection.slice(
+  featureOneStart,
+  featureTwoStart
+)
+const featureTwoSection = featuresSection.slice(
+  featureTwoStart,
+  featureThreeStart
+)
+const featureThreeSection = featuresSection.slice(
+  featureThreeStart,
+  featureFourStart
+)
+const featureFourSection = featuresSection.slice(featureFourStart)
+
 const checks = [
+  {
+    passes:
+      featuresText.includes('Put your money admin on autopilot') &&
+      featuresText.includes('Automated transaction categorisation') &&
+      featuresText.includes('Budget suggestions') &&
+      featuresText.includes('Savings goal scenarios') &&
+      featuresText.includes('CLI & Agent API'),
+    message:
+      'Home features should mirror the four capabilities promised in the hero.',
+  },
+  {
+    passes:
+      !featuresSection.includes('data-archetype-text') &&
+      !featuresText.includes('Your plan, in one place') &&
+      !featuresText.includes(
+        'Map out your financial future from emergencies to nest eggs'
+      ) &&
+      !featuresText.includes('Plan together with your significant other') &&
+      !featuresText.includes('Budget for the now') &&
+      !featuresText.includes('Model the future before it happens'),
+    message:
+      'Home feature copy should stay aligned with the automation positioning instead of reverting to archetype-specific legacy copy.',
+  },
+  {
+    passes:
+      featuresText.includes(
+        'Sloth suggests practical changes, and you choose what to adjust.'
+      ) &&
+      featuresText.includes('MCP support is coming soon.') &&
+      featuresText.includes('Categorise new transactions every day') &&
+      featuresText.includes(
+        'Reallocate budgets to maximise your savings goals'
+      ) &&
+      featuresText.includes('Check “Can I afford this?” before you buy') &&
+      !featuresText.includes('three completed budget cycles') &&
+      !featuresText.includes('last three completed cycles'),
+    message:
+      'Home budget and Agent API copy should stay outcome-focused, label MCP as coming soon, and show concrete personal AI skill examples.',
+  },
+  {
+    passes:
+      featureOneSection.includes(
+        'assets/images/feature-auto-categorisation-desktop.webp'
+      ) &&
+      featureOneSection.includes(
+        'assets/images/feature-auto-categorisation-mobile.webp'
+      ) &&
+      featureTwoSection.includes(
+        'assets/images/feature-budget-suggestions-desktop.webp'
+      ) &&
+      featureTwoSection.includes(
+        'assets/images/feature-budget-suggestions-mobile.webp'
+      ) &&
+      featureThreeSection.includes('assets/images/benefit%20four.png') &&
+      featureThreeSection.includes(
+        'assets/images/benefit%20four%20-%20mobile.png'
+      ) &&
+      featureFourSection.includes(
+        'assets/images/feature-agent-cli-desktop.svg'
+      ) &&
+      featureFourSection.includes('assets/images/feature-agent-cli-mobile.svg'),
+    message:
+      'Each home capability should use its matching desktop and mobile product visual.',
+  },
+  {
+    passes:
+      featureFourSection.includes('href="/developers/"') &&
+      featuresText.includes('Explore the developer tools'),
+    message:
+      'The CLI and Agent API feature should offer a quiet route into the developer documentation.',
+  },
   {
     passes:
       homeText.includes('Join the free beta') &&
@@ -114,9 +219,7 @@ const checks = [
   {
     passes:
       home.includes('<!-- Features Section -->') &&
-      homeText.includes(
-        'Map out your financial future from emergencies to nest eggs'
-      ) &&
+      homeText.includes('Put your money admin on autopilot') &&
       homeText.includes('Built for shared finances'),
     message:
       'Home should keep the existing lower-page content in the initial HTML.',
