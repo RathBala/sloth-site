@@ -77,3 +77,93 @@ Use `--key none` for assets that already have a clean transparent background.
 - Capture desktop and relevant mobile screenshots for visual asset changes.
 - Verify image files load from the intended paths and have expected natural dimensions.
 - Cache-bust browser checks after replacing assets.
+
+## Product Screenshot Close-ups
+
+Choose the one product action the image should explain and its maximum rendered
+size before capturing. Use the real app's local previews, keeping readable labels
+and the action together. Capture at least twice the rendered size; enlarging an
+old bitmap does not restore detail. Wait for fonts and drawer motion to settle,
+then inspect the saved image before compressing it.
+
+The first homepage feature uses the real `CategorySuggestionReviewDrawer` from
+the sibling `sloth-budget` repository. Start its isolated preview with
+`SLOTH_PREVIEW_FRONTEND_PORT=5276 yarn dev:e2e:preview` and open
+`http://127.0.0.1:5276/__preview/category-suggestion-review?drawer=1`.
+It requires no sign-in or live data. The fixture state is local to the page and
+resets on reload; no app source or persisted records need changing.
+
+- Show only the Ready group and its two suggestions. Exclude the drawer header,
+  close button, bulk action, scrollbar, and later groups.
+- For desktop, use the real table layout in a temporary 1000 CSS pixel drawer.
+  The wider capture-only drawer prevents category labels from being truncated;
+  it does not change the production app. Keep the image below centered feature
+  copy, with the three benefits beneath it. Review this composition at its final
+  page size before preparing mobile assets.
+- Mobile uses the existing real 390 CSS pixel card layout, cropped to the same
+  Ready group. Do not stretch the mobile layout into a desktop illustration.
+- Exports are `feature-auto-categorisation-desktop.webp` at 2426 × 526 and
+  `feature-auto-categorisation-mobile.webp` at 696 × 914. Maximum rendered widths
+  are 1086 and 348 CSS pixels respectively. Preserve intrinsic proportions.
+- Export WebP with `cwebp -q 92 -m 6 -sharp_yuv -metadata none`. Aim for under
+  60 KB per image; the browser loads only the matching responsive source.
+- For high-resolution capture, a temporary same-origin HTML frame may render
+  the unchanged demo at a larger CSS transform scale. Use a fixed-position frame
+  to avoid focus-induced scrolling. Load capture-only styles through an external
+  script so the app's content security policy remains intact. Remove the
+  temporary capture files afterward.
+- Inspect the full saved frame before cropping during export. Reported viewport
+  dimensions and painted pixels can differ with browser zoom or host scaling;
+  clipped exports of transformed frames can contain stitching artifacts.
+- Run `yarn check:home-visibility` to check 2x density, responsive source choice,
+  preserved proportions, and a wide desktop layout. Use
+  `HOME_VISIBILITY_SCREENSHOT_DIR=/tmp/sloth-site-qa` with that command to save
+  page-context evidence, then inspect the first feature at desktop and mobile sizes.
+
+This asset refresh does not change categorisation behavior, tracking, or public
+routes. Existing page metadata and crawler policy remain covered by
+`yarn check:public-site`.
+
+### Four-feature presentation
+
+All four homepage features follow the same order: centered heading and short
+explanation, a focused visual, then three benefits. Open directly with the first
+feature; a separate large introduction creates two competing headings. Preserve each visual's natural
+proportions instead of forcing every example into a common screenshot ratio.
+The three raster examples switch to their desktop source at 1024 CSS pixels.
+
+| Feature            | Desktop export                         | Mobile export              | Maximum rendered image width |
+| ------------------ | -------------------------------------- | -------------------------- | ---------------------------- |
+| Categorisation     | 2426 × 526                             | 696 × 914                  | 1086 / 348 CSS px            |
+| Budget suggestions | 1834 × 1300                            | 730 × 1554                 | 862 / 348 CSS px             |
+| Scenarios          | 1518 × 1100                            | 644 × 782                  | 702 / 322 CSS px             |
+| CLI                | Native HTML command and output excerpt | Same text, wrapping to fit | 896 CSS px frame             |
+
+Budget captures use the isolated `/__preview/budget-health-review` route from
+`sloth-budget` with a temporary 900 CSS pixel desktop drawer or the existing
+390 CSS pixel mobile layout. Hide only the drawer title/close header and expand
+the scroll region for capture. Keep the balanced £177 change, both categories,
+and the final save action. The screenshot is illustrative, with no live controls.
+
+Scenario exports use the existing real `benefit four.png` source. Desktop shows
+the scenario branch; mobile crops the two contribution cards at x=708, y=154,
+width=644, height=782 so their values remain readable. Do not add invented forecast
+dates. Keep the original PNGs: the wedding page still owns references to them.
+
+The CLI example uses a verified `sloth-agent budget move` dry run and a JSON
+output excerpt. Omitting `--apply` makes no request and changes no saved data.
+Keep this as selectable HTML text; do not bring back terminal screenshot SVGs.
+No custom keyboard shortcuts are needed for static illustrations.
+
+The combined responsive raster transfer budget is 200 KB on desktop and 140 KB
+on mobile. The visibility check enforces these budgets alongside 2x density,
+proportions, feature order, and page overflow. These below-fold assets are not
+preloaded. Run `HOME_VISIBILITY_SCREENSHOT_DIR=/tmp/sloth-site-qa yarn
+check:home-visibility` for context and complete screenshots of all four features.
+Inspect desktop and mobile captures, including the transitions between blocks.
+Capture dimensions must be measured from saved pixels: host scaling may differ
+from both the requested viewport and CSS transform. Start with a small capture
+and confirm its painted bounds before producing the full set.
+
+Only the marketing presentation changes. App behavior, persistence, APIs, CLI
+implementation, analytics, and operational logging remain unchanged.

@@ -458,6 +458,14 @@
           font-size: 1.35rem;
         }
       }
+      .site-page [data-cli-example] pre {
+        font-size: 0.875rem;
+      }
+      @media (min-width: 1024px) {
+        .site-page [data-cli-example] pre {
+          font-size: 1rem;
+        }
+      }
     </style>
 
     <!-- Lucide Icons -->
@@ -798,23 +806,12 @@
         <!-- Features Section -->
         <section class="py-20 sm:py-28 bg-white">
           <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-            <div class="mx-auto mb-16 max-w-3xl text-center reveal">
-              <h3
-                class="site-section-title font-extrabold text-white"
-                data-archetype-path-heading
-              >
-                Put your money admin on autopilot
-              </h3>
-              <p class="mx-auto mt-4 max-w-2xl text-emerald-50">
-                Let Sloth handle the repetitive work, surface the decisions that
-                need you, and plug into the tools you already use.
-              </p>
-            </div>
             <!-- Feature 1: Automated transaction categorisation -->
             <div
-              class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
+              data-product-feature="categorisation"
+              class="grid grid-cols-1 gap-8 sm:gap-10 max-w-[70rem] mx-auto mb-24 reveal"
             >
-              <div class="space-y-6">
+              <div class="space-y-6 max-w-3xl mx-auto text-center">
                 <h3 class="site-feature-title font-bold text-gray-900">
                   Automated transaction categorisation
                 </h3>
@@ -823,73 +820,71 @@
                   suggests matches for new spending. Review the exceptions
                   instead of labelling every transaction yourself.
                 </p>
-                <ul class="space-y-4 text-lg leading-relaxed text-gray-600">
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span
-                      >Reuse category choices you have already approved</span
-                    >
-                  </li>
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span
-                      >Get suggestions for merchants Sloth has not seen</span
-                    >
-                  </li>
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span
-                      >Apply one suggestion or every ready choice at once</span
-                    >
-                  </li>
-                </ul>
               </div>
-              <div class="relative">
-                <div
-                  class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
-                >
-                  <div
-                    class="relative bg-white rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
-                  >
-                    <picture>
-                      <source
-                        media="(min-width: 640px)"
-                        srcset="
-                          assets/images/feature-auto-categorisation-desktop.webp
-                        "
-                      />
-                      <img
-                        src="assets/images/feature-auto-categorisation-mobile.webp"
-                        alt="Transaction categorisation review drawer grouping ready suggestions, new merchants, and questions for a partner"
-                        class="w-full h-full object-contain sm:object-cover object-center"
-                        decoding="async"
-                      />
-                    </picture>
+              <div
+                data-feature-visual
+                class="bg-white rounded-xl p-3 sm:p-4 border border-gray-200 shadow-lg w-full max-w-[374px] lg:max-w-none mx-auto"
+              >
+                <picture class="block rounded-lg overflow-hidden">
+                  <source
+                    media="(min-width: 1024px)"
+                    width="2426"
+                    height="526"
+                    srcset="
+                      assets/images/feature-auto-categorisation-desktop.webp
+                    "
+                  />
+                  <img
+                    src="assets/images/feature-auto-categorisation-mobile.webp"
+                    width="696"
+                    height="914"
+                    alt="Two ready suggestions: Spotify & Disney matched to Entertainment and Streaming, and Tesco to Groceries and Food shop, with approval controls"
+                    class="block w-full h-auto"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+              <ul
+                class="grid gap-6 lg:grid-cols-3 text-lg leading-relaxed text-gray-600"
+              >
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
                   </div>
-                </div>
-              </div>
+                  <span>Reuse category choices you have already approved</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Get suggestions for merchants Sloth has not seen</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span
+                    >Apply one suggestion or every ready choice at once</span
+                  >
+                </li>
+              </ul>
             </div>
 
             <!-- Feature 2: Budget suggestions -->
             <div
-              class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
+              data-product-feature="budget"
+              class="grid grid-cols-1 gap-8 sm:gap-10 max-w-[70rem] mx-auto mb-24 reveal"
             >
-              <div class="space-y-6 lg:order-2">
+              <div class="space-y-6 max-w-3xl mx-auto text-center">
                 <h3 class="site-feature-title font-bold text-gray-900">
                   Budget suggestions
                 </h3>
@@ -897,67 +892,69 @@
                   See where your budget could work harder. Sloth suggests
                   practical changes, and you choose what to adjust.
                 </p>
-                <ul class="space-y-4 text-lg leading-relaxed text-gray-600">
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span>See which categories need more or less room</span>
-                  </li>
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span>Redirect spare budget towards savings goals</span>
-                  </li>
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span>Edit, accept, or ignore each suggested change</span>
-                  </li>
-                </ul>
               </div>
-              <div class="relative lg:order-1">
-                <div
-                  class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
-                >
-                  <div
-                    class="relative bg-white rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
-                  >
-                    <picture>
-                      <source
-                        media="(min-width: 640px)"
-                        srcset="
-                          assets/images/feature-budget-suggestions-desktop.webp
-                        "
-                      />
-                      <img
-                        src="assets/images/feature-budget-suggestions-mobile.webp"
-                        alt="Budget suggestions review drawer showing proposed increases and reductions before saving the next budget"
-                        class="w-full h-full object-contain sm:object-cover object-center"
-                        decoding="async"
-                      />
-                    </picture>
+              <div
+                data-feature-visual
+                class="bg-white rounded-xl p-3 sm:p-4 border border-gray-200 shadow-lg w-full max-w-[374px] lg:max-w-4xl mx-auto"
+              >
+                <picture class="block rounded-lg overflow-hidden">
+                  <source
+                    media="(min-width: 1024px)"
+                    width="1834"
+                    height="1300"
+                    srcset="
+                      assets/images/feature-budget-suggestions-desktop.webp
+                    "
+                  />
+                  <img
+                    src="assets/images/feature-budget-suggestions-mobile.webp"
+                    width="730"
+                    height="1554"
+                    alt="Budget review balancing a £177 increase to Groceries with a £177 reduction to Accommodation, ready to save"
+                    class="block w-full h-auto"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+              <ul
+                class="grid gap-6 lg:grid-cols-3 text-lg leading-relaxed text-gray-600"
+              >
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
                   </div>
-                </div>
-              </div>
+                  <span>See which categories need more or less room</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Redirect spare budget towards savings goals</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Edit, accept, or ignore each suggested change</span>
+                </li>
+              </ul>
             </div>
 
             <!-- Feature 3: Savings goal scenarios -->
             <div
-              class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
+              data-product-feature="scenarios"
+              class="grid grid-cols-1 gap-8 sm:gap-10 max-w-[70rem] mx-auto mb-24 reveal"
             >
-              <div class="space-y-6">
+              <div class="space-y-6 max-w-3xl mx-auto text-center">
                 <h3 class="site-feature-title font-bold text-gray-900">
                   Savings goal scenarios
                 </h3>
@@ -966,106 +963,147 @@
                   contributions and see how each option shifts the goals on your
                   roadmap.
                 </p>
-                <ul class="space-y-4 text-lg leading-relaxed text-gray-600">
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span>Add contribution options to any future month</span>
-                  </li>
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span>See how each option changes your goal forecast</span>
-                  </li>
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span>Switch scenarios without rebuilding your plan</span>
-                  </li>
-                </ul>
               </div>
-              <div class="relative">
-                <div
-                  class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
-                >
-                  <div
-                    class="relative bg-white rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
-                  >
-                    <picture>
-                      <source
-                        media="(min-width: 640px)"
-                        srcset="assets/images/benefit%20four.png"
-                      />
-                      <img
-                        src="assets/images/benefit%20four%20-%20mobile.png"
-                        alt="Scenario Planner comparing different savings contributions and their effect on goal forecast dates"
-                        class="w-full h-full object-contain sm:object-cover object-center"
-                        decoding="async"
-                      />
-                    </picture>
+              <div
+                data-feature-visual
+                class="bg-white rounded-xl p-3 sm:p-4 border border-gray-200 shadow-lg w-full max-w-[348px] lg:max-w-[46rem] mx-auto"
+              >
+                <picture class="block rounded-lg overflow-hidden">
+                  <source
+                    media="(min-width: 1024px)"
+                    width="1518"
+                    height="1100"
+                    srcset="assets/images/feature-scenarios-desktop.webp"
+                  />
+                  <img
+                    src="assets/images/feature-scenarios-mobile.webp"
+                    width="644"
+                    height="782"
+                    alt="Promotion scenario: the selected option contributes £500 to savings and £1,000 to investments; the alternative contributes £200 and £800"
+                    class="block w-full h-auto"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+              <ul
+                class="grid gap-6 lg:grid-cols-3 text-lg leading-relaxed text-gray-600"
+              >
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
                   </div>
-                </div>
-              </div>
+                  <span>Add contribution options to any future month</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>See how each option changes your goal forecast</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Switch scenarios without rebuilding your plan</span>
+                </li>
+              </ul>
             </div>
 
             <!-- Feature 4: CLI and Agent API -->
             <div
-              class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center reveal"
+              data-product-feature="cli"
+              class="grid grid-cols-1 gap-8 sm:gap-10 max-w-[70rem] mx-auto reveal"
             >
-              <div class="space-y-6 lg:order-2">
-                <div class="space-y-3">
-                  <h3 class="site-feature-title font-bold text-gray-900">
-                    CLI &amp; Agent API
-                  </h3>
-                </div>
+              <div class="space-y-6 max-w-3xl mx-auto text-center">
+                <h3 class="site-feature-title font-bold text-gray-900">
+                  CLI &amp; Agent API
+                </h3>
                 <p class="text-gray-600">
                   Connect your AI agent to Sloth through the CLI or Agent API,
                   then build money skills around the way you work. MCP support
                   is coming soon.
                 </p>
-                <ul class="space-y-4 text-lg leading-relaxed text-gray-600">
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span>Categorise new transactions every day</span>
-                  </li>
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span
-                      >Reallocate budgets to maximise your savings goals</span
-                    >
-                  </li>
-                  <li class="flex items-start gap-3">
-                    <div class="mt-1 flex-shrink-0">
-                      <i
-                        data-lucide="diamond"
-                        class="w-4 h-4 text-green fill-green/20"
-                      ></i>
-                    </div>
-                    <span>Check “Can I afford this?” before you buy</span>
-                  </li>
-                </ul>
+              </div>
+              <figure
+                data-feature-visual
+                data-cli-example
+                class="w-full max-w-4xl mx-auto overflow-hidden rounded-xl border border-white/20 bg-gray-900 text-gray-100 shadow-lg"
+              >
+                <figcaption
+                  class="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 px-5 py-4 sm:px-8"
+                >
+                  <span class="font-semibold text-white"
+                    >Preview a budget move</span
+                  >
+                  <span class="text-sm text-gray-300">CLI example</span>
+                </figcaption>
+                <div class="p-5 sm:p-8 space-y-6">
+                  <pre
+                    class="whitespace-pre-wrap break-words text-sm sm:text-lg leading-relaxed"
+                  ><code><span class="text-green-light">$</span> sloth-agent budget move \
+  --scope personal \
+  --from-category-id activities \
+  --to-category-id groceries \
+  --amount 52.95</code></pre>
+                  <div class="border-t border-white/10 pt-6">
+                    <p class="text-sm text-gray-300 mb-3">
+                      Preview output · no changes made
+                    </p>
+                    <pre
+                      class="whitespace-pre-wrap break-words text-sm sm:text-lg leading-relaxed text-green-light"
+                    ><code>{
+  &quot;dryRun&quot;: true,
+  &quot;payload&quot;: {
+    &quot;scope&quot;: &quot;personal&quot;,
+    &quot;fromCategoryId&quot;: &quot;activities&quot;,
+    &quot;toCategoryId&quot;: &quot;groceries&quot;,
+    &quot;amountPence&quot;: 5295
+  }
+}</code></pre>
+                  </div>
+                </div>
+              </figure>
+              <ul
+                class="grid gap-6 lg:grid-cols-3 text-lg leading-relaxed text-gray-600"
+              >
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Categorise new transactions every day</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Reallocate budgets to maximise your savings goals</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 flex-shrink-0">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 text-green fill-green/20"
+                    ></i>
+                  </div>
+                  <span>Check “Can I afford this?” before you buy</span>
+                </li>
+              </ul>
+              <div class="text-center">
                 <a
                   href="/developers/"
                   class="group inline-flex items-center gap-2 site-note font-semibold text-green transition-colors hover:text-green-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-4"
@@ -1077,28 +1115,6 @@
                     aria-hidden="true"
                   ></i>
                 </a>
-              </div>
-              <div class="relative lg:order-1">
-                <div
-                  class="bg-white rounded-xl p-4 border border-gray-200 shadow-lg"
-                >
-                  <div
-                    class="relative bg-gray-800 rounded-lg overflow-hidden aspect-[390/844] sm:aspect-[4/3] w-full max-w-[390px] sm:max-w-none mx-auto"
-                  >
-                    <picture>
-                      <source
-                        media="(min-width: 640px)"
-                        srcset="assets/images/feature-agent-cli-desktop.svg"
-                      />
-                      <img
-                        src="assets/images/feature-agent-cli-mobile.svg"
-                        alt="Terminal showing Sloth Agent CLI commands for reviewing transactions, previewing a budget move, and checking goal affordability"
-                        class="w-full h-full object-contain sm:object-cover object-center"
-                        decoding="async"
-                      />
-                    </picture>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

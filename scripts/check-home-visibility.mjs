@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { existsSync } from 'node:fs'
 import { createServer } from 'node:http'
-import { mkdir, readFile } from 'node:fs/promises'
+import { mkdir, readFile, stat } from 'node:fs/promises'
 import { extname, join } from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
@@ -20,6 +20,27 @@ const mimeTypes = new Map([
   ['.svg', 'image/svg+xml'],
   ['.webp', 'image/webp'],
 ])
+
+for (const [size, budget] of [
+  ['desktop', 200000],
+  ['mobile', 140000],
+]) {
+  const assets = ['auto-categorisation', 'budget-suggestions', 'scenarios']
+  const sizes = await Promise.all(
+    assets.map(
+      async (asset) =>
+        (
+          await stat(
+            join(srcRoot, `assets/images/feature-${asset}-${size}.webp`)
+          )
+        ).size
+    )
+  )
+  assert(
+    sizes.reduce((total, bytes) => total + bytes, 0) <= budget,
+    `${size}: feature images exceed their delivery budget`
+  )
+}
 
 const server = createServer(async (request, response) => {
   try {
@@ -66,6 +87,16 @@ try {
     { name: 'desktop', viewport: { width: 1440, height: 1000 } },
     { name: 'tablet', viewport: { width: 640, height: 960 } },
     {
+      name: 'tablet-wide',
+      viewport: { width: 1023, height: 1000 },
+      featureOnly: true,
+    },
+    {
+      name: 'desktop-small',
+      viewport: { width: 1024, height: 1000 },
+      featureOnly: true,
+    },
+    {
       name: 'desktop-fold',
       viewport: { width: 1438, height: 748 },
       checksPrimaryActionAboveFold: true,
@@ -90,6 +121,7 @@ try {
     viewport,
     checksPrimaryActionAboveFold = false,
     checksFullBleedArt = false,
+    featureOnly = false,
   } of viewports) {
     const page = await browser.newPage({ viewport })
     page.setDefaultTimeout(15000)
@@ -112,6 +144,112 @@ try {
       content:
         '*, *::before, *::after { animation: none !important; transition: none !important; }',
     })
+
+    const categorisationPreview = await page
+      .locator('img[src$="feature-auto-categorisation-mobile.webp"]')
+      .evaluate((image) => {
+        const bounds = image.getBoundingClientRect()
+        return {
+          width: bounds.width,
+          height: bounds.height,
+          naturalWidth: image.naturalWidth,
+          naturalHeight: image.naturalHeight,
+          source: image.currentSrc,
+        }
+      })
+    assert(
+      categorisationPreview.naturalWidth >= categorisationPreview.width * 2,
+      `${name}: categorisation close-up should provide at least 2x image density`
+    )
+    if (viewport.width >= 1024) {
+      assert(
+        categorisationPreview.width >= 800 &&
+          categorisationPreview.width / categorisationPreview.height > 3,
+        `${name}: desktop suggestions should be a wide, compact row preview`
+      )
+    }
+    assert(
+      Math.abs(
+        categorisationPreview.width / categorisationPreview.height -
+          categorisationPreview.naturalWidth /
+            categorisationPreview.naturalHeight
+      ) < 0.01,
+      `${name}: categorisation close-up should preserve the complete image without cropping`
+    )
+    assert(
+      categorisationPreview.source.endsWith(
+        viewport.width < 1024
+          ? 'feature-auto-categorisation-mobile.webp'
+          : 'feature-auto-categorisation-desktop.webp'
+      ),
+      `${name}: categorisation close-up should use the matching responsive capture`
+    )
+
+    assert.equal(
+      await page
+        .locator('.sloth-home-content > section:first-child')
+        .getByRole('heading')
+        .count(),
+      4,
+      'The feature section should contain one heading per feature, without a second introduction'
+    )
+    const features = page.locator('[data-product-feature]')
+    assert.equal(
+      await features.count(),
+      4,
+      'All four features use the shared presentation'
+    )
+    for (const feature of await features.all()) {
+      const layout = await feature.evaluate((element) => {
+        const title = element.querySelector('h3').getBoundingClientRect()
+        const visual = element
+          .querySelector('[data-feature-visual]')
+          .getBoundingClientRect()
+        const benefits = element.querySelector('ul').getBoundingClientRect()
+        return {
+          titleBottom: title.bottom,
+          visualTop: visual.top,
+          visualBottom: visual.bottom,
+          benefitsTop: benefits.top,
+        }
+      })
+      assert(
+        layout.titleBottom <= layout.visualTop &&
+          layout.visualBottom <= layout.benefitsTop,
+        `${name}: feature order should be heading, visual, benefits`
+      )
+      for (const image of await feature.locator('img').all()) {
+        const size = await image.evaluate((el) => ({
+          width: el.clientWidth,
+          height: el.clientHeight,
+          nw: el.naturalWidth,
+          nh: el.naturalHeight,
+        }))
+        assert(
+          size.nw >= size.width * 2,
+          `${name}: each feature raster needs 2x density`
+        )
+        assert(
+          Math.abs(size.width / size.height - size.nw / size.nh) < 0.02,
+          `${name}: each complete visual should retain its proportions`
+        )
+      }
+    }
+    assert(
+      (await page.locator('[data-cli-example] code').count()) === 2,
+      'CLI example should contain selectable command and output'
+    )
+    assert(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth
+      ),
+      `${name}: features must not cause horizontal overflow`
+    )
+
+    if (featureOnly) {
+      await page.close()
+      continue
+    }
 
     await assert.doesNotReject(() =>
       page
@@ -276,20 +414,33 @@ try {
       await page.screenshot({
         path: join(screenshotDir, `home-content-${name}.png`),
       })
-      await page
-        .getByRole('heading', {
-          name: 'Automated transaction categorisation',
-          exact: true,
-        })
-        .evaluate((element) => {
+      for (const feature of await features.all()) {
+        const slug = await feature.getAttribute('data-product-feature')
+        await feature.evaluate((element) => {
           window.scrollTo({
             top: element.getBoundingClientRect().top + window.scrollY - 100,
             behavior: 'instant',
           })
         })
-      await page.screenshot({
-        path: join(screenshotDir, `home-feature-${name}.png`),
-      })
+        await page.screenshot({
+          path: join(screenshotDir, `feature-${slug}-${name}.png`),
+        })
+        const bounds = await feature.boundingBox()
+        await page.setViewportSize({
+          width: viewport.width,
+          height: Math.max(viewport.height, Math.ceil(bounds.height) + 220),
+        })
+        await feature.evaluate((element) => {
+          window.scrollTo({
+            top: element.getBoundingClientRect().top + window.scrollY - 110,
+            behavior: 'instant',
+          })
+        })
+        await page.screenshot({
+          path: join(screenshotDir, `feature-${slug}-${name}-complete.png`),
+        })
+        await page.setViewportSize(viewport)
+      }
     }
 
     await page.close()
