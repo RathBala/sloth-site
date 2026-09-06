@@ -2521,6 +2521,15 @@ html {
     font-size: 4.5rem;
     line-height: 1;
   }
+
+  .lg\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .lg\:leading-relaxed {
+    line-height: 1.625;
+  }
 }
 
 @media (min-width: 1280px) {

@@ -68,3 +68,16 @@ Do not call the live `/.netlify/functions/track-visit` endpoint as a test. Run `
 ## Build
 
 `yarn build` regenerates PostHog config and compiles Tailwind to `src/output.css`. Deploy the `src` directory (see [`netlify.toml`](../netlify.toml)).
+
+### Homepage typography
+
+The homepage feature paragraphs use 18px text below the 1024px desktop
+breakpoint and 20px above it. Feature bullets use 18px with relaxed line spacing;
+desktop navigation and its CTA use 16px. These sizes use the existing Tailwind
+scale in `src/index.html`; the feature section's pale text colour is owned by
+its existing homepage style block. Headings keep their existing sizes.
+
+Run `yarn check:home-visibility` to verify rendered sizes and horizontal overflow
+at mobile, tablet and desktop widths. Set `HOME_VISIBILITY_SCREENSHOT_DIR` to
+save hero, section-entry and first-feature screenshots. The check serves this
+checkout on an available local port and closes the server and browser afterward.

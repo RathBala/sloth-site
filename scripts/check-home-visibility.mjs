@@ -48,6 +48,7 @@ const baseUrl = await new Promise((resolve) => {
 })
 
 let browser
+console.log(`[home-visibility] Serving ${srcRoot} at ${baseUrl}`)
 
 try {
   browser = await chromium.launch(
@@ -63,6 +64,7 @@ try {
       checksAboveFold: true,
     },
     { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+    { name: 'tablet', viewport: { width: 640, height: 960 } },
     {
       name: 'desktop-fold',
       viewport: { width: 1438, height: 748 },
@@ -90,6 +92,7 @@ try {
     checksFullBleedArt = false,
   } of viewports) {
     const page = await browser.newPage({ viewport })
+    page.setDefaultTimeout(15000)
     await page.goto(baseUrl, { waitUntil: 'domcontentloaded' })
 
     await page.evaluate(async () => {
@@ -117,13 +120,16 @@ try {
     )
     await assert.doesNotReject(() =>
       page
-        .getByText('Automated transaction categorisation', { exact: true })
+        .getByRole('heading', {
+          name: 'Automated transaction categorisation',
+          exact: true,
+        })
         .waitFor()
     )
     await assert.doesNotReject(() =>
       page
         .getByRole('heading', {
-          name: 'Map out your financial future from emergencies to nest eggs',
+          name: 'Use it like an app - without the App Store',
         })
         .waitFor()
     )
@@ -142,6 +148,41 @@ try {
     )
 
     const heroSupport = page.locator('.sloth-hero-support')
+    const featureTypography = await page
+      .locator('.sloth-home-content > section:first-of-type')
+      .evaluate((section) => ({
+        paragraphs: [...section.querySelectorAll('p')].map((element) => ({
+          size: getComputedStyle(element).fontSize,
+          lineHeight: getComputedStyle(element).lineHeight,
+        })),
+        bullets: [...section.querySelectorAll('li')].map(
+          (element) => getComputedStyle(element).fontSize
+        ),
+      }))
+    assert(featureTypography.paragraphs.length > 0)
+    assert(featureTypography.bullets.length > 0)
+    for (const { size, lineHeight } of featureTypography.paragraphs) {
+      assert(Number.parseFloat(lineHeight) >= Number.parseFloat(size) * 1.5)
+      assert.equal(size, viewport.width >= 1024 ? '20px' : '18px')
+    }
+    for (const size of featureTypography.bullets) {
+      assert.equal(size, '18px')
+    }
+    if (viewport.width >= 640) {
+      for (const selector of [
+        '[data-tools-menu] summary',
+        '[data-analytics-cta="header-sign-in"]',
+        '[data-analytics-cta="header-start"]',
+      ]) {
+        assert.equal(
+          await page
+            .locator(selector)
+            .evaluate((element) => getComputedStyle(element).fontSize),
+          '16px'
+        )
+      }
+    }
+
     assert.equal(
       await heroSupport.count(),
       1,
@@ -211,7 +252,7 @@ try {
       `dashboard image should not be cropped at ${viewport.width}px`
     )
 
-    if (viewport.width >= 640) {
+    if (viewport.width >= 1024) {
       const gardenArt = await page.locator('.sloth-garden-art').boundingBox()
       assert(gardenArt, 'garden artwork should render')
       if (checksFullBleedArt) {
@@ -243,7 +284,7 @@ try {
     }
 
     const lowerSection = page.getByRole('heading', {
-      name: 'Map out your financial future from emergencies to nest eggs',
+      name: 'Use it like an app - without the App Store',
     })
     await lowerSection.scrollIntoViewIfNeeded()
     assert(
@@ -252,7 +293,12 @@ try {
     )
 
     if (screenshotDir) {
-      await page.locator('.sloth-home-content').scrollIntoViewIfNeeded()
+      await page.locator('.sloth-home-content').evaluate((element) => {
+        window.scrollTo({
+          top: element.getBoundingClientRect().top + window.scrollY,
+          behavior: 'instant',
+        })
+      })
       await page.evaluate(() =>
         Promise.all(
           [...document.querySelectorAll('.sloth-home-content img')]
@@ -265,6 +311,20 @@ try {
       )
       await page.screenshot({
         path: join(screenshotDir, `home-content-${name}.png`),
+      })
+      await page
+        .getByRole('heading', {
+          name: 'Automated transaction categorisation',
+          exact: true,
+        })
+        .evaluate((element) => {
+          window.scrollTo({
+            top: element.getBoundingClientRect().top + window.scrollY - 100,
+            behavior: 'instant',
+          })
+        })
+      await page.screenshot({
+        path: join(screenshotDir, `home-feature-${name}.png`),
       })
     }
 
