@@ -1,0 +1,123 @@
+/* Shared public-site type roles. Page layout and component colours stay local. */
+:root {
+  --site-copy: 1.125rem;
+  --site-copy-muted: #475569;
+  --site-card-title: 1.5rem;
+  --site-section-title: clamp(2rem, 4vw, 3.5rem);
+  --site-feature-title: clamp(1.875rem, 3.2vw, 2.75rem);
+  --site-copy-leading: 1.55;
+}
+
+.site-page {
+  font-size: var(--site-copy);
+  line-height: var(--site-copy-leading);
+}
+
+.site-page main :is(p, li):not(.sloth-feature-item) {
+  font-size: var(--site-copy);
+  line-height: var(--site-copy-leading);
+}
+
+.site-page main :is(p, li) > span {
+  font-size: inherit;
+}
+
+.site-page main h2,
+.site-page .site-section-title {
+  max-width: 24ch;
+  margin-inline: auto;
+  font-size: var(--site-section-title);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.site-page main h3,
+.site-page .site-card-title {
+  font-size: var(--site-card-title);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.site-page .site-feature-title {
+  font-size: var(--site-feature-title);
+  line-height: 1.16;
+  font-weight: 800;
+}
+
+.site-page main p {
+  text-wrap: pretty;
+}
+
+.site-page main :is(.text-gray-500, .text-gray-600) {
+  color: var(--site-copy-muted);
+}
+
+.site-page header :is(a, summary),
+.site-page main a[data-analytics-cta],
+.site-page main button {
+  font-size: 1.125rem;
+}
+
+.site-page header .sloth-logo-lockup {
+  font-size: inherit;
+}
+
+.site-page #site-footer :is(p, a, li, span) {
+  color: var(--site-copy-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.site-page pre {
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.site-page pre code {
+  font-size: inherit;
+}
+
+.site-document main h2 {
+  max-width: none;
+  margin-inline: 0;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.site-document main h1,
+.site-wedding main h1 {
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --site-copy: 1.375rem;
+    --site-card-title: 1.75rem;
+  }
+
+  .site-document {
+    --site-copy: 1.25rem;
+    --site-card-title: 1.5rem;
+  }
+}
+
+.site-page :not(pre) > code {
+  overflow-wrap: anywhere;
+}
+
+.site-page #site-footer a:hover {
+  color: #038c73;
+}
+
+.site-page .site-note {
+  font-size: 1rem;
+  line-height: 1.5;
+}

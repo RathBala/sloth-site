@@ -311,32 +311,32 @@
         gap: 0.6rem;
         border-radius: 0.9rem;
         color: #f2fff2;
-        font-size: 0.8rem;
-        font-weight: 800;
-        line-height: 1.25;
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.3;
         padding: 0.7rem 0.55rem;
         text-align: left;
       }
 
-      .sloth-feature-item i {
+      .sloth-feature-item :is(i, svg) {
         width: 1.35rem;
         height: 1.35rem;
         flex: 0 0 auto;
       }
 
-      .sloth-feature-item:nth-child(1) i {
+      .sloth-feature-item:nth-child(1) :is(i, svg) {
         color: #a9ff7a;
       }
 
-      .sloth-feature-item:nth-child(2) i {
+      .sloth-feature-item:nth-child(2) :is(i, svg) {
         color: #78e6ff;
       }
 
-      .sloth-feature-item:nth-child(3) i {
+      .sloth-feature-item:nth-child(3) :is(i, svg) {
         color: #d3a2ff;
       }
 
-      .sloth-feature-item:nth-child(4) i {
+      .sloth-feature-item:nth-child(4) :is(i, svg) {
         color: #ffc761;
       }
 
@@ -371,17 +371,14 @@
         }
 
         .sloth-feature-strip {
-          grid-template-columns: repeat(4, minmax(0, 1fr));
           gap: 0;
           margin-top: 13rem;
-          border-radius: 999px;
           padding: 0.55rem 0.75rem;
         }
 
         .sloth-feature-item {
           min-height: 3.5rem;
           border-radius: 999px;
-          font-size: 0.9rem;
           padding: 0.65rem 0.75rem;
           text-align: center;
         }
@@ -401,11 +398,9 @@
         }
 
         .sloth-feature-strip {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          border-radius: 999px;
           margin-top: 9rem;
-        }
-
-        .sloth-feature-item {
-          font-size: 1rem;
         }
       }
 
@@ -521,17 +516,18 @@
           (e.__SV = 1))
       })(document, window.posthog || [])
     </script>
+    <link href="./assets/css/site-typography.css" rel="stylesheet" />
   </head>
-  <body class="bg-white text-gray-900 font-sans antialiased">
+  <body class="site-page bg-white text-gray-900 font-sans antialiased">
     <main>
       <!-- Header -->
       <header
         class="sticky top-0 z-50 bg-[#013d29]/95 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-green-really-dark/15"
       >
         <div
-          class="max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
+          class="max-w-[115rem] mx-auto px-4 md:px-6 lg:px-12 xl:px-16 2xl:px-24"
         >
-          <nav class="flex items-center justify-between h-16 sm:h-20">
+          <nav class="flex items-center justify-between h-16 md:h-20">
             <a href="/" class="sloth-logo-lockup" aria-label="Sloth Money home">
               <img
                 src="assets/images/sloth-money-logo-icon.webp"
@@ -542,8 +538,8 @@
                 >Sloth Money</span
               >
             </a>
-            <div class="flex items-center gap-2 sm:gap-4">
-              <details data-tools-menu class="group relative hidden sm:block">
+            <div class="flex items-center gap-2 md:gap-4">
+              <details data-tools-menu class="group relative hidden md:block">
                 <summary
                   class="flex cursor-pointer list-none items-center gap-1.5 rounded-full px-4 py-2 text-base font-semibold tracking-wide text-emerald-50 transition-colors duration-200 hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-light/70"
                 >
@@ -574,7 +570,8 @@
                       <span class="block font-bold text-green-really-dark"
                         >Home planner</span
                       >
-                      <span class="mt-0.5 block text-sm leading-5 text-gray-600"
+                      <span
+                        class="mt-0.5 block site-note leading-5 text-gray-600"
                         >Plan what it takes to afford your dream home.</span
                       >
                     </span>
@@ -582,14 +579,14 @@
                 </div>
               </details>
               <a
-                class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-base font-semibold tracking-wide text-emerald-50 hover:text-white transition-colors duration-200"
+                class="hidden md:inline-flex items-center justify-center px-4 py-2 text-base font-semibold tracking-wide text-emerald-50 hover:text-white transition-colors duration-200"
                 href="https://budget.slothmoney.app"
                 data-analytics-cta="header-sign-in"
               >
                 Sign in
               </a>
               <a
-                class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-base font-bold tracking-wide bg-green-light hover:bg-white text-green-really-dark rounded-full shadow-lg shadow-green-really-dark/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-light/70"
+                class="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-base font-bold tracking-wide bg-green-light hover:bg-white text-green-really-dark rounded-full shadow-lg shadow-green-really-dark/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-light/70"
                 href="https://budget.slothmoney.app"
                 data-analytics-cta="header-start"
               >
@@ -598,7 +595,7 @@
               <button
                 id="mobile-menu-toggle"
                 type="button"
-                class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white bg-white/10 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-light focus:ring-offset-green-really-dark sm:hidden"
+                class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white bg-white/10 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-light focus:ring-offset-green-really-dark md:hidden"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -636,14 +633,14 @@
           </nav>
           <div
             id="mobile-menu"
-            class="sm:hidden hidden border-t border-white/10 mt-3 pt-4 pb-6"
+            class="md:hidden hidden border-t border-white/10 mt-3 pt-4 pb-6"
           >
             <div
               class="rounded-2xl border border-white/10 bg-white/95 shadow-lg p-4 space-y-3"
             >
               <div class="space-y-2">
                 <div
-                  class="text-sm font-semibold tracking-wide text-green-dark"
+                  class="site-note font-semibold tracking-wide text-green-dark"
                 >
                   Tools
                 </div>
@@ -664,7 +661,7 @@
                     <span class="block font-bold text-green-really-dark"
                       >Home planner</span
                     >
-                    <span class="mt-0.5 block text-sm leading-5 text-gray-600"
+                    <span class="mt-0.5 block site-note leading-5 text-gray-600"
                       >Plan what it takes to afford your dream home.</span
                     >
                   </span>
@@ -672,7 +669,7 @@
               </div>
               <div class="border-t border-gray-200 pt-3">
                 <div
-                  class="text-sm font-semibold tracking-wide text-green-dark"
+                  class="site-note font-semibold tracking-wide text-green-dark"
                 >
                   Get started
                 </div>
@@ -724,9 +721,7 @@
               </h1>
 
               <div class="sloth-hero-support">
-                <p
-                  class="mx-auto max-w-2xl text-base sm:text-xl lg:text-2xl leading-relaxed text-emerald-50"
-                >
+                <p class="mx-auto max-w-2xl text-emerald-50">
                   Sloth Money keeps your budget organised, your goals moving and
                   the routine admin off your plate.
                 </p>
@@ -805,14 +800,12 @@
           <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             <div class="mx-auto mb-16 max-w-3xl text-center reveal">
               <h3
-                class="text-3xl font-extrabold leading-tight text-white sm:text-4xl"
+                class="site-section-title font-extrabold text-white"
                 data-archetype-path-heading
               >
                 Put your money admin on autopilot
               </h3>
-              <p
-                class="mx-auto mt-4 max-w-2xl text-lg lg:text-xl lg:leading-relaxed leading-relaxed text-emerald-50"
-              >
+              <p class="mx-auto mt-4 max-w-2xl text-emerald-50">
                 Let Sloth handle the repetitive work, surface the decisions that
                 need you, and plug into the tools you already use.
               </p>
@@ -822,14 +815,10 @@
               class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
             >
               <div class="space-y-6">
-                <h3
-                  class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
-                >
+                <h3 class="site-feature-title font-bold text-gray-900">
                   Automated transaction categorisation
                 </h3>
-                <p
-                  class="text-lg lg:text-xl lg:leading-relaxed text-gray-600 leading-relaxed"
-                >
+                <p class="text-gray-600">
                   Sloth learns from the categories you have already approved and
                   suggests matches for new spending. Review the exceptions
                   instead of labelling every transaction yourself.
@@ -901,14 +890,10 @@
               class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
             >
               <div class="space-y-6 lg:order-2">
-                <h3
-                  class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
-                >
+                <h3 class="site-feature-title font-bold text-gray-900">
                   Budget suggestions
                 </h3>
-                <p
-                  class="text-lg lg:text-xl lg:leading-relaxed text-gray-600 leading-relaxed"
-                >
+                <p class="text-gray-600">
                   See where your budget could work harder. Sloth suggests
                   practical changes, and you choose what to adjust.
                 </p>
@@ -973,14 +958,10 @@
               class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 reveal"
             >
               <div class="space-y-6">
-                <h3
-                  class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
-                >
+                <h3 class="site-feature-title font-bold text-gray-900">
                   Savings goal scenarios
                 </h3>
-                <p
-                  class="text-lg lg:text-xl lg:leading-relaxed text-gray-600 leading-relaxed"
-                >
+                <p class="text-gray-600">
                   Ask “what if?” before you move money. Compare different saving
                   contributions and see how each option shifts the goals on your
                   roadmap.
@@ -1045,15 +1026,11 @@
             >
               <div class="space-y-6 lg:order-2">
                 <div class="space-y-3">
-                  <h3
-                    class="font-bold text-2xl sm:text-3xl text-gray-900 leading-tight"
-                  >
+                  <h3 class="site-feature-title font-bold text-gray-900">
                     CLI &amp; Agent API
                   </h3>
                 </div>
-                <p
-                  class="text-lg lg:text-xl lg:leading-relaxed text-gray-600 leading-relaxed"
-                >
+                <p class="text-gray-600">
                   Connect your AI agent to Sloth through the CLI or Agent API,
                   then build money skills around the way you work. MCP support
                   is coming soon.
@@ -1091,7 +1068,7 @@
                 </ul>
                 <a
                   href="/developers/"
-                  class="group inline-flex items-center gap-2 text-sm font-semibold text-green transition-colors hover:text-green-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-4"
+                  class="group inline-flex items-center gap-2 site-note font-semibold text-green transition-colors hover:text-green-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-4"
                 >
                   Explore the developer tools
                   <i
@@ -1134,10 +1111,7 @@
         >
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             <div class="text-center mb-10 reveal">
-              <h2
-                id="web-app-heading"
-                class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3"
-              >
+              <h2 id="web-app-heading" class="font-bold text-gray-900 mb-3">
                 Use it like an app - without the App Store
               </h2>
               <p class="max-w-xl mx-auto text-gray-600">
@@ -1148,7 +1122,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 reveal">
               <div
-                class="bg-white rounded-xl p-5 text-center border border-gray-200"
+                class="bg-white rounded-xl p-6 sm:p-8 text-center border border-gray-200"
               >
                 <div
                   class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
@@ -1159,16 +1133,16 @@
                     aria-hidden="true"
                   ></i>
                 </div>
-                <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                <p class="site-card-title text-gray-900 mb-3">
                   One tap from home
                 </p>
-                <p class="text-xs text-gray-500 leading-relaxed">
+                <p class="text-gray-500">
                   Pin to your home screen so your roadmap opens like any other
                   app.
                 </p>
               </div>
               <div
-                class="bg-white rounded-xl p-5 text-center border border-gray-200"
+                class="bg-white rounded-xl p-6 sm:p-8 text-center border border-gray-200"
               >
                 <div
                   class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
@@ -1179,16 +1153,14 @@
                     aria-hidden="true"
                   ></i>
                 </div>
-                <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
-                  No App Store
-                </p>
-                <p class="text-xs text-gray-500 leading-relaxed">
+                <p class="site-card-title text-gray-900 mb-3">No App Store</p>
+                <p class="text-gray-500">
                   Start in the browser - skip the store and the extra install
                   step.
                 </p>
               </div>
               <div
-                class="bg-white rounded-xl p-5 text-center border border-gray-200"
+                class="bg-white rounded-xl p-6 sm:p-8 text-center border border-gray-200"
               >
                 <div
                   class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
@@ -1199,10 +1171,10 @@
                     aria-hidden="true"
                   ></i>
                 </div>
-                <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                <p class="site-card-title text-gray-900 mb-3">
                   Same account everywhere
                 </p>
-                <p class="text-xs text-gray-500 leading-relaxed">
+                <p class="text-gray-500">
                   Pick up where you left off on phone, tablet, or desktop.
                 </p>
               </div>
@@ -1215,7 +1187,7 @@
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             <div class="text-center mb-12 reveal">
               <h2
-                class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3"
+                class="font-bold text-gray-900 mb-3"
                 data-archetype-text
                 data-archetype-default="Built for couples planning a future together"
                 data-archetype-solo-planner="Built for solo planners"
@@ -1253,7 +1225,7 @@
                   </div>
                   <div>
                     <h3
-                      class="text-lg font-semibold text-gray-900 mb-1"
+                      class="font-semibold text-gray-900 mb-1"
                       data-archetype-text
                       data-archetype-default="Saving for a holiday"
                       data-archetype-solo-planner="The holiday budget"
@@ -1265,7 +1237,7 @@
                       Saving for a holiday
                     </h3>
                     <p
-                      class="text-sm text-gray-600"
+                      class="text-gray-600"
                       data-archetype-text
                       data-archetype-default="Know exactly what you can afford - and what it means for your other goals."
                       data-archetype-solo-planner="See what the holiday does to your goal date before you book."
@@ -1293,7 +1265,7 @@
                   </div>
                   <div>
                     <h3
-                      class="text-lg font-semibold text-gray-900 mb-1"
+                      class="font-semibold text-gray-900 mb-1"
                       data-archetype-text
                       data-archetype-default="An unexpected car repair"
                       data-archetype-solo-planner="The car repair"
@@ -1305,7 +1277,7 @@
                       An unexpected car repair
                     </h3>
                     <p
-                      class="text-sm text-gray-600"
+                      class="text-gray-600"
                       data-archetype-text
                       data-archetype-default="A car breaks down. You dip into your emergency fund. Instantly see how that changes your timelines - and what needs to adjust."
                       data-archetype-solo-planner="When the emergency fund takes a hit, see which timeline moves and what needs to change next."
@@ -1334,7 +1306,7 @@
                   </div>
                   <div>
                     <h3
-                      class="text-lg font-semibold text-gray-900 mb-1"
+                      class="font-semibold text-gray-900 mb-1"
                       data-archetype-text
                       data-archetype-default="Planning a wedding"
                       data-archetype-solo-planner="The wedding plan"
@@ -1346,7 +1318,7 @@
                       Planning a wedding
                     </h3>
                     <p
-                      class="text-sm text-gray-600"
+                      class="text-gray-600"
                       data-archetype-text
                       data-archetype-default="A venue deposit, outfits, and the day itself. Understand how the wedding goal fits into your long-term plan."
                       data-archetype-solo-planner="Line up the wedding date, monthly amount, and priority before the plan starts branching."
@@ -1374,7 +1346,7 @@
                   </div>
                   <div>
                     <h3
-                      class="text-lg font-semibold text-gray-900 mb-1"
+                      class="font-semibold text-gray-900 mb-1"
                       data-archetype-text
                       data-archetype-default="Building a long-term nest egg"
                       data-archetype-solo-planner="The nest egg"
@@ -1386,7 +1358,7 @@
                       Building a long-term nest egg
                     </h3>
                     <p
-                      class="text-sm text-gray-600"
+                      class="text-gray-600"
                       data-archetype-text
                       data-archetype-default="See how consistent saving and investing compounds over years, not just months."
                       data-archetype-solo-planner="Track the long-term nest egg without losing sight of the budget choices that fund it."
@@ -1410,7 +1382,7 @@
           <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 reveal">
               <h2
-                class="font-bold text-3xl sm:text-4xl text-gray-900 mb-4"
+                class="font-bold text-gray-900 mb-4"
                 data-archetype-text
                 data-archetype-default="Join the free beta"
                 data-archetype-solo-planner="Join the free beta"
@@ -1422,7 +1394,7 @@
                 Join the free beta
               </h2>
               <p
-                class="max-w-2xl mx-auto text-lg text-gray-600"
+                class="max-w-2xl mx-auto text-gray-600"
                 data-archetype-text
                 data-archetype-default="One plan. Two people. A shared roadmap to the life you're building."
                 data-archetype-solo-planner="One roadmap for the goals, budgets, and trade-offs you want to keep visible."
@@ -1445,7 +1417,7 @@
               >
                 <div>
                   <h3
-                    class="text-2xl font-bold text-gray-900 mb-4"
+                    class="font-bold text-gray-900 mb-4"
                     data-archetype-text
                     data-archetype-default="Start your shared journey"
                     data-archetype-solo-planner="Start your solo roadmap"
@@ -1457,7 +1429,7 @@
                     Start your shared journey
                   </h3>
                   <p
-                    class="text-gray-600 text-lg mb-8 max-w-md"
+                    class="text-gray-600 mb-8 max-w-md"
                     data-archetype-text
                     data-archetype-default="Join now and full access is yours free forever. Start your roadmap, then invite one partner when you are ready to plan together."
                     data-archetype-solo-planner="Start with your own roadmap, then build goals, budgets, and scenarios around the plan you want to keep."
@@ -1540,33 +1512,33 @@
               >
                 <div class="w-full">
                   <p
-                    class="text-sm font-bold uppercase tracking-[0.18em] text-green mb-3"
+                    class="font-bold uppercase tracking-[0.18em] text-green mb-3"
                   >
                     Free beta
                   </p>
-                  <p class="text-5xl font-extrabold text-gray-900 mb-3">£0</p>
-                  <p class="text-lg font-semibold text-gray-700 mb-6">
+                  <p class="font-extrabold text-gray-900 mb-3">£0</p>
+                  <p class="font-semibold text-gray-700 mb-6">
                     Forever for beta users
                   </p>
                   <div class="flex flex-col gap-1 mb-6">
                     <div
-                      class="flex items-center justify-center gap-1.5 text-sm font-medium text-green"
+                      class="flex items-center justify-center gap-1.5 site-note font-medium text-green"
                     >
                       <i data-lucide="check" class="w-4 h-4"></i>
                       <span>No card required</span>
                     </div>
                     <div
-                      class="flex items-center justify-center gap-1.5 text-sm font-medium text-green"
+                      class="flex items-center justify-center gap-1.5 site-note font-medium text-green"
                     >
                       <i data-lucide="check" class="w-4 h-4"></i>
                       <span>No forced feedback prompts</span>
                     </div>
                   </div>
-                  <p class="text-sm text-gray-500 mb-8">
+                  <p class="text-gray-500 mb-8">
                     Everyone who joins during the beta keeps full access.
                   </p>
 
-                  <div class="space-y-4 text-sm text-gray-500">
+                  <div class="space-y-4 site-note text-gray-500">
                     <p>No ads or hidden fees.</p>
                     <p>Your data stays private and secure.</p>
                   </div>
@@ -1579,7 +1551,7 @@
         <section class="py-16 sm:py-20 bg-gray-50 border-t border-gray-100">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             <div class="text-center mb-10 reveal">
-              <h2 class="font-bold text-2xl sm:text-3xl text-gray-900 mb-3">
+              <h2 class="font-bold text-gray-900 mb-3">
                 Your data, fully under your control
               </h2>
               <p class="max-w-xl mx-auto text-gray-600">
@@ -1587,9 +1559,11 @@
               </p>
             </div>
 
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal"
+            >
               <div
-                class="bg-white rounded-xl p-5 text-center border border-gray-200"
+                class="bg-white rounded-xl p-6 sm:p-8 text-center border border-gray-200"
               >
                 <div
                   class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
@@ -1608,15 +1582,13 @@
                     ></path>
                   </svg>
                 </div>
-                <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                <p class="site-card-title text-gray-900 mb-3">
                   Bank-level encryption
                 </p>
-                <p class="text-xs text-gray-500">
-                  Protecting every connection.
-                </p>
+                <p class="text-gray-500">Protecting every connection.</p>
               </div>
               <div
-                class="bg-white rounded-xl p-5 text-center border border-gray-200"
+                class="bg-white rounded-xl p-6 sm:p-8 text-center border border-gray-200"
               >
                 <div
                   class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
@@ -1641,13 +1613,13 @@
                     ></path>
                   </svg>
                 </div>
-                <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                <p class="site-card-title text-gray-900 mb-3">
                   Read-only account access
                 </p>
-                <p class="text-xs text-gray-500">We can’t move your money.</p>
+                <p class="text-gray-500">We can’t move your money.</p>
               </div>
               <div
-                class="bg-white rounded-xl p-5 text-center border border-gray-200"
+                class="bg-white rounded-xl p-6 sm:p-8 text-center border border-gray-200"
               >
                 <div
                   class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
@@ -1666,15 +1638,13 @@
                     ></path>
                   </svg>
                 </div>
-                <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                <p class="site-card-title text-gray-900 mb-3">
                   No selling your data
                 </p>
-                <p class="text-xs text-gray-500">
-                  Your information stays yours.
-                </p>
+                <p class="text-gray-500">Your information stays yours.</p>
               </div>
               <div
-                class="bg-white rounded-xl p-5 text-center border border-gray-200"
+                class="bg-white rounded-xl p-6 sm:p-8 text-center border border-gray-200"
               >
                 <div
                   class="w-10 h-10 bg-green/10 rounded-full flex items-center justify-center mx-auto mb-3"
@@ -1693,12 +1663,10 @@
                     ></path>
                   </svg>
                 </div>
-                <p class="text-gray-900 font-medium tracking-wide text-sm mb-1">
+                <p class="site-card-title text-gray-900 mb-3">
                   Delete everything at any time
                 </p>
-                <p class="text-xs text-gray-500">
-                  Full control over your footprint.
-                </p>
+                <p class="text-gray-500">Full control over your footprint.</p>
               </div>
             </div>
           </div>
@@ -1711,15 +1679,11 @@
           <div
             class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 text-center reveal"
           >
-            <h2
-              class="font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 mb-6 leading-tight"
-            >
+            <h2 class="font-bold text-gray-900 mb-6">
               Build your long-term wealth with clarity
             </h2>
 
-            <p
-              class="text-lg sm:text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
-            >
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
               Stop guessing about your financial future. Sloth Money gives you
               the roadmap to achieve your most ambitious goals, together.
             </p>
@@ -1745,7 +1709,7 @@
                   ></path>
                 </svg>
               </a>
-              <p class="text-sm font-medium tracking-wide text-gray-500">
+              <p class="font-medium tracking-wide text-gray-500">
                 Beta access stays free forever • No card required • One
                 connected partner included
               </p>
@@ -1773,10 +1737,8 @@
                     ></path>
                   </svg>
                 </div>
-                <h3 class="text-base font-bold text-gray-900">
-                  Future focused
-                </h3>
-                <p class="text-sm text-gray-500">
+                <h3 class="font-bold text-gray-900">Future focused</h3>
+                <p class="text-gray-500">
                   Projected trajectory for your life goals over years, not
                   months.
                 </p>
@@ -1799,10 +1761,10 @@
                     ></path>
                   </svg>
                 </div>
-                <h3 class="text-base font-bold text-gray-900">
+                <h3 class="font-bold text-gray-900">
                   Built for shared finances
                 </h3>
-                <p class="text-sm text-gray-500">
+                <p class="text-gray-500">
                   Seamlessly collaborate with your partner while maintaining
                   privacy.
                 </p>
@@ -1825,10 +1787,8 @@
                     ></path>
                   </svg>
                 </div>
-                <h3 class="text-base font-bold text-gray-900">
-                  Truly flexible
-                </h3>
-                <p class="text-sm text-gray-500">
+                <h3 class="font-bold text-gray-900">Truly flexible</h3>
+                <p class="text-gray-500">
                   Budgeting and scenario planning that adapts as your life
                   changes.
                 </p>
@@ -1842,7 +1802,7 @@
     <div data-shared-footer>
       <nav
         aria-label="Footer"
-        class="flex items-center justify-center gap-6 py-8 text-sm font-medium tracking-wide"
+        class="flex items-center justify-center gap-6 py-8 site-note font-medium tracking-wide"
       >
         <a class="text-gray-400 hover:text-green" href="/home-planner/"
           >Home planner</a

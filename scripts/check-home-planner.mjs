@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { existsSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { readFile, stat } from 'node:fs/promises'
 import { extname, join } from 'node:path'
@@ -303,7 +304,9 @@ let browser
 
 try {
   const baseUrl = await listen()
-  browser = await chromium.launch()
+  browser = await chromium.launch(
+    existsSync(chromium.executablePath()) ? {} : { channel: 'chrome' }
+  )
   const desktopViewport = { width: 1440, height: 748 }
   const page = await browser.newPage({
     viewport: desktopViewport,
@@ -606,9 +609,9 @@ try {
       getComputedStyle(document.querySelector('.lever-row')).fontSize
     ),
   }))
-  assert(resultsType.balance >= 12)
-  assert(resultsType.disclaimer >= 13)
-  assert(resultsType.lever >= 14)
+  assert(resultsType.balance >= 16)
+  assert(resultsType.disclaimer >= 16)
+  assert(resultsType.lever >= 16)
 
   await page.locator('#lever-home-price').fill('1000000')
   await page.locator('#lever-deposit').fill('40')

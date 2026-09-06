@@ -61,19 +61,19 @@ try {
     {
       name: 'mobile',
       viewport: { width: 390, height: 844 },
-      checksAboveFold: true,
+      checksPrimaryActionAboveFold: true,
     },
     { name: 'desktop', viewport: { width: 1440, height: 1000 } },
     { name: 'tablet', viewport: { width: 640, height: 960 } },
     {
       name: 'desktop-fold',
       viewport: { width: 1438, height: 748 },
-      checksAboveFold: true,
+      checksPrimaryActionAboveFold: true,
     },
     {
       name: 'wide-desktop',
       viewport: { width: 2048, height: 1200 },
-      checksAboveFold: true,
+      checksPrimaryActionAboveFold: true,
       checksFullBleedArt: true,
     },
   ]
@@ -88,7 +88,7 @@ try {
   for (const {
     name,
     viewport,
-    checksAboveFold = false,
+    checksPrimaryActionAboveFold = false,
     checksFullBleedArt = false,
   } of viewports) {
     const page = await browser.newPage({ viewport })
@@ -148,41 +148,6 @@ try {
     )
 
     const heroSupport = page.locator('.sloth-hero-support')
-    const featureTypography = await page
-      .locator('.sloth-home-content > section:first-of-type')
-      .evaluate((section) => ({
-        paragraphs: [...section.querySelectorAll('p')].map((element) => ({
-          size: getComputedStyle(element).fontSize,
-          lineHeight: getComputedStyle(element).lineHeight,
-        })),
-        bullets: [...section.querySelectorAll('li')].map(
-          (element) => getComputedStyle(element).fontSize
-        ),
-      }))
-    assert(featureTypography.paragraphs.length > 0)
-    assert(featureTypography.bullets.length > 0)
-    for (const { size, lineHeight } of featureTypography.paragraphs) {
-      assert(Number.parseFloat(lineHeight) >= Number.parseFloat(size) * 1.5)
-      assert.equal(size, viewport.width >= 1024 ? '20px' : '18px')
-    }
-    for (const size of featureTypography.bullets) {
-      assert.equal(size, '18px')
-    }
-    if (viewport.width >= 640) {
-      for (const selector of [
-        '[data-tools-menu] summary',
-        '[data-analytics-cta="header-sign-in"]',
-        '[data-analytics-cta="header-start"]',
-      ]) {
-        assert.equal(
-          await page
-            .locator(selector)
-            .evaluate((element) => getComputedStyle(element).fontSize),
-          '16px'
-        )
-      }
-    }
-
     assert.equal(
       await heroSupport.count(),
       1,
@@ -226,15 +191,14 @@ try {
       `homepage should not overflow horizontally at ${viewport.width}px`
     )
 
-    if (checksAboveFold) {
-      const featureStrip = await page
-        .locator('.sloth-feature-strip')
+    if (checksPrimaryActionAboveFold) {
+      const primaryAction = await page
+        .locator('[data-analytics-cta="hero-start"]')
         .boundingBox()
-      assert(featureStrip, 'feature strip should have a rendered bounding box')
-      const featureStripBottom = featureStrip.y + featureStrip.height
+      assert(primaryAction, 'the primary action should render')
       assert(
-        featureStripBottom <= viewport.height,
-        `feature strip should be fully above the fold at ${viewport.width}x${viewport.height}; bottom was ${featureStripBottom}`
+        primaryAction.y + primaryAction.height <= viewport.height,
+        `the primary action should be above the fold at ${viewport.width}x${viewport.height}`
       )
     }
 

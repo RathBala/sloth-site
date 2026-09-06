@@ -122,16 +122,19 @@
           (e.__SV = 1))
       })(document, window.posthog || [])
     </script>
+    <link href="../assets/css/site-typography.css" rel="stylesheet" />
   </head>
-  <body class="overflow-x-hidden bg-white text-gray-900 font-sans antialiased">
+  <body
+    class="site-page site-document overflow-x-hidden bg-white text-gray-900 font-sans antialiased"
+  >
     <main>
       <header
         class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-sm"
       >
         <div
-          class="max-w-[115rem] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-24"
+          class="max-w-[115rem] mx-auto px-4 md:px-6 lg:px-12 xl:px-16 2xl:px-24"
         >
-          <nav class="flex items-center justify-between h-16 sm:h-20">
+          <nav class="flex items-center justify-between h-16 md:h-20">
             <a href="/" class="flex items-center gap-3">
               <img
                 class="h-10 w-auto"
@@ -141,10 +144,10 @@
               />
               <span class="font-bold text-xl text-gray-900">Sloth Money</span>
             </a>
-            <div class="flex items-center gap-2 sm:gap-4">
-              <details data-tools-menu class="group relative hidden sm:block">
+            <div class="flex items-center gap-2 md:gap-4">
+              <details data-tools-menu class="group relative hidden md:block">
                 <summary
-                  class="flex cursor-pointer list-none items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-green/50"
+                  class="flex cursor-pointer list-none items-center gap-1.5 rounded-lg px-4 py-2 site-note font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-green/50"
                 >
                   <span>Tools</span>
                   <i
@@ -173,7 +176,8 @@
                       <span class="block font-bold text-green-really-dark"
                         >Home planner</span
                       >
-                      <span class="mt-0.5 block text-sm leading-5 text-gray-600"
+                      <span
+                        class="mt-0.5 block site-note leading-5 text-gray-600"
                         >Plan what it takes to afford your dream home.</span
                       >
                     </span>
@@ -181,14 +185,14 @@
                 </div>
               </details>
               <a
-                class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
+                class="hidden md:inline-flex items-center justify-center px-4 py-2 site-note font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200"
                 href="https://budget.slothmoney.app"
                 data-analytics-cta="developers-header-sign-in"
               >
                 Sign in
               </a>
               <a
-                class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
+                class="hidden md:inline-flex items-center justify-center px-5 py-2.5 site-note font-medium tracking-wide bg-green hover:bg-green-dark text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green/50"
                 href="https://budget.slothmoney.app"
                 data-analytics-cta="developers-header-start"
               >
@@ -197,7 +201,7 @@
               <button
                 id="mobile-menu-toggle"
                 type="button"
-                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green sm:hidden"
+                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green md:hidden"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -235,13 +239,13 @@
           </nav>
           <div
             id="mobile-menu"
-            class="sm:hidden hidden border-t border-gray-100 mt-3 pt-4 pb-6"
+            class="md:hidden hidden border-t border-gray-100 mt-3 pt-4 pb-6"
           >
             <div
               class="rounded-2xl border border-gray-200 bg-white/90 shadow-lg p-4 space-y-3"
             >
               <div class="space-y-2">
-                <div class="text-sm font-medium tracking-wide text-gray-500">
+                <div class="site-note font-medium tracking-wide text-gray-500">
                   Tools
                 </div>
                 <a
@@ -261,14 +265,14 @@
                     <span class="block font-bold text-green-really-dark"
                       >Home planner</span
                     >
-                    <span class="mt-0.5 block text-sm leading-5 text-gray-600"
+                    <span class="mt-0.5 block site-note leading-5 text-gray-600"
                       >Plan what it takes to afford your dream home.</span
                     >
                   </span>
                 </a>
               </div>
               <div class="border-t border-gray-200 pt-3">
-                <div class="text-sm font-medium tracking-wide text-gray-500">
+                <div class="site-note font-medium tracking-wide text-gray-500">
                   Get started
                 </div>
                 <div class="mt-3 space-y-3">
@@ -299,7 +303,7 @@
         >
           <div class="max-w-4xl">
             <div
-              class="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/10 px-4 py-2 text-sm font-semibold text-green-dark mb-6"
+              class="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/10 px-4 py-2 site-note font-semibold text-green-dark mb-6"
             >
               <i data-lucide="square-terminal" class="w-4 h-4"></i>
               Agent API beta
@@ -309,7 +313,7 @@
             >
               Manage budgets and categorize transactions with your own agent.
             </h1>
-            <p class="text-lg sm:text-xl text-gray-600 leading-relaxed mb-4">
+            <p class="text-gray-600 mb-4">
               Use a personal access token, a small CLI, or direct HTTP requests
               to inspect accounts, investments, and budgets, update planned
               amounts, manage which linked accounts fund your goals, manage
@@ -319,7 +323,7 @@
               category assignments. You stay in control of access, expiry, and
               revocation.
             </p>
-            <p class="text-base sm:text-lg font-semibold text-gray-800 mb-8">
+            <p class="font-semibold text-gray-800 mb-8">
               An assignment can change an owned transaction’s sharing,
               categorisation, or both.
             </p>
@@ -354,12 +358,12 @@
                 <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
                 <span class="w-3 h-3 rounded-full bg-green"></span>
               </div>
-              <span class="text-xs font-semibold text-gray-400"
+              <span class="site-note font-semibold text-gray-400"
                 >sloth-agent</span
               >
             </div>
             <pre
-              class="w-full max-w-full overflow-x-auto p-5 sm:p-6 text-sm leading-7 text-gray-100"
+              class="w-full max-w-full overflow-x-auto p-5 sm:p-6 site-note leading-7 text-gray-100"
             ><code>npm install --global @slothmoney/agent-cli
 
 sloth-agent auth login
@@ -407,10 +411,8 @@ sloth-agent assign --input assignments.json --apply</code></pre>
           <div class="grid md:grid-cols-3 gap-6">
             <div class="border border-gray-200 rounded-lg p-6">
               <i data-lucide="key-round" class="w-7 h-7 text-green mb-5"></i>
-              <h2 class="text-xl font-bold text-gray-900 mb-3">
-                Token controlled
-              </h2>
-              <p class="text-gray-600 leading-relaxed">
+              <h2 class="font-bold text-gray-900 mb-3">Token controlled</h2>
+              <p class="text-gray-600">
                 New tokens are view-only by default. Turn on Allow changes only
                 when your agent needs to share or categorise transactions,
                 manage categories and line items, move assigned budget money,
@@ -421,15 +423,13 @@ sloth-agent assign --input assignments.json --apply</code></pre>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
               <i data-lucide="search-code" class="w-7 h-7 text-green mb-5"></i>
-              <h2 class="text-xl font-bold text-gray-900 mb-3">
-                Read before writing
-              </h2>
-              <p class="text-gray-600 leading-relaxed">
+              <h2 class="font-bold text-gray-900 mb-3">Read before writing</h2>
+              <p class="text-gray-600">
                 Pull accounts, investments, budgets, goals, scenarios,
                 categories, and transactions first. Account, budget, goal,
                 category, line-item, scenario, assignment, and notification-rule
                 writes are previews until you add
-                <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+                <code class="site-note bg-white px-1.5 py-0.5 rounded"
                   >--apply</code
                 >. Assignment, budget, and notification-rule previews validate
                 files locally without contacting Sloth Money.
@@ -437,10 +437,8 @@ sloth-agent assign --input assignments.json --apply</code></pre>
             </div>
             <div class="border border-gray-200 rounded-lg p-6">
               <i data-lucide="shield-check" class="w-7 h-7 text-green mb-5"></i>
-              <h2 class="text-xl font-bold text-gray-900 mb-3">
-                Your data only
-              </h2>
-              <p class="text-gray-600 leading-relaxed">
+              <h2 class="font-bold text-gray-900 mb-3">Your data only</h2>
+              <p class="text-gray-600">
                 Agent access is scoped to the signed-in user. Account reads show
                 personal accounts and enabled shared joint accounts. Partner
                 personal accounts are excluded.
@@ -451,10 +449,10 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 data-lucide="message-circle"
                 class="w-7 h-7 text-green mb-5"
               ></i>
-              <h2 class="text-xl font-bold text-gray-900 mb-3">
+              <h2 class="font-bold text-gray-900 mb-3">
                 Human context when needed
               </h2>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Agents can create a partner clarification link for a
                 partner-shared or joint transaction. The CLI prints the message
                 and link; it does not send WhatsApp messages.
@@ -467,15 +465,13 @@ sloth-agent assign --input assignments.json --apply</code></pre>
       <section id="quickstart" class="py-16 sm:py-20 bg-gray-50">
         <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div class="max-w-3xl mb-10">
-            <p class="text-sm font-bold uppercase tracking-[0.18em] text-green">
+            <p class="font-bold uppercase tracking-[0.18em] text-green">
               Quickstart
             </p>
-            <h2
-              class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
-            >
+            <h2 class="font-extrabold tracking-tight text-gray-900 mt-3 mb-4">
               Connect an agent
             </h2>
-            <p class="text-lg text-gray-600 leading-relaxed">
+            <p class="text-gray-600">
               Install the public CLI from
               <a
                 class="font-semibold text-green-dark underline decoration-green/30 underline-offset-4 hover:decoration-green"
@@ -501,7 +497,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
                     Install CLI 0.24.0 or newer with Node.js 22 or newer. The
-                    <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+                    <code class="site-note bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
                     command works from any directory.
@@ -570,7 +566,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Apply and check</h3>
                   <p class="text-gray-600">
-                    <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+                    <code class="site-note bg-white px-1.5 py-0.5 rounded"
                       >--apply</code
                     >
                     applies the file. Inspect every result, then read the
@@ -582,13 +578,13 @@ sloth-agent assign --input assignments.json --apply</code></pre>
 
             <div class="min-w-0 space-y-4">
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>npm install --global @slothmoney/agent-cli
 sloth-agent auth login
 sloth-agent auth status
 sloth-agent accounts</code></pre>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent goals
 sloth-agent goals create --name "Emergency fund" --target-amount 12000 --target-month 2027-06 --type keep --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE
 sloth-agent goals create --name "Emergency fund" --target-amount 12000 --target-month 2027-06 --type keep --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --apply
@@ -604,7 +600,7 @@ sloth-agent goals restore --goal-id GOAL_ID
 sloth-agent goals restore --goal-id GOAL_ID --apply
 sloth-agent goals delete --goal-id GOAL_ID
 sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Goal creates require a positive target amount, an explicit Keep
                 or Spend type, and one personal Goal-funding account. Goal
                 results include
@@ -612,14 +608,14 @@ sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
                 goals cannot be marked spent. Restore a spent goal before
                 changing its type.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Goal priority is one-based, so 1 is highest. Moving one goal
                 shifts the intervening goals automatically. Without
                 <code>--apply</code>, goal creation authenticates and asks Sloth
                 to calculate <code>forecastMonthKey</code> without saving the
                 Goal. Applying reruns the same planner before saving.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 <code>targetMonthKey</code> is your optional desired month.
                 <code>forecastMonthKey</code> is Sloth’s calculated month. Only
                 the active scenario is calculated. A null
@@ -630,7 +626,7 @@ sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
               </p>
               <section id="scenario-cli" class="space-y-4">
                 <pre
-                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
                 ><code>sloth-agent scenarios
 sloth-agent scenarios create --month 2026-09 --name "Deposit £100 into the shopping pot each month?" --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --recurring-amount 100
 sloth-agent scenarios create --month 2026-09 --name "Add a £50 bonus?" --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --one-off-amount 50 --apply
@@ -638,14 +634,14 @@ sloth-agent scenarios update --month 2026-09 --option-id yes --account-ref PASTE
 sloth-agent scenarios update --month 2026-09 --option-id yes --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --clear-recurring --apply
 sloth-agent scenarios activate --month 2026-09 --option-id no --apply
 sloth-agent scenarios delete --month 2026-09 --apply</code></pre>
-                <p class="text-gray-600 leading-relaxed">
+                <p class="text-gray-600">
                   A scenario is a month-anchored choice in the Goal forecast.
                   Creating one adds No and Yes options and activates Yes. A
                   recurring contribution continues until a later active scenario
                   changes it. A one-off contribution applies only in that month.
                   Scenarios change the forecast. They do not move money.
                 </p>
-                <p class="text-gray-600 leading-relaxed">
+                <p class="text-gray-600">
                   Scenario previews use view-only access and perform zero
                   writes. They return the proposed scenario and recalculated
                   Goals. Add
@@ -657,7 +653,7 @@ sloth-agent scenarios delete --month 2026-09 --apply</code></pre>
                 </p>
               </section>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent budget --scope personal --period 2026-08
 sloth-agent budget status --scope personal
 sloth-agent budget status --scope personal --period 2026-07
@@ -665,14 +661,14 @@ sloth-agent budget update --scope personal --period 2026-08 --input budget.json
 sloth-agent budget update --scope personal --period 2026-08 --input budget.json --apply
 sloth-agent budget move --scope personal --from-category-id activities --to-category-id groceries --amount 52.95
 sloth-agent budget move --scope personal --from-category-id activities --to-category-id groceries --amount 52.95 --apply</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Budget status is read-only. Omit <code>--period</code> for the
                 current Sloth budget period, or pass YYYY-MM for a historical
                 period. Each activity row has nonnegative
                 <code>moneyInPence</code> and <code>moneyOutPence</code>, plus
                 their difference as <code>netPence</code>.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Current status uses Sloth's normal transaction refresh policy.
                 Historical budget status is cache-only and returns refresh as
                 null. Income, Transfer, and explicit None are normal activity
@@ -680,19 +676,19 @@ sloth-agent budget move --scope personal --from-category-id activities --to-cate
                 <code>activity.uncategorized</code>. <code>budget</code> is null
                 when no trustworthy plan exists, but activity still returns.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 When an eligible current-period refresh completes, Sloth adds
                 the latest configured backing-account check to your Budget
                 balance audit. A same-day cached read does not add another
                 checkpoint.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 A budget update file contains 1 to 100 unique allocations. Each
                 one identifies an existing category and line item and sets its
                 whole-number <code>plannedPence</code>.
               </p>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>{
   "allocations": [
     {
@@ -702,7 +698,7 @@ sloth-agent budget move --scope personal --from-category-id activities --to-cate
     }
   ]
 }</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Budget previews validate the file locally without loading a
                 token or contacting Sloth Money. Applying starts from the full
                 selected-period budget and patches the listed amounts. Saving X
@@ -710,21 +706,21 @@ sloth-agent budget move --scope personal --from-category-id activities --to-cate
                 overwrites Y and everything after it. Earlier and historical
                 periods stay unchanged.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 <code>budget move</code> transfers current assigned money
                 between categories. Use <code>to-assign</code> as either the
                 source or destination to include To Assign. The decimal digits
                 are converted exactly to positive safe-integer pence. A preview
                 does not load a token or contact Sloth Money.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Applying records the movement and updates both balances in one
                 operation. It does not change planned amounts or future budget
                 plans. The source can become negative, so automated workflows
                 should choose donors from an available-balance policy.
               </p>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent categories
 sloth-agent categories create --name "Holidays" --icon-key plane --type Wants
 sloth-agent categories create --name "Holidays" --icon-key plane --type Wants --apply
@@ -741,7 +737,7 @@ sloth-agent partner status</code></pre>
               >
                 Review pending and partner payments
               </h3>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 <code>--include-pending</code> reuses the transaction command's
                 normal refresh; it does not force another refresh. Booked rows
                 stay under <code>transactions</code>. Pending rows appear in a
@@ -755,21 +751,21 @@ sloth-agent partner status</code></pre>
                 observed. An <code>unavailable</code> snapshot does not prove
                 there are none.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Booked and pending rows include
                 <code>counterpartyName</code> and
                 <code>transactionReference</code> when the bank supplies them.
                 Provider-native debtor, creditor, and raw remittance fields are
                 not returned.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 <code>partner status</code> is read-only. It returns the current
                 settlement direction and amount plus recent recorded partner
                 payments, which lets an agent reconcile an incoming payment
                 without guessing from the bank counterparty alone. It does not
                 refresh bank accounts or change partner records.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Copy the exact <code>transactionRef</code> for the transaction
                 and the matching <code>categoryId</code> and
                 <code>lineItemId</code> from these outputs into
@@ -779,7 +775,7 @@ sloth-agent partner status</code></pre>
                 line item are not a recommendation to omit one.
               </p>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>{
   "assignments": [
     {
@@ -790,14 +786,14 @@ sloth-agent partner status</code></pre>
     }
   ]
 }</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 These are placeholders. Do not submit the example values.
               </p>
               <h3 class="font-bold text-gray-900">Preview the file</h3>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent assign --input assignments.json</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Without <code>--apply</code>, the CLI checks that the file is
                 valid and returns the payload it would send. It does not contact
                 Sloth Money, verify the <code>transactionRef</code> or category
@@ -806,9 +802,9 @@ sloth-agent partner status</code></pre>
               </p>
               <h3 class="font-bold text-gray-900">Apply the assignment</h3>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent assign --input assignments.json --apply</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Applying 1 to 100 assignments creates a durable operation and
                 returns a receipt promptly. The CLI polls the authenticated
                 status endpoint for you. If the command is interrupted, rerun
@@ -819,13 +815,13 @@ sloth-agent partner status</code></pre>
                 <code>failed</code>. Completed item results stay in the same
                 order as the input file. Inspect every result.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Each <code>transactionRef</code> can appear only once in a file.
                 Duplicate refs reject the whole submission before anything is
                 written.
               </p>
               <h3 class="font-bold text-gray-900">Check the result</h3>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Check the result in the same assignment scope that you changed.
                 Successful assignments update the original transaction. See the
                 category in <strong>Sloth Money &rarr; Transactions</strong>, or
@@ -836,14 +832,14 @@ sloth-agent partner status</code></pre>
                 Assignments do not create a separate list.
               </p>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent transactions --assignment-scope personal --limit 50</code></pre>
               <h3 class="font-bold text-gray-900">Filter one account</h3>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent accounts
 sloth-agent transactions --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --limit 50</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Every transaction result includes the same
                 <code>accountRef</code> used by
                 <code>sloth-agent accounts</code>. Copy the exact opaque value
@@ -852,12 +848,12 @@ sloth-agent transactions --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --limit 
                 filter for CLI and HTTP transaction reads.
               </p>
               <h3 class="font-bold text-gray-900">Watch a payment</h3>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Rules watch future payments that match an existing transaction.
                 They do not create transactions or recurring predictions.
               </p>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>{
   "amountChange": {
     "enabled": true,
@@ -871,7 +867,7 @@ sloth-agent transactions --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --limit 
   },
   "delivery": { "email": true }
 }</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 <code>baselinePence</code> is the comparison amount.
                 <code>renewalDate</code> uses YYYY-MM-DD, and
                 <code>leadDays</code> accepts an integer from 1 to 365. In-app
@@ -879,30 +875,30 @@ sloth-agent transactions --account-ref PASTE_THE_EXACT_ACCOUNT_REF_HERE --limit 
                 email delivery. Returned rules include the computed
                 <code>remindOn</code> date.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Save this as <code>rule.json</code>. Copy the exact
                 <code>transactionRef</code> from
                 <code>sloth-agent transactions</code>, then preview and apply
                 the rule:
               </p>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent rules list
 sloth-agent rules get --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE
 sloth-agent rules set --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --input rule.json
 sloth-agent rules set --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --input rule.json --apply
 sloth-agent rules delete --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE
 sloth-agent rules delete --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --apply</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Without <code>--apply</code>, <code>rules set</code> validates
                 the file locally without loading a token or contacting Sloth
                 Money.
               </p>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent rules scan-contract --contract contract.pdf
 sloth-agent rules scan-contract --contract contract.pdf --apply</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 A contract must be a PDF no larger than 6 MB. Without
                 <code>--apply</code>, it stays on your device. With
                 <code>--apply</code>, Sloth sends it for one-time extraction.
@@ -913,13 +909,13 @@ sloth-agent rules scan-contract --contract contract.pdf --apply</code></pre>
               </p>
               <h3 class="font-bold text-gray-900">Attach receipt items</h3>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent receipts extract --image /path/to/receipt.jpg &gt; receipt-draft.json
 sloth-agent receipts attach --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --input receipt.json
 sloth-agent receipts attach --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --input receipt.json --apply
 sloth-agent receipts get --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE
 sloth-agent receipts remove --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE --revision 1 --apply</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Extraction accepts one JPEG, PNG, or WebP image up to 8 MB and
                 returns a draft. Sloth does not save the image or the draft.
                 Review every receipt item, then keep only
@@ -931,7 +927,7 @@ sloth-agent receipts remove --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HE
                 already included in the item prices so they are not counted
                 twice.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Attach previews are local and do not load a token or contact
                 Sloth Money until you add <code>--apply</code>. Confirmed
                 receipt items are evidence only. They do not change the
@@ -941,10 +937,10 @@ sloth-agent receipts remove --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HE
               </p>
               <h3 class="font-bold text-gray-900">Share and categorise</h3>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent transactions --shared=false --q "sainsbury" --limit 20</code></pre>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>{
   "assignments": [
     {
@@ -960,7 +956,7 @@ sloth-agent receipts remove --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HE
     }
   ]
 }</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 <code>sharing.isShared</code> is required. The optional
                 <code>shareRatio</code> is your share, from 0 to 1. Exclusive
                 amounts use <code>userExclusiveAmountPence</code> and
@@ -969,7 +965,7 @@ sloth-agent receipts remove --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HE
                 <code>--apply</code>, then read the saved result with
                 <code>--shared=true</code>.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 A first share uses your saved couple ratio, falling back to 0.5,
                 and zero exclusive amounts when split fields are omitted. On an
                 existing share, omitted split fields keep their saved values. A
@@ -977,7 +973,7 @@ sloth-agent receipts remove --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HE
                 and Personal when you do, unless you set
                 <code>assignmentScope</code> explicitly.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 Send <code>{ "isShared": false }</code> without split fields to
                 unshare. Sloth keeps the Joint category dormant for a later
                 re-share. Only your booked personal-account transactions can be
@@ -987,19 +983,19 @@ sloth-agent receipts remove --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HE
               </p>
               <h3 class="font-bold text-gray-900">Other commands</h3>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>sloth-agent transactions --assignment-scope joint --line-item-id LINE_ITEM_ID
 sloth-agent transactions --assignment-scope joint --uncategorized
 sloth-agent ask-partner --transaction-ref PASTE_THE_EXACT_TRANSACTION_REF_HERE
 sloth-agent auth logout</code></pre>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 The transaction reference shown above is also a placeholder.
                 Copy the exact value from
                 <code>sloth-agent transactions</code> output.
               </p>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-gray-600">
                 For CI or headless systems, set
-                <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+                <code class="site-note bg-white px-1.5 py-0.5 rounded"
                   >SLOTH_AGENT_TOKEN</code
                 >
                 in your secret manager. It overrides a stored credential.
@@ -1016,7 +1012,7 @@ sloth-agent auth logout</code></pre>
               as a bearer header when another tool already handles HTTP.
             </p>
             <pre
-              class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+              class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
             ><code>curl "https://budget.slothmoney.app/api/agent/v1/accounts" \
   -H "Authorization: Bearer $SLOTH_AGENT_TOKEN"</code></pre>
           </div>
@@ -1028,17 +1024,15 @@ sloth-agent auth logout</code></pre>
           class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 grid lg:grid-cols-[0.75fr_1fr] gap-10 lg:gap-16"
         >
           <div class="min-w-0">
-            <p class="text-sm font-bold uppercase tracking-[0.18em] text-green">
+            <p class="font-bold uppercase tracking-[0.18em] text-green">
               API reference
             </p>
-            <h2
-              class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
-            >
+            <h2 class="font-extrabold tracking-tight text-gray-900 mt-3 mb-4">
               Sixteen API resources
             </h2>
-            <p class="text-lg text-gray-600 leading-relaxed">
+            <p class="text-gray-600">
               Every request uses
-              <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded"
+              <code class="site-note bg-gray-100 px-1.5 py-0.5 rounded"
                 >Authorization: Bearer</code
               >
               with a Sloth personal access token.
@@ -1049,7 +1043,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET · PATCH · DELETE</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1106,7 +1100,7 @@ sloth-agent auth logout</code></pre>
             >
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET · POST · PATCH · DELETE</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1138,7 +1132,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >POST</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1157,7 +1151,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET · PUT · DELETE</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1183,7 +1177,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1211,7 +1205,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >POST</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1233,7 +1227,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET · PATCH</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1260,7 +1254,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1286,7 +1280,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1319,7 +1313,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET · POST · PATCH · DELETE</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1334,7 +1328,7 @@ sloth-agent auth logout</code></pre>
                 priority, private funding-account label and reference,
                 <code>forecastMonthKey</code>, and <code>forecastBasis</code>.
                 Update and delete requests use
-                <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded"
+                <code class="site-note bg-gray-100 px-1.5 py-0.5 rounded"
                   >/api/agent/v1/goals/:goalId</code
                 >. A <code>priority</code> PATCH uses a one-based position and
                 shifts the intervening Goals automatically. A Spend Goal can be
@@ -1355,7 +1349,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET · POST · PATCH</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1383,7 +1377,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >POST · PATCH</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1403,7 +1397,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1412,7 +1406,7 @@ sloth-agent auth logout</code></pre>
               </div>
               <p class="text-gray-600">
                 Returns booked transactions with opaque
-                <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded"
+                <code class="site-note bg-gray-100 px-1.5 py-0.5 rounded"
                   >transactionRef</code
                 >
                 and <code>accountRef</code> values. Filter by date range, search
@@ -1489,7 +1483,7 @@ sloth-agent auth logout</code></pre>
             >
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1508,7 +1502,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >POST</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1525,7 +1519,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >POST · GET</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1565,7 +1559,7 @@ sloth-agent auth logout</code></pre>
             <article class="border border-gray-200 rounded-lg p-5">
               <div class="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  class="rounded bg-green/10 px-2.5 py-1 text-sm font-bold text-green-dark"
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
                   >GET · PUT · DELETE</span
                 >
                 <code class="text-gray-900 font-semibold"
@@ -1598,23 +1592,21 @@ sloth-agent auth logout</code></pre>
       <section class="py-16 sm:py-20 bg-gray-50">
         <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div class="max-w-3xl mb-10">
-            <p class="text-sm font-bold uppercase tracking-[0.18em] text-green">
+            <p class="font-bold uppercase tracking-[0.18em] text-green">
               Assignment shape
             </p>
-            <h2
-              class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
-            >
+            <h2 class="font-extrabold tracking-tight text-gray-900 mt-3 mb-4">
               Write with transaction refs
             </h2>
-            <p class="text-lg text-gray-600 leading-relaxed">
+            <p class="text-gray-600">
               Use the
-              <code class="text-sm bg-white px-1.5 py-0.5 rounded"
+              <code class="site-note bg-white px-1.5 py-0.5 rounded"
                 >transactionRef</code
               >
               from the transaction response. It is the stable reference the API
               needs for assignment writes.
             </p>
-            <p class="text-gray-600 leading-relaxed mt-3">
+            <p class="text-gray-600 mt-3">
               These are placeholders. Replace each example value with the exact
               <code>transactionRef</code> and category IDs returned for your
               account.
@@ -1627,7 +1619,7 @@ sloth-agent auth logout</code></pre>
                 Joint category and line item
               </h3>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>{
   "assignments": [
     {
@@ -1642,7 +1634,7 @@ sloth-agent auth logout</code></pre>
             <div class="min-w-0">
               <h3 class="font-bold text-gray-900 mb-3">Split category</h3>
               <pre
-                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
               ><code>{
   "assignments": [
     {
@@ -1665,15 +1657,13 @@ sloth-agent auth logout</code></pre>
           class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 grid lg:grid-cols-[0.8fr_1fr] gap-10 lg:gap-16 items-start"
         >
           <div>
-            <p class="text-sm font-bold uppercase tracking-[0.18em] text-green">
+            <p class="font-bold uppercase tracking-[0.18em] text-green">
               Safety
             </p>
-            <h2
-              class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mt-3 mb-4"
-            >
+            <h2 class="font-extrabold tracking-tight text-gray-900 mt-3 mb-4">
               Keep access tight
             </h2>
-            <p class="text-lg text-gray-600 leading-relaxed">
+            <p class="text-gray-600">
               The Agent API is built for user-run automation. Treat your token
               like a password. Never put it in chat, source control, shared
               logs, or shell history. Revoke it when you are done testing.
@@ -1737,14 +1727,10 @@ sloth-agent auth logout</code></pre>
         <div
           class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 text-center"
         >
-          <h2
-            class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-4"
-          >
+          <h2 class="font-extrabold tracking-tight text-white mb-4">
             Start with Developer access.
           </h2>
-          <p
-            class="max-w-2xl mx-auto text-lg text-white/85 leading-relaxed mb-8"
-          >
+          <p class="max-w-2xl mx-auto text-white/85 mb-8">
             Create a token in Sloth Money, connect your agent, and preview goal
             or assignment changes before applying them.
           </p>

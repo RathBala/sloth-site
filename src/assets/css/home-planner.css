@@ -1,5 +1,7 @@
 :root {
   --planner-ink: #083d2f;
+  --planner-text-small: 1rem;
+  --planner-text-body: 1.125rem;
   --planner-ink-soft: #23473d;
   --planner-copy: #344054;
   --planner-muted: #687386;
@@ -124,7 +126,7 @@ input:focus-visible {
     inset 0 0 0 1px rgba(255, 255, 255, 0.08),
     0 1rem 2.5rem rgba(0, 26, 19, 0.3);
   color: #fff;
-  font-size: clamp(0.9rem, 1.2vw, 1.15rem);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
   font-weight: 700;
   backdrop-filter: blur(0.75rem);
   transition:
@@ -246,7 +248,7 @@ input:focus-visible {
   justify-items: center;
   gap: 0.35rem;
   color: #829087;
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   font-weight: 700;
 }
 
@@ -316,7 +318,7 @@ input:focus-visible {
   max-width: 36rem;
   margin: 1.45rem 0 0;
   color: var(--planner-copy);
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-size: var(--planner-text-body);
   font-weight: 500;
   line-height: 1.6;
 }
@@ -402,7 +404,7 @@ input:focus-visible {
   gap: 0.65rem;
   margin: 1.3rem 0 0;
   color: var(--planner-muted);
-  font-size: 0.88rem;
+  font-size: var(--planner-text-small);
   font-weight: 500;
   line-height: 1.45;
 }
@@ -435,7 +437,7 @@ input:focus-visible {
 .panel-kicker {
   margin: 0 0 0.65rem;
   color: #14844f;
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -470,7 +472,7 @@ input:focus-visible {
   gap: 0.5rem;
   margin-top: 1.4rem;
   color: #263d35;
-  font-size: 0.96rem;
+  font-size: var(--planner-text-small);
   font-weight: 750;
   line-height: 1.4;
 }
@@ -481,7 +483,7 @@ input:focus-visible {
 
 .field-hint {
   color: var(--planner-muted);
-  font-size: 0.84rem;
+  font-size: var(--planner-text-small);
   font-weight: 500;
 }
 
@@ -542,7 +544,7 @@ input:focus-visible {
 .choice-group legend {
   margin-bottom: 0.7rem;
   color: #263d35;
-  font-size: 0.96rem;
+  font-size: var(--planner-text-small);
   font-weight: 750;
 }
 
@@ -572,7 +574,7 @@ input:focus-visible {
   border-radius: 0.9rem;
   background: rgba(255, 255, 255, 0.72);
   color: var(--planner-ink-soft);
-  font-size: 0.9rem;
+  font-size: var(--planner-text-small);
   font-weight: 700;
   text-align: center;
   transition:
@@ -678,13 +680,13 @@ input:focus-visible {
 }
 
 .uncertain-toggle strong {
-  font-size: 0.9rem;
+  font-size: var(--planner-text-small);
 }
 
 .uncertain-toggle small {
   margin-top: 0.15rem;
   color: var(--planner-muted);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   line-height: 1.45;
 }
 
@@ -712,13 +714,13 @@ input:focus-visible {
 
 .ownership-card strong {
   color: var(--planner-ink);
-  font-size: 0.96rem;
+  font-size: var(--planner-text-small);
 }
 
 .ownership-card small {
   margin-top: 0.15rem;
   color: var(--planner-muted);
-  font-size: 0.84rem;
+  font-size: var(--planner-text-small);
   font-weight: 550;
   line-height: 1.4;
 }
@@ -742,7 +744,7 @@ input:focus-visible {
   gap: 1rem;
   padding: 0.9rem 1rem;
   color: var(--planner-ink);
-  font-size: 0.9rem;
+  font-size: var(--planner-text-small);
   font-weight: 750;
   list-style: none;
 }
@@ -776,7 +778,7 @@ details[open] > summary > svg {
 
 .education-grid strong {
   color: var(--planner-ink);
-  font-size: 0.88rem;
+  font-size: var(--planner-text-small);
 }
 
 .education-grid p,
@@ -784,7 +786,7 @@ details[open] > summary > svg {
   display: block;
   margin: 0.35rem 0 0;
   color: var(--planner-copy);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   line-height: 1.5;
 }
 
@@ -864,7 +866,7 @@ details[open] > summary > svg {
   gap: 0.45rem 0.75rem;
   margin-top: 1.1rem;
   color: var(--planner-ink-soft);
-  font-size: 0.88rem;
+  font-size: var(--planner-text-small);
   font-weight: 700;
 }
 
@@ -885,7 +887,7 @@ details[open] > summary > svg {
   position: absolute;
   left: 0.65rem;
   color: var(--planner-muted);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   font-weight: 800;
   pointer-events: none;
 }
@@ -898,7 +900,7 @@ details[open] > summary > svg {
   border-radius: 0.55rem;
   background: #fff;
   color: var(--planner-ink);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   font-weight: 800;
   text-align: right;
   appearance: textfield;
@@ -929,7 +931,7 @@ details[open] > summary > svg {
   margin: 0;
   padding: 0.9rem 1rem 0;
   color: var(--planner-ink);
-  font-size: 0.9rem;
+  font-size: var(--planner-text-small);
   font-weight: 750;
 }
 
@@ -1009,7 +1011,7 @@ details[open] > summary > svg {
   display: block;
   margin: 0 0 0.5rem;
   color: var(--planner-ink-soft);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   font-weight: 750;
 }
 
@@ -1055,7 +1057,7 @@ details[open] > summary > svg {
 
 .repayment-option-topline > strong {
   color: var(--planner-ink);
-  font-size: 0.86rem;
+  font-size: var(--planner-text-small);
   line-height: 1.25;
 }
 
@@ -1088,7 +1090,7 @@ details[open] > summary > svg {
 
 .repayment-option-balance {
   color: var(--planner-ink-soft);
-  font-size: 0.78rem;
+  font-size: var(--planner-text-small);
   font-weight: 750;
   line-height: 1.35;
 }
@@ -1117,13 +1119,13 @@ details[open] > summary > svg {
 .part-and-part-control strong,
 .part-and-part-control output {
   color: var(--planner-ink);
-  font-size: 0.84rem;
+  font-size: var(--planner-text-small);
   font-weight: 800;
 }
 
 .part-and-part-control small {
   color: var(--planner-muted);
-  font-size: 0.78rem;
+  font-size: var(--planner-text-small);
 }
 
 .part-and-part-control input {
@@ -1165,7 +1167,7 @@ details[open] > summary > svg {
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
   color: var(--planner-ink-soft);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   font-weight: 750;
   text-align: center;
 }
@@ -1189,13 +1191,13 @@ details[open] > summary > svg {
 
 .rate-impact span {
   color: var(--planner-muted);
-  font-size: 0.78rem;
+  font-size: var(--planner-text-small);
   font-weight: 700;
 }
 
 .rate-impact strong {
   color: var(--planner-ink);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   font-weight: 800;
   text-align: right;
 }
@@ -1203,7 +1205,7 @@ details[open] > summary > svg {
 .rate-options p {
   margin: 0.55rem 0 0;
   color: var(--planner-muted);
-  font-size: 0.78rem;
+  font-size: var(--planner-text-small);
   line-height: 1.45;
 }
 
@@ -1223,12 +1225,12 @@ details[open] > summary > svg {
 
 .balance-comparison-heading strong {
   color: var(--planner-ink);
-  font-size: 0.84rem;
+  font-size: var(--planner-text-small);
 }
 
 .balance-comparison-heading span {
   color: var(--planner-muted);
-  font-size: 0.78rem;
+  font-size: var(--planner-text-small);
 }
 
 .balance-table {
@@ -1248,7 +1250,7 @@ details[open] > summary > svg {
 .balance-row span {
   min-width: 0;
   color: var(--planner-copy);
-  font-size: 0.78rem;
+  font-size: var(--planner-text-small);
 }
 
 .balance-row strong {
@@ -1267,7 +1269,7 @@ details[open] > summary > svg {
 
 .balance-row-heading span {
   color: var(--planner-muted);
-  font-size: 0.75rem;
+  font-size: var(--planner-text-small);
   font-weight: 700;
 }
 
@@ -1292,7 +1294,7 @@ details[open] > summary > svg {
 .reality-surprise {
   margin: 0.65rem 0 0;
   color: var(--planner-copy);
-  font-size: 0.86rem;
+  font-size: var(--planner-text-small);
   line-height: 1.5;
 }
 
@@ -1302,7 +1304,7 @@ details[open] > summary > svg {
   border-radius: 999px;
   background: #fff;
   color: var(--planner-ink-soft);
-  font-size: 0.8rem;
+  font-size: var(--planner-text-small);
   font-weight: 750;
   line-height: 1.35;
   text-align: center;
@@ -1360,7 +1362,7 @@ details[open] > summary > svg {
 .result-metrics small,
 .result-metrics span:not(.metric-icon) {
   color: var(--planner-muted);
-  font-size: 0.8rem;
+  font-size: var(--planner-text-small);
   line-height: 1.35;
 }
 
@@ -1410,7 +1412,7 @@ details[open] > summary > svg {
   max-width: 35rem;
   margin: 0.55rem 0 0;
   color: rgba(255, 255, 255, 0.76);
-  font-size: 0.84rem;
+  font-size: var(--planner-text-small);
   line-height: 1.55;
 }
 
@@ -1431,7 +1433,7 @@ details[open] > summary > svg {
   border-radius: 0.8rem;
   background: var(--planner-primary);
   color: var(--planner-ink);
-  font-size: 0.84rem;
+  font-size: var(--planner-text-small);
   font-weight: 800;
   text-align: center;
   text-decoration: none;
@@ -1474,7 +1476,7 @@ details[open] > summary > svg {
 .cost-breakdown dt,
 .cost-breakdown dd {
   margin: 0;
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
 }
 
 .cost-breakdown dt {
@@ -1523,13 +1525,13 @@ details[open] > summary > svg {
 
 .borrowing-card strong {
   color: var(--planner-ink);
-  font-size: 0.9rem;
+  font-size: var(--planner-text-small);
 }
 
 .borrowing-card p {
   margin: 0.25rem 0 0;
   color: var(--planner-copy);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   line-height: 1.45;
 }
 
@@ -1560,20 +1562,20 @@ details[open] > summary > svg {
 
 .scenario-option strong {
   color: var(--planner-ink);
-  font-size: 0.9rem;
+  font-size: var(--planner-text-small);
 }
 
 .scenario-option span {
   margin-top: 0.5rem;
   color: var(--planner-ink-soft);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   font-weight: 700;
 }
 
 .scenario-option small {
   margin-top: 0.2rem;
   color: var(--planner-muted);
-  font-size: 0.78rem;
+  font-size: var(--planner-text-small);
   line-height: 1.4;
 }
 
@@ -1592,14 +1594,14 @@ details[open] > summary > svg {
 
 .planner-disclaimer strong {
   color: var(--planner-ink);
-  font-size: 0.88rem;
+  font-size: var(--planner-text-small);
 }
 
 .planner-disclaimer p,
 .planner-disclaimer li,
 .planner-disclaimer a {
   color: var(--planner-copy);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   line-height: 1.55;
 }
 
@@ -1622,7 +1624,7 @@ details[open] > summary > svg {
   border: 0;
   background: transparent;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.82rem;
+  font-size: var(--planner-text-small);
   font-weight: 750;
 }
 
@@ -1718,7 +1720,7 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .planner-progress li {
     gap: 0.2rem;
-    font-size: 0.78rem;
+    font-size: var(--planner-text-small);
   }
 
   .planner-progress li span {
@@ -1752,7 +1754,7 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .planner-step-screen .questions-lead {
     margin-top: 0.75rem;
-    font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+    font-size: var(--planner-text-body);
     line-height: 1.45;
   }
 
@@ -1941,7 +1943,7 @@ body[data-planner-stage='results'] .journey-milestone {
   .planner-lead,
   .questions-lead {
     margin-top: 1rem;
-    font-size: 0.96rem;
+    font-size: var(--planner-text-body);
     line-height: 1.55;
   }
 
@@ -2057,7 +2059,7 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .balance-row strong,
   .balance-row span {
-    font-size: 0.75rem;
+    font-size: var(--planner-text-small);
   }
 
   .plan-status {
