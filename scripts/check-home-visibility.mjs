@@ -347,6 +347,12 @@ try {
       .locator('.sloth-hero-dashboard-frame img')
       .boundingBox()
     assert(dashboard && dashboardImage, 'dashboard preview should render')
+    if (viewport.width >= 1440) {
+      assert(
+        dashboard.width >= 1248,
+        `dashboard should use the wider desktop space at ${viewport.width}px`
+      )
+    }
     const dashboardBottom = dashboard.y + dashboard.height
     const dashboardImageBottom = dashboardImage.y + dashboardImage.height
     assert(
@@ -380,6 +386,16 @@ try {
     }
 
     if (screenshotDir) {
+      await page.locator('.sloth-feature-strip').evaluate((element) => {
+        window.scrollTo({
+          top: element.getBoundingClientRect().top + window.scrollY - 96,
+          behavior: 'instant',
+        })
+      })
+      await page.screenshot({
+        path: join(screenshotDir, `home-dashboard-${name}.png`),
+      })
+      await page.evaluate(() => window.scrollTo(0, 0))
       await page.screenshot({
         path: join(screenshotDir, `home-hero-${name}.png`),
       })
