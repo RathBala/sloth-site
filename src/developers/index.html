@@ -496,7 +496,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.24.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.25.0 or newer with Node.js 22 or newer. The
                     <code class="site-note bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -731,6 +731,80 @@ sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
 sloth-agent transactions --assignment-scope joint --uncategorized --limit 50
 sloth-agent transactions --include-pending
 sloth-agent partner status</code></pre>
+              <h3
+                id="budget-funding"
+                class="font-bold text-gray-900 scroll-mt-24"
+              >
+                Fill pots and fund ahead
+              </h3>
+              <p class="text-gray-600">
+                Auto-fill tops up the gap between assigned money and each
+                target. Manual-fill adds the full target again unless you
+                override it. Fund-ahead moves all positive To Assign into
+                next-period reserve.
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent budget fill --scope personal --mode auto
+sloth-agent budget fill --scope joint --mode manual --input overrides.json
+sloth-agent budget fund-ahead --scope personal
+# Replace the placeholder with previewFingerprint from the matching preview:
+sloth-agent budget fill --scope personal --mode auto --apply --expected-preview &lt;previewFingerprint&gt;</code></pre>
+              <p class="text-gray-600">
+                Optional overrides go in a JSON file. Amounts are additional
+                whole-number pence, from zero to the safe-integer limit. Zero
+                skips a category. Supply at most 400 unique budgetable category
+                IDs; omitted categories follow the selected mode.
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+              ><code>{
+  "allocations": [
+    { "categoryId": "groceries", "amountPence": 10000 }
+  ]
+}</code></pre>
+              <p class="text-gray-600">
+                These previews contact Sloth Money and require
+                <code>agent:read</code>. They make no budget or movement-history writes, including when they
+                project new-period carryover. Apply requires
+                <code>agent:write</code>, the same inputs, and
+                <code>--expected-preview</code>. Changed funding returns a
+                conflict: preview again and review the new amounts before
+                applying. After an uncertain response, check the budget before
+                retrying.
+              </p>
+              <p class="text-gray-600">
+                Auto-fill reserves overrides first, then fills remaining gaps in
+                the web category order. Partial auto-fills are allowed. Manual
+                top-ups or overrides exceeding To Assign cannot apply. Funding
+                and category movement history save together. No-op requests
+                leave budgets and movement history unchanged, and planned targets never change.
+              </p>
+              <p class="text-gray-600">
+                Both commands support <code>--scope personal|joint</code>,
+                optional <code>--period YYYY-MM</code>, and
+                <code>--base-url</code>. Only the current configured Sloth
+                period can be filled. Fund-ahead reserves money now; it becomes
+                To Assign when the next period is prepared.
+              </p>
+              <p class="text-gray-600">
+                Use <code>POST /api/agent/v1/budget-funding/preview</code> for
+                previews and <code>POST /api/agent/v1/budget-funding</code> to
+                apply. JSON accepts <code>scope</code>, optional
+                <code>periodKey</code>, <code>mode</code> (<code>auto</code>,
+                <code>manual</code>, or <code>fund-ahead</code>), optional
+                <code>allocations</code>, and <code>expectedPreview</code> for
+                apply. Fund-ahead accepts no allocations.
+              </p>
+              <p class="text-gray-600">
+                Results include <code>previewFingerprint</code>,
+                <code>applied</code>, <code>canApply</code>, <code>noOp</code>,
+                <code>preparationRequired</code>, scope, period, currency,
+                category IDs and names, targets, assigned amounts before and
+                after, proposed additions, shortfall, and To Assign and reserve
+                totals before and after.
+              </p>
+
               <h3
                 id="pending-and-partner-review"
                 class="font-bold text-gray-900 scroll-mt-24"

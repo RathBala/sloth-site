@@ -4,6 +4,13 @@
 
 When writing or editing **user-facing copy** (landing pages, CTAs, headings, meta text), read and follow [`.cursor/skills/copywriting/SKILL.md`](.cursor/skills/copywriting/SKILL.md) - including punchy headings, concision, specificity (name what people are saving toward or catching up on), punctuation (e.g. spaced hyphen instead of em dash for sentence bridges), and scannable structure.
 
+## Public copy conventions
+
+Use concise, specific headings and short paragraphs. Name the money task and the
+next action. Avoid vague recovery phrases; use a spaced hyphen or a new sentence
+instead of an em dash. These repo-wide conventions are canonical here; the
+copywriting skill supplies examples and its pre-writing checklist.
+
 ## Visual Asset Direction
 
 - Generated Sloth Money sloth assets should use warm tan and caramel-brown fur like the current Solo/Couple archetype cards. Keep cream face markings and dark brown eye patches for recognizability.
