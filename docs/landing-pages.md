@@ -43,6 +43,11 @@ The homepage saver cards stay intentionally light: **Solo** links straight to th
 - **Budget activity:** Document the optional period, current-only refresh,
   historical cache-only behavior, money in/out/net rows, truly uncategorized
   activity, nullable budget, and single-currency boundary.
+- **Transaction metadata:** Booked and opt-in pending rows may include normalized
+  `counterpartyName` and `transactionReference` fields. Provider-native debtor,
+  creditor, and raw remittance fields stay private. The existing privacy policy
+  already covers transaction counterparties and references, and this change
+  adds no processor, retention, logging, or analytics behavior.
 - **Investments:** Account totals and nested holdings overlap. Tell readers not
   to add them together or silently add values in different currencies.
 - **Primary CTA:** `Open Sloth Money`, pointing to `https://budget.slothmoney.app`. The page assumes token creation happens inside the app, not through public token-management API docs.
