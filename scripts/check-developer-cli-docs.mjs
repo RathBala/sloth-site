@@ -16,6 +16,8 @@ const privacyPage = fs.readFileSync(
 const llmsText = fs.readFileSync(path.join(root, 'src', 'llms.txt'), 'utf8')
 
 const requiredSnippets = [
+  '<code>incomePeriodKey</code>',
+  '"incomePeriodKey": "2026-09"',
   'npm install --global @slothmoney/agent-cli',
   `CLI ${expectedCliVersion} or newer`,
   'sloth-agent accounts',
