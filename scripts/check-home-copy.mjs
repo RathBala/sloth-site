@@ -102,7 +102,32 @@ const everydayGroups = [
   ],
 ]
 
+const goalsSection = home.slice(
+  home.indexOf('<!-- Goals Section -->'),
+  home.indexOf('<!-- Free beta access section -->')
+)
+
 const checks = [
+  {
+    passes:
+      text(goalsSection).includes('flights, stays, and spending money') &&
+      text(goalsSection).includes('how much to save each month') &&
+      /<a\s[^>]*href="\/home-planner\/"[^>]*data-analytics-cta="goals-home-planner"[^>]*>\s*Can you afford your dream home\?/.test(
+        goalsSection
+      ),
+    message:
+      'Goal cards should describe holiday saving and offer a tracked, contextual home-planner link.',
+  },
+  {
+    passes:
+      text(goalsSection).includes('Make room for your goals') &&
+      text(goalsSection).includes('on your own or with a partner') &&
+      text(goalsSection).includes('Saving for a home') &&
+      !goalsSection.includes('data-archetype-') &&
+      !home.includes('Built for couples planning a future together'),
+    message:
+      'The goals section should welcome individual and shared plans without retired archetype copy.',
+  },
   {
     passes:
       everydayStart > home.indexOf('class="sloth-hero-dashboard-frame') &&

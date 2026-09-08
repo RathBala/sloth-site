@@ -25,6 +25,23 @@ and are not added to marketing tracking.
 | Meta Pixel                        | Disabled; dormant helper only                                  | `src/assets/js/meta-pixel-analytics.js`; not loaded by live HTML                                                                                                                               | None while disabled                                                                                                                        | None while disabled                                                                                                                                                | None while disabled                                                                                                                                                                  | Previously paid-social optimization; currently off                                                                                                            | Disabled. Re-enable only with a new consent/privacy review and inventory update.                                                                                                                                                                                                                 | No live provider retention while disabled.                                                                        | `yarn check:tracking`; `docs/meta-pixel.md`; `docs/paid-social-tracking.md`           |
 | Google Analytics / Google Ads tag | Disabled                                                       | Removed from live page HTML                                                                                                                                                                    | None while disabled                                                                                                                        | None while disabled                                                                                                                                                | None while disabled                                                                                                                                                                  | Previously aggregate marketing analytics / ad measurement; currently off                                                                                      | Disabled. Re-enable only with a new consent/privacy review and inventory update.                                                                                                                                                                                                                 | No live provider retention while disabled.                                                                        | `yarn check:tracking`; `src/privacy/index.html`                                       |
 
+## Goals-section planner link
+
+The homepage's “Can you afford your dream home?” link uses the existing `cta_clicked`
+event with `cta_placement: goals-home-planner`. It sends only the existing
+placement, label, and shared page/campaign properties; no new identifiers or
+financial fields. Provider, retention, and privacy posture remain unchanged.
+
+The learning question is whether this contextual route helps visitors reach a
+useful plan and then choose signup. Use homepage `landing_view` counts as the
+aggregate denominator, this placement for tool entry, `home_planner_completed`
+for results, and `home-planner-results-cta` for signup intent. Also monitor
+homepage signup CTA clicks per homepage view. These are aggregate indicators:
+memory-only identity does not support a joined cross-page conversion funnel,
+and signup clicks are not completed signups. A controlled comparison would be
+needed to establish an effect on signup conversion. The decision is whether to
+keep or revise this link's placement. No new tracking provider or event is added.
+
 ## Update Checklist
 
 When changing any row above:
