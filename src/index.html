@@ -417,7 +417,7 @@
         background: #f9fafb;
       }
 
-      .sloth-home-content > section:first-of-type {
+      .sloth-home-content > section[data-advanced-features] {
         border-top: 1px solid rgba(144, 241, 143, 0.18);
         background: radial-gradient(
             circle at 18% 0%,
@@ -432,17 +432,17 @@
           linear-gradient(180deg, #013d29 0%, #01462f 54%, #012f20 100%);
       }
 
-      .sloth-home-content > section:first-of-type h3 {
+      .sloth-home-content > section[data-advanced-features] h3 {
         color: #ffffff;
       }
 
-      .sloth-home-content > section:first-of-type p,
-      .sloth-home-content > section:first-of-type li,
-      .sloth-home-content > section:first-of-type span {
+      .sloth-home-content > section[data-advanced-features] p,
+      .sloth-home-content > section[data-advanced-features] li,
+      .sloth-home-content > section[data-advanced-features] span {
         color: rgba(236, 255, 236, 0.94);
       }
 
-      .sloth-home-content > section:first-of-type .bg-white {
+      .sloth-home-content > section[data-advanced-features] .bg-white {
         border-color: rgba(144, 241, 143, 0.22);
         background-color: rgba(255, 255, 255, 0.96);
         box-shadow: 0 28px 62px rgba(1, 24, 16, 0.28);
@@ -525,6 +525,7 @@
       })(document, window.posthog || [])
     </script>
     <link href="./assets/css/site-typography.css" rel="stylesheet" />
+    <link href="./assets/css/everyday-features.css" rel="stylesheet" />
   </head>
   <body class="site-page bg-white text-gray-900 font-sans antialiased">
     <main>
@@ -803,8 +804,216 @@
         </section>
       </div>
       <div class="sloth-home-content">
+        <!-- Everyday features -->
+        <section
+          id="everyday-features"
+          aria-labelledby="everyday-features-heading"
+          class="sloth-everyday text-green-really-dark py-16 sm:py-20"
+        >
+          <div class="max-w-[100rem] mx-auto px-6 lg:px-8 xl:px-12">
+            <div class="text-center mb-10 sm:mb-12">
+              <h2 id="everyday-features-heading">
+                Track, budget and save together
+              </h2>
+              <p class="text-gray-600 mt-5 max-w-5xl mx-auto">
+                From daily spending to shared goals, keep your money organised
+                in one place.
+              </p>
+            </div>
+            <div class="sloth-everyday-grid">
+              <article data-everyday-feature="tracking">
+                <div class="sloth-everyday-visual" aria-hidden="true">
+                  <img
+                    src="assets/images/everyday-tracking.webp"
+                    alt=""
+                    width="866"
+                    height="650"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <h3 class="mt-6 mb-5">Track every purchase</h3>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Connect banks or import CSVs</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Search and filter transactions</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Split spending across categories</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Scan and review receipt items</span>
+                  </li>
+                </ul>
+              </article>
+              <article data-everyday-feature="budgeting">
+                <div class="sloth-everyday-visual" aria-hidden="true">
+                  <img
+                    src="assets/images/everyday-budgeting.webp"
+                    alt=""
+                    width="776"
+                    height="530"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <h3 class="mt-6 mb-5">Budget your way</h3>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Custom categories and budget items</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>A monthly cycle that fits payday</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Plan budgets for future months</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Set price-change alerts and renewal reminders</span>
+                  </li>
+                </ul>
+              </article>
+              <article data-everyday-feature="sharing">
+                <div class="sloth-everyday-visual" aria-hidden="true">
+                  <img
+                    src="assets/images/everyday-sharing.webp"
+                    alt=""
+                    width="796"
+                    height="522"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <h3 class="mt-6 mb-5">Share fairly</h3>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Personal and shared spending</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Choose how you split each cost</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>See who owes what</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Ask your partner about a purchase</span>
+                  </li>
+                </ul>
+              </article>
+              <article data-everyday-feature="planning">
+                <div class="sloth-everyday-visual" aria-hidden="true">
+                  <img
+                    src="assets/images/everyday-planning.webp"
+                    alt=""
+                    width="924"
+                    height="636"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <h3 class="mt-6 mb-5">Plan what’s next</h3>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Goals linked to savings accounts</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Set goal priorities and target dates</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>See when goals could be funded</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <i
+                      data-lucide="diamond"
+                      class="w-4 h-4 mt-2 flex-shrink-0 text-green-dark fill-green/20"
+                      aria-hidden="true"
+                    ></i>
+                    <span>Track savings and investments</span>
+                  </li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
         <!-- Features Section -->
-        <section class="py-20 sm:py-28 bg-white">
+        <section data-advanced-features class="py-20 sm:py-28 bg-white">
           <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             <!-- Feature 1: Automated transaction categorisation -->
             <div

@@ -11,6 +11,17 @@ import { chromium } from 'playwright'
 const root = fileURLToPath(new URL('..', import.meta.url))
 const srcRoot = join(root, 'src')
 const screenshotDir = process.env.HOME_VISIBILITY_SCREENSHOT_DIR
+const everydayAssets = ['tracking', 'budgeting', 'sharing', 'planning']
+const everydaySizes = await Promise.all(
+  everydayAssets.map(
+    async (asset) =>
+      (await stat(join(srcRoot, `assets/images/everyday-${asset}.webp`))).size
+  )
+)
+assert(
+  everydaySizes.reduce((total, bytes) => total + bytes, 0) <= 120000,
+  'Everyday component captures should stay within a combined 120 KB delivery budget'
+)
 
 const mimeTypes = new Map([
   ['.css', 'text/css; charset=utf-8'],
@@ -87,6 +98,11 @@ try {
     { name: 'desktop', viewport: { width: 1440, height: 1000 } },
     { name: 'tablet', viewport: { width: 640, height: 960 } },
     {
+      name: 'review-comments',
+      viewport: { width: 1200, height: 479 },
+      featureOnly: true,
+    },
+    {
       name: 'tablet-wide',
       viewport: { width: 1023, height: 1000 },
       featureOnly: true,
@@ -130,14 +146,16 @@ try {
     await page.evaluate(async () => {
       await document.fonts.ready
       await Promise.all(
-        [...document.images].map((image) =>
-          image.complete
-            ? Promise.resolve()
-            : new Promise((resolve) => {
-                image.addEventListener('load', resolve, { once: true })
-                image.addEventListener('error', resolve, { once: true })
-              })
-        )
+        [...document.images]
+          .filter((image) => image.loading !== 'lazy')
+          .map((image) =>
+            image.complete
+              ? Promise.resolve()
+              : new Promise((resolve) => {
+                  image.addEventListener('load', resolve, { once: true })
+                  image.addEventListener('error', resolve, { once: true })
+                })
+          )
       )
     })
     await page.addStyleTag({
@@ -187,13 +205,99 @@ try {
 
     assert.equal(
       await page
-        .locator('.sloth-home-content > section:first-child')
+        .locator('[data-advanced-features]')
         .getByRole('heading')
         .count(),
       4,
       'The feature section should contain one heading per feature, without a second introduction'
     )
     const features = page.locator('[data-product-feature]')
+    assert.equal(
+      await page
+        .locator('[data-product-feature="categorisation"] p')
+        .evaluate((element) => getComputedStyle(element).color),
+      'rgba(236, 255, 236, 0.94)',
+      'The existing advanced section must keep readable light copy on its dark surface'
+    )
+    const everyday = page.locator('[data-everyday-feature]')
+    assert.equal(await everyday.count(), 4)
+    const everydayLayout = []
+    for (const group of await everyday.all()) {
+      await group.scrollIntoViewIfNeeded()
+      await group.locator('img').evaluate((image) => image.decode())
+      const layout = await group.evaluate((element) => {
+        const image = element.querySelector('img')
+        const bounds = image.getBoundingClientRect()
+        const heading = element.querySelector('h3').getBoundingClientRect()
+        const bullets = element.querySelector('ul').getBoundingClientRect()
+        return {
+          left: element.getBoundingClientRect().left,
+          top: element.getBoundingClientRect().top + window.scrollY,
+          imageBottom: bounds.bottom,
+          headingTop: heading.top,
+          headingDocumentTop: heading.top + window.scrollY,
+          copySize: parseFloat(
+            getComputedStyle(element.querySelector('li')).fontSize
+          ),
+          headingBottom: heading.bottom,
+          bulletsTop: bullets.top,
+          width: bounds.width,
+          height: bounds.height,
+          naturalWidth: image.naturalWidth,
+          naturalHeight: image.naturalHeight,
+        }
+      })
+      assert(
+        layout.imageBottom <= layout.headingTop &&
+          layout.headingBottom <= layout.bulletsTop,
+        `${name}: everyday images, headings and bullets must not overlap`
+      )
+      assert(
+        layout.naturalWidth >= layout.width * 2,
+        `${name}: everyday component captures need at least 2x density`
+      )
+      assert(
+        Math.abs(
+          layout.width / layout.height -
+            layout.naturalWidth / layout.naturalHeight
+        ) < 0.01,
+        `${name}: everyday component captures must preserve their proportions`
+      )
+      everydayLayout.push(layout)
+      assert(
+        layout.copySize >= (viewport.width >= 1024 ? 22 : 18),
+        `${name}: everyday benefits must preserve the site's readable body type`
+      )
+    }
+    const companionHeights = everydayLayout
+      .slice(0, 3)
+      .map((item) => item.height)
+    assert(
+      everydayLayout[3].height >= Math.min(...companionHeights) * 0.95,
+      `${name}: the goal capture must have comparable visible height to the other captures`
+    )
+    assert.equal(
+      new Set(everydayLayout.map((item) => Math.round(item.left))).size,
+      viewport.width >= 1280 ? 4 : viewport.width >= 640 ? 2 : 1,
+      `${name}: everyday groups should adapt to readable four-, two- and one-column layouts`
+    )
+    if (viewport.width >= 1280) {
+      assert.equal(
+        new Set(
+          everydayLayout.map((item) => Math.round(item.headingDocumentTop))
+        ).size,
+        1,
+        `${name}: everyday group headings must share a baseline`
+      )
+    }
+    assert.equal(
+      await page
+        .locator('#everyday-features')
+        .evaluate((element) => getComputedStyle(element).backgroundColor),
+      'rgb(243, 248, 245)',
+      'The everyday overview must retain its light surface independently of the advanced feature section'
+    )
+    await page.evaluate(() => window.scrollTo(0, 0))
     assert.equal(
       await features.count(),
       4,

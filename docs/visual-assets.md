@@ -2,6 +2,28 @@
 
 Use this guide when generating or replacing Sloth Money raster assets such as the logo sloth, homepage guide mascot, archetype cards, paid social images, or other sloth illustrations.
 
+## Everyday feature component captures
+
+The four `everyday-*.webp` assets must be captures of canonical `sloth-budget`
+components. Do not generate or redraw financial product UI. A feature existing
+in source code does not make an invented depiction accurate. Preserve the
+component's real labels, controls, colours, calculations and arrangement; crop
+surrounding app chrome when a close-up is more useful. User-approved capture-only
+omissions, such as hiding a redundant icon, must be recorded with their exact
+selector in the capture provenance. Do not carry those omissions into app code.
+
+Use the app's isolated preview routes and existing fixtures, without signing in
+or loading personal accounts. See [`everyday-features.md`](everyday-features.md)
+for exact component provenance, routes, crops and delivery sizes. Capture at 2x
+rendering density, then crop and compress with metadata removed. Do not upscale
+a low-resolution screenshot. Inspect exports in the actual landing page at
+both desktop and mobile sizes before accepting them. For a row of product
+captures, compare the visible component heights as well as the surrounding image
+slots and title alignment; use a native responsive view before stretching art.
+
+The four-column concept remains the layout reference. Its generated product
+illustrations were rejected and are not an approved source for future assets.
+
 ## Sloth Style
 
 - Sloths should use warm tan and caramel-brown fur, cream face markings, dark brown eye patches, and a black nose.

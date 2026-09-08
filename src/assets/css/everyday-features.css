@@ -1,0 +1,84 @@
+.sloth-everyday {
+  --everyday-surface: #f3f8f5;
+  --everyday-divider: rgb(1 38 25 / 12%);
+  --site-card-title: 1.5rem;
+  background: var(--everyday-surface);
+  scroll-margin-top: 6rem;
+}
+
+.site-page #everyday-features-heading {
+  max-width: none;
+}
+
+.sloth-everyday-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+}
+
+.sloth-everyday-grid article {
+  min-width: 0;
+}
+
+.sloth-everyday-grid article + article {
+  border-top: 1px solid var(--everyday-divider);
+  padding-top: 2.5rem;
+}
+
+.sloth-everyday-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+  max-width: 380px;
+  margin-inline: auto;
+}
+
+.sloth-everyday-visual img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .sloth-everyday-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 3rem;
+  }
+
+  .sloth-everyday-grid article {
+    padding-inline: 1rem;
+  }
+
+  .sloth-everyday-visual {
+    height: clamp(12rem, 23vw, 16.625rem);
+    aspect-ratio: auto;
+  }
+
+  .sloth-everyday-grid article + article {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .sloth-everyday-grid article:nth-child(even) {
+    border-left: 1px solid var(--everyday-divider);
+  }
+}
+
+@media (min-width: 1280px) {
+  .sloth-everyday-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .sloth-everyday-grid article + article {
+    border-left: 1px solid var(--everyday-divider);
+  }
+
+  .sloth-everyday-visual {
+    height: clamp(12rem, 16vw, 16rem);
+  }
+}

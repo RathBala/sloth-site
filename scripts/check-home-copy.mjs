@@ -71,7 +71,76 @@ const featureThreeSection = featuresSection.slice(
 )
 const featureFourSection = featuresSection.slice(featureFourStart)
 
+const everydayStart = home.indexOf('<!-- Everyday features -->')
+const everydaySection =
+  everydayStart === -1 ? '' : home.slice(everydayStart, featuresStart)
+const everydayText = text(everydaySection)
+const everydayGroups = [
+  [
+    'tracking',
+    'Track every purchase',
+    'Connect banks or import CSVs',
+    'Scan and review receipt items',
+  ],
+  [
+    'budgeting',
+    'Budget your way',
+    'Plan budgets for future months',
+    'Set price-change alerts and renewal reminders',
+  ],
+  [
+    'sharing',
+    'Share fairly',
+    'See who owes what',
+    'Ask your partner about a purchase',
+  ],
+  [
+    'planning',
+    'Plan what’s next',
+    'Goals linked to savings accounts',
+    'Track savings and investments',
+  ],
+]
+
 const checks = [
+  {
+    passes:
+      everydayStart > home.indexOf('class="sloth-hero-dashboard-frame') &&
+      everydayStart < featuresStart &&
+      everydaySection.includes('aria-labelledby="everyday-features-heading"') &&
+      everydayText.includes('Track, budget and save together') &&
+      everydayText.includes(
+        'From daily spending to shared goals, keep your money organised in one place.'
+      ),
+    message:
+      'Everyday capabilities should be readable in initial HTML between the dashboard and the four advanced features.',
+  },
+  {
+    passes:
+      everydayGroups.every(([slug, ...copy]) => {
+        const group =
+          everydaySection.match(
+            new RegExp(
+              `<article[^>]*data-everyday-feature="${slug}"[\\s\\S]*?<\\/article>`
+            )
+          )?.[0] ?? ''
+        return (
+          copy.every((line) => text(group).includes(line)) &&
+          (group.match(/<li\b/g) ?? []).length === 4 &&
+          (group.match(/data-lucide="diamond"/g) ?? []).length === 4
+        )
+      }) && (everydaySection.match(/<li\b/g) ?? []).length === 16,
+    message:
+      'All sixteen everyday feature bullets should live in their four task groups, with the existing diamond style and no separate extras row.',
+  },
+  {
+    passes:
+      !/<(?:button|input|select|a)\b/.test(everydaySection) &&
+      !everydaySection.includes('data-analytics-cta') &&
+      !everydaySection.includes('fetchpriority="high"'),
+    message:
+      'The everyday overview should remain static illustration and copy, without fake controls, duplicate CTAs or high-priority image downloads.',
+  },
   {
     passes:
       !featuresText.includes('Put your money admin on autopilot') &&

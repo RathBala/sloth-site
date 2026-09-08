@@ -1,131 +1,109 @@
-# Home planner tracker and closing CTA design QA
+# Everyday features design QA
 
-- source visual truth paths: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-945cb916-b427-499b-ac52-5da9c518bb2f.png` and `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-abb99511-add9-4651-ab21-7a303757ca90.png`
-- implementation screenshot paths: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-tracker-impact-desktop.png` and `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-full-width-cta-desktop.png`
-- responsive screenshot paths: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-tracker-impact-mobile.png` and `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-full-width-cta-mobile.png`
-- viewport: desktop `1440 × 1024` CSS pixels; mobile `390 × 844`
-- state: £300,000 home, 10% deposit, £270,000 mortgage, 5.0% assumed rate, 30-year term, repayment selected, Tracker selected, sources expanded
-- combined comparison evidence: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-tracker-comparison.png` and `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/home-planner-cta-comparison.png`
+Date: 2026-09-07. Scope: local `sloth-site` homepage on
+`codex/everyday-features`. No commit, push or deployment.
 
-## Findings
+## Source and decision
 
-No actionable P0, P1, or P2 differences remain.
+The approved four-group layout remains. The user rejected the generated app
+illustrations; all four have now been replaced with direct captures of actual
+`sloth-budget` components. Source files, preview routes, fixture states and crop
+coordinates are recorded in `docs/everyday-features.md`. No app component code or
+fixture was edited. A later user-directed refinement hides only the tracking
+summary icon during capture and uses the narrower native goal layout. The actual components take precedence over the generated
+mockup's invented controls, progress bars, colours and goal icons.
 
-- Tracker feedback: the selected Tracker state now pairs the segmented control with a high-salience worked illustration. It shows the monthly payment at one percentage point above the user's assumed rate, followed by the short explanation that a tracker payment can rise or fall. The current-rate plan remains unchanged, so the illustration does not imply that the tool knows a future lender benchmark or margin.
-- Closing hierarchy: the signup CTA now occupies its own full-width row after the lever column and the complete plan column, including the planning disclaimer and expanded sources. It spans the whole results workspace to the right of the fixed artwork.
-- Spacing and alignment: desktop measurements confirm that the CTA's left and right edges match the results grid exactly. It begins below both the lever panel and the expanded sources. Mobile preserves the same reading order with equal content widths and no horizontal overflow.
-- Colors and visual tokens: the new rate illustration uses the existing soft surface, ink, muted text and border system. The CTA keeps the existing dark-green conversion treatment. No new color family or one-off accent was introduced.
-- Typography and copy: the illustration is concise enough to scan next to the mortgage setup without competing with the payment cards. CTA copy is unchanged and remains the final conversion message after the planning evidence.
-- Image quality and asset fidelity: the fixed optimized home-planner artwork and existing Lucide icon set remain unchanged and sharp.
+The captures show TransactionCard, MTDSpendChart category rings,
+ShareRatioSlider with TransactionModal's calculated amounts, and GoalRow.
+They retain native component layout and text. The overview is decorative static
+imagery; its controls are not interactive on the landing page. All feature
+claims remain accessible in the accompanying HTML lists.
 
-## Comparison history
+## Browser evidence
 
-1. The reference Tracker state changed only a low-contrast helper sentence, so the control appeared inert. The implementation adds a concrete `+1 percentage point example` row with the corresponding monthly payment and rate.
-2. The reference CTA sat inside the plan column before the disclaimer and sources. The implementation moves it after the complete two-column results grid and spans both result columns.
-3. Desktop and mobile captures confirm that the new placement does not create overflow, clipping, or a competing scroll region.
+Verified URL: `http://127.0.0.1:4318/?review=real-components-final#everyday-features`.
+PID 6378 serves this exact checkout, confirmed through its working directory.
+Fresh navigation and cache-busted URLs were used after replacing the assets.
 
-## Interaction and responsive checks
+Screenshot directory:
+`/Users/rathbala/.codex/visualizations/2026/09/06/01a077b4-881a-7f81-93df-ad538b238644/real-components/`
 
-- Fixed and Tracker remain native radio choices with Tab and arrow-key support plus visible focus styling. No additional keyboard shortcut is warranted for this short, one-off comparison.
-- Tracker updates the worked illustration for Repayment, Interest-only, and Part-and-part because it reuses the selected mortgage method and all live lever values.
-- Changing the interest rate, term, deposit, home price, or Part-and-part split immediately recalculates the Tracker illustration.
-- The CTA stays below the expanded sources on desktop and mobile, and the desktop artwork remains fixed while the right content panel scrolls.
-- Browser console errors checked: none from the planner implementation.
+- `desktop-context.png`: the dashboard-to-overview transition.
+- `desktop.png`: complete feature group overview.
+- `mobile-tracking.png`, `mobile-budgeting.png`, `mobile-sharing.png`,
+  `mobile-planning.png`: every mobile group, including adjacent boundaries.
+- `tracking-source.png`, `budgeting-source.png`, `sharing-source.png`,
+  `planning-source.png`: original real-component capture surfaces, outside Git.
 
-## Follow-up polish
+Desktop checked at 1440px and mobile at 390px CSS viewport widths. The in-app
+browser reserves a scrollbar gutter. Source PNGs and final browser composition
+were visually inspected. Real captures intentionally vary in height; equal image
+slots keep desktop titles aligned. No stretching, collisions or clipped benefit
+copy was observed. Small labels within captures are supporting detail; the
+site-standard 18px mobile / 22px desktop lists communicate every capability.
 
-No P3 follow-up is required for this iteration.
+The eight-viewport browser regression additionally verifies 1/2/4 columns,
+image-to-heading-to-list order, heading alignment, aspect ratios, at least 2x
+image density, the light section surface and the existing advanced section's
+light copy. WebP delivery totals 103,190 bytes, below the 120,000-byte budget.
 
-final result: passed
+## Requirement closure
 
----
+| Requirement                                     | Status                 | Evidence                                                                      |
+| ----------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------- |
+| Use actual app components                       | Implemented            | Four direct preview captures; provenance in `docs/everyday-features.md`.      |
+| Consolidate extra features                      | Implemented            | Four lists with sixteen benefits in initial HTML; `yarn check:copy`.          |
+| Match the landing page bullet style             | Implemented            | Existing Lucide diamonds; desktop/mobile review.                              |
+| Clear heading                                   | Implemented            | “Track, budget and save together”.                                            |
+| Preserve approved grouping and surrounding page | Implemented            | Four-column overview and existing dark advanced section retained.             |
+| Responsive, lightweight assets                  | Implemented            | Eight viewport checks, 2x density, preserved proportions and transfer budget. |
+| Prevent another invented product depiction      | Implemented            | `docs/visual-assets.md` now requires canonical component captures.            |
+| Publish to production                           | Intentionally deferred | Local implementation only; shipping was not requested.                        |
 
-# Homepage hero design QA
+## Verification
 
-## Findings
+Successful: `yarn check:copy`, `yarn check:home-visibility`, `yarn build`
+(including public-site readiness), `yarn typecheck`, `yarn check:tracking`,
+`yarn lint`, and `git diff --check`. Readable generated CSS restored using the
+repository's documented Tailwind command.
 
-- No actionable P0, P1, or P2 findings remain.
+Known unrelated limitation from earlier verification: `yarn check:typography`
+reports 14px mobile text in the existing CLI example. The 0.875rem rule predates
+this change. The new section's type-size assertions pass independently.
 
-## Source visual truth
+No new controls, keyboard shortcuts, persistence, analytics or operational logs.
+Only the marketing site is changed; app UI, APIs, CLI, SDKs, jobs and stored data
+remain unchanged and compatible. No app deployment or migration is required.
 
-- Gem/watering composition: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-dfa6d627-897d-4bf7-b5c0-00020ab8b7de.png`
-- Dashboard/background boundary: `/var/folders/qf/ng7v7hxs3g3d_8kj4705c_900000gn/T/codex-clipboard-673ee268-c2ed-49c4-89d2-29ab16ecbac8.png`
-- Both supplied screenshots are `2832x1492` pixels. They were normalized to `1423x740` for the side-by-side comparisons.
+## Browser comment refinements
 
-## Implementation evidence
+- **Comment 1 implemented:** standalone transaction category summary hidden with
+  capture-only CSS; personal and joint category icons remain visible. Source
+  capture assertions verified all three visibility states.
+- **Comment 2 implemented:** goal recaptured at the app's native 390px viewport,
+  producing a taller component without stretching or changing its contents.
+- The previous checks covered equal slots and aligned headings, which allowed a
+  visibly shorter goal image to pass. The new regression checks the actual image
+  height against its neighbours and adds the exact 1200 × 479 review viewport.
+  It failed on the old goal asset before passing on the new one.
 
-- Local URL: `http://localhost:3017/?v=tall-garden-final-desktop`
-- Desktop fold: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/home-hero-tall-garden-desktop.jpg`
-  - Browser viewport: `1438x748` CSS pixels.
-  - Screenshot output: `1423x740` pixels.
-  - State: homepage at `scrollY: 0`.
-- Mobile fold: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/home-hero-tall-garden-mobile.jpg`
-  - Browser viewport: `390x844` CSS pixels.
-  - Screenshot output: `375x812` pixels.
-  - State: homepage at `scrollY: 0`.
-- Full dashboard and lower garden: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/home-dashboard-tall-garden.jpg`
-  - Browser viewport: `1438x1000` CSS pixels.
-  - Screenshot output: `1423x990` pixels.
-  - State: homepage at `scrollY: 600`; the complete dashboard and leafy padding below it are visible.
-- Full-view comparison: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/tall-garden-hero-before-after.jpg`
-- Focused lower-boundary comparison: `/Users/rathbala/.codex/generated_images/01a04d40-9654-7e81-9a1f-e2bca5500275/hero-implementation/tall-garden-dashboard-before-after.jpg`
+Fresh screenshots in the task's `real-components-refined` directory:
+`comments-tracking.png` and `comments-planning.png` reproduce the two comment
+views at 1200 × 479; `desktop-overview.png` shows the whole overview at
+1440 × 1131; `mobile-tracking.png` and `mobile-planning.png` show both changed
+components and their lists at 390 × 844. The existing preview process still
+serves this worktree on port 4318. Source application preview was stopped after
+capture; no temporary wrapper or capture script was added to either repository.
 
-## Fidelity review
+## Tracking padding correction
 
-- Fonts and typography: Manrope, headline scale, button labels, feature labels, and type hierarchy are unchanged. The desktop copy group moves left responsively to preserve clear separation from the regenerated mascot.
-- Spacing and layout rhythm: all four gem shapes fit above the feature strip at the desktop fold. The mobile fold also shows all four gems and the watering interaction. The hero now leaves at least `64px` of background breathing room below the dashboard.
-- Colors and tokens: the existing deep emerald, mint, cyan, purple, amber, and warm caramel palette is preserved.
-- Image quality and asset fidelity: the new `1024x1536` WebP preserves the low-poly garden and warm-brown mascot, makes the water land on the orange gem, and adds a substantial leafy foreground. The optimized critical asset is `115,424` bytes.
-- Copy and content: no customer-facing copy changed.
-- Interactions and diagnostics: both hero CTAs retain their signup/sign-in destinations and analytics identifiers. No browser errors were reported. Local-only warnings for disabled PostHog and the unavailable visit-alert function are expected in this preview environment.
+The visibility-only icon omission retained a 48px grid column plus a 12px gap.
+Removing that column in capture-only CSS restores the native 13px content inset;
+both split icons remain visible and text stays 12px clear of the amount column.
+The old capture failed the inset assertion (73px); the corrected capture passes
+(13px). The exact CSS and required geometry checks are documented in
+`docs/everyday-features.md` so future recaptures do not repeat this omission.
 
-## Comparison history
-
-1. **P1 - Water landed beside the orange gem and the four-gem set was obscured.**
-   - Fix: regenerated the garden, then made one targeted edit that moved the orange gem under the existing water stream. Repositioned the tall asset responsively so all four gem shapes remain visible at desktop and mobile folds.
-   - Post-fix evidence: `tall-garden-hero-before-after.jpg` and both final fold screenshots.
-2. **P1 - The leafy artwork ended partway down the dashboard.**
-   - Fix: outpainted the scene into a tall `2:3` canvas with an extended leafy foreground and added explicit hero padding below the dashboard.
-   - Post-fix evidence: `tall-garden-dashboard-before-after.jpg`; the dashboard is complete and leafy artwork remains visible below it.
-3. **P2 - Raising the new art initially placed the mascot behind the hero copy.**
-   - Fix: shifted the desktop copy group left with a viewport-aware offset while keeping the feature strip centered.
-   - Post-fix evidence: final desktop fold screenshot; copy and mascot no longer collide.
-
-## Open questions
-
-- None blocking.
-
-## Follow-up polish
-
-- The generated `1024px`-wide source is enlarged on wide desktop displays. It remains visually clean at the tested size, but a future higher-resolution generation would improve retina sharpness if the asset becomes a long-term campaign centerpiece.
-
-final result: passed
-
----
-
-# Public Tools navigation and signup handoff design QA
-
-- source visual truth path: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/tools-nav-before-desktop.png`
-- implementation screenshot paths: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/tools-nav-desktop.png` and `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/tools-nav-mobile.png`
-- viewport: desktop `1440 × 900` CSS pixels; mobile `390 × 844`
-- combined comparison evidence: `/Users/rathbala/.codex/visualizations/2026/08/24/01a03293-f755-7e42-9ef8-716b35c1d2e9/tools-nav-comparison.png`
-
-## Findings
-
-No actionable P0, P1, or P2 differences remain.
-
-- Navigation hierarchy: Tools sits before the existing Sign in and Join actions, so it reads as product exploration rather than another account action.
-- Desktop interaction: the native details control exposes one focused destination without widening or restructuring the existing header. The menu stays above hero content and uses the existing white surface, green accent, border, radius and shadow system.
-- Mobile interaction: Home planner appears first in the existing mobile menu, followed by a divider and the unchanged account actions. The card stays within the 390-pixel viewport with no horizontal overflow.
-- Copy: the item names the tool and its three concrete outputs - deposit, mortgage and real home costs - without repeating the planner introduction.
-- Signup handoff: the results CTA keeps its existing visual treatment and now targets the app's explicit signup intent instead of the default authentication mode.
-- Image quality and asset fidelity: no raster assets changed. The menu reuses the site's existing Lucide icon set and logo assets.
-
-## Interaction and responsive checks
-
-- Tools uses native summary/details keyboard behaviour with visible focus and an ordinary destination link.
-- Desktop and mobile both expose the same Home planner destination.
-- The existing sticky header remains above the menu and the mobile menu keeps its existing expanded-state control.
-- No keyboard shortcut is warranted for a low-frequency public navigation menu.
-
-final result: passed
+Fresh evidence: `tracking-padding/desktop.png` at 1200 × 479 and
+`tracking-padding/mobile.png` at 390 × 844. Both show the corrected full card
+inside the homepage, with adjacent heading and benefits. No app code changed.
