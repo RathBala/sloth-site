@@ -241,9 +241,14 @@ const checks = [
   {
     passes:
       homeText.includes('Join the free beta') &&
+      homeText.includes('Free for anyone. Plan solo or with someone else.') &&
+      homeText.includes('Start with your goals') &&
+      !home
+        .slice(home.indexOf('<!-- Free beta access section -->'))
+        .includes('data-archetype-') &&
       homeText.includes('full access is yours free forever') &&
       homeText.includes(
-        'One connected partner included while you are linked'
+        'Invite one other person free while your accounts are linked'
       ) &&
       !homeText.includes('Full access for 14 days') &&
       !homeText.includes('One subscription') &&
@@ -257,7 +262,7 @@ const checks = [
       weddingText.includes('Join the free beta') &&
       weddingText.includes('full access is yours free forever') &&
       weddingText.includes(
-        'One connected partner included while you are linked'
+        'Invite one other person free while your accounts are linked'
       ) &&
       !weddingText.includes('Full access for 14 days') &&
       !weddingText.includes('One subscription') &&
@@ -315,7 +320,7 @@ const checks = [
     passes:
       home.includes('<!-- Features Section -->') &&
       homeText.includes('Automated transaction categorisation') &&
-      homeText.includes('Built for shared finances'),
+      homeText.includes('Plan solo or together'),
     message:
       'Home should keep the existing lower-page content in the initial HTML.',
   },
@@ -339,6 +344,14 @@ const checks = [
       'The Sloth visual asset workflow should remain documented and executable.',
   },
 ]
+
+checks.push({
+  passes: text(home.slice(home.indexOf('<!-- Final CTA Section -->'))).includes(
+    'See where your money goes, keep your budget on track, and plan for the goals that matter to you.'
+  ),
+  message:
+    'The final signup section should welcome individuals with concrete budget and goal benefits.',
+})
 
 const failures = checks.filter(({ passes }) => !passes)
 
