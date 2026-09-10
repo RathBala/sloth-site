@@ -1973,13 +1973,14 @@ body[data-planner-stage='results'] .journey-milestone {
   .planner-visual {
     position: relative;
     top: auto;
-    height: 13.75rem;
-    min-height: 13.75rem;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
     align-self: auto;
   }
 
   .planner-journey-image {
-    object-position: center 32%;
+    object-position: center 75%;
   }
 
   .journey-milestone {
@@ -2163,11 +2164,6 @@ body[data-planner-stage='results'] .journey-milestone {
 }
 
 @media (max-width: 25rem) and (max-height: 50rem) {
-  .planner-visual {
-    height: 10.5rem;
-    min-height: 10.5rem;
-  }
-
   .planner-content {
     margin-top: -1.5rem;
   }

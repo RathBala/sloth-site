@@ -1008,6 +1008,50 @@ try {
     waitUntil: 'domcontentloaded',
   })
 
+  // Bounds of both sloths in the source artwork, including their feet.
+  // Check the painted subjects, not just the image element's box.
+  for (const viewport of [
+    { width: 320, height: 568 },
+    { width: 390, height: 844 },
+    { width: 430, height: 932 },
+    { width: 768, height: 1024 },
+  ]) {
+    await mobilePage.setViewportSize(viewport)
+    const sloths = await mobilePage.evaluate(async () => {
+      const image = document.querySelector('.planner-journey-image')
+      await image.decode()
+      const box = image.getBoundingClientRect()
+      const panel = document
+        .querySelector('.planner-content')
+        .getBoundingClientRect()
+      const scale = Math.max(
+        box.width / image.naturalWidth,
+        box.height / image.naturalHeight
+      )
+      const position = getComputedStyle(image)
+        .objectPosition.split(' ')
+        .map(parseFloat)
+      const top =
+        box.top +
+        ((box.height - image.naturalHeight * scale) * position[1]) / 100
+      return {
+        head: top + 678 * scale,
+        feet: top + 1155 * scale,
+        frameTop: box.top,
+        visibleBottom: Math.min(box.bottom, panel.top),
+      }
+    })
+    assert(
+      sloths.head >= sloths.frameTop,
+      `sloth heads must remain inside the mobile crop at ${viewport.width}px`
+    )
+    assert(
+      sloths.feet <= sloths.visibleBottom - 8,
+      `both sloths must clear the rounded panel at ${viewport.width}px`
+    )
+  }
+  await mobilePage.setViewportSize({ width: 390, height: 844 })
+
   const mobileOverflow = await mobilePage.evaluate(
     () => document.documentElement.scrollWidth - window.innerWidth
   )
