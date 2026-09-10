@@ -226,7 +226,7 @@ const requiredCopy = [
   'Scanning returns a renewalDate and confidence. It does not save a rule.',
   'The PDF is discarded after extraction and is not stored.',
   'leadDays accepts an integer from 1 to 365.',
-  'In-app delivery is always on. Set delivery.email to add email delivery.',
+  'Set delivery.email to true to receive reminders by email.',
   'Returned rules include the computed remindOn date.',
   'renewalDate is null when Sloth cannot find a date in the PDF.',
   'Applying 1 to 100 assignments creates a durable operation and returns a receipt promptly.',
