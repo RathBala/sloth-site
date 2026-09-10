@@ -115,7 +115,19 @@ export function calculatePropertyTax(price, region, firstTimeBuyer) {
   ])
 }
 
-export function calculateHomePlan(input) {
+export function calculateHomePlan(input, now = new Date()) {
+  const startMonth = /^(\d{4})-(0[1-9]|1[0-2])$/.exec(
+    input.savingStartMonth || ''
+  )
+  const monthsUntilSaving = startMonth
+    ? Math.max(
+        0,
+        (Number(startMonth[1]) - now.getFullYear()) * 12 +
+          Number(startMonth[2]) -
+          1 -
+          now.getMonth()
+      )
+    : 0
   const homePrice = numberOrZero(input.homePrice)
   const ownershipType = input.ownershipType === 'shared' ? 'shared' : 'whole'
   const sharedOwnershipPercent = Math.min(
@@ -210,7 +222,7 @@ export function calculateHomePlan(input) {
     cashShortfall === 0
       ? 0
       : monthlySaving > 0
-        ? Math.ceil(cashShortfall / monthlySaving)
+        ? monthsUntilSaving + Math.ceil(cashShortfall / monthlySaving)
         : Number.POSITIVE_INFINITY
   const monthlyMortgageHeadroom =
     numberOrZero(input.monthlyMortgageBudget) - monthlyMortgagePayment
@@ -224,6 +236,7 @@ export function calculateHomePlan(input) {
     depositRequired,
     incomeBorrowingEstimate,
     monthsToCashNeeded,
+    monthsUntilSaving,
     monthlyBills,
     monthlyHomeCost,
     monthlyInterestOnlyPayment,

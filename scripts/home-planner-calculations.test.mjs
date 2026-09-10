@@ -188,3 +188,45 @@ test('reports no finite savings timeline when monthly saving is zero', () => {
   assert.equal(plan.monthsToCashNeeded, Number.POSITIVE_INFINITY)
   assert.equal(plan.incomeBorrowingEstimate, null)
 })
+
+test('adds the wait before saving to every cash timeline across year boundaries', () => {
+  const input = { homePrice: 100000, depositPercent: 10, monthlySaving: 1000 }
+  const now = new Date(2026, 8, 30)
+  assert.equal(calculateHomePlan(input, now).monthsToCashNeeded, 10)
+  assert.equal(
+    calculateHomePlan({ ...input, savingStartMonth: '2026-09' }, now)
+      .monthsToCashNeeded,
+    10
+  )
+  const later = calculateHomePlan(
+    { ...input, savingStartMonth: '2027-01' },
+    now
+  )
+  assert.equal(later.monthsUntilSaving, 4)
+  assert.equal(later.monthsToCashNeeded, 14)
+  assert.equal(later.cashNeeded, calculateHomePlan(input, now).cashNeeded)
+  assert.equal(
+    later.monthlyMortgagePayment,
+    calculateHomePlan(input, now).monthlyMortgagePayment
+  )
+  assert.equal(
+    calculateHomePlan(
+      { ...input, savingStartMonth: '2027-01', depositSaved: 10000 },
+      now
+    ).monthsToCashNeeded,
+    0
+  )
+  assert.equal(
+    calculateHomePlan(
+      { ...input, savingStartMonth: '2027-01', monthlySaving: 0 },
+      now
+    ).monthsToCashNeeded,
+    Infinity
+  )
+  for (const savingStartMonth of ['2025-01', '', 'invalid', '2026-13']) {
+    assert.equal(
+      calculateHomePlan({ ...input, savingStartMonth }, now).monthsToCashNeeded,
+      10
+    )
+  }
+})

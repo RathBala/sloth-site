@@ -5,7 +5,7 @@ import { readFile, stat } from 'node:fs/promises'
 import { extname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { chromium } from 'playwright'
+import { chromium, webkit } from 'playwright'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const srcRoot = join(root, 'src')
@@ -81,6 +81,32 @@ const assertStageFitsViewport = async (
     `the ${stageName} step must fit without vertical scrolling; overflow=${measurements.documentOverflow}`
   )
   assert(measurements.actionBottom <= viewportHeight)
+}
+
+const assertMonthlyBreakdownOrder = async (page) => {
+  const order = await page.evaluate(() => {
+    const summary = document.querySelector('.reality-card')
+    const layout = document.querySelector('.results-layout')
+    const breakdown = document
+      .querySelector('#monthly-breakdown-title')
+      .closest('section')
+    return {
+      first: layout.firstElementChild === breakdown,
+      beforeSetup:
+        breakdown.getBoundingClientRect().bottom <=
+        document.querySelector('.mortgage-choice-card').getBoundingClientRect()
+          .top,
+      fullWidth:
+        Math.abs(
+          breakdown.getBoundingClientRect().width -
+            summary.getBoundingClientRect().width
+        ) <= 1,
+    }
+  })
+  assert(
+    order.first && order.beforeSetup && order.fullWidth,
+    'the monthly breakdown must be the full-width second results card, before mortgage setup'
+  )
 }
 
 const measureIndependentPanelScroll = (page, targetScrollTop) =>
@@ -304,8 +330,12 @@ let browser
 
 try {
   const baseUrl = await listen()
-  browser = await chromium.launch(
-    existsSync(chromium.executablePath()) ? {} : { channel: 'chrome' }
+  const browserType =
+    process.env.HOME_PLANNER_BROWSER === 'webkit' ? webkit : chromium
+  browser = await browserType.launch(
+    browserType === chromium && !existsSync(chromium.executablePath())
+      ? { channel: 'chrome' }
+      : {}
   )
   const desktopViewport = { width: 1440, height: 748 }
   const page = await browser.newPage({
@@ -385,6 +415,7 @@ try {
     'deposit',
     desktopViewport.height
   )
+  await page.locator('.planner-privacy-note').scrollIntoViewIfNeeded()
   const privacyBox = await page.locator('.planner-privacy-note').boundingBox()
   assert(
     privacyBox && privacyBox.y + privacyBox.height <= desktopViewport.height
@@ -392,6 +423,22 @@ try {
 
   await page.locator('#deposit-saved').fill('5250')
   await page.locator('#monthly-saving').fill('123')
+  const currentMonth = await page.evaluate(() => {
+    const now = new Date()
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
+  })
+  const futureMonth = `${Number(currentMonth.slice(0, 4)) + 1}-${currentMonth.slice(5)}`
+  assert.equal(
+    await page.locator('#saving-start-month').inputValue(),
+    currentMonth
+  )
+  await page.locator('#saving-start-month').fill('')
+  await page.locator('#savings-next').click()
+  assert.equal(await page.locator('#planner-savings').isVisible(), true)
+  await page.locator('#saving-start-month').fill('2020-01')
+  await page.locator('#savings-next').click()
+  assert.equal(await page.locator('#planner-savings').isVisible(), true)
+  await page.locator('#saving-start-month').fill(futureMonth)
   await page.locator('#savings-next').click()
 
   await assert.doesNotReject(() =>
@@ -405,6 +452,10 @@ try {
   await page.goBack()
   await page.waitForFunction(() => location.hash === '#deposit')
   assert.equal(await page.locator('#planner-savings').isVisible(), true)
+  assert.equal(
+    await page.locator('#saving-start-month').inputValue(),
+    futureMonth
+  )
   await page.goForward()
   await page.waitForFunction(() => location.hash === '#home')
   assert.equal(await page.locator('#planner-home').isVisible(), true)
@@ -566,6 +617,11 @@ try {
     { max: '20000000', min: '25000', step: '1' },
     'the result control should inherit the canonical wizard price range'
   )
+  assert.match(
+    await page.locator('#result-timeline-detail').textContent(),
+    /Includes 1 year before saving starts/
+  )
+  await assertMonthlyBreakdownOrder(page)
   const startingPriceSlider = Number(
     await page.locator('#lever-home-price-range').inputValue()
   )
@@ -600,7 +656,7 @@ try {
 
   const resultsType = await page.evaluate(() => ({
     balance: Number.parseFloat(
-      getComputedStyle(document.querySelector('.balance-row span')).fontSize
+      getComputedStyle(document.querySelector('.balance-method dd')).fontSize
     ),
     disclaimer: Number.parseFloat(
       getComputedStyle(document.querySelector('.planner-disclaimer p')).fontSize
@@ -928,6 +984,10 @@ try {
   })
   await page.locator('#planner-start').click()
   assert.equal(
+    await page.locator('#saving-start-month').inputValue(),
+    currentMonth
+  )
+  assert.equal(
     await page.locator('#deposit-saved').inputValue(),
     '',
     'financial answers must not persist across a refresh'
@@ -975,6 +1035,117 @@ try {
   await mobilePage.locator('#mortgage-budget').fill('1500')
   await mobilePage.locator('#annual-income').fill('60000')
   await mobilePage.locator('#budget-next').click()
+
+  for (const width of [320, 390, 430]) {
+    await mobilePage.setViewportSize({ width, height: 844 })
+    for (const price of ['1000000', '20000000']) {
+      await mobilePage.locator('#lever-home-price').fill(price)
+      const paintedLayout = await mobilePage.evaluate(() => {
+        const comparison = document.querySelector('.balance-comparison')
+        const container = comparison.getBoundingClientRect()
+        const walker = document.createTreeWalker(
+          comparison,
+          NodeFilter.SHOW_TEXT
+        )
+        const boxes = []
+        while (walker.nextNode()) {
+          if (!walker.currentNode.textContent.trim()) continue
+          const range = document.createRange()
+          range.selectNodeContents(walker.currentNode)
+          boxes.push(
+            ...[...range.getClientRects()].filter(
+              (box) => box.width && box.height
+            )
+          )
+        }
+        return {
+          overflow: document.documentElement.scrollWidth - innerWidth,
+          cardsContained: [
+            '.lever-panel',
+            '.reality-card',
+            '.mortgage-choice-card',
+          ].every((selector) => {
+            const box = document.querySelector(selector).getBoundingClientRect()
+            return box.left >= 0 && box.right <= innerWidth + 1
+          }),
+          contained: boxes.every(
+            (box) =>
+              box.left >= container.left &&
+              box.right <= Math.min(container.right, innerWidth) + 1
+          ),
+          overlapping: boxes.some((box, index) =>
+            boxes
+              .slice(index + 1)
+              .some(
+                (other) =>
+                  Math.min(box.right, other.right) -
+                    Math.max(box.left, other.left) >
+                    1 &&
+                  Math.min(box.bottom, other.bottom) -
+                    Math.max(box.top, other.top) >
+                    1
+              )
+          ),
+        }
+      })
+      assert(paintedLayout.cardsContained, 'result cards must fit the viewport')
+      assert(
+        paintedLayout.contained,
+        `balance text must fit its card at ${width}px for £${price}`
+      )
+      assert.equal(
+        paintedLayout.overlapping,
+        false,
+        'painted balance labels and amounts must not collide'
+      )
+      assert(
+        paintedLayout.overflow <= 1,
+        'results must stay inside the mobile viewport'
+      )
+    }
+  }
+  await mobilePage.setViewportSize({ width: 390, height: 844 })
+  await mobilePage.locator('#lever-home-price').fill('1000000')
+  await mobilePage.locator('#lever-term').fill('15')
+  assert.deepEqual(
+    await mobilePage.locator('[data-balance-year="one"]').allTextContents(),
+    ['Year 5', 'Year 5', 'Year 5']
+  )
+  await mobilePage.locator('#lever-term').fill('30')
+
+  await assertMonthlyBreakdownOrder(mobilePage)
+  const summaryOrder = await mobilePage.evaluate(() => ({
+    summaryBottom: document
+      .querySelector('.reality-card')
+      .getBoundingClientRect().bottom,
+    detailTop: document.querySelector('.results-layout').getBoundingClientRect()
+      .top,
+  }))
+  assert(
+    summaryOrder.summaryBottom <= summaryOrder.detailTop,
+    'the monthly estimate must come before every results detail'
+  )
+  await mobilePage.locator('#show-monthly-breakdown').focus()
+  await mobilePage.locator('#show-monthly-breakdown').press('Enter')
+  assert.equal(
+    await mobilePage.evaluate(() => document.activeElement?.id),
+    'monthly-breakdown-title'
+  )
+  await mobilePage.emulateMedia({ reducedMotion: 'reduce' })
+  assert.equal(
+    await mobilePage
+      .locator('.reality-card')
+      .evaluate((node) => getComputedStyle(node).animationName),
+    'none'
+  )
+  await mobilePage.emulateMedia({ reducedMotion: 'no-preference' })
+  assert.equal(
+    await mobilePage
+      .locator('.reality-card')
+      .evaluate((node) => getComputedStyle(node).animationIterationCount),
+    '1'
+  )
+  await mobilePage.locator('#lever-home-price').fill('300000')
 
   const mobileResultOrder = await mobilePage.evaluate(() => ({
     choiceTop: document

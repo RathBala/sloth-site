@@ -265,6 +265,20 @@
                     />
                   </span>
                 </label>
+                <label class="money-field" for="saving-start-month">
+                  <span>When will you start saving this amount?</span>
+                  <input
+                    id="saving-start-month"
+                    name="savingStartMonth"
+                    type="month"
+                    required
+                    aria-describedby="saving-start-hint"
+                  />
+                  <span class="field-hint" id="saving-start-hint"
+                    >Keep this month to start now, or choose a future
+                    month.</span
+                  >
+                </label>
               </div>
 
               <div class="planner-actions">
@@ -642,10 +656,72 @@
                   <span>Back</span>
                 </button>
                 <p class="planner-step">Your live plan</p>
-                <h2 id="results-heading" tabindex="-1">Move the levers</h2>
+                <h2 id="results-heading" tabindex="-1">
+                  Your home plan is ready
+                </h2>
               </div>
 
+              <section
+                class="reality-card"
+                aria-label="Your monthly home estimate"
+              >
+                <div class="reality-content">
+                  <span class="reality-celebration" aria-hidden="true"
+                    ><i data-lucide="party-popper"></i
+                  ></span>
+                  <p class="panel-kicker">Your monthly home estimate</p>
+                  <p
+                    class="reality-total"
+                    id="result-total-monthly"
+                    aria-live="polite"
+                  ></p>
+                  <p class="reality-surprise" id="result-surprise"></p>
+                  <button
+                    class="reality-breakdown-link"
+                    id="show-monthly-breakdown"
+                    type="button"
+                  >
+                    <span>See the breakdown below</span>
+                    <i data-lucide="arrow-down" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <span class="plan-status" id="plan-status"></span>
+              </section>
+
               <div class="results-layout">
+                <section class="breakdown-card">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="panel-kicker">Every month</p>
+                      <h3 id="monthly-breakdown-title" tabindex="-1">
+                        Your monthly breakdown
+                      </h3>
+                    </div>
+                    <i data-lucide="pie-chart" aria-hidden="true"></i>
+                  </div>
+                  <dl class="cost-breakdown">
+                    <div>
+                      <dt id="breakdown-mortgage-label">Mortgage repayment</dt>
+                      <dd id="breakdown-mortgage"></dd>
+                    </div>
+                    <div id="breakdown-rent-row" hidden>
+                      <dt>Rent on the unowned share</dt>
+                      <dd id="breakdown-rent"></dd>
+                    </div>
+                    <div>
+                      <dt>Repairs and maintenance cushion</dt>
+                      <dd id="breakdown-maintenance"></dd>
+                    </div>
+                    <div>
+                      <dt>Bills and home insurance</dt>
+                      <dd id="breakdown-bills"></dd>
+                    </div>
+                    <div>
+                      <dt>Service charge</dt>
+                      <dd id="breakdown-service"></dd>
+                    </div>
+                  </dl>
+                </section>
                 <div class="results-main">
                   <aside class="lever-panel" aria-labelledby="levers-heading">
                     <div class="panel-heading">
@@ -974,69 +1050,63 @@
                         <strong>How the balance changes</strong>
                         <span id="balance-comparison-term"></span>
                       </div>
-                      <div class="balance-table" role="table">
-                        <div class="balance-row balance-row-heading" role="row">
-                          <span role="columnheader">Method</span>
-                          <span
-                            role="columnheader"
-                            id="balance-year-one"
-                          ></span>
-                          <span
-                            role="columnheader"
-                            id="balance-year-two"
-                          ></span>
-                          <span role="columnheader">End</span>
-                        </div>
-                        <div class="balance-row" role="row">
-                          <strong role="rowheader">Repayment</strong>
-                          <span role="cell" id="repayment-balance-one"></span>
-                          <span role="cell" id="repayment-balance-two"></span>
-                          <span role="cell">£0</span>
-                        </div>
-                        <div class="balance-row" role="row">
-                          <strong role="rowheader">Part-and-part</strong>
-                          <span
-                            role="cell"
-                            id="part-and-part-balance-one"
-                          ></span>
-                          <span
-                            role="cell"
-                            id="part-and-part-balance-two"
-                          ></span>
-                          <span
-                            role="cell"
-                            id="part-and-part-balance-end"
-                          ></span>
-                        </div>
-                        <div class="balance-row" role="row">
-                          <strong role="rowheader">Interest-only</strong>
-                          <span
-                            role="cell"
-                            id="interest-only-balance-one"
-                          ></span>
-                          <span
-                            role="cell"
-                            id="interest-only-balance-two"
-                          ></span>
-                          <span
-                            role="cell"
-                            id="interest-only-balance-end"
-                          ></span>
-                        </div>
+                      <div class="balance-methods">
+                        <article class="balance-method">
+                          <h4>Repayment</h4>
+                          <dl>
+                            <div>
+                              <dt data-balance-year="one"></dt>
+                              <dd id="repayment-balance-one"></dd>
+                            </div>
+                            <div>
+                              <dt data-balance-year="two"></dt>
+                              <dd id="repayment-balance-two"></dd>
+                            </div>
+                            <div>
+                              <dt>End</dt>
+                              <dd id="repayment-balance-end">£0</dd>
+                            </div>
+                          </dl>
+                        </article>
+                        <article class="balance-method">
+                          <h4>Part-and-part</h4>
+                          <dl>
+                            <div>
+                              <dt data-balance-year="one"></dt>
+                              <dd id="part-and-part-balance-one"></dd>
+                            </div>
+                            <div>
+                              <dt data-balance-year="two"></dt>
+                              <dd id="part-and-part-balance-two"></dd>
+                            </div>
+                            <div>
+                              <dt>End</dt>
+                              <dd id="part-and-part-balance-end"></dd>
+                            </div>
+                          </dl>
+                        </article>
+                        <article class="balance-method">
+                          <h4>Interest-only</h4>
+                          <dl>
+                            <div>
+                              <dt data-balance-year="one"></dt>
+                              <dd id="interest-only-balance-one"></dd>
+                            </div>
+                            <div>
+                              <dt data-balance-year="two"></dt>
+                              <dd id="interest-only-balance-two"></dd>
+                            </div>
+                            <div>
+                              <dt>End</dt>
+                              <dd id="interest-only-balance-end"></dd>
+                            </div>
+                          </dl>
+                        </article>
                       </div>
                     </div>
                   </section>
 
                   <div class="plan-panel" aria-live="polite">
-                    <section class="reality-card">
-                      <div>
-                        <p class="panel-kicker">The full monthly picture</p>
-                        <p class="reality-total" id="result-total-monthly"></p>
-                        <p class="reality-surprise" id="result-surprise"></p>
-                      </div>
-                      <span class="plan-status" id="plan-status"></span>
-                    </section>
-
                     <div class="result-metrics">
                       <article>
                         <span class="metric-icon yellow"
@@ -1075,73 +1145,37 @@
                       </article>
                     </div>
 
-                    <div class="result-columns">
-                      <section class="breakdown-card">
-                        <div class="panel-heading">
-                          <div>
-                            <p class="panel-kicker">Every month</p>
-                            <h3>Beyond the mortgage</h3>
-                          </div>
-                          <i data-lucide="pie-chart" aria-hidden="true"></i>
+                    <section class="breakdown-card">
+                      <div class="panel-heading">
+                        <div>
+                          <p class="panel-kicker">Before you move</p>
+                          <h3>Cash to prepare</h3>
                         </div>
-                        <dl class="cost-breakdown">
-                          <div>
-                            <dt id="breakdown-mortgage-label">
-                              Mortgage repayment
-                            </dt>
-                            <dd id="breakdown-mortgage"></dd>
-                          </div>
-                          <div id="breakdown-rent-row" hidden>
-                            <dt>Rent on the unowned share</dt>
-                            <dd id="breakdown-rent"></dd>
-                          </div>
-                          <div>
-                            <dt>Repairs and maintenance cushion</dt>
-                            <dd id="breakdown-maintenance"></dd>
-                          </div>
-                          <div>
-                            <dt>Bills and home insurance</dt>
-                            <dd id="breakdown-bills"></dd>
-                          </div>
-                          <div>
-                            <dt>Service charge</dt>
-                            <dd id="breakdown-service"></dd>
-                          </div>
-                        </dl>
-                      </section>
-
-                      <section class="breakdown-card">
-                        <div class="panel-heading">
-                          <div>
-                            <p class="panel-kicker">Before you move</p>
-                            <h3>Cash to prepare</h3>
-                          </div>
-                          <i data-lucide="piggy-bank" aria-hidden="true"></i>
+                        <i data-lucide="piggy-bank" aria-hidden="true"></i>
+                      </div>
+                      <dl class="cost-breakdown">
+                        <div>
+                          <dt>Deposit</dt>
+                          <dd id="breakdown-deposit"></dd>
                         </div>
-                        <dl class="cost-breakdown">
-                          <div>
-                            <dt>Deposit</dt>
-                            <dd id="breakdown-deposit"></dd>
-                          </div>
-                          <div>
-                            <dt>Property tax estimate</dt>
-                            <dd id="breakdown-tax"></dd>
-                          </div>
-                          <div>
-                            <dt>Legal, survey and moving</dt>
-                            <dd id="breakdown-buying-fees"></dd>
-                          </div>
-                          <div>
-                            <dt>Furnishings</dt>
-                            <dd id="breakdown-furnishings"></dd>
-                          </div>
-                          <div class="breakdown-total">
-                            <dt>Total</dt>
-                            <dd id="breakdown-cash-total"></dd>
-                          </div>
-                        </dl>
-                      </section>
-                    </div>
+                        <div>
+                          <dt>Property tax estimate</dt>
+                          <dd id="breakdown-tax"></dd>
+                        </div>
+                        <div>
+                          <dt>Legal, survey and moving</dt>
+                          <dd id="breakdown-buying-fees"></dd>
+                        </div>
+                        <div>
+                          <dt>Furnishings</dt>
+                          <dd id="breakdown-furnishings"></dd>
+                        </div>
+                        <div class="breakdown-total">
+                          <dt>Total</dt>
+                          <dd id="breakdown-cash-total"></dd>
+                        </div>
+                      </dl>
+                    </section>
 
                     <section class="borrowing-card" id="borrowing-check">
                       <span

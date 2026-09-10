@@ -87,6 +87,7 @@ const formatTimeline = (months) => {
 
 function initializePlanner() {
   const form = byId('home-planner-form')
+  const savingStartMonth = byId('saving-start-month')
   const wizardHomePrice = byId('home-price')
   const exactHomePrice = byId('lever-home-price')
   const homePriceRange = byId('lever-home-price-range')
@@ -99,6 +100,7 @@ function initializePlanner() {
   let pendingBackFocus = null
   const requiredElements = [
     form,
+    savingStartMonth,
     wizardHomePrice,
     exactHomePrice,
     homePriceRange,
@@ -112,6 +114,19 @@ function initializePlanner() {
     console.warn('[home-planner] Required planner elements are missing.')
     return
   }
+
+  const now = new Date()
+  const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
+  savingStartMonth.min = currentMonth
+  savingStartMonth.value = currentMonth
+  savingStartMonth.addEventListener('input', () => {
+    const validMonth = /^\d{4}-(0[1-9]|1[0-2])$/.test(savingStartMonth.value)
+    savingStartMonth.setCustomValidity(
+      validMonth && savingStartMonth.value >= currentMonth
+        ? ''
+        : 'Choose this month or a future month.'
+    )
+  })
 
   exactHomePrice.min = wizardHomePrice.min
   exactHomePrice.max = wizardHomePrice.max
@@ -207,6 +222,7 @@ function initializePlanner() {
     monthlyBills: inputNumber('lever-bills'),
     monthlyMortgageBudget: inputNumber('mortgage-budget'),
     monthlySaving: inputNumber('monthly-saving'),
+    savingStartMonth: savingStartMonth.value,
     ownershipType: checkedValue('ownershipType'),
     partRepaymentPercent: inputNumber('part-repayment-percent'),
     propertyType: checkedValue('propertyType'),
@@ -362,8 +378,9 @@ function initializePlanner() {
         : 'A fixed rate usually stays set for the deal period.'
     byId('balance-comparison-term').textContent =
       `${input.termYears}-year term at ${input.annualInterestRate.toFixed(1)}%`
-    byId('balance-year-one').textContent = `Year ${balanceYearOne}`
-    byId('balance-year-two').textContent = `Year ${balanceYearTwo}`
+    document.querySelectorAll('[data-balance-year]').forEach((label) => {
+      label.textContent = `Year ${label.dataset.balanceYear === 'one' ? balanceYearOne : balanceYearTwo}`
+    })
     byId('repayment-balance-one').textContent = formatMoney(repaymentBalanceOne)
     byId('repayment-balance-two').textContent = formatMoney(repaymentBalanceTwo)
     byId('part-and-part-balance-one').textContent = formatMoney(
@@ -409,9 +426,13 @@ function initializePlanner() {
     byId('result-timeline').textContent = formatTimeline(
       plan.monthsToCashNeeded
     )
-    byId('result-timeline-detail').textContent = `${formatMoney(
-      plan.cashNeeded
-    )} target, ${formatMoney(input.depositSaved)} saved`
+    byId('result-timeline-detail').textContent =
+      `${formatMoney(
+        plan.cashNeeded
+      )} target, ${formatMoney(input.depositSaved)} saved` +
+      (plan.cashShortfall > 0 && plan.monthsUntilSaving > 0
+        ? `. Includes ${formatTimeline(plan.monthsUntilSaving)} before saving starts.`
+        : '')
     byId('result-mortgage-payment').textContent = `${formatMoney(
       plan.monthlyMortgagePayment
     )}/mo`
@@ -584,6 +605,12 @@ function initializePlanner() {
               : 'buying-next'
       navigateBack(previous, focusId)
     })
+  })
+
+  byId('show-monthly-breakdown').addEventListener('click', () => {
+    const heading = byId('monthly-breakdown-title')
+    heading.focus({ preventScroll: true })
+    heading.closest('.breakdown-card').scrollIntoView({ block: 'start' })
   })
 
   byId('results-back').addEventListener('click', () => {

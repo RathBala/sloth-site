@@ -232,7 +232,11 @@ requireText(
   'data-analytics-cta="home-planner-start"',
   'src/home-planner/index.html'
 )
-requireText(homePlanner, 'Move the levers', 'src/home-planner/index.html')
+requireText(
+  homePlanner,
+  'Your home plan is ready',
+  'src/home-planner/index.html'
+)
 requireText(
   homePlanner,
   'Sources and assumptions',
