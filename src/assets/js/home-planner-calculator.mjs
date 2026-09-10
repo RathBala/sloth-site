@@ -142,7 +142,7 @@ export function calculateHomePlan(input, now = new Date()) {
     100,
     Math.max(0, numberOrZero(input.depositPercent))
   )
-  const depositRequired = purchasedValue * (depositPercent / 100)
+  const depositRequired = Math.round(purchasedValue * depositPercent) / 100
   const mortgagePrincipal = Math.max(0, purchasedValue - depositRequired)
   const repaymentMethod = ['interest-only', 'part-and-part'].includes(
     input.repaymentMethod
@@ -233,6 +233,7 @@ export function calculateHomePlan(input, now = new Date()) {
   return {
     cashNeeded,
     cashShortfall,
+    depositPercent,
     depositRequired,
     incomeBorrowingEstimate,
     monthsToCashNeeded,

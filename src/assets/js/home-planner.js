@@ -92,6 +92,7 @@ const formatTimeline = (months) => {
 function initializePlanner() {
   const form = byId('home-planner-form')
   const savingStartMonth = byId('saving-start-month')
+  const depositTarget = byId('deposit-target')
   const wizardHomePrice = byId('home-price')
   const exactHomePrice = byId('lever-home-price')
   const homePriceRange = byId('lever-home-price-range')
@@ -105,6 +106,7 @@ function initializePlanner() {
   const requiredElements = [
     form,
     savingStartMonth,
+    depositTarget,
     wizardHomePrice,
     exactHomePrice,
     homePriceRange,
@@ -222,6 +224,7 @@ function initializePlanner() {
     })
     document.body.dataset.plannerStage = name
     updateProgress(name)
+    if (name === 'budget') renderDepositTarget()
 
     window.scrollTo({ top: 0 })
     plannerContent.scrollTop = 0
@@ -289,6 +292,20 @@ function initializePlanner() {
     sharedOwnershipPercent: inputNumber('lever-shared-percent'),
     termYears: inputNumber('lever-term'),
   })
+
+  const renderDepositTarget = () => {
+    const plan = calculateHomePlan({
+      homePrice: Number(readHomePrice()),
+      ownershipType: checkedValue('ownershipType'),
+      depositPercent: inputNumber('deposit-target'),
+    })
+    byId('deposit-target-amount').textContent =
+      `${formatMoney(plan.depositRequired)} deposit` +
+      (checkedValue('ownershipType') === 'shared'
+        ? ` on a ${plan.sharedOwnershipPercent}% share`
+        : '')
+  }
+  depositTarget.addEventListener('input', renderDepositTarget)
 
   const taxNote = (region, firstTimeBuyer, ownershipType) => {
     if (ownershipType === 'shared') {
@@ -384,7 +401,7 @@ function initializePlanner() {
       ) + plan.partInterestOnlyPrincipal
 
     byId('result-deposit-percent').textContent =
-      `${Number(input.depositPercent.toFixed(2))}%`
+      `${Number(plan.depositPercent.toFixed(2))}%`
     const depositAmount = byId('lever-deposit-amount')
     byId('lever-deposit').setAttribute(
       'aria-valuetext',
@@ -438,6 +455,7 @@ function initializePlanner() {
     document.querySelector('.shared-ownership-lever').hidden =
       ownershipType !== 'shared'
     if (sheet?.update(plan)) return
+    depositTarget.value = String(plan.depositPercent)
 
     byId('rate-impact-label').textContent =
       rateType === 'tracker'
@@ -581,7 +599,6 @@ function initializePlanner() {
     const homePrice = readHomePrice() || '300000'
     byId('lever-home-price').value = homePrice
     syncHomePriceRange(homePrice)
-    byId('lever-deposit').value = '10'
     byId('lever-rate').value = '5'
     byId('lever-term').value = '30'
     byId('lever-shared-percent').value = '40'
@@ -599,6 +616,7 @@ function initializePlanner() {
     byId('part-repayment-percent').value = '50'
     byId('repayment-method-repayment').checked = true
     byId('rate-type-fixed').checked = true
+    byId('lever-deposit').value = depositTarget.value
     byId('tax-rates-date').textContent =
       `Property tax assumptions checked ${PROPERTY_TAX_UPDATED_AT}.`
     renderPlan()

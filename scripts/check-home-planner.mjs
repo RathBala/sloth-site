@@ -329,6 +329,12 @@ assert.doesNotMatch(
   'the old buried mortgage guide must be removed'
 )
 
+assert.match(
+  html,
+  /id="deposit-target"/,
+  'the wizard must ask for a deposit target separately from savings'
+)
+
 let browser
 
 try {
@@ -1030,6 +1036,109 @@ try {
     'financial answers must not persist across a refresh'
   )
 
+  for (const scenario of [
+    {
+      saved: '100000',
+      ownership: 'whole',
+      percent: '40',
+      deposit: '£120,000',
+      loan: '£180,000',
+      shortfall: '£32,000',
+    },
+    {
+      saved: '101000',
+      ownership: 'whole',
+      percent: '40',
+      deposit: '£120,000',
+      loan: '£180,000',
+      shortfall: '£31,000',
+    },
+    {
+      saved: '150000',
+      ownership: 'whole',
+      percent: '40',
+      deposit: '£120,000',
+      loan: '£180,000',
+      shortfall: '£0',
+    },
+    {
+      saved: '100000',
+      ownership: 'shared',
+      percent: '20',
+      deposit: '£24,000',
+      loan: '£96,000',
+      shortfall: '£0',
+    },
+  ]) {
+    await page.goto(`${baseUrl}/home-planner/`)
+    await page.locator('#planner-start').click()
+    await page.locator('#deposit-saved').fill(scenario.saved)
+    await page.locator('#monthly-saving').fill('1000')
+    await page.locator('#savings-next').click()
+    await page.locator('#home-price').fill('300000')
+    await page.locator('[name="region"][value="england-ni"]').check()
+    await page.locator('[name="propertyType"][value="house"]').check()
+    await page.locator('#home-next').click()
+    await page
+      .locator(`[name="ownershipType"][value="${scenario.ownership}"]`)
+      .check()
+    await page.locator('[name="firstTimeBuyer"][value="yes"]').check()
+    await page.locator('#buying-next').click()
+    assert.equal(await page.locator('#deposit-target').inputValue(), '10')
+    await page.locator('#deposit-target').fill(scenario.percent)
+    assert.equal(
+      await page.locator('#deposit-target-amount').textContent(),
+      `${scenario.deposit} deposit${scenario.ownership === 'shared' ? ' on a 40% share' : ''}`
+    )
+    await page.locator('#mortgage-budget').fill('1500')
+    await page.locator('#budget-next').click()
+    assert.equal(
+      await page.locator('#lever-deposit').inputValue(),
+      scenario.percent
+    )
+    assert.equal(
+      await page.locator('#breakdown-deposit').textContent(),
+      scenario.deposit
+    )
+    assert.equal(
+      await page.locator('#result-loan').textContent(),
+      `${scenario.loan} repayment mortgage`
+    )
+    assert.equal(
+      await page.locator('#result-cash-shortfall').textContent(),
+      `${scenario.shortfall} still to build`
+    )
+    if (scenario.saved === '100000' && scenario.ownership === 'whole') {
+      assert.equal(
+        await page.locator('#result-timeline').textContent(),
+        '2y 8m'
+      )
+      await page.locator('#lever-deposit').fill('20')
+      assert.equal(
+        await page.locator('#result-loan').textContent(),
+        '£240,000 repayment mortgage'
+      )
+      await page.locator('#results-back').click()
+      await page.locator('#planner-budget:not([hidden])').waitFor()
+      assert.equal(await page.locator('#deposit-target').inputValue(), '20')
+      await page.locator('#deposit-target').fill('101')
+      await page.locator('#budget-next').click()
+      assert.equal(await page.locator('#planner-budget').isVisible(), true)
+      await page.locator('#deposit-target').fill('-1')
+      await page.locator('#budget-next').click()
+      assert.equal(await page.locator('#planner-budget').isVisible(), true)
+      await page.locator('#deposit-target').fill('')
+      await page.locator('#budget-next').click()
+      assert.equal(await page.locator('#planner-budget').isVisible(), true)
+      await page.locator('#deposit-target').fill('30')
+      await page.locator('#budget-next').click()
+      assert.equal(
+        await page.locator('#breakdown-deposit').textContent(),
+        '£90,000'
+      )
+    }
+  }
+
   const mobilePage = await browser.newPage({
     viewport: { width: 390, height: 844 },
   })
@@ -1113,10 +1222,20 @@ try {
   await mobilePage.locator('[name="ownershipType"][value="whole"]').check()
   await mobilePage.locator('[name="firstTimeBuyer"][value="yes"]').check()
   await mobilePage.locator('#buying-next').click()
+  await mobilePage.locator('#deposit-target').fill('20')
+  assert.equal(
+    await mobilePage.locator('#deposit-target-amount').textContent(),
+    '£60,000 deposit'
+  )
   await mobilePage.locator('#mortgage-budget').fill('1500')
   await mobilePage.locator('#annual-income').fill('60000')
   await mobilePage.locator('#budget-next').click()
+  assert.equal(await mobilePage.locator('#lever-deposit').inputValue(), '20')
 
+  await mobilePage.locator('#open-plan-sheet').click()
+  await mobilePage.locator('#lever-deposit-amount').fill('30000')
+  await mobilePage.locator('#apply-plan-sheet').click()
+  assert.equal(await mobilePage.locator('#deposit-target').inputValue(), '10')
   await checkPlannerSheet(mobilePage)
   await mobilePage.locator('#open-plan-sheet').click()
 

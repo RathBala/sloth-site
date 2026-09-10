@@ -32,6 +32,86 @@ test('uses current first-home property tax bands across the UK', () => {
   assert.equal(calculatePropertyTax(300000, 'wales', 'yes'), 4500)
 })
 
+test('keeps the chosen deposit target separate from savings progress', () => {
+  const input = {
+    homePrice: 300000,
+    depositPercent: 40,
+    depositSaved: 100000,
+    buyingFees: 4000,
+    furnishingBudget: 6000,
+    region: 'england-ni',
+    firstTimeBuyer: 'yes',
+    annualInterestRate: 5,
+    termYears: 30,
+    monthlySaving: 1000,
+  }
+  const plan = calculateHomePlan(input)
+  assert.equal(plan.depositRequired, 120000)
+  assert.equal(plan.mortgagePrincipal, 180000)
+  assert.equal(plan.cashNeeded, 130000)
+  assert.equal(plan.cashShortfall, 30000)
+  assert.equal(plan.monthsToCashNeeded, 30)
+
+  for (const [depositSaved, months] of [
+    [101000, 29],
+    [120000, 10],
+    [130000, 0],
+    [150000, 0],
+  ]) {
+    const later = calculateHomePlan({ ...input, depositSaved })
+    assert.equal(later.depositRequired, plan.depositRequired)
+    assert.equal(later.mortgagePrincipal, plan.mortgagePrincipal)
+    assert.equal(later.monthlyMortgagePayment, plan.monthlyMortgagePayment)
+    assert.equal(later.monthsToCashNeeded, months)
+  }
+  assert.equal(
+    calculateHomePlan({ ...input, monthlySaving: 2000 }).monthsToCashNeeded,
+    15
+  )
+  const smallerTarget = calculateHomePlan({ ...input, depositPercent: 20 })
+  assert.equal(smallerTarget.depositRequired, 60000)
+  assert.equal(smallerTarget.mortgagePrincipal, 240000)
+  assert.equal(smallerTarget.monthsToCashNeeded, 0)
+  assert.equal(
+    calculateHomePlan({ ...input, depositPercent: undefined }).depositRequired,
+    0,
+    'the calculator must not invent a deposit target from the saved balance'
+  )
+})
+
+test('applies a chosen target to the purchased share and caps it at the price', () => {
+  const input = {
+    homePrice: 300000,
+    depositPercent: 20,
+    depositSaved: 100000,
+    ownershipType: 'shared',
+    sharedOwnershipPercent: 40,
+  }
+  const shared = calculateHomePlan(input)
+  assert.equal(shared.depositRequired, 24000)
+  assert.equal(shared.mortgagePrincipal, 96000)
+  const funded = calculateHomePlan({ ...input, depositPercent: 100 })
+  assert.equal(funded.mortgagePrincipal, 0)
+  assert.equal(
+    calculateHomePlan({ ...input, depositPercent: 110 }).depositRequired,
+    120000
+  )
+})
+
+test('rounds fractional deposit targets to pennies before calculating the timeline', () => {
+  const plan = calculateHomePlan({
+    homePrice: 300000,
+    depositPercent: 20.003,
+    depositSaved: 60009,
+    region: 'england-ni',
+    firstTimeBuyer: 'yes',
+    monthlySaving: 500,
+  })
+  assert.equal(plan.depositRequired, 60009)
+  assert.equal(plan.cashShortfall, 0)
+  assert.equal(plan.monthsToCashNeeded, 0)
+})
+
 test('keeps current savings separate from future home costs', () => {
   const plan = calculateHomePlan({
     annualIncome: 60000,

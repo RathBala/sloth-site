@@ -5,6 +5,7 @@ export async function checkPlannerSheet(page) {
   const sheet = page.locator('#plan-sheet')
   const total = page.locator('#result-total-monthly')
   const original = await total.textContent()
+  const originalDeposit = await page.locator('#deposit-target').inputValue()
   const balance = page.locator('.balance-comparison')
   const originalBalance = await balance.textContent()
   assert(await open.isVisible(), 'adjust action must be visible on arrival')
@@ -60,7 +61,7 @@ export async function checkPlannerSheet(page) {
     'dragging the deposit snaps to whole £1,000 amounts'
   )
   await page
-    .getByRole('button', { name: 'Increase Deposit', exact: true })
+    .getByRole('button', { name: 'Increase Deposit target', exact: true })
     .click()
   assert.equal(
     await page.locator('#lever-deposit-amount').inputValue(),
@@ -148,7 +149,7 @@ export async function checkPlannerSheet(page) {
     '100% remains reachable between cash steps'
   )
   await page
-    .getByRole('button', { name: 'Increase Deposit', exact: true })
+    .getByRole('button', { name: 'Increase Deposit target', exact: true })
     .click()
   assert.equal(
     await page.locator('#lever-deposit-amount').inputValue(),
@@ -156,7 +157,7 @@ export async function checkPlannerSheet(page) {
     'cannot exceed the purchase price'
   )
   await page
-    .getByRole('button', { name: 'Decrease Deposit', exact: true })
+    .getByRole('button', { name: 'Decrease Deposit target', exact: true })
     .click()
   assert.equal(
     await page.locator('#lever-deposit-amount').inputValue(),
@@ -164,7 +165,7 @@ export async function checkPlannerSheet(page) {
   )
   await page.locator('#lever-deposit').fill('0')
   await page
-    .getByRole('button', { name: 'Decrease Deposit', exact: true })
+    .getByRole('button', { name: 'Decrease Deposit target', exact: true })
     .click()
   assert.equal(
     await page.locator('#lever-deposit-amount').inputValue(),
@@ -223,8 +224,13 @@ export async function checkPlannerSheet(page) {
   await open.click()
   assert.equal(
     await page.locator('#lever-deposit').inputValue(),
-    '10',
+    originalDeposit,
     'Escape discards draft'
+  )
+  assert.equal(
+    await page.locator('#deposit-target').inputValue(),
+    originalDeposit,
+    'cancelled drafts must not change the wizard target'
   )
   await page.locator('#lever-deposit-amount').fill('60000')
   await page.locator('#exact-rate').fill('4')
@@ -232,6 +238,16 @@ export async function checkPlannerSheet(page) {
   await page.locator('#exact-term').fill('25')
   assert.equal(await page.locator('#lever-term').inputValue(), '25')
   await page.locator('#apply-plan-sheet').click()
+  assert.equal(
+    Number(await page.locator('#deposit-target').inputValue()),
+    Number(await page.locator('#lever-deposit').inputValue()),
+    'Apply must carry the target back to the wizard'
+  )
+  assert(
+    await page
+      .locator('#deposit-target')
+      .evaluate((input) => input.checkValidity())
+  )
   assert.notEqual(await total.textContent(), original)
   assert.notEqual(
     await balance.textContent(),

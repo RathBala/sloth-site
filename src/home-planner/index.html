@@ -230,11 +230,11 @@
                 <span>Back</span>
               </button>
               <p class="planner-step">Step 1 of 4</p>
-              <h2 id="savings-heading" tabindex="-1">Your deposit today</h2>
+              <h2 id="savings-heading" tabindex="-1">Your home savings</h2>
 
               <div class="money-fields">
                 <label class="money-field" for="deposit-saved">
-                  <span>How much have you saved for a deposit so far?</span>
+                  <span>How much have you saved for your home so far?</span>
                   <span class="money-input-wrap">
                     <span class="currency-prefix" aria-hidden="true">£</span>
                     <input
@@ -559,11 +559,38 @@
                 What would feel comfortable later?
               </h2>
               <p class="questions-lead">
-                Now think about the future. Start with the mortgage payment
-                alone. We will reveal the rest on your plan.
+                Set your deposit target and a monthly mortgage payment you could
+                live with.
               </p>
 
               <div class="money-fields">
+                <label class="money-field" for="deposit-target">
+                  <span>What percentage deposit are you aiming for?</span>
+                  <span class="money-input-wrap percentage-input-wrap">
+                    <input
+                      id="deposit-target"
+                      name="depositPercent"
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="any"
+                      value="10"
+                      inputmode="decimal"
+                      required
+                      aria-describedby="deposit-target-hint deposit-target-amount"
+                    />
+                    <span class="percentage-suffix" aria-hidden="true">%</span>
+                  </span>
+                  <output
+                    id="deposit-target-amount"
+                    for="deposit-target"
+                    aria-live="polite"
+                  ></output>
+                  <span class="field-hint" id="deposit-target-hint"
+                    >Try 10% if you are unsure. Buying costs are added
+                    separately.</span
+                  >
+                </label>
                 <div class="question-block">
                   <label class="money-field" for="mortgage-budget">
                     <span
@@ -760,7 +787,7 @@
                       />
                     </div>
                     <div class="lever-row lever-row-deposit">
-                      <label for="lever-deposit-amount">Deposit</label>
+                      <label for="lever-deposit-amount">Deposit target</label>
                       <output
                         id="result-deposit-percent"
                         for="lever-deposit"
@@ -1091,7 +1118,7 @@
                             aria-hidden="true"
                           ></i
                         ></span>
-                        <small>Ready in</small>
+                        <small>Cash ready in</small>
                         <strong id="result-timeline"></strong>
                         <span id="result-timeline-detail"></span>
                       </article>
@@ -1131,7 +1158,7 @@
                       </div>
                       <dl class="cost-breakdown">
                         <div>
-                          <dt>Deposit</dt>
+                          <dt>Deposit target</dt>
                           <dd id="breakdown-deposit"></dd>
                         </div>
                         <div>
