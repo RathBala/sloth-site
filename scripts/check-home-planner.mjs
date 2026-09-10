@@ -550,6 +550,40 @@ try {
   await page
     .getByLabel('What home price are you thinking about?')
     .fill('287501')
+  const priceInput = page.locator('#home-price')
+  assert.equal(await priceInput.inputValue(), '287,501')
+  await priceInput.fill('')
+  await priceInput.pressSequentially('1000000')
+  assert.equal(await priceInput.inputValue(), '1,000,000')
+  await priceInput.evaluate((input) => input.setSelectionRange(3, 3))
+  await priceInput.press('9')
+  assert.equal(await priceInput.inputValue(), '10,900,000')
+  assert.equal(await priceInput.evaluate((input) => input.selectionStart), 4)
+  await priceInput.fill('')
+  await priceInput.focus()
+  await page.keyboard.insertText('1,000,000')
+  assert.equal(await priceInput.inputValue(), '1,000,000')
+  await priceInput.evaluate((input) => input.setSelectionRange(1, 1))
+  await priceInput.press('Delete')
+  assert.equal(await priceInput.inputValue(), '100,000')
+  await priceInput.evaluate((input) => input.setSelectionRange(0, 3))
+  await priceInput.press('2')
+  assert.equal(await priceInput.inputValue(), '2,000')
+  await priceInput.fill('1,000,000')
+  await priceInput.evaluate((input) => input.setSelectionRange(2, 2))
+  await priceInput.press('Backspace')
+  assert.equal(await priceInput.inputValue(), '000,000')
+  for (const invalid of ['', '24999', '20000001', '300000.5', '-300000']) {
+    await priceInput.fill(invalid)
+    assert.equal(
+      await priceInput.evaluate((input) => input.checkValidity()),
+      false
+    )
+  }
+  await page.locator('#home-price-not-sure').check()
+  assert.equal(await priceInput.inputValue(), '300,000')
+  await page.locator('#home-price-not-sure').uncheck()
+  await priceInput.fill('287,501')
   await page.locator('#home-next').click()
   assert.equal(await page.evaluate(() => location.hash), '#route')
 

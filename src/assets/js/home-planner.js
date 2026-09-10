@@ -136,6 +136,59 @@ function initializePlanner() {
     sliderMax: Number(homePriceRange.max),
   }
 
+  const readHomePrice = () => wizardHomePrice.value.replaceAll(',', '')
+
+  const formatHomePrice = () => {
+    const raw = wizardHomePrice.value
+    const caret = wizardHomePrice.selectionStart ?? raw.length
+    const digitsBeforeCaret = raw.slice(0, caret).replaceAll(',', '').length
+    const digits = readHomePrice()
+    const validDigits = /^\d*$/.test(digits)
+    if (validDigits) {
+      const formatted = digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      wizardHomePrice.value = formatted
+      let position = 0
+      let seen = 0
+      while (position < formatted.length && seen < digitsBeforeCaret) {
+        if (formatted[position] !== ',') seen += 1
+        position += 1
+      }
+      wizardHomePrice.setSelectionRange(position, position)
+    }
+    const value = Number(digits)
+    wizardHomePrice.setCustomValidity(
+      validDigits &&
+        digits &&
+        value >= homePriceLimits.min &&
+        value <= homePriceLimits.max
+        ? ''
+        : 'Enter a whole-pound price between £25,000 and £20,000,000.'
+    )
+  }
+
+  wizardHomePrice.addEventListener('input', formatHomePrice)
+  wizardHomePrice.addEventListener('beforeinput', (event) => {
+    const start = wizardHomePrice.selectionStart
+    const end = wizardHomePrice.selectionEnd
+    if (start !== end) return
+    if (
+      event.inputType === 'deleteContentBackward' &&
+      wizardHomePrice.value[start - 1] === ','
+    ) {
+      event.preventDefault()
+      wizardHomePrice.setRangeText('', start - 2, start, 'end')
+      formatHomePrice()
+    } else if (
+      event.inputType === 'deleteContentForward' &&
+      wizardHomePrice.value[start] === ','
+    ) {
+      event.preventDefault()
+      wizardHomePrice.setRangeText('', start, start + 2, 'end')
+      formatHomePrice()
+    }
+  })
+  formatHomePrice()
+
   const updateIcons = () => {
     if (typeof lucide !== 'undefined') lucide.createIcons()
   }
@@ -502,7 +555,7 @@ function initializePlanner() {
     const propertyType = checkedValue('propertyType')
     const ownershipType = checkedValue('ownershipType')
 
-    const homePrice = byId('home-price').value || '300000'
+    const homePrice = readHomePrice() || '300000'
     byId('lever-home-price').value = homePrice
     syncHomePriceRange(homePrice)
     byId('lever-deposit').value = '10'
@@ -619,7 +672,8 @@ function initializePlanner() {
 
   byId('home-price-not-sure').addEventListener('change', (event) => {
     byId('home-price').readOnly = event.currentTarget.checked
-    if (event.currentTarget.checked) byId('home-price').value = '300000'
+    if (event.currentTarget.checked) wizardHomePrice.value = '300,000'
+    formatHomePrice()
   })
 
   byId('income-not-sure').addEventListener('change', (event) => {
@@ -677,6 +731,7 @@ function initializePlanner() {
   form.addEventListener('reset', () => {
     window.setTimeout(() => {
       byId('home-price').readOnly = false
+      formatHomePrice()
       byId('annual-income').readOnly = false
       byId('mortgage-budget').readOnly = false
       navigateToStage('intro', 'planner-start', 'replace')
