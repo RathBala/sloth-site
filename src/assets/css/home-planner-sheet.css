@@ -1,0 +1,344 @@
+/* Mobile result controls use the dialog top layer above the persistent dock. */
+:root {
+  --planner-layer-dock: 20;
+  --planner-dock-height: 6.25rem;
+}
+
+.plan-dock {
+  display: none;
+}
+.plan-sheet {
+  display: none;
+}
+.plan-adjust-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3.25rem;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 0.65rem;
+  background: var(--planner-ink);
+  color: var(--planner-surface-raised);
+  font-weight: 800;
+  cursor: pointer;
+}
+.plan-adjust-action svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+.lever-row-deposit > .lever-price-input {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.planner-slider-control {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: 0.75rem;
+}
+.planner-slider-step {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--planner-border);
+  border-radius: 0.65rem;
+  background: var(--planner-surface-raised);
+  color: var(--planner-ink);
+  cursor: pointer;
+}
+.planner-slider-step:hover {
+  background: var(--planner-surface);
+}
+.planner-slider-step svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+.part-and-part-control label {
+  font-weight: 800;
+}
+.planner-slider-control input[type='range'] {
+  grid-column: auto;
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 62rem) {
+  .plan-sheet .planner-slider-control input[type='range'] {
+    grid-column: auto;
+  }
+  body[data-planner-stage='results'] .planner-content-inner {
+    padding-bottom: calc(
+      var(--planner-dock-height) + env(safe-area-inset-bottom) + 2rem
+    );
+  }
+  body[data-planner-stage='results'] .plan-dock {
+    position: fixed;
+    z-index: var(--planner-layer-dock);
+    inset: auto 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: var(--planner-dock-height);
+    padding: 0.85rem max(1rem, env(safe-area-inset-right))
+      calc(0.85rem + env(safe-area-inset-bottom))
+      max(1rem, env(safe-area-inset-left));
+    border-top: 1px solid var(--planner-border);
+    background: var(--planner-surface);
+  }
+  .plan-dock span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--planner-copy);
+  }
+  .plan-dock strong {
+    display: block;
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+  .plan-dock .plan-adjust-action {
+    flex-shrink: 0;
+    font-size: 0.95rem;
+  }
+  .plan-sheet[open] {
+    --sheet-top-gap: 2.75rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: calc(var(--sheet-visible-top, 0px) + var(--sheet-top-gap)) 0 auto;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 42rem;
+    height: calc(var(--sheet-visible-height, 100dvh) - var(--sheet-top-gap));
+    max-height: calc(
+      var(--sheet-visible-height, 100dvh) - var(--sheet-top-gap)
+    );
+    padding: 0;
+    border: 1px solid var(--planner-border);
+    border-bottom: 0;
+    border-radius: 1.75rem 1.75rem 0 0;
+    background: var(--planner-surface);
+    color: var(--planner-ink);
+    overflow: clip;
+  }
+  .plan-sheet::backdrop {
+    background: rgba(8, 61, 47, 0.48);
+  }
+  .plan-sheet-header {
+    flex-shrink: 0;
+    padding: 1.25rem 1.25rem 0.9rem;
+  }
+  .plan-sheet-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+  }
+  .plan-sheet-title h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.05em;
+  }
+  .plan-sheet-title button {
+    min-height: 2.75rem;
+    padding: 0 0.35rem;
+    border: 0;
+    background: none;
+    color: var(--planner-ink-soft);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .plan-sheet-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0.9rem;
+    background: var(--planner-surface-success);
+    border: 1px solid var(--planner-border);
+    border-radius: 1rem;
+  }
+  .plan-sheet-preview > div {
+    min-width: 0;
+  }
+  .plan-sheet-preview > div + div {
+    border-left: 1px solid var(--planner-border);
+    padding-left: 0.75rem;
+  }
+  .plan-sheet-preview span {
+    display: block;
+    font-size: 0.8rem;
+  }
+  .plan-sheet-preview strong {
+    display: block;
+    font-size: clamp(1.2rem, 6.8vw, 1.9rem);
+    letter-spacing: -0.05em;
+    overflow-wrap: anywhere;
+  }
+  .plan-sheet-controls {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 1.25rem 1.5rem;
+  }
+  .plan-sheet .lever-panel,
+  .plan-sheet .mortgage-choice-card {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+  .plan-sheet .lever-panel > .panel-heading {
+    display: none;
+  }
+  .plan-sheet .lever-row {
+    margin: 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--planner-border);
+    row-gap: 0.75rem;
+  }
+  .plan-sheet .lever-row-price .lever-price-input {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+  .plan-sheet .lever-price-input input {
+    min-height: 2.9rem;
+    text-align: left;
+    font-size: 1.25rem;
+    padding-left: 1.75rem;
+  }
+  .plan-sheet .lever-row input[type='range'] {
+    height: 1.5rem;
+    margin: 0;
+    background: transparent;
+  }
+  .plan-sheet .cost-levers {
+    margin: 1rem 0 1.5rem;
+  }
+  .plan-sheet .mortgage-choice-card {
+    margin-top: 1.5rem;
+  }
+  .plan-sheet-footer {
+    flex-shrink: 0;
+    padding: 0.9rem 1.25rem calc(0.9rem + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--planner-border);
+    background: var(--planner-surface);
+  }
+  .plan-sheet-footer .plan-adjust-action {
+    width: 100%;
+  }
+  .results-main {
+    grid-template-areas: 'plan';
+  }
+}
+
+@media (max-height: 32rem) and (max-width: 62rem) {
+  .plan-sheet[open] {
+    --sheet-top-gap: 0px;
+    height: var(--sheet-visible-height, 100dvh);
+    max-height: var(--sheet-visible-height, 100dvh);
+    border-radius: 0;
+  }
+  .plan-sheet-header {
+    padding: 0.4rem 1rem;
+  }
+  .plan-sheet-title {
+    margin-bottom: 0.3rem;
+  }
+  .plan-sheet-preview {
+    padding: 0.4rem 0.75rem;
+  }
+  .plan-sheet-preview strong {
+    font-size: 1.2rem;
+  }
+  .plan-sheet-footer {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+}
+
+.lever-number-input {
+  display: none;
+}
+.result-assumptions {
+  margin: 0.75rem 0 0;
+  color: var(--planner-ink-soft);
+  font-size: 0.875rem;
+}
+@media (max-width: 62rem) {
+  .plan-sheet .lever-row-exact > output {
+    display: none;
+  }
+  .plan-sheet .lever-row-exact > label {
+    grid-column: 1 / -1;
+  }
+  .plan-sheet .lever-number-input {
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 2.9rem;
+    border: 1px solid var(--planner-border);
+    border-radius: 0.55rem;
+    background: var(--planner-surface-raised);
+    padding: 0 0.65rem;
+  }
+  .plan-sheet .lever-number-input input {
+    min-width: 0;
+    width: 3.5ch;
+    padding: 0.35rem 0;
+    border: 0;
+    background: transparent;
+    color: var(--planner-ink);
+    font-weight: 800;
+    font-size: 1.25rem;
+    appearance: textfield;
+  }
+  .plan-sheet .lever-number-input input::-webkit-inner-spin-button {
+    appearance: none;
+  }
+  .plan-sheet .lever-row {
+    padding: 0.8rem 0;
+    row-gap: 0.55rem;
+  }
+  #plan-sheet-heading:focus {
+    outline: none;
+  }
+}
+
+@media (max-width: 62rem) {
+  body[data-planner-stage='results'] .planner-visual {
+    height: 6.5rem;
+    min-height: 6.5rem;
+  }
+  body[data-planner-stage='results'] .planner-content-inner {
+    padding-top: 1.2rem;
+  }
+  .planner-results {
+    margin-top: 1.2rem;
+  }
+  .results-header .planner-back {
+    margin-bottom: 0.6rem;
+  }
+  .planner-results .reality-card {
+    padding: 1rem;
+  }
+  .planner-results .reality-celebration {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+  .planner-results .reality-celebration svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+}

@@ -58,6 +58,7 @@
       type="image/webp"
     />
     <link href="../assets/css/home-planner.css" rel="stylesheet" />
+    <link href="../assets/css/home-planner-sheet.css" rel="stylesheet" />
     <script src="https://unpkg.com/lucide@0.468.0"></script>
     <script src="../assets/js/posthog-config.js"></script>
     <script>
@@ -676,6 +677,7 @@
                     aria-live="polite"
                   ></p>
                   <p class="reality-surprise" id="result-surprise"></p>
+                  <p class="result-assumptions" id="result-assumptions"></p>
                   <button
                     class="reality-breakdown-link"
                     id="show-monthly-breakdown"
@@ -741,6 +743,7 @@
                         <span aria-hidden="true">£</span>
                         <input
                           id="lever-home-price"
+                          required
                           type="number"
                           step="1"
                           inputmode="numeric"
@@ -756,24 +759,49 @@
                         aria-label="Home price slider"
                       />
                     </div>
-                    <label class="lever-row" for="lever-deposit">
-                      <span>Deposit</span>
+                    <div class="lever-row lever-row-deposit">
+                      <label for="lever-deposit-amount">Deposit</label>
                       <output
                         id="result-deposit-percent"
                         for="lever-deposit"
                       ></output>
+                      <span class="lever-price-input"
+                        ><span aria-hidden="true">£</span
+                        ><input
+                          id="lever-deposit-amount"
+                          type="number"
+                          min="0"
+                          step="1"
+                          inputmode="numeric"
+                          required
+                          aria-label="Deposit amount"
+                      /></span>
                       <input
+                        aria-label="Deposit percentage"
                         id="lever-deposit"
                         type="range"
                         min="0"
                         max="100"
-                        step="1"
+                        step="any"
                         value="10"
                       />
-                    </label>
-                    <label class="lever-row" for="lever-rate">
-                      <span>Interest rate</span>
-                      <output id="result-rate" for="lever-rate"></output>
+                    </div>
+                    <div class="lever-row lever-row-exact">
+                      <label for="lever-rate">Interest rate</label>
+                      <output id="result-rate"></output>
+                      <span class="lever-number-input"
+                        ><input
+                          id="exact-rate"
+                          data-lever="lever-rate"
+                          aria-label="Interest rate value"
+                          type="number"
+                          min="2"
+                          max="10"
+                          step="0.1"
+                          inputmode="decimal"
+                          required
+                        /><span>%</span></span
+                      >
                       <input
                         id="lever-rate"
                         type="range"
@@ -782,10 +810,23 @@
                         step="0.1"
                         value="5"
                       />
-                    </label>
-                    <label class="lever-row" for="lever-term">
-                      <span>Mortgage term</span>
-                      <output id="result-term" for="lever-term"></output>
+                    </div>
+                    <div class="lever-row lever-row-exact">
+                      <label for="lever-term">Mortgage term</label>
+                      <output id="result-term"></output>
+                      <span class="lever-number-input"
+                        ><input
+                          id="exact-term"
+                          data-lever="lever-term"
+                          aria-label="Mortgage term value"
+                          type="number"
+                          min="15"
+                          max="40"
+                          step="1"
+                          inputmode="decimal"
+                          required
+                        /><span>years</span></span
+                      >
                       <input
                         id="lever-term"
                         type="range"
@@ -794,13 +835,9 @@
                         step="1"
                         value="30"
                       />
-                    </label>
-                    <label
-                      class="lever-row shared-ownership-lever"
-                      for="lever-shared-percent"
-                      hidden
-                    >
-                      <span>Share you buy</span>
+                    </div>
+                    <div class="lever-row shared-ownership-lever" hidden>
+                      <label for="lever-shared-percent">Share you buy</label>
                       <output
                         id="result-shared-percent"
                         for="lever-shared-percent"
@@ -813,7 +850,7 @@
                         step="5"
                         value="40"
                       />
-                    </label>
+                    </div>
 
                     <section
                       class="cost-levers"
@@ -823,8 +860,10 @@
                         Adjust the costs people miss
                       </h4>
                       <div>
-                        <label class="lever-row" for="lever-maintenance">
-                          <span>Yearly repair cushion</span>
+                        <div class="lever-row">
+                          <label for="lever-maintenance"
+                            >Yearly repair cushion</label
+                          >
                           <output
                             id="result-maintenance-percent"
                             for="lever-maintenance"
@@ -837,9 +876,9 @@
                             step="0.25"
                             value="1"
                           />
-                        </label>
-                        <label class="lever-row" for="lever-bills">
-                          <span>Bills and insurance</span>
+                        </div>
+                        <div class="lever-row">
+                          <label for="lever-bills">Bills and insurance</label>
                           <output id="result-bills" for="lever-bills"></output>
                           <input
                             id="lever-bills"
@@ -849,9 +888,9 @@
                             step="25"
                             value="425"
                           />
-                        </label>
-                        <label class="lever-row" for="lever-service">
-                          <span>Service charge</span>
+                        </div>
+                        <div class="lever-row">
+                          <label for="lever-service">Service charge</label>
                           <output
                             id="result-service"
                             for="lever-service"
@@ -864,9 +903,9 @@
                             step="25"
                             value="0"
                           />
-                        </label>
-                        <label class="lever-row" for="lever-furnishings">
-                          <span>Furnishings</span>
+                        </div>
+                        <div class="lever-row">
+                          <label for="lever-furnishings">Furnishings</label>
                           <output
                             id="result-furnishings"
                             for="lever-furnishings"
@@ -879,9 +918,11 @@
                             step="500"
                             value="7000"
                           />
-                        </label>
-                        <label class="lever-row" for="lever-buying-fees">
-                          <span>Legal, survey and moving</span>
+                        </div>
+                        <div class="lever-row">
+                          <label for="lever-buying-fees"
+                            >Legal, survey and moving</label
+                          >
                           <output
                             id="result-buying-fees"
                             for="lever-buying-fees"
@@ -894,7 +935,7 @@
                             step="500"
                             value="4000"
                           />
-                        </label>
+                        </div>
                       </div>
                     </section>
                   </aside>
@@ -989,14 +1030,15 @@
                       </label>
                     </fieldset>
 
-                    <label
+                    <div
                       class="part-and-part-control"
                       id="part-and-part-control"
-                      for="part-repayment-percent"
                       hidden
                     >
                       <span>
-                        <strong>Share on repayment</strong>
+                        <label for="part-repayment-percent"
+                          >Share on repayment</label
+                        >
                         <small>The rest stays interest-only.</small>
                       </span>
                       <output
@@ -1011,99 +1053,33 @@
                         step="5"
                         value="50"
                       />
-                    </label>
-
-                    <div class="rate-and-balance">
-                      <fieldset class="rate-options">
-                        <legend>How should the rate behave?</legend>
-                        <div class="rate-option-buttons">
-                          <label>
-                            <input
-                              id="rate-type-fixed"
-                              type="radio"
-                              name="rateType"
-                              value="fixed"
-                              checked
-                            />
-                            <span>Fixed</span>
-                          </label>
-                          <label>
-                            <input
-                              id="rate-type-tracker"
-                              type="radio"
-                              name="rateType"
-                              value="tracker"
-                            />
-                            <span>Tracker</span>
-                          </label>
-                        </div>
-                        <div class="rate-impact">
-                          <span id="rate-impact-label"></span>
-                          <strong id="rate-impact-value"></strong>
-                        </div>
-                        <p id="rate-type-explanation"></p>
-                      </fieldset>
                     </div>
 
-                    <div class="balance-comparison">
-                      <div class="balance-comparison-heading">
-                        <strong>How the balance changes</strong>
-                        <span id="balance-comparison-term"></span>
+                    <fieldset class="rate-options">
+                      <legend>How should the rate behave?</legend>
+                      <div class="rate-option-buttons">
+                        <label>
+                          <input
+                            id="rate-type-fixed"
+                            type="radio"
+                            name="rateType"
+                            value="fixed"
+                            checked
+                          />
+                          <span>Fixed</span>
+                        </label>
+                        <label>
+                          <input
+                            id="rate-type-tracker"
+                            type="radio"
+                            name="rateType"
+                            value="tracker"
+                          />
+                          <span>Tracker</span>
+                        </label>
                       </div>
-                      <div class="balance-methods">
-                        <article class="balance-method">
-                          <h4>Repayment</h4>
-                          <dl>
-                            <div>
-                              <dt data-balance-year="one"></dt>
-                              <dd id="repayment-balance-one"></dd>
-                            </div>
-                            <div>
-                              <dt data-balance-year="two"></dt>
-                              <dd id="repayment-balance-two"></dd>
-                            </div>
-                            <div>
-                              <dt>End</dt>
-                              <dd id="repayment-balance-end">£0</dd>
-                            </div>
-                          </dl>
-                        </article>
-                        <article class="balance-method">
-                          <h4>Part-and-part</h4>
-                          <dl>
-                            <div>
-                              <dt data-balance-year="one"></dt>
-                              <dd id="part-and-part-balance-one"></dd>
-                            </div>
-                            <div>
-                              <dt data-balance-year="two"></dt>
-                              <dd id="part-and-part-balance-two"></dd>
-                            </div>
-                            <div>
-                              <dt>End</dt>
-                              <dd id="part-and-part-balance-end"></dd>
-                            </div>
-                          </dl>
-                        </article>
-                        <article class="balance-method">
-                          <h4>Interest-only</h4>
-                          <dl>
-                            <div>
-                              <dt data-balance-year="one"></dt>
-                              <dd id="interest-only-balance-one"></dd>
-                            </div>
-                            <div>
-                              <dt data-balance-year="two"></dt>
-                              <dd id="interest-only-balance-two"></dd>
-                            </div>
-                            <div>
-                              <dt>End</dt>
-                              <dd id="interest-only-balance-end"></dd>
-                            </div>
-                          </dl>
-                        </article>
-                      </div>
-                    </div>
+                      <p id="rate-type-explanation"></p>
+                    </fieldset>
                   </section>
 
                   <div class="plan-panel" aria-live="polite">
@@ -1175,6 +1151,75 @@
                           <dd id="breakdown-cash-total"></dd>
                         </div>
                       </dl>
+                    </section>
+
+                    <section
+                      class="balance-comparison breakdown-card"
+                      aria-labelledby="balance-comparison-heading"
+                    >
+                      <div class="balance-comparison-heading">
+                        <h3 id="balance-comparison-heading">
+                          How the balance changes
+                        </h3>
+                        <span id="balance-comparison-term"></span>
+                      </div>
+                      <div class="rate-impact">
+                        <span id="rate-impact-label"></span>
+                        <strong id="rate-impact-value"></strong>
+                      </div>
+                      <div class="balance-methods">
+                        <article class="balance-method">
+                          <h4>Repayment</h4>
+                          <dl>
+                            <div>
+                              <dt data-balance-year="one"></dt>
+                              <dd id="repayment-balance-one"></dd>
+                            </div>
+                            <div>
+                              <dt data-balance-year="two"></dt>
+                              <dd id="repayment-balance-two"></dd>
+                            </div>
+                            <div>
+                              <dt>End</dt>
+                              <dd id="repayment-balance-end">£0</dd>
+                            </div>
+                          </dl>
+                        </article>
+                        <article class="balance-method">
+                          <h4>Part-and-part</h4>
+                          <dl>
+                            <div>
+                              <dt data-balance-year="one"></dt>
+                              <dd id="part-and-part-balance-one"></dd>
+                            </div>
+                            <div>
+                              <dt data-balance-year="two"></dt>
+                              <dd id="part-and-part-balance-two"></dd>
+                            </div>
+                            <div>
+                              <dt>End</dt>
+                              <dd id="part-and-part-balance-end"></dd>
+                            </div>
+                          </dl>
+                        </article>
+                        <article class="balance-method">
+                          <h4>Interest-only</h4>
+                          <dl>
+                            <div>
+                              <dt data-balance-year="one"></dt>
+                              <dd id="interest-only-balance-one"></dd>
+                            </div>
+                            <div>
+                              <dt data-balance-year="two"></dt>
+                              <dd id="interest-only-balance-two"></dd>
+                            </div>
+                            <div>
+                              <dt>End</dt>
+                              <dd id="interest-only-balance-end"></dd>
+                            </div>
+                          </dl>
+                        </article>
+                      </div>
                     </section>
 
                     <section class="borrowing-card" id="borrowing-check">
@@ -1304,6 +1349,60 @@
                 </section>
               </div>
             </section>
+            <div class="plan-dock" aria-label="Plan controls">
+              <div>
+                <span>Estimated monthly</span
+                ><strong id="dock-monthly"></strong>
+              </div>
+              <button
+                id="open-plan-sheet"
+                class="plan-adjust-action"
+                type="button"
+                aria-haspopup="dialog"
+                aria-controls="plan-sheet"
+              >
+                <i data-lucide="sliders-horizontal" aria-hidden="true"></i
+                >Adjust plan
+              </button>
+            </div>
+            <dialog
+              id="plan-sheet"
+              class="plan-sheet"
+              aria-labelledby="plan-sheet-heading"
+            >
+              <div class="plan-sheet-header">
+                <div class="plan-sheet-title">
+                  <h2 id="plan-sheet-heading" tabindex="-1">
+                    Adjust your plan
+                  </h2>
+                  <button id="cancel-plan-sheet" type="button">Cancel</button>
+                </div>
+                <div
+                  class="plan-sheet-preview"
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  <div>
+                    <span>Estimated monthly</span
+                    ><strong id="sheet-monthly"></strong>
+                  </div>
+                  <div>
+                    <span>Deposit needed</span
+                    ><strong id="sheet-deposit"></strong>
+                  </div>
+                </div>
+              </div>
+              <div id="plan-sheet-controls" class="plan-sheet-controls"></div>
+              <div class="plan-sheet-footer">
+                <button
+                  id="apply-plan-sheet"
+                  class="plan-adjust-action"
+                  type="button"
+                >
+                  Apply changes
+                </button>
+              </div>
+            </dialog>
           </form>
         </div>
       </section>

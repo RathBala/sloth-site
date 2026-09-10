@@ -6,6 +6,7 @@ import { extname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { chromium, webkit } from 'playwright'
+import { checkPlannerSheet } from './home-planner-sheet-check.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const srcRoot = join(root, 'src')
@@ -93,9 +94,11 @@ const assertMonthlyBreakdownOrder = async (page) => {
     return {
       first: layout.firstElementChild === breakdown,
       beforeSetup:
+        Boolean(document.querySelector('#plan-sheet .mortgage-choice-card')) ||
         breakdown.getBoundingClientRect().bottom <=
-        document.querySelector('.mortgage-choice-card').getBoundingClientRect()
-          .top,
+          document
+            .querySelector('.mortgage-choice-card')
+            .getBoundingClientRect().top,
       fullWidth:
         Math.abs(
           breakdown.getBoundingClientRect().width -
@@ -1114,10 +1117,14 @@ try {
   await mobilePage.locator('#annual-income').fill('60000')
   await mobilePage.locator('#budget-next').click()
 
+  await checkPlannerSheet(mobilePage)
+  await mobilePage.locator('#open-plan-sheet').click()
+
   for (const width of [320, 390, 430]) {
     await mobilePage.setViewportSize({ width, height: 844 })
     for (const price of ['1000000', '20000000']) {
       await mobilePage.locator('#lever-home-price').fill(price)
+      await mobilePage.locator('#apply-plan-sheet').click()
       const paintedLayout = await mobilePage.evaluate(() => {
         const comparison = document.querySelector('.balance-comparison')
         const container = comparison.getBoundingClientRect()
@@ -1138,14 +1145,14 @@ try {
         }
         return {
           overflow: document.documentElement.scrollWidth - innerWidth,
-          cardsContained: [
-            '.lever-panel',
-            '.reality-card',
-            '.mortgage-choice-card',
-          ].every((selector) => {
-            const box = document.querySelector(selector).getBoundingClientRect()
-            return box.left >= 0 && box.right <= innerWidth + 1
-          }),
+          cardsContained: ['.reality-card', '.balance-comparison'].every(
+            (selector) => {
+              const box = document
+                .querySelector(selector)
+                .getBoundingClientRect()
+              return box.left >= 0 && box.right <= innerWidth + 1
+            }
+          ),
           contained: boxes.every(
             (box) =>
               box.left >= container.left &&
@@ -1180,17 +1187,21 @@ try {
         paintedLayout.overflow <= 1,
         'results must stay inside the mobile viewport'
       )
+      await mobilePage.locator('#open-plan-sheet').click()
     }
   }
   await mobilePage.setViewportSize({ width: 390, height: 844 })
   await mobilePage.locator('#lever-home-price').fill('1000000')
   await mobilePage.locator('#lever-term').fill('15')
+  await mobilePage.locator('#apply-plan-sheet').click()
   assert.deepEqual(
     await mobilePage.locator('[data-balance-year="one"]').allTextContents(),
     ['Year 5', 'Year 5', 'Year 5']
   )
+  await mobilePage.locator('#open-plan-sheet').click()
   await mobilePage.locator('#lever-term').fill('30')
 
+  await mobilePage.locator('#apply-plan-sheet').click()
   await assertMonthlyBreakdownOrder(mobilePage)
   const summaryOrder = await mobilePage.evaluate(() => ({
     summaryBottom: document
@@ -1223,6 +1234,7 @@ try {
       .evaluate((node) => getComputedStyle(node).animationIterationCount),
     '1'
   )
+  await mobilePage.locator('#open-plan-sheet').click()
   await mobilePage.locator('#lever-home-price').fill('300000')
 
   const mobileResultOrder = await mobilePage.evaluate(() => ({
@@ -1234,8 +1246,8 @@ try {
     widthOverflow: document.documentElement.scrollWidth - innerWidth,
   }))
   assert(
-    mobileResultOrder.choiceTop < mobileResultOrder.leverTop,
-    'the mortgage choice must appear before the assumptions on mobile'
+    mobileResultOrder.choiceTop > mobileResultOrder.leverTop,
+    'the sheet must put core assumptions before detailed mortgage choices'
   )
   assert(
     mobileResultOrder.widthOverflow <= 1,
@@ -1257,11 +1269,13 @@ try {
     true,
     'all three repayment choices should support native arrow-key selection'
   )
+  await mobilePage.locator('#apply-plan-sheet').click()
   assert.match(
     await mobilePage.locator('#result-loan').textContent(),
     /part-and-part mortgage/,
     'keyboard selection must update the visible result'
   )
+  await mobilePage.locator('#open-plan-sheet').click()
   const mobileMixedCardLayout = await mobilePage.evaluate(() => {
     const payment = document
       .querySelector('#part-and-part-option-payment')
@@ -1278,6 +1292,26 @@ try {
   assert(
     mobileMixedCardLayout.paymentBottom <= mobileMixedCardLayout.balanceTop,
     'the part-and-part payment and remaining balance must not overlap on mobile'
+  )
+
+  await mobilePage.locator('#apply-plan-sheet').click()
+
+  await mobilePage.goto(`${baseUrl}/home-planner/#route`)
+  await mobilePage.locator('[name="ownershipType"][value="shared"]').check()
+  await mobilePage.locator('#buying-next').click()
+  await mobilePage.locator('#mortgage-budget').fill('1500')
+  await mobilePage.locator('#budget-next').click()
+  await mobilePage.locator('#open-plan-sheet').click()
+  await mobilePage.locator('#lever-deposit-amount').fill('24000')
+  assert.equal(
+    await mobilePage.locator('#result-deposit-percent').textContent(),
+    '20%',
+    'cash deposit is a percentage of the purchased share'
+  )
+  await mobilePage.locator('#apply-plan-sheet').click()
+  assert.equal(
+    await mobilePage.locator('#breakdown-deposit').textContent(),
+    '£24,000'
   )
 
   await page.goto(`${baseUrl}/home-planner/#home`, {

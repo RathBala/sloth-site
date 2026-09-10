@@ -1,109 +1,75 @@
-# Everyday features design QA
+# Home planner mobile estimate dock
 
-Date: 2026-09-07. Scope: local `sloth-site` homepage on
-`codex/everyday-features`. No commit, push or deployment.
+final result: passed
 
-## Source and decision
+## Visual target and evidence
 
-The approved four-group layout remains. The user rejected the generated app
-illustrations; all four have now been replaced with direct captures of actual
-`sloth-budget` components. Source files, preview routes, fixture states and crop
-coordinates are recorded in `docs/everyday-features.md`. No app component code or
-fixture was edited. A later user-directed refinement hides only the tracking
-summary icon during capture and uses the narrower native goal layout. The actual components take precedence over the generated
-mockup's invented controls, progress bars, colours and goal icons.
+- Selected target: first displayed concept, **Estimate dock**.
+- Source visual: `/Users/rathbala/.codex/generated_images/01a08ca1-fad0-7ab0-8759-9a8611621945/exec-26f3b6f4-9e30-4f3e-84ba-3476fb72003f.png` (1305 × 1206 concept board with two mobile states).
+- Local implementation: `http://127.0.0.1:4317/home-planner/#plan`, served from this worktree. No production deployment.
+- Capture directory: `/Users/rathbala/.codex/visualizations/2026/09/10/01a08ca1-fad0-7ab0-8759-9a8611621945/`.
+- `mobile-results.png` and `mobile-sheet.png`: 390 × 844 CSS pixels and image pixels, device scale 1. Source board and both implementation images were inspected together in one comparison input. Compare each source panel independently of its board margins; the generated board is a layout reference, not a browser screenshot with an exact CSS viewport.
+- Latest slider follow-up: `mobile-slider-steps.png` and `mobile-cost-steps.png` at 390 × 844; `desktop-slider-steps.png` at 1440 × 1000. These supersede the earlier control screenshots and show the requested precision changes. Deposit is £101,000 after one £1,000 increase from £100,000.
+- `desktop-results.png` and `desktop-controls.png`: 1440 × 1000, first view and scrolled controls. The desktop controls remain inline.
+- Screenshot workflow: after each reload or viewport change, allow the browser to apply it, then read `innerWidth`, `innerHeight` and device scale in a separate call before capturing. Browser zoom previously changed effective dimensions. Latest evidence confirms 390 × 844 and 1440 × 1000 at device scale 1. Reset the viewport only after the capture has completed.
 
-The captures show TransactionCard, MTDSpendChart category rings,
-ShareRatioSlider with TransactionModal's calculated amounts, and GoalRow.
-They retain native component layout and text. The overview is decorative static
-imagery; its controls are not interactive on the landing page. All feature
-claims remain accessible in the accompanying HTML lists.
+## Findings and comparison history
 
-## Browser evidence
+1. First browser pass: the mobile header consumed too much height and the comfort warning extended below the dock. Fixed by reducing results-only header spacing, banner height and decorative badge size. Final warning ends at y689, while the dock begins at y744 on the 390 × 844 viewport.
+2. First sheet pass: interest rate and term only had sliders. Added exact numeric entry alongside both sliders to match the selected editor. The initial design fit all four primary controls. The requested precision follow-up adds 44px minus/plus buttons, so the term control now scrolls into view; the pinned footer remains at y762 on a 390 × 844 viewport.
+3. Final comparison: no remaining blocking findings. The estimate, deposit needed, Cancel and Apply remain visible while the inputs scroll. Scrolling additional controls preserves the sheet header and footer. Native modal layering blocks background interaction.
 
-Verified URL: `http://127.0.0.1:4318/?review=real-components-final#everyday-features`.
-PID 6378 serves this exact checkout, confirmed through its working directory.
-Fresh navigation and cache-busted URLs were used after replacing the assets.
+4. Slider sensitivity follow-up: continuous deposit percentages could produce £37,037 while dragging. Deposit now snaps to whole £1,000 cash amounts, with exact typed amounts preserved. Other controls retain their established domain increments and gain single-step buttons. Regression checks cover dragging, arrow keys, buttons, exact entry and deposit boundaries.
+5. Focus inspection exposed native scrolling of the outer dialog, which clipped its header. The dialog now uses `overflow: clip`; only `#plan-sheet-controls` scrolls. Chromium and WebKit regression checks prove the outer dialog stays at scroll position zero.
+6. Latest mobile layout measurement: deposit buttons are 44 × 44px at x21 and x325; the range spans x77–313. Both buttons share the same vertical position and neither overlaps the range. Desktop and scrolled mobile screenshots were also inspected; no remaining clipping within controls.
 
-Screenshot directory:
-`/Users/rathbala/.codex/visualizations/2026/09/06/01a077b4-881a-7f81-93df-ad538b238644/real-components/`
+7. Controls-only follow-up: the user identified the balance projections inside the editor. The balance table and rate-impact example now live in one results card outside the movable mortgage-controls section on both mobile and desktop. Short option explanations and payment/consequence summaries stay beside the choices they explain. Browser regressions assert that no projection block enters the sheet, that draft edits leave applied projections unchanged, and that Apply updates them. Previous checks verified that all controls moved but did not constrain non-control content.
+8. Latest scope screenshots: `mobile-controls-only.png` shows the sheet ending at Fixed/Tracker; `mobile-balance-results.png` and `desktop-balance-results.png` show the retained projections on the page. These supersede earlier evidence for the bottom of the sheet. Final captures use an isolated Playwright Chromium context with the installed Chrome channel, device scale 1 and reduced motion, against the verified current-worktree server at port 4317. The in-app browser had persistent 120% zoom that distorted its screenshots. The same £1m home, £400,000 deposit and 4.5% rate reproduce the user's screenshot values.
 
-- `desktop-context.png`: the dashboard-to-overview transition.
-- `desktop.png`: complete feature group overview.
-- `mobile-tracking.png`, `mobile-budgeting.png`, `mobile-sharing.png`,
-  `mobile-planning.png`: every mobile group, including adjacent boundaries.
-- `tracking-source.png`, `budgeting-source.png`, `sharing-source.png`,
-  `planning-source.png`: original real-component capture surfaces, outside Git.
+## Fidelity surfaces
 
-Desktop checked at 1440px and mobile at 390px CSS viewport widths. The in-app
-browser reserves a scrollbar gutter. Source PNGs and final browser composition
-were visually inspected. Real captures intentionally vary in height; equal image
-slots keep desktop titles aligned. No stretching, collisions or clipped benefit
-copy was observed. Small labels within captures are supporting detail; the
-site-standard 18px mobile / 22px desktop lists communicate every capability.
+- **Typography:** existing Manrope, dark-green headings and bold financial values retained. Numeric fields use native number inputs, so they omit thousands separators while editing; the preview and results remain currency-formatted.
+- **Spacing:** fixed estimate/action dock and tall rounded sheet follow the selected structure. Existing breakdown navigation and explanatory content are retained, so the results page shows less breakdown content in its first viewport than the illustrative concept. Comfortable single-step touch targets take priority over fitting every core control into the first sheet viewport. The controls scroll beneath the fixed preview and above Apply.
+- **Colour:** existing planner semantic tokens own ivory surfaces, pale-mint previews, forest-green actions and peach budget warnings. No new styling framework.
+- **Assets:** existing compressed woodland artwork, tan sloth logo and Lucide icons reused. No generated raster assets ship with this change.
+- **Content:** actual calculator results remain authoritative, including a £4,831 mortgage for the £1m example rather than the concept's rounded £4,832. All existing cost and mortgage choices remain available. The decorative drag handle is omitted because this version opens and closes through explicit buttons, not dragging.
 
-The eight-viewport browser regression additionally verifies 1/2/4 columns,
-image-to-heading-to-list order, heading alignment, aspect ratios, at least 2x
-image density, the light section surface and the existing advanced section's
-light copy. WebP delivery totals 103,190 bytes, below the 120,000-byte budget.
+Full-view images have readable controls at 1×; DOM measurements above provide focused boundary evidence without an additional enlarged crop.
 
 ## Requirement closure
 
-| Requirement                                     | Status                 | Evidence                                                                      |
-| ----------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------- |
-| Use actual app components                       | Implemented            | Four direct preview captures; provenance in `docs/everyday-features.md`.      |
-| Consolidate extra features                      | Implemented            | Four lists with sixteen benefits in initial HTML; `yarn check:copy`.          |
-| Match the landing page bullet style             | Implemented            | Existing Lucide diamonds; desktop/mobile review.                              |
-| Clear heading                                   | Implemented            | “Track, budget and save together”.                                            |
-| Preserve approved grouping and surrounding page | Implemented            | Four-column overview and existing dark advanced section retained.             |
-| Responsive, lightweight assets                  | Implemented            | Eight viewport checks, 2x density, preserved proportions and transfer budget. |
-| Prevent another invented product depiction      | Implemented            | `docs/visual-assets.md` now requires canonical component captures.            |
-| Publish to production                           | Intentionally deferred | Local implementation only; shipping was not requested.                        |
+| Requirement                                       | Status                  | Evidence                                                                                                                              |
+| ------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Persistent mobile estimate and Adjust plan action | Implemented             | `.plan-dock`, mobile results screenshot, arrival regression                                                                           |
+| Tall sheet with all existing adjustment controls  | Implemented             | `home-planner-sheet.js` moves the original assumption and mortgage sections; primary and scrolled screenshots                         |
+| Live draft estimate and upfront deposit           | Implemented             | Existing `calculateHomePlan` feeds the sheet preview; draft test keeps applied results unchanged                                      |
+| Apply / Cancel / Escape                           | Implemented             | Browser regression checks applied deposit, draft discard, invalid input and focus restoration                                         |
+| Numeric deposit, rate and term entry              | Implemented             | Shared controls and existing calculator; exact-entry and shared-ownership regressions                                                 |
+| Preserve desktop controls                         | Implemented             | Responsive resize regression and desktop controls screenshot                                                                          |
+| Lock background scrolling and contain focus       | Implemented             | Wheel, Tab, Escape, simulated keyboard viewport and restored-scroll tests in Chromium and WebKit                                      |
+| Predictable slider increments                     | Implemented             | `home-planner-sliders.js`, field-specific snapping/nudging in `home-planner.js`, browser increment/limit tests and latest screenshots |
+| Controls and detailed projections separated       | Implemented             | Projections live in `.plan-panel`; `home-planner-sheet-check.mjs` guards location and Apply boundary                                  |
+| Private temporary values                          | Implemented             | No persistence or remote writes; existing refresh-clears-data regression retained                                                     |
+| Public route and tracking compatibility           | Unchanged intentionally | Build/public-site and tracking checks pass; no endpoint, policy or event changes                                                      |
 
-## Verification
+## Verification and scope
 
-Successful: `yarn check:copy`, `yarn check:home-visibility`, `yarn build`
-(including public-site readiness), `yarn typecheck`, `yarn check:tracking`,
-`yarn lint`, and `git diff --check`. Readable generated CSS restored using the
-repository's documented Tailwind command.
+- `yarn check:home-planner`: passed (calculator tests and Chromium interaction checks, including 320/390/430px overflow checks).
+- `HOME_PLANNER_BROWSER=webkit yarn check:home-planner`: passed.
+- `yarn build`: passed, including public-site readiness, repository hygiene and developer documentation/release checks.
+- `yarn lint`, `yarn typecheck`, `yarn check:tracking`: passed.
+- Final in-app browser console error inspection: none.
+- Generated CSS restored with the documented non-minified Tailwind command after the production build.
+- Human UI owner: `sloth-site`; local changes only. Backend, agent API, CLI, SDK, jobs, storage and sibling `sloth-budget` are unaffected; no release ordering or data migration required.
+- Keyboard: native form controls, contained Tab navigation, Escape cancellation and trigger focus restoration. No new shortcut grammar is warranted.
+- Operational logging: unchanged; this synchronous local calculation has no new service failure to diagnose. Product analytics: unchanged; existing completion/signup funnel remains, and discovery of the new action is evaluated through the current usability review before adding any new event. Tracking inventory reviewed, unchanged.
 
-Known unrelated limitation from earlier verification: `yarn check:typography`
-reports 14px mobile text in the existing CLI example. The 0.875rem rule predates
-this change. The new section's type-size assertions pass independently.
+The keyboard layout uses the browser visual viewport, which can shrink independently of the document when the keyboard opens ([MDN VisualViewport](https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport)). A browser regression simulates that viewport change and checks the actual footer position.
 
-No new controls, keyboard shortcuts, persistence, analytics or operational logs.
-Only the marketing site is changed; app UI, APIs, CLI, SDKs, jobs and stored data
-remain unchanged and compatible. No app deployment or migration is required.
+## Review workflow
 
-## Browser comment refinements
+When reusing a section inside an editor, inventory its inputs, contextual choice help and result-only content before moving it. Verify both what the editor includes and what it excludes; screenshots of the top controls alone cannot establish this boundary. For repeatable screenshots, prefer an isolated Playwright context when in-app zoom changes measured or captured dimensions. Reuse the repository browser-launch fallback (`channel: chrome` when the bundled Chromium executable is absent) rather than assuming a downloaded browser is available.
 
-- **Comment 1 implemented:** standalone transaction category summary hidden with
-  capture-only CSS; personal and joint category icons remain visible. Source
-  capture assertions verified all three visibility states.
-- **Comment 2 implemented:** goal recaptured at the app's native 390px viewport,
-  producing a taller component without stretching or changing its contents.
-- The previous checks covered equal slots and aligned headings, which allowed a
-  visibly shorter goal image to pass. The new regression checks the actual image
-  height against its neighbours and adds the exact 1200 × 479 review viewport.
-  It failed on the old goal asset before passing on the new one.
+## Remaining limits
 
-Fresh screenshots in the task's `real-components-refined` directory:
-`comments-tracking.png` and `comments-planning.png` reproduce the two comment
-views at 1200 × 479; `desktop-overview.png` shows the whole overview at
-1440 × 1131; `mobile-tracking.png` and `mobile-planning.png` show both changed
-components and their lists at 390 × 844. The existing preview process still
-serves this worktree on port 4318. Source application preview was stopped after
-capture; no temporary wrapper or capture script was added to either repository.
-
-## Tracking padding correction
-
-The visibility-only icon omission retained a 48px grid column plus a 12px gap.
-Removing that column in capture-only CSS restores the native 13px content inset;
-both split icons remain visible and text stays 12px clear of the amount column.
-The old capture failed the inset assertion (73px); the corrected capture passes
-(13px). The exact CSS and required geometry checks are documented in
-`docs/everyday-features.md` so future recaptures do not repeat this omission.
-
-Fresh evidence: `tracking-padding/desktop.png` at 1200 × 479 and
-`tracking-padding/mobile.png` at 390 × 844. Both show the corrected full card
-inside the homepage, with adjacent heading and benefits. No app code changed.
+Responsive browser and WebKit tests do not replace a physical-phone keyboard check. No remote save, drag-to-dismiss interaction, deployment or production verification is included.

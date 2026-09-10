@@ -1143,11 +1143,8 @@ details[open] > summary > svg {
   accent-color: var(--planner-focus);
 }
 
-.rate-and-balance {
-  margin-top: 0.75rem;
-}
-
 .rate-options {
+  margin-top: 0.75rem;
   padding: 0.85rem;
   border: 1px solid var(--planner-border);
   border-radius: 0.85rem;
@@ -1229,7 +1226,8 @@ details[open] > summary > svg {
   gap: 1rem;
 }
 
-.balance-comparison-heading strong {
+.balance-comparison-heading h3 {
+  margin: 0;
   color: var(--planner-ink);
   font-size: var(--planner-text-small);
 }
@@ -2073,8 +2071,7 @@ body[data-planner-stage='results'] .journey-milestone {
 
   .choice-grid-four,
   .choice-grid-three,
-  .education-grid,
-  .rate-and-balance {
+  .education-grid {
     grid-template-columns: 1fr;
   }
 

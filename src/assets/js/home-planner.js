@@ -1,3 +1,5 @@
+import { initializePlannerSliders } from './home-planner-sliders.js'
+import { initializePlanSheet } from './home-planner-sheet.js'
 import {
   calculateHomePlan,
   calculateMortgageBalance,
@@ -51,20 +53,22 @@ const homePriceToSlider = (value, limits) => {
   )
 }
 
+const homePriceIncrement = (rawPrice) =>
+  rawPrice < 500000
+    ? 5000
+    : rawPrice < 2000000
+      ? 10000
+      : rawPrice < 5000000
+        ? 25000
+        : rawPrice < 10000000
+          ? 50000
+          : 100000
+
 const sliderToHomePrice = (value, limits) => {
   const position = clampNumber(value, 0, limits.sliderMax)
   const scale = Math.log(limits.max / limits.min)
   const rawPrice = limits.min * Math.exp((position / limits.sliderMax) * scale)
-  const rounding =
-    rawPrice < 500000
-      ? 5000
-      : rawPrice < 2000000
-        ? 10000
-        : rawPrice < 5000000
-          ? 25000
-          : rawPrice < 10000000
-            ? 50000
-            : 100000
+  const rounding = homePriceIncrement(rawPrice)
 
   return clampNumber(
     Math.round(rawPrice / rounding) * rounding,
@@ -330,9 +334,11 @@ function initializePlanner() {
     )
   }
 
-  const renderPlan = () => {
+  let sheet
+  const renderPlan = (event) => {
     const input = plannerInput()
     const plan = calculateHomePlan(input)
+    syncHomePriceRange(input.homePrice)
     const ownershipType = checkedValue('ownershipType')
     const firstTimeBuyer = checkedValue('firstTimeBuyer')
     const region = checkedValue('region')
@@ -377,7 +383,19 @@ function initializePlanner() {
         balanceYearTwo
       ) + plan.partInterestOnlyPrincipal
 
-    byId('result-deposit-percent').textContent = `${input.depositPercent}%`
+    byId('result-deposit-percent').textContent =
+      `${Number(input.depositPercent.toFixed(2))}%`
+    const depositAmount = byId('lever-deposit-amount')
+    byId('lever-deposit').setAttribute(
+      'aria-valuetext',
+      formatMoney(plan.depositRequired)
+    )
+    depositAmount.max = String(plan.purchasedValue)
+    if (event?.target !== depositAmount)
+      depositAmount.value = String(Math.round(plan.depositRequired))
+    document.querySelectorAll('[data-lever]').forEach((field) => {
+      if (event?.target !== field) field.value = byId(field.dataset.lever).value
+    })
     byId('result-rate').textContent = `${input.annualInterestRate.toFixed(1)}%`
     byId('result-term').textContent = `${input.termYears} years`
     byId('result-shared-percent').textContent = `${
@@ -412,6 +430,15 @@ function initializePlanner() {
     byId('part-repayment-percent-output').textContent =
       `${plan.partRepaymentPercent}%`
     byId('part-and-part-control').hidden = !isPartAndPart
+    byId('rate-type-explanation').textContent =
+      rateType === 'tracker'
+        ? 'A tracker follows another rate, so your payment can rise or fall.'
+        : 'A fixed rate usually stays set for the deal period.'
+
+    document.querySelector('.shared-ownership-lever').hidden =
+      ownershipType !== 'shared'
+    if (sheet?.update(plan)) return
+
     byId('rate-impact-label').textContent =
       rateType === 'tracker'
         ? '+1 percentage point example'
@@ -425,10 +452,6 @@ function initializePlanner() {
         ? trackerExampleRate.toFixed(1)
         : input.annualInterestRate.toFixed(1)
     }%`
-    byId('rate-type-explanation').textContent =
-      rateType === 'tracker'
-        ? 'A tracker follows another rate, so your payment can rise or fall.'
-        : 'A fixed rate usually stays set for the deal period.'
     byId('balance-comparison-term').textContent =
       `${input.termYears}-year term at ${input.annualInterestRate.toFixed(1)}%`
     document.querySelectorAll('[data-balance-year]').forEach((label) => {
@@ -458,6 +481,8 @@ function initializePlanner() {
     byId('result-total-monthly').textContent = `${formatMoney(
       plan.monthlyHomeCost
     )} a month`
+    byId('result-assumptions').textContent =
+      `${formatMoney(input.homePrice)} home · ${Number(input.depositPercent.toFixed(2))}% deposit`
     const extraCosts = ['bills and repairs']
     if (plan.monthlySharedRent) extraCosts.push('rent')
     if (plan.serviceCharge) extraCosts.push('service charges')
@@ -546,8 +571,6 @@ function initializePlanner() {
             )} above a rough 4.5× income estimate. A lender may offer less than this plan needs.`
     }
 
-    document.querySelector('.shared-ownership-lever').hidden =
-      ownershipType !== 'shared'
     renderScenarios(input, input.depositPercent)
   }
 
@@ -736,6 +759,73 @@ function initializePlanner() {
       byId('mortgage-budget').readOnly = false
       navigateToStage('intro', 'planner-start', 'replace')
     })
+  })
+
+  document.querySelectorAll('[data-lever]').forEach((field) => {
+    field.addEventListener('input', (event) => {
+      if (!field.value || !field.checkValidity()) return
+      byId(field.dataset.lever).value = field.value
+      renderPlan(event)
+    })
+  })
+
+  const depositRange = byId('lever-deposit')
+  const setDepositCash = (cash, purchasedValue) => {
+    const amount = clampNumber(cash, 0, purchasedValue)
+    depositRange.value = String(
+      purchasedValue ? (amount / purchasedValue) * 100 : 0
+    )
+  }
+  initializePlannerSliders({
+    'lever-deposit': {
+      snap: () => {
+        const plan = calculateHomePlan(plannerInput())
+        // Preserve both endpoints, including a purchase share below £1,000.
+        if (Number(depositRange.value) === 100) return
+        setDepositCash(
+          Math.round(plan.depositRequired / 1000) * 1000,
+          plan.purchasedValue
+        )
+      },
+      adjust: (direction) => {
+        const plan = calculateHomePlan(plannerInput())
+        const cash = Math.round(plan.depositRequired)
+        const next =
+          direction > 0
+            ? Math.floor(cash / 1000) + 1
+            : Math.ceil(cash / 1000) - 1
+        setDepositCash(next * 1000, plan.purchasedValue)
+        renderPlan()
+      },
+    },
+    'lever-home-price-range': {
+      adjust: (direction) => {
+        const price = Number(exactHomePrice.value)
+        const increment = homePriceIncrement(price - (direction < 0 ? 1 : 0))
+        const next =
+          direction > 0
+            ? Math.floor(price / increment) + 1
+            : Math.ceil(price / increment) - 1
+        exactHomePrice.value = String(
+          clampNumber(
+            next * increment,
+            homePriceLimits.min,
+            homePriceLimits.max
+          )
+        )
+        exactHomePrice.dispatchEvent(new Event('input', { bubbles: true }))
+      },
+    },
+  })
+  sheet = initializePlanSheet({ renderPlan, formatMoney })
+  byId('lever-deposit-amount').addEventListener('input', (event) => {
+    const field = event.currentTarget
+    if (!field.value || !field.checkValidity()) return
+    const purchasedValue = calculateHomePlan(plannerInput()).purchasedValue
+    byId('lever-deposit').value = String(
+      purchasedValue ? (Number(field.value) / purchasedValue) * 100 : 0
+    )
+    renderPlan(event)
   })
 
   updateIcons()
