@@ -977,6 +977,10 @@ video {
   max-width: 36rem;
 }
 
+.flex-1 {
+  flex: 1 1 0%;
+}
+
 .flex-none {
   flex: none;
 }
@@ -1247,10 +1251,6 @@ video {
   border-color: rgb(229 231 235 / 0.6);
 }
 
-.border-green\/15 {
-  border-color: rgb(4 191 104 / 0.15);
-}
-
 .border-green\/20 {
   border-color: rgb(4 191 104 / 0.2);
 }
@@ -1304,10 +1304,6 @@ video {
 
 .bg-green\/10 {
   background-color: rgb(4 191 104 / 0.1);
-}
-
-.bg-green\/5 {
-  background-color: rgb(4 191 104 / 0.05);
 }
 
 .bg-red-400 {
@@ -2087,10 +2083,6 @@ html {
 .hover\:bg-green-dark:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(3 140 115 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-green\/10:hover {
-  background-color: rgb(4 191 104 / 0.1);
 }
 
 .hover\:bg-green\/5:hover {

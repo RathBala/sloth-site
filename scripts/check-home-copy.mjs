@@ -109,6 +109,22 @@ const goalsSection = home.slice(
 
 const checks = [
   {
+    passes: [home, wedding, developers].every((page) => {
+      const mobileMenu = page.slice(page.indexOf('id="mobile-menu"'))
+      const planner = mobileMenu.match(
+        /<a\s+href="\/home-planner\/"[\s\S]*?<\/a>/
+      )?.[0]
+      return (
+        planner &&
+        text(planner).trim() ===
+          'Home Planner Plan what it takes to afford your dream home.' &&
+        /data-lucide="chevron-right"[\s\S]*?aria-hidden="true"/.test(planner)
+      )
+    }),
+    message:
+      'Every mobile Home Planner link must preserve the approved copy and show a decorative forward chevron.',
+  },
+  {
     passes:
       text(goalsSection).includes('flights, stays, and spending money') &&
       text(goalsSection).includes('how much to save each month') &&
