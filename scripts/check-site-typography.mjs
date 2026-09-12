@@ -8,6 +8,7 @@ import { chromium } from 'playwright'
 
 const root = fileURLToPath(new URL('../src/', import.meta.url))
 const screenshots = process.env.SITE_TYPOGRAPHY_SCREENSHOT_DIR
+const betaSpacingOnly = process.argv.includes('--beta-spacing')
 const types = {
   '.html': 'text/html',
   '.css': 'text/css',
@@ -53,6 +54,7 @@ try {
       '/privacy/',
       '/home-planner/',
     ]) {
+      if (betaSpacingOnly && !['/', '/wedding-fund/'].includes(route)) continue
       const page = await browser.newPage({
         viewport: { width, height: 1000 },
         reducedMotion: 'reduce',
@@ -91,6 +93,45 @@ try {
         }
       })
       assert(!result.overflow, `${route} overflows at ${width}px`)
+      if (route === '/' || route === '/wedding-fund/') {
+        const promise = page.getByText(
+          'Everyone who joins during the beta keeps full access.',
+          { exact: true }
+        )
+        await promise.scrollIntoViewIfNeeded()
+        const { accessGap, privacyGap } = await promise.evaluate((e) => {
+          const access = e.getBoundingClientRect()
+          const notes = e.nextElementSibling.querySelectorAll('p')
+          const ads = notes[0].getBoundingClientRect()
+          const privacy = notes[1].getBoundingClientRect()
+          return {
+            accessGap: ads.top - access.bottom,
+            privacyGap: privacy.top - ads.bottom,
+          }
+        })
+        assert(
+          Math.abs(accessGap - privacyGap) <= 1 && accessGap <= 16,
+          `${route} ${width}px: beta promise gaps should match and stay compact (${accessGap}px, ${privacyGap}px)`
+        )
+        if (screenshots) {
+          await promise.locator('../..').evaluate((e) =>
+            window.scrollTo({
+              top: e.getBoundingClientRect().top + scrollY - 110,
+              behavior: 'instant',
+            })
+          )
+          await page.screenshot({
+            path: join(
+              screenshots,
+              `${route === '/' ? 'home' : 'wedding'}-beta-card-${width}.png`
+            ),
+          })
+        }
+      }
+      if (betaSpacingOnly) {
+        await page.close()
+        continue
+      }
       if (route === '/wedding-fund/') {
         const art = await page.locator('.hero-image-container').boundingBox()
         const heading = await page
@@ -203,7 +244,9 @@ try {
     }
   }
   console.log(
-    '[site-typography] All public routes meet the readable type floor without page overflow.'
+    betaSpacingOnly
+      ? '[site-typography] Beta promise spacing matches on both pages at all three viewport widths.'
+      : '[site-typography] All public routes meet the readable type floor without page overflow.'
   )
 } finally {
   clearTimeout(deadline)
