@@ -33,3 +33,14 @@ collection, provider, event, identifier or marketing-site API call. Existing
 privacy copy, tracking inventory and analytics contracts remain unchanged.
 Operational logs and product analytics are unchanged on this site. App-side
 budget-save and assignment instrumentation is documented in `sloth-budget`.
+
+## Mainline integration (21 September 2026)
+
+- Preserved the newer published CLI, income-period documentation, and semantic
+  typography on the latest site main. The temporary-budget section is explicitly
+  unreleased and describes the approved dropdown beneath Personal / Joint.
+- Developer-doc contract, public-site checks, published-version gate, and build
+  pass. The unrelated site-wide typography check still fails on existing homepage
+  CLI-example text below 16px at 390px; the homepage is unchanged in this release.
+- Existing routes, canonical URLs, sitemap, robots policy, and privacy remain
+  unchanged. No new site tracking or operational logging was introduced.
