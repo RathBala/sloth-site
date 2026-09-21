@@ -625,6 +625,56 @@ sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
                 <code>projectionThroughMonthKey</code> for the final month
                 tested.
               </p>
+              <section id="temporary-budget-cli" class="space-y-4">
+                <h3 class="font-bold text-gray-900">Temporary budgets</h3>
+                <p class="text-gray-600">Source checkout only; not yet available in the npm release.</p>
+                <p class="text-gray-600 leading-relaxed">
+                  Create a holiday budget in Budget → Temporary budgets in the
+                  app. It uses a Spend Goal's name and total, with its own
+                  categories and items. The Goal keeps its funding account. No
+                  money is moved or reserved.
+                </p>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-7 text-gray-100 shadow-lg"
+                ><code>sloth-agent goal-budgets
+sloth-agent transactions --goal-budget-ref PASTE_THE_EXACT_BUDGET_REF_HERE --assignment-scope personal</code></pre>
+                <p class="text-gray-600 leading-relaxed">
+                  Copy the exact <code>budgetRef</code> from the first command.
+                  Use <code>--assignment-scope joint</code> for joint spending.
+                  Reads cover the whole budget lifetime, including advance
+                  bookings, manual payments, and refunds, unless you also supply
+                  dates.
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                  In the existing assignment file, add
+                  <code>goalBudgetRef</code> alongside
+                  <code>transactionRef</code>, <code>assignmentScope</code>,
+                  <code>categoryId</code>, and optional <code>lineItemId</code>.
+                  Use category and item IDs from <code>goal-budgets</code>. Set
+                  the reference to <code>null</code> and choose a monthly
+                  category to return that portion to the monthly budget.
+                  Omitting it preserves the current destination. Preview with
+                  <code>sloth-agent assign --input assignments.json</code>, then
+                  add <code>--apply</code> to save.
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                  Temporary spending stays in account totals and partner
+                  settlement, but leaves monthly category spending. Restore a
+                  spent Goal before changing its budget or assignments. The
+                  owner edits the plan in the app; a current partner can read a
+                  joint budget and assign shared spending.
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                  <code>GET /api/agent/v1/goal-budgets</code> returns the
+                  catalogue, permissions, and totals.
+                  <code>PUT /api/agent/v1/goals/:goalId/budget</code> saves the
+                  owner's <code>configuration</code>. Category and summary
+                  amounts use minor currency units; the Goal's
+                  <code>targetAmount</code>
+                  uses major units. Configuration is stored on the Goal, not a
+                  second ledger.
+                </p>
+              </section>
               <section id="scenario-cli" class="space-y-4">
                 <pre
                   class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"

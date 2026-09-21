@@ -18,6 +18,11 @@ const llmsText = fs.readFileSync(path.join(root, 'src', 'llms.txt'), 'utf8')
 const requiredSnippets = [
   '<code>incomePeriodKey</code>',
   '"incomePeriodKey": "2026-09"',
+  'Source checkout only; not yet available in the npm release.',
+  'sloth-agent goal-budgets',
+  '--goal-budget-ref PASTE_THE_EXACT_BUDGET_REF_HERE',
+  '/api/agent/v1/goal-budgets',
+  '<code>goalBudgetRef</code>',
   'npm install --global @slothmoney/agent-cli',
   `CLI ${expectedCliVersion} or newer`,
   'sloth-agent accounts',
