@@ -497,7 +497,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.27.1 or newer with Node.js 22 or newer. The
+                    Install CLI 0.28.0 or newer with Node.js 22 or newer. The
                     <code class="site-note bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -627,14 +627,11 @@ sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
               </p>
               <section id="temporary-budget-cli" class="space-y-4 scroll-mt-24">
                 <h3 class="font-bold text-gray-900">Temporary budgets</h3>
-                <p class="text-gray-600">
-                  Source checkout only; not yet available in the npm release.
-                </p>
                 <p class="text-gray-600 leading-relaxed">
-                  Create a holiday budget from the dropdown below Personal / Joint
-                  on the Budget page. It uses a Spend Goal's name and total, with its own
-                  categories and items. The Goal keeps its funding account. No
-                  money is moved or reserved.
+                  Create a holiday budget from the dropdown below Personal /
+                  Joint on the Budget page. It uses a Spend Goal's name and
+                  total, with its own categories and items. The Goal keeps its
+                  funding account. No money is moved or reserved.
                 </p>
                 <pre
                   class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
@@ -784,6 +781,36 @@ sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
 sloth-agent transactions --assignment-scope joint --uncategorized --limit 50
 sloth-agent transactions --include-pending
 sloth-agent partner status</code></pre>
+              <h3
+                id="budget-cashflow"
+                class="font-bold text-gray-900 scroll-mt-24"
+              >
+                Check account cashflow
+              </h3>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent budget cashflow --scope personal
+sloth-agent budget cashflow --scope joint</code></pre>
+              <p class="text-gray-600">
+                Estimate whether the budget's backing account will fall below
+                zero before the current period ends. Choose one backing account
+                per budget in Settings. Scope is required; this cached read
+                never refreshes banks or saves preferences.
+              </p>
+              <p class="text-gray-600">
+                Cashflow uses planned amounts minus booked spending. £400
+                planned, £100 assigned and £50 spent leaves £350 to forecast.
+                Moving assigned money changes neither bank cash nor this
+                estimate. Dates use spending history from at least two of the
+                last three periods; otherwise spending falls tomorrow, or today
+                when the period ends today.
+              </p>
+              <p class="text-gray-600">
+                Future income and transfers are excluded. Pending payments may
+                be counted twice against the cached balance and remaining plan.
+                Stale balances and incomplete period coverage are flagged. Both
+                budgets contribute once when they use the same account.
+              </p>
               <h3
                 id="budget-funding"
                 class="font-bold text-gray-900 scroll-mt-24"
@@ -1184,7 +1211,7 @@ sloth-agent auth logout</code></pre>
               API reference
             </p>
             <h2 class="font-extrabold tracking-tight text-gray-900 mt-3 mb-4">
-              Sixteen API resources
+              Agent API resources
             </h2>
             <p class="text-gray-600">
               Every request uses
@@ -1355,6 +1382,36 @@ sloth-agent auth logout</code></pre>
                 <code>moneyOutPence</code>, and <code>netPence</code>. Truly
                 uncategorized activity stays separate. Historical reads do not
                 refresh or borrow a later budget plan.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
+                  >GET</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/budget-cashflow</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Requires <code>scope=personal|joint</code> and
+                <code>agent:read</code>. Returns an available or unavailable
+                budget-based account estimate. Available results include account
+                identity and freshness, exact period dates, integer-pence
+                starting and closing balances, remaining planned spending,
+                <code>firstNegativeDate</code>, minimum balance, forecast items
+                and daily balances. An unavailable result contains a reason,
+                never a substitute zero balance.
+              </p>
+              <p class="text-gray-600 mt-3">
+                This read uses cached balances and saved plans only. No bank
+                refresh, budget initialization or preference write occurs.
+                Forecasts are transient; no manual prediction controls or
+                confirmation records are used. There is no historical-period
+                parameter. Inspect warnings and limitations before relying on
+                the estimate.
               </p>
             </article>
 
