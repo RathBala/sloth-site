@@ -497,7 +497,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.28.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.29.0 or newer with Node.js 22 or newer. The
                     <code class="site-note bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -603,8 +603,8 @@ sloth-agent goals delete --goal-id GOAL_ID
 sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
               <p class="text-gray-600">
                 Goal creates require a positive target amount, an explicit Keep
-                or Spend type, and one personal Goal-funding account. Goal
-                results include
+                or Spend type, and one or more personal Goal-funding accounts in
+                the same currency. Goal results include
                 <code>goalType</code> and nullable <code>spentAt</code>. Keep
                 goals cannot be marked spent. Restore a spent goal before
                 changing its type.
@@ -625,6 +625,57 @@ sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
                 <code>projectionThroughMonthKey</code> for the final month
                 tested.
               </p>
+              <section id="multi-account-goals" class="space-y-4 scroll-mt-24">
+                <h3 class="font-bold text-gray-900">
+                  Choose your Goal funding
+                </h3>
+                <p class="text-gray-600">
+                  Available in CLI 0.29.0 or newer.
+                </p>
+                <p class="text-gray-600">
+                  Repeat <code>--account-ref</code> for automatic funding. Sloth
+                  takes available money from selected accounts alphabetically by
+                  their displayed labels, then continues to the next account.
+                  Renaming an account can change that order.
+                </p>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+                ><code>sloth-agent goals create --name "Wedding" --target-amount 6000 --type spend \
+  --account-ref PASTE_SAVINGS_REF_HERE --account-ref PASTE_ISA_REF_HERE</code></pre>
+                <p class="text-gray-600">
+                  For a fixed split, save this as <code>funding.json</code>,
+                  replacing both references with your own personal accounts in
+                  the Goal currency:
+                </p>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+                ><code>{
+  "mode": "explicit",
+  "allocations": [
+    { "accountRef": "PASTE_SAVINGS_REF_HERE", "amount": 4000 },
+    { "accountRef": "PASTE_ISA_REF_HERE", "amount": 2000 }
+  ]
+}</code></pre>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+                ><code>sloth-agent goals create --name "Wedding" --target-amount 6000 --type spend --funding-input funding.json
+sloth-agent goals create --name "Wedding" --target-amount 6000 --type spend --funding-input funding.json --apply
+sloth-agent goals update --goal-id GOAL_ID --target-amount 6000 --funding-input funding.json --apply</code></pre>
+                <p class="text-gray-600">
+                  Use either account flags or a funding file, never both. Fixed
+                  shares must total the target. When changing an explicit Goal's
+                  target, submit the updated split in the same save. A shortfall
+                  in one account is not covered by another.
+                </p>
+                <p class="text-gray-600">
+                  With £1,000 in savings and £10,000 in an ISA, the
+                  £4,000/£2,000 split counts £3,000 today. A lower-priority Goal
+                  can use the remaining £8,000 in the ISA. Current progress uses
+                  cached balances. Forecast allocations describe projected
+                  money. Missing account data is reported as incomplete. Funding
+                  choices do not move money.
+                </p>
+              </section>
               <section id="temporary-budget-cli" class="space-y-4 scroll-mt-24">
                 <h3 class="font-bold text-gray-900">Temporary budgets</h3>
                 <p class="text-gray-600 leading-relaxed">
@@ -1536,9 +1587,17 @@ sloth-agent auth logout</code></pre>
               <p class="text-gray-600">
                 Lists Goals or creates one. Creates require a positive target
                 amount, <code>goalType</code> set to <code>keep</code> or
-                <code>spend</code>, and a personal
-                <code>fundingAccountRef</code>. Results include the effective
-                priority, private funding-account label and reference,
+                <code>spend</code>, and a private
+                <code>funding</code> configuration. Automatic funding uses
+                <code>{ "mode": "automatic", "accountRefs": [...] }</code>.
+                Explicit funding uses positive amounts in
+                <code
+                  >{ "mode": "explicit", "allocations": [{ "accountRef": "...",
+                  "amount": 4000 }] }</code
+                >, totalling the target. Results include account labels, current
+                <code>allocations</code>, <code>savedAmount</code>,
+                <code>progressPercent</code>, <code>hasMissingAccounts</code>,
+                projected <code>forecastAllocations</code>,
                 <code>forecastMonthKey</code>, and <code>forecastBasis</code>.
                 Update and delete requests use
                 <code class="site-note bg-gray-100 px-1.5 py-0.5 rounded"
@@ -1554,8 +1613,10 @@ sloth-agent auth logout</code></pre>
                 strict input as create, works with view-only access, and
                 performs no writes. Preview and create calculate from the active
                 scenario with the same server planner. Goals compete only with
-                earlier Goals assigned to the same account. Desired dates do not
-                change the calculated forecast.
+                earlier Goals using overlapping accounts. Partial funding
+                protects only the amount allocated; lower-priority Goals can use
+                the surplus. Desired dates do not change the calculated
+                forecast.
               </p>
             </article>
 

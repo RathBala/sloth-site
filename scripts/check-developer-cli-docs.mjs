@@ -150,7 +150,11 @@ const requiredSnippets = [
   '/api/agent/v1/scenarios/preview',
   '/api/agent/v1/scenarios/:monthKey/activate',
   'Agent API resources',
-  '<code>fundingAccountRef</code>',
+  '<code>funding</code>',
+  '--funding-input funding.json',
+  '"mode": "explicit"',
+  '<code>allocations</code>',
+  '<code>hasMissingAccounts</code>',
   '<code>forecastMonthKey</code>',
   '<code>forecastBasis</code>',
   '<code>projectionThroughMonthKey</code>',
@@ -212,7 +216,7 @@ const requiredCopy = [
   'It does not change planned amounts or future budget plans.',
   'Saving X overwrites X and every explicit future plan. A later save from Y overwrites Y and everything after it.',
   'Goal priority is one-based, so 1 is highest. Moving one goal shifts the intervening goals automatically.',
-  'Goal creates require a positive target amount, an explicit Keep or Spend type, and one personal Goal-funding account.',
+  'Goal creates require a positive target amount, an explicit Keep or Spend type, and one or more personal Goal-funding accounts in the same currency.',
   'Without --apply, goal creation authenticates and asks Sloth to calculate forecastMonthKey without saving the Goal.',
   'targetMonthKey is your optional desired month. forecastMonthKey is Sloth’s calculated month.',
   'Only the active scenario is calculated.',
@@ -267,6 +271,7 @@ if (retainedLegacyCopy.length > 0) {
 }
 
 for (const legacyGoalFundingCopy of [
+  'fundingAccountRef',
   'isGoalSavingsSource',
   '--goal-savings-source',
   'owner next opens Forecast',
@@ -356,7 +361,7 @@ if (
   !privacyPage
     .replace(/\s+/g, ' ')
     .includes(
-      'preview a goal against your private Goal-funding account without saving the goal'
+      'preview a goal against your private Goal-funding accounts without saving the goal'
     )
 ) {
   throw new Error(
