@@ -497,7 +497,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.29.1 or newer with Node.js 22 or newer. The
+                    Install CLI 0.30.0 or newer with Node.js 22 or newer. The
                     <code class="site-note bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -859,6 +859,54 @@ sloth-agent budget cashflow --scope joint</code></pre>
                 be counted twice against the cached balance and remaining plan.
                 Stale balances and incomplete period coverage are flagged. Both
                 budgets contribute once when they use the same account.
+              </p>
+              <h3
+                id="budget-resets"
+                class="font-bold text-gray-900 scroll-mt-24"
+              >
+                Reset budget balances
+              </h3>
+              <p class="text-gray-600">Available in CLI 0.30.0 or newer.</p>
+              <p class="text-gray-600">
+                Reset To Assign to zero while keeping category funds, or reset
+                all assigned category funds while keeping To Assign. Assigned
+                reset also clears category carryover and previous-period
+                overspending. Transaction categories, plans, snapshots, bank
+                balances, and reserves stay unchanged.
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent budget reset to-assign --scope personal
+sloth-agent budget reset assigned --scope joint
+# Copy previewFingerprint from the matching preview:
+sloth-agent budget reset assigned --scope joint --apply --expected-preview &lt;previewFingerprint&gt;</code></pre>
+              <p class="text-gray-600">
+                Preview requires <code>agent:read</code> and writes nothing.
+                Apply requires <code>agent:write</code>, the same inputs, and a
+                fresh preview fingerprint. Changed balances reject the reset.
+                Check the budget after an uncertain response before retrying.
+                Negative balances can also be reset. Already-reset balances
+                write nothing.
+              </p>
+              <p class="text-gray-600">
+                Both commands require <code>--scope personal|joint</code> and
+                accept <code>--period YYYY-MM</code> (defaults to the current
+                Sloth period) and <code>--base-url</code>. Only the current
+                configured period can be reset. Open a missing current budget in
+                Sloth Money first.
+              </p>
+              <p class="text-gray-600">
+                Use <code>POST /api/agent/v1/budget-resets/preview</code> to
+                preview and <code>POST /api/agent/v1/budget-resets</code> to
+                apply. JSON takes <code>scope</code>, <code>target</code> (<code
+                  >to-assign</code
+                >
+                or <code>assigned</code>), optional <code>periodKey</code>, and
+                <code>expectedPreview</code> for apply. Results include
+                <code>previewFingerprint</code>, <code>applied</code>,
+                <code>noOp</code>, and To Assign and category amounts before and
+                after, in whole-number pence. These resets do not move bank
+                money.
               </p>
               <h3
                 id="budget-funding"

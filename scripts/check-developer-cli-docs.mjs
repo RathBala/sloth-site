@@ -41,6 +41,11 @@ const requiredSnippets = [
   'sloth-agent budget move',
   'sloth-agent budget fill',
   'sloth-agent budget fund-ahead',
+  'sloth-agent budget reset to-assign',
+  'sloth-agent budget reset assigned',
+  '/api/agent/v1/budget-resets/preview',
+  '/api/agent/v1/budget-resets',
+  'Available in CLI 0.30.0 or newer.',
   '--expected-preview',
   '/api/agent/v1/budget-funding/preview',
   '/api/agent/v1/budget-funding',
@@ -167,7 +172,7 @@ const requiredSnippets = [
 ]
 
 const missing = requiredSnippets.filter(
-  (snippet) => !developerPage.includes(snippet)
+  (snippet) => !developerPage.replace(/\s+/g, ' ').includes(snippet)
 )
 if (missing.length > 0) {
   throw new Error(`Developer CLI docs are missing: ${missing.join(', ')}`)

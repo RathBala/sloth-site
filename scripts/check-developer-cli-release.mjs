@@ -10,8 +10,8 @@ const npmCache =
   process.env.npm_config_cache ??
   path.join(os.tmpdir(), 'sloth-developer-docs-npm-cache')
 
-const readPublishedVersion = () => {
-  const output = execFileSync(
+export const readPublishedVersion = ({ run = execFileSync } = {}) => {
+  const output = run(
     'npm',
     ['view', `${packageName}@${expectedCliVersion}`, 'version', '--json'],
     {
@@ -19,6 +19,8 @@ const readPublishedVersion = () => {
       env: {
         ...process.env,
         npm_config_cache: npmCache,
+        npm_config_full_metadata: 'true',
+        npm_config_prefer_online: 'true',
       },
       stdio: ['ignore', 'pipe', 'pipe'],
     }

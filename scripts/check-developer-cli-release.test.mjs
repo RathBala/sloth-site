@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { verifyPublishedVersion } from './check-developer-cli-release.mjs'
+import {
+  readPublishedVersion,
+  verifyPublishedVersion,
+} from './check-developer-cli-release.mjs'
 
 test('retries registry propagation before accepting the published version', async () => {
   let attempts = 0
@@ -44,4 +47,17 @@ test('fails after the bounded number of attempts', async () => {
   )
 
   assert.equal(attempts, 2)
+})
+
+test('reads fresh full registry metadata instead of a lagging install index', () => {
+  const version = readPublishedVersion({
+    run: (command, args, options) => {
+      assert.equal(command, 'npm')
+      assert.equal(args[0], 'view')
+      assert.equal(options.env.npm_config_full_metadata, 'true')
+      assert.equal(options.env.npm_config_prefer_online, 'true')
+      return JSON.stringify('0.30.0')
+    },
+  })
+  assert.equal(version, '0.30.0')
 })
