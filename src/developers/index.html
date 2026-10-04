@@ -497,7 +497,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.30.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.31.0 or newer with Node.js 22 or newer. The
                     <code class="site-note bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -830,6 +830,41 @@ sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
 sloth-agent transactions --assignment-scope joint --uncategorized --limit 50
 sloth-agent transactions --include-pending
 sloth-agent partner status</code></pre>
+              <h3
+                id="budget-save-history"
+                class="font-bold text-gray-900 scroll-mt-24"
+              >
+                Read budget save history
+              </h3>
+              <p class="text-gray-600">Available in CLI 0.31.0 or newer.</p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent budget history --scope personal --period 2026-09
+sloth-agent budget history --scope joint --limit 20</code></pre>
+              <p class="text-gray-600">
+                Read period dates, available save metadata, and recorded
+                changes. Scope is required. The period defaults to the current
+                Sloth period; the page size defaults to 20, with a range of 1 to
+                100. This read-only command requires <code>agent:read</code>.
+              </p>
+              <p class="text-gray-600">
+                Entries show the save time, editor as self or other, UI or agent
+                source, and before/after changes in integer pence. A save that
+                overwrites a later saved plan appears in that plan's history
+                too;
+                <code>requestedPeriodKey</code> identifies the period originally
+                selected. Inherited periods without their own saved plan do not
+                get duplicate entries. Line-item creation and renaming are
+                included; money movements retain their separate movement
+                records.
+              </p>
+              <p class="text-gray-600">
+                Newest saves appear first. Pass <code>nextCursor</code> as
+                <code>--cursor</code> with the same scope and period for the
+                next page; null means the end. Future dates are provisional.
+                Missing metadata is null or unknown. Older saves cannot be
+                reconstructed.
+              </p>
               <h3
                 id="budget-cashflow"
                 class="font-bold text-gray-900 scroll-mt-24"
@@ -1509,6 +1544,31 @@ sloth-agent auth logout</code></pre>
                 confirmation records are used. There is no historical-period
                 parameter. Inspect warnings and limitations before relying on
                 the estimate.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
+                  >GET</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/budget-history</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Requires <code>scope=personal|joint</code> and
+                <code>agent:read</code>. Optional
+                <code>periodKey=YYYY-MM</code> defaults to the current period;
+                <code>limit</code> is 1 to 100 (default 20), and
+                <code>cursor</code> takes the previous page's
+                <code>nextCursor</code>. Returns period dates and their source,
+                target metadata, recorded saves with before/after changes, and
+                <code>nextCursor</code>.
+                <code>historyCoverage=recorded_saves_only</code> means that
+                earlier history has not been reconstructed. Raw editor user IDs
+                are not returned.
               </p>
             </article>
 

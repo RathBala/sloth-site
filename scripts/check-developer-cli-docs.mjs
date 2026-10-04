@@ -32,6 +32,11 @@ const requiredSnippets = [
   '--partner-visibility holdings',
   'sloth-agent budget --scope personal',
   'sloth-agent budget status',
+  'sloth-agent budget history --scope personal --period 2026-09',
+  'sloth-agent budget history --scope joint --limit 20',
+  '/api/agent/v1/budget-history',
+  'Available in CLI 0.31.0 or newer.',
+  'Older saves cannot be reconstructed.',
   'sloth-agent budget cashflow --scope personal',
   'sloth-agent budget cashflow --scope joint',
   '/api/agent/v1/budget-cashflow',
@@ -333,6 +338,9 @@ if (!llmsText.includes('assigned-budget movements')) {
     'llms.txt must advertise Agent API assigned-budget movements.'
   )
 }
+if (!llmsText.includes('recorded budget save history')) {
+  throw new Error('llms.txt must advertise recorded budget save history.')
+}
 if (!llmsText.includes('server-backed goal previews')) {
   throw new Error('llms.txt must advertise server-backed goal previews.')
 }
@@ -528,4 +536,21 @@ for (const property of ['og:image', 'twitter:image']) {
   if (!pattern.test(developerPage)) {
     throw new Error(`${property} must use an absolute public asset URL`)
   }
+}
+
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes(
+      'budget save history (save times, editors, source, and before/after planned amounts)'
+    )
+) {
+  throw new Error('Privacy copy must disclose stored budget save history.')
+}
+if (
+  !privacyPage
+    .replace(/\s+/g, ' ')
+    .includes('View-only access can also read recorded budget save history')
+) {
+  throw new Error('Privacy copy must disclose read-only budget history access.')
 }
