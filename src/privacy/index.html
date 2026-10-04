@@ -301,6 +301,35 @@
                     recovery. The operation record expires after seven days and
                     is then deleted.
                   </li>
+                  <li>
+                    <strong class="font-semibold text-gray-900"
+                      >Connected agent data.</strong
+                    >
+                    When you connect through our hosted MCP or private plugin,
+                    we store the agent's registered callback addresses and
+                    display name, your connection permissions, creation, expiry,
+                    last-use and revocation times, and secure hashes of OAuth
+                    credentials. Access tokens last at most one hour. Refresh
+                    credentials rotate within a fixed 30-day connection, after
+                    which you must reconnect. Expired connection credentials are
+                    automatically cleaned up; disconnecting blocks further use
+                    immediately. Account deletion removes your connection
+                    records. The agent's client registration is independent of
+                    your account. Connections are view-only unless you
+                    explicitly allow changes. You can disconnect in Settings →
+                    Connected agents. Your chosen agent provider receives the
+                    financial results you request and applies its own privacy
+                    terms. Uploaded receipt images or contract PDFs are
+                    downloaded temporarily for extraction; raw files are
+                    discarded by Sloth. Extraction may send their contents to
+                    OpenAI under the extraction terms described above. We do not
+                    start analytics or session replay on the OAuth connection
+                    page. Existing product analytics record connection and
+                    operation outcomes and permission class without tokens,
+                    files, callback URLs, transaction details, names, or
+                    financial values. The plugin adds no CLI telemetry or
+                    automatic categorisation.
+                  </li>
                 </ul>
                 <p>
                   We do not receive your online banking password or bank login

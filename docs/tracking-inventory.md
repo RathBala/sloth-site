@@ -51,3 +51,7 @@ When changing any row above:
 3. Update `scripts/check-tracking-privacy.mjs` or another regression check when a provider should stay disabled or a privacy posture should be enforced.
 4. Update diagrams or screenshots only when the data flow materially changes.
 5. State in the final response whether this inventory was reviewed and changed.
+
+## Hosted MCP pilot disclosure
+
+Developer and privacy pages describe the hosted OAuth connection and private plugin. This marketing site adds no events, provider, identity, or replay. The product server owns connection and financial-operation completion analytics in existing PostHog EU, with channel `mcp` and auth class `oauth`; its inventory is canonical for payloads, existing Firebase analytics identity, purpose and retention. The linking page starts neither PostHog nor Sentry to avoid exporting single-use credential URLs. Raw file handling, hashes, fixed 30-day grant expiry and account-deletion cleanup are described in the privacy page. Checks: `yarn check:developer-cli-docs`, `yarn check:tracking`, `yarn check:public-site`.

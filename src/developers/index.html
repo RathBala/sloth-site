@@ -463,6 +463,80 @@ sloth-agent assign --input assignments.json --apply</code></pre>
         </div>
       </section>
 
+      <section id="hosted-mcp" class="py-16 sm:py-20 bg-white">
+        <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div class="max-w-3xl mb-10">
+            <p class="font-bold uppercase tracking-[0.18em] text-green">
+              Private pilot
+            </p>
+            <h2 class="font-extrabold tracking-tight text-gray-900 mt-3 mb-4">
+              Connect Sloth to your conversation
+            </h2>
+            <p class="text-gray-600">
+              The hosted MCP gives a compatible agent access to Sloth without
+              installing the CLI on your computer or in its cloud environment.
+              The private Sloth Money plugin bundles this connection with
+              workflows for budgets, transactions, goals, receipts, and
+              reminders.
+            </p>
+          </div>
+          <div class="grid lg:grid-cols-2 gap-8">
+            <div class="min-w-0 border border-gray-200 rounded-lg p-6">
+              <h3 class="font-bold text-gray-900 mb-3">
+                Sign in and choose access
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Add the server in a host that supports OAuth and Streamable
+                HTTP, or install the pilot plugin supplied by Sloth Money. Sign
+                in to your verified Sloth account with full access. Check the
+                agent name and callback destination before connecting.
+              </p>
+              <pre
+                class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto"
+              ><code>https://budget.slothmoney.app/api/mcp</code></pre>
+              <p class="text-gray-600 mt-4">
+                View-only access is the default. Changes require an explicit
+                choice on Sloth's connection page. Connections last 30 days.
+                Open Settings → Connected agents to disconnect immediately or
+                reconnect with different permissions.
+              </p>
+            </div>
+            <div class="min-w-0 border border-gray-200 rounded-lg p-6">
+              <h3 class="font-bold text-gray-900 mb-3">Review before saving</h3>
+              <p class="text-gray-600 mb-4">
+                Ask your agent to read current state, show the exact proposed
+                changes, and wait for your approval. Write permission allows
+                changes to Sloth data; it cannot move money at your bank.
+                Partner requests return a message and WhatsApp link for you to
+                send.
+              </p>
+              <p class="text-gray-600 mb-4">
+                The tools cover the financial operations in CLI 0.31.0. Some
+                previews are validation-only: they check input, not current
+                finances. Funding, reset, goal, and scenario previews calculate
+                the effect on your plan. Assignment batches use a stable
+                idempotency key and a resumable operation ID.
+              </p>
+              <p class="text-gray-600">
+                Receipt images (PNG, JPEG, or WebP, up to 8 MiB) and contract
+                PDFs (up to 6 MB) can be supplied through a compatible host.
+                Sloth reads bounded public HTTPS download links, rejects private
+                network destinations, and discards raw files after extraction.
+                Your agent provider receives the financial results you request.
+                Check its privacy terms. Host support for file uploads and cloud
+                tasks varies; the pilot adds no scheduler or custom conversation
+                panel.
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 mt-8">
+            The plugin is privately distributed during the pilot and has no
+            public directory listing. The CLI remains available below for
+            terminal workflows.
+          </p>
+        </div>
+      </section>
+
       <section id="quickstart" class="py-16 sm:py-20 bg-gray-50">
         <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div class="max-w-3xl mb-10">

@@ -16,6 +16,12 @@ const privacyPage = fs.readFileSync(
 const llmsText = fs.readFileSync(path.join(root, 'src', 'llms.txt'), 'utf8')
 
 const requiredSnippets = [
+  'id="hosted-mcp"',
+  'https://budget.slothmoney.app/api/mcp',
+  'Streamable HTTP',
+  'Connected agents',
+  '30 days',
+  'validation-only',
   '<code>incomePeriodKey</code>',
   '"incomePeriodKey": "2026-09"',
   'sloth-agent goal-budgets',
