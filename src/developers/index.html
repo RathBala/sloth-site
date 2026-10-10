@@ -571,7 +571,7 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.31.0 or newer with Node.js 22 or newer. The
+                    Install CLI 0.32.0 or newer with Node.js 22 or newer. The
                     <code class="site-note bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -904,6 +904,60 @@ sloth-agent transactions --assignment-scope personal --uncategorized --limit 50
 sloth-agent transactions --assignment-scope joint --uncategorized --limit 50
 sloth-agent transactions --include-pending
 sloth-agent partner status</code></pre>
+              <h3
+                id="budget-balance-audit"
+                class="font-bold text-gray-900 scroll-mt-24"
+              >
+                Read the Balance audit
+              </h3>
+              <p class="text-gray-600">
+                Available in CLI 0.32.0 or newer with the matching API
+                deployment.
+              </p>
+              <pre
+                class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+              ><code>sloth-agent budget audit --scope personal --limit 20
+sloth-agent budget audit --scope joint --period 2026-09</code></pre>
+              <p class="text-gray-600">
+                Read the current comparison and recorded balance checkpoints.
+                Scope is required. This read-only command requires
+                <code>agent:read</code>. It never refreshes banks, writes
+                checkpoints, or accepts <code>--apply</code>. Budget save
+                history remains the separate
+                <code>budget history</code> command.
+              </p>
+              <p class="text-gray-600">
+                <code>current</code> always describes the current Sloth period,
+                using saved budget funds and cached booked transactions against
+                the latest eligible checkpoint balance.
+                <code>--period YYYY-MM</code> filters checkpoints only; omit it
+                to read across periods. Money uses integer pence.
+                <code>differencePence</code> is budget remaining minus account
+                balance. Unavailable amounts stay null;
+                <code>verificationStatus</code> explains why the balance is
+                unverified.
+              </p>
+              <p class="text-gray-600">
+                Freshness follows the app: 24 hours from checkpoint capture
+                time, invalidated by a later backing-account save.
+                <code>sourceCapturedAt</code> identifies the current
+                comparison's checkpoint time. <code>capturedAt</code> and
+                <code>source</code> describe each historical capture.
+                <code>sourceBalanceAt</code> is the source bank balance time
+                when recorded; existing checkpoints do not store it, so it is
+                null.
+              </p>
+              <p class="text-gray-600">
+                Checkpoints appear newest first, including across period
+                boundaries. Page size defaults to 20, with a range of 1 to 100.
+                Pass <code>nextCursor</code> as <code>--cursor</code> with the
+                same scope and period filter; null means the end. A missing or
+                incompatible cursor returns a conflict; restart without it.
+                <code>historyCoverage: recorded_checkpoints_only</code> means
+                these observations locate changes, not their causes. They cannot
+                reconstruct missing history. Use transactions and recorded pot
+                movements to investigate the intervals.
+              </p>
               <h3
                 id="budget-save-history"
                 class="font-bold text-gray-900 scroll-mt-24"
@@ -1560,6 +1614,30 @@ sloth-agent auth logout</code></pre>
                 The owner can manage it. A connected partner can read it only
                 when the parent transaction is shared; either member of a true
                 joint account can manage it.
+              </p>
+            </article>
+
+            <article class="border border-gray-200 rounded-lg p-5">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <span
+                  class="rounded bg-green/10 px-2.5 py-1 site-note font-bold text-green-dark"
+                  >GET</span
+                >
+                <code class="text-gray-900 font-semibold"
+                  >/api/agent/v1/budget-audit</code
+                >
+              </div>
+              <p class="text-gray-600">
+                Requires <code>scope=personal|joint</code> and
+                <code>agent:read</code>. Returns <code>current</code>,
+                <code>checkpoints</code>, and <code>nextCursor</code>. Optional
+                <code>periodKey</code> filters checkpoint history only.
+                <code>limit</code> defaults to 20 (1 to 100);
+                <code>cursor</code> continues the same scope and filter. Amounts
+                and timestamps can be null. Reads never refresh banks or save
+                history. Invalid inputs return 400; unavailable joint ownership
+                returns 404; incompatible cursors return 409. Invalid stored
+                financial data fails safely with 500.
               </p>
             </article>
 
