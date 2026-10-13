@@ -51,5 +51,5 @@ paid consultation can resolve specific uncertainty, including address disclosure
 | Public discovery and shared footer | Implemented locally         | check:public-site and check:footer |
 | Signup notice for email and Google | Implemented in sloth-budget | terms-signup-preview.spec.ts       |
 | Plugin points to same terms        | Implemented in sloth-budget | plugin.json                        |
-| Geographic address                 | Intentionally deferred   | Owner decision, 13 October 2026   |
+| Geographic address                 | Intentionally deferred      | Owner decision, 13 October 2026    |
 | Public deployment                  | Outstanding                 | Publish terms before app notice    |
