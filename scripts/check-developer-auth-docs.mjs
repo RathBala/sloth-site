@@ -13,6 +13,27 @@ const privacyPage = await readFile(
 )
 
 assert.equal(
+  /openid-configuration/.test(developerPage),
+  true,
+  'Hosted MCP docs must expose identity discovery.'
+)
+assert.equal(
+  /openid[\s\S]*email/.test(developerPage),
+  true,
+  'Hosted MCP docs must name identity scopes.'
+)
+assert.equal(
+  /id="support"/.test(developerPage),
+  true,
+  'The plugin support link must resolve to a real section.'
+)
+assert.equal(
+  /verified email address[\s\S]*opaque account identifier/.test(privacyPage),
+  true,
+  'Privacy copy must describe identity disclosure.'
+)
+
+assert.equal(
   /(?:export\s+SLOTH_AGENT_TOKEN|\$env:SLOTH_AGENT_TOKEN)\s*=\s*["']?sloth_pat_/i.test(
     developerPage
   ),

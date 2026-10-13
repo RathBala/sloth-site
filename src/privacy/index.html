@@ -105,7 +105,7 @@
             >.
           </p>
           <p class="mt-5 font-medium tracking-wide text-gray-500">
-            Last updated: October 4, 2026
+            Last updated: October 12, 2026
           </p>
         </div>
       </section>
@@ -155,11 +155,13 @@
                   or use a feature that needs it.
                 </p>
                 <p>
-                  For UK and EU data protection purposes, Sloth Money is the
-                  controller for the personal data described in this policy,
-                  except where a provider such as Stripe, GoCardless, SnapTrade,
-                  an authentication provider, or another integrated service acts
-                  as its own controller for parts of its service.
+                  Sloth Money is operated by Ratheepan Balasubramaniam, a sole
+                  trader trading as Sloth Money. For UK and EU data protection
+                  purposes, this operator is the controller for the personal
+                  data described in this policy, except where a provider such as
+                  Stripe, GoCardless, SnapTrade, an authentication provider, or
+                  another integrated service acts as its own controller for
+                  parts of its service.
                 </p>
               </div>
             </section>
@@ -317,18 +319,26 @@
                     records. The agent's client registration is independent of
                     your account. Connections are view-only unless you
                     explicitly allow changes. You can disconnect in Settings →
-                    Connected agents. Your chosen agent provider receives the
-                    financial results you request and applies its own privacy
-                    terms. Uploaded receipt images or contract PDFs are
-                    downloaded temporarily for extraction; raw files are
-                    discarded by Sloth. Extraction may send their contents to
-                    OpenAI under the extraction terms described above. We do not
-                    start analytics or session replay on the OAuth connection
-                    page. Existing product analytics record connection and
-                    operation outcomes and permission class without tokens,
-                    files, callback URLs, transaction details, names, or
-                    financial values. The plugin adds no CLI telemetry or
-                    automatic categorisation.
+                    Connected agents. If the agent requests identity access,
+                    Sloth can share your current verified email address and an
+                    opaque account identifier specific to the agent's callback
+                    domain. The connection page tells you when verified-email
+                    access is requested. Email is read from your current
+                    verified account and is not copied into connection records.
+                    Signed identity tokens use a server-only signing key; only
+                    its public verification key is exposed. Existing connections
+                    receive no additional permissions automatically. Your chosen
+                    agent provider receives the financial results you request
+                    and applies its own privacy terms. Uploaded receipt images
+                    or contract PDFs are downloaded temporarily for extraction;
+                    raw files are discarded by Sloth. Extraction may send their
+                    contents to OpenAI under the extraction terms described
+                    above. We do not start analytics or session replay on the
+                    OAuth connection page. Existing product analytics record
+                    connection and operation outcomes and permission class
+                    without tokens, files, callback URLs, transaction details,
+                    names, or financial values. The plugin adds no CLI telemetry
+                    or automatic categorisation.
                   </li>
                 </ul>
                 <p>
@@ -660,8 +670,13 @@
               </h2>
               <div class="mt-4 space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  For privacy questions or requests, contact Sloth Money through
-                  the support channel in the app.
+                  For privacy questions or requests, email
+                  <a
+                    class="underline hover:text-green"
+                    href="mailto:hello@slothmoney.app"
+                    >hello@slothmoney.app</a
+                  >
+                  or use support in the app.
                 </p>
                 <p>
                   We may update this policy as the product, providers, analytics
@@ -675,7 +690,11 @@
       </section>
     </main>
 
-    <div data-shared-footer></div>
+    <div data-shared-footer>
+      <nav aria-label="Legal" class="flex flex-wrap justify-center gap-6 p-8">
+        <a href="/terms/">Terms</a><a href="/privacy/">Privacy</a>
+      </nav>
+    </div>
     <script src="../assets/js/shared-footer.js" defer></script>
   </body>
 </html>

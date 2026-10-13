@@ -13,7 +13,7 @@
     "dev:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --watch",
     "dev:server": "browser-sync start --server src --index index.html --port 3000 --files 'src/**/*' --no-notify",
     "build:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./src/output.css --minify",
-    "build": "yarn check:repo-hygiene && yarn posthog:config && yarn check:developer-cli-docs && yarn check:developer-cli-release && yarn check:public-site && yarn build:css",
+    "build": "yarn check:repo-hygiene && yarn posthog:config && yarn check:developer-cli-docs && yarn check:developer-auth && yarn check:developer-cli-release && yarn check:public-site && yarn build:css",
     "dev": "yarn posthog:config && concurrently \"yarn dev:css\" \"yarn dev:server\" --names \"CSS,SERVER\" --prefix-colors \"blue,green\"",
     "asset:prepare-sloth": "node ./scripts/prepare-sloth-asset.mjs",
     "check:home-visibility": "node ./scripts/check-home-visibility.mjs",

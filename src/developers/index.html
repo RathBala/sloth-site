@@ -500,6 +500,21 @@ sloth-agent assign --input assignments.json --apply</code></pre>
                 Open Settings → Connected agents to disconnect immediately or
                 reconnect with different permissions.
               </p>
+              <p class="text-gray-600 mt-4">
+                Hosts can request <code>openid</code> and <code>email</code>
+                alongside agent permissions. Sloth shows when your verified
+                email will be shared, then provides a signed identity token and
+                current verified identity through UserInfo. Existing connections
+                keep their original permissions.
+              </p>
+              <p class="text-gray-600 mt-4">
+                Identity discovery:
+                <a
+                  class="font-semibold text-green-dark underline break-all"
+                  href="https://budget.slothmoney.app/.well-known/openid-configuration"
+                  >OpenID Connect configuration</a
+                >.
+              </p>
             </div>
             <div class="min-w-0 border border-gray-200 rounded-lg p-6">
               <h3 class="font-bold text-gray-900 mb-3">Review before saving</h3>
@@ -534,6 +549,20 @@ sloth-agent assign --input assignments.json --apply</code></pre>
             public directory listing. The CLI remains available below for
             terminal workflows.
           </p>
+          <div id="support" class="scroll-mt-8 max-w-3xl mt-8">
+            <h3 class="font-bold text-gray-900 mb-3">Plugin support</h3>
+            <p class="text-gray-600">
+              For help connecting Sloth or using the plugin, email
+              <a
+                class="font-semibold text-green-dark underline"
+                href="mailto:hello@slothmoney.app"
+                >hello@slothmoney.app</a
+              >
+              or use support in Sloth Money. Include the host, the task you
+              tried and the error message. Do not send passwords, tokens or bank
+              login details.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -2277,7 +2306,11 @@ sloth-agent auth logout</code></pre>
       </section>
     </main>
 
-    <div data-shared-footer></div>
+    <div data-shared-footer>
+      <nav aria-label="Legal" class="flex flex-wrap justify-center gap-6 p-8">
+        <a href="/terms/">Terms</a><a href="/privacy/">Privacy</a>
+      </nav>
+    </div>
 
     <script src="../assets/js/mobile-menu.js" defer></script>
     <script src="../assets/js/shared-footer.js" defer></script>

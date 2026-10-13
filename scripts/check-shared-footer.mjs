@@ -51,6 +51,10 @@ if (!sharedFooterSource.includes('href="/privacy/"')) {
   failures.push('src/assets/js/shared-footer.js must include /privacy/.')
 }
 
+if (!sharedFooterSource.includes('href="/terms/"')) {
+  failures.push('src/assets/js/shared-footer.js must include /terms/.')
+}
+
 const privacyPolicySource = await readFile(privacyPolicyPage, 'utf8').catch(
   () => ''
 )

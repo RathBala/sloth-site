@@ -43,6 +43,7 @@ const [
   home,
   developers,
   privacy,
+  terms,
   weddingFund,
   homePlanner,
   markMe,
@@ -57,6 +58,7 @@ const [
   readSource('index.html'),
   readSource('developers/index.html'),
   readSource('privacy/index.html'),
+  readSource('terms/index.html'),
   readSource('wedding-fund/index.html'),
   readSource('home-planner/index.html'),
   readSource('mark-me.html'),
@@ -99,6 +101,7 @@ for (const [page, canonical] of [
   [home, 'https://slothmoney.app/'],
   [developers, 'https://slothmoney.app/developers/'],
   [privacy, 'https://slothmoney.app/privacy/'],
+  [terms, 'https://slothmoney.app/terms/'],
   [weddingFund, 'https://slothmoney.app/wedding-fund/'],
   [homePlanner, 'https://slothmoney.app/home-planner/'],
 ]) {
@@ -115,6 +118,17 @@ for (const [page, canonical] of [
 }
 
 for (const metadata of [
+  {
+    page: terms,
+    location: 'src/terms/index.html',
+    title: 'Terms of Service - Sloth Money',
+    openGraphDescription:
+      'Terms for using Sloth Money, including free beta access, connected accounts and agents, and your consumer rights.',
+    twitterDescription:
+      'Terms for using Sloth Money, including free beta access, connected accounts and agents, and your consumer rights.',
+    url: 'https://slothmoney.app/terms/',
+    image: 'https://slothmoney.app/assets/images/sloth-money-logo-icon.png',
+  },
   {
     page: home,
     location: 'src/index.html',
@@ -270,6 +284,7 @@ for (const pageUrl of [
   'https://slothmoney.app/',
   'https://slothmoney.app/developers/',
   'https://slothmoney.app/privacy/',
+  'https://slothmoney.app/terms/',
   'https://slothmoney.app/wedding-fund/',
   'https://slothmoney.app/home-planner/',
 ]) {
@@ -312,6 +327,7 @@ const classifiedHtmlFiles = [
   'index.html',
   'mark-me.html',
   'privacy/index.html',
+  'terms/index.html',
   'wedding-fund/index.html',
 ]
 
@@ -328,6 +344,7 @@ for (const resource of [
   'https://www.npmjs.com/package/@slothmoney/agent-cli',
   'https://github.com/RathBala/sloth-agent-cli',
   'https://slothmoney.app/privacy/',
+  'https://slothmoney.app/terms/',
   'goal priority ordering',
 ]) {
   requireText(llms, resource, 'src/llms.txt')
@@ -336,6 +353,28 @@ for (const resource of [
 if (llms.includes('helps couples build shared goals')) {
   failures.push('src/llms.txt should not keep the old couples-first summary.')
 }
+
+for (const [page, location] of [
+  [home, 'home'],
+  [developers, 'developers'],
+  [privacy, 'privacy'],
+]) {
+  requireText(page, 'href="/terms/"', `${location} initial HTML`)
+}
+const termsText = terms.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')
+for (const required of [
+  'Ratheepan Balasubramaniam',
+  'sole trader',
+  'free forever',
+  'consumer rights',
+  'API',
+  'CLI',
+  'hello@slothmoney.app',
+]) {
+  requireText(termsText, required, 'terms content')
+}
+requireText(terms, 'href="/privacy/"', 'terms privacy link')
+requireText(terms, 'id="agents"', 'terms agent section')
 
 if (failures.length > 0) {
   for (const failure of failures) {
