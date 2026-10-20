@@ -55,3 +55,18 @@ When changing any row above:
 ## Hosted MCP pilot disclosure
 
 Developer and privacy pages describe the hosted OAuth connection and private plugin. This marketing site adds no events, provider, identity, or replay. The product server owns connection and financial-operation completion analytics in existing PostHog EU, with channel `mcp` and auth class `oauth`; its inventory is canonical for payloads, existing Firebase analytics identity, purpose and retention. The linking page starts neither PostHog nor Sentry to avoid exporting single-use credential URLs. Raw file handling, hashes, fixed 30-day grant expiry and account-deletion cleanup are described in the privacy page. Checks: `yarn check:developer-cli-docs`, `yarn check:tracking`, `yarn check:public-site`.
+
+## Property and mortgage document disclosure
+
+The privacy page describes the property and mortgage extraction flow owned by
+`sloth-budget`. A user-selected PDF or image goes to OpenAI for reviewed
+suggestions. The app discards the original and stores only confirmed property
+and mortgage details. Proposed or future terms are not applied automatically.
+The existing OpenAI storage, abuse-monitoring and training explanation applies.
+The product's `docs/features/wealth-document-import.md` and
+`docs/tracking-inventory.md` own the processing and telemetry contracts.
+
+This notice update adds no marketing events, provider calls, identifiers,
+logging or retention. Existing marketing analytics and visit alerts stay
+unchanged. `yarn check:tracking` asserts the disclosure and retained provider
+retention wording; `yarn check:public-site` checks static page discovery.

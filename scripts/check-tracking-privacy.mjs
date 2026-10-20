@@ -56,6 +56,20 @@ const privacyPage = fs.readFileSync(
   'utf8'
 )
 const normalizedPrivacyPage = privacyPage.replace(/\s+/g, ' ')
+for (const disclosure of [
+  'Property and mortgage documents.',
+  'the PDF or image is sent to OpenAI to suggest details for your review',
+  'Sloth Money discards the original and stores only the property and mortgage details you confirm',
+  'Proposed or future mortgage terms are not applied automatically',
+  'Extract property and mortgage details for your review and save only the details you confirm',
+  'receipt extraction, property and mortgage document extraction',
+  "OpenAI's default API controls may still keep customer content in abuse-monitoring logs for up to 30 days",
+]) {
+  assert.ok(
+    normalizedPrivacyPage.includes(disclosure),
+    `privacy policy should disclose: ${disclosure}`
+  )
+}
 assert.equal(
   /create,\s+update,\s+or\s+delete\s+goals/.test(normalizedPrivacyPage),
   true,
