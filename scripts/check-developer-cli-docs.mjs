@@ -16,6 +16,13 @@ const privacyPage = fs.readFileSync(
 const llmsText = fs.readFileSync(path.join(root, 'src', 'llms.txt'), 'utf8')
 
 const requiredSnippets = [
+  'id="property-mortgage-wealth"',
+  '/api/agent/v1/wealth/document/extract',
+  'sloth-agent wealth forecast --months 24',
+  'sloth-agent wealth documents review --input import.json',
+  'sloth-agent wealth documents save --input review.json --apply',
+  'sloth_wealth_document_extract',
+
   'id="hosted-mcp"',
   'https://budget.slothmoney.app/api/mcp',
   'Streamable HTTP',

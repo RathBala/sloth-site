@@ -463,6 +463,123 @@ sloth-agent assign --input assignments.json --apply</code></pre>
         </div>
       </section>
 
+      <section id="property-mortgage-wealth" class="py-16 sm:py-20 bg-white">
+        <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div class="max-w-3xl mb-10">
+            <h2 class="font-extrabold tracking-tight text-gray-900 mb-4">
+              Property and mortgage wealth
+            </h2>
+            <p class="text-gray-600">
+              Prepared for the next CLI release and matching API/MCP deployment.
+              Read your private property and mortgage records, current tracked
+              net worth, and monthly forecasts using saved active scenarios.
+            </p>
+          </div>
+          <div class="grid lg:grid-cols-2 gap-8">
+            <article class="min-w-0 border border-gray-200 rounded-lg p-6">
+              <h3 class="font-bold text-gray-900 mb-3">
+                Read your tracked wealth
+              </h3>
+              <pre
+                class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto"
+              ><code>sloth-agent wealth
+sloth-agent wealth forecast --months 24
+sloth-agent wealth budget-payments</code></pre>
+              <p class="text-gray-600 mt-4">
+                <code>GET /api/agent/v1/wealth</code> returns saved records and
+                current totals.
+                <code>GET /api/agent/v1/wealth/forecast</code> defaults to 13
+                months and accepts 1–1200 months. Reads use cached balances,
+                without saving assumptions or refreshing bank connections.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Amounts ending in <code>Minor</code> are whole minor currency
+                units, such as GBP pence. Dates use <code>YYYY-MM-DD</code>;
+                rates and growth are annual percentages. Totals use your budget
+                currency, report excluded currencies and missing data, and
+                distinguish recorded values from mortgage estimates. Property
+                equity cannot fund Goals.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Property and mortgages are private and wholly owned. The
+                existing <code>portfolio</code> command remains the savings and
+                investments view, including its separate household sharing
+                rules.
+              </p>
+            </article>
+            <article class="min-w-0 border border-gray-200 rounded-lg p-6">
+              <h3 class="font-bold text-gray-900 mb-3">
+                Review a mortgage document
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Use your existing Sloth token. Extraction requires Allow changes
+                and sends one PDF, JPEG, PNG or WebP up to 8 MiB for processing.
+                The following new-property example uses <code>jq</code> to
+                prepare JSON:
+              </p>
+              <pre
+                class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto"
+              ><code>sloth-agent wealth documents extract --file mortgage.pdf --apply &gt; extracted.json
+jq '{newProperty:true,draft:.draft}' extracted.json &gt; import.json
+sloth-agent wealth documents review --input import.json &gt; review.json
+# Edit proposal in review.json; fill every reported missing field.
+sloth-agent wealth documents save --input review.json
+sloth-agent wealth documents save --input review.json --apply
+sloth-agent wealth</code></pre>
+              <p class="text-gray-600 mt-4">
+                For an existing property, replace
+                <code>newProperty:true</code> with <code>propertyId</code> from
+                the wealth read. Supply <code>currency</code> in import.json
+                when a new property's document has none. Review and save use
+                <code>/api/agent/v1/wealth/document/review</code> and
+                <code>/api/agent/v1/wealth/document</code>; extraction uses
+                <code>/api/agent/v1/wealth/document/extract</code>.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Review shows before-and-after changes, warnings and missing
+                fields. Missing facts preserve saved values and mortgage parts.
+                Proposed or future borrowing is not applied as current debt. An
+                illustration date can be a labelled suggestion, which you can
+                correct before saving.
+              </p>
+              <p class="text-gray-600 mt-3">
+                Saving commits the property and mortgage together. Keep the
+                original records and IDs for retries. A conflicting edit
+                requires a fresh read and review. Sloth retains neither the
+                original document nor an unfinished review. Explicit JSON files
+                and your chat host may retain financial details.
+              </p>
+            </article>
+          </div>
+          <details class="max-w-3xl mt-8 border border-gray-200 rounded-lg p-6">
+            <summary class="font-bold text-gray-900 cursor-pointer">
+              Manual changes and MCP tools
+            </summary>
+            <p class="text-gray-600 mt-4">
+              Use <code>wealth properties save</code>,
+              <code>wealth mortgages save</code> and their
+              <code>remove</code> commands with <code>--input FILE</code>. Run
+              each with <code>--help</code> for the complete JSON format.
+              Without <code>--apply</code>, these commands validate against
+              current records and return a preview. Removing a property with a
+              mortgage requires <code>includeMortgage:true</code>; it records no
+              sale or cash proceeds.
+            </p>
+            <p class="text-gray-600 mt-3">
+              The hosted MCP provides <code>sloth_wealth_read</code>,
+              <code>sloth_wealth_forecast</code>,
+              <code>sloth_wealth_budget_payments</code>,
+              <code>sloth_wealth_document_extract</code>,
+              <code>sloth_wealth_document_review</code> and document save
+              preview/apply tools, plus property and mortgage save/remove
+              preview/apply tools. Supply attachments through your host's file
+              descriptor. View-only access permits reads and previews;
+              extraction and writes require Allow changes.
+            </p>
+          </details>
+        </div>
+      </section>
+
       <section id="hosted-mcp" class="py-16 sm:py-20 bg-white">
         <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div class="max-w-3xl mb-10">
