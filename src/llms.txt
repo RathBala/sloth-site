@@ -17,7 +17,7 @@
 - [Sloth Agent CLI source](https://github.com/RathBala/sloth-agent-cli): MIT-licensed source code and usage documentation.
 
 Hosted MCP / private plugin pilot: https://slothmoney.app/developers/#hosted-mcp
-The Streamable HTTP endpoint is https://budget.slothmoney.app/api/mcp. Public-client OAuth with PKCE S256 and resource binding connects a verified eligible Sloth account. View-only by default; explicit changes permission; fixed 30-day connection with Settings revocation. Supplied pilot plugin bundles workflows. No public directory submission, scheduler, or custom panels. CLI 0.30.0 remains available.
+The Streamable HTTP endpoint is https://budget.slothmoney.app/api/mcp. Public-client OAuth with PKCE S256 and resource binding connects a verified eligible Sloth account. View-only by default; explicit changes permission; fixed 30-day connection with Settings revocation. Supplied pilot plugin bundles workflows. No public directory listing, scheduler, or custom panels. CLI 0.33.0 remains available.
 
-Property and mortgage agent workflows (prepared for the next CLI release and matching backend deployment): https://slothmoney.app/developers/#property-mortgage-wealth
+Property and mortgage agent workflows (CLI 0.33.0 or newer with the matching deployed API): https://slothmoney.app/developers/#property-mortgage-wealth
 Private owner records, current net worth and saved-scenario monthly forecasts; PDF/image extraction, transient review and explicit atomic save. Extraction and writes require Allow changes. Equity never funds Goals.

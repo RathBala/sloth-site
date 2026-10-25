@@ -17,6 +17,7 @@ const llmsText = fs.readFileSync(path.join(root, 'src', 'llms.txt'), 'utf8')
 
 const requiredSnippets = [
   'id="property-mortgage-wealth"',
+  'Available in CLI 0.33.0 or newer.',
   '/api/agent/v1/wealth/document/extract',
   'sloth-agent wealth forecast --months 24',
   'sloth-agent wealth documents review --input import.json',
