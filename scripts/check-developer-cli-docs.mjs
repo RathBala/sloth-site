@@ -94,6 +94,10 @@ const requiredSnippets = [
   'sloth-agent rules delete',
   'sloth-agent rules scan-contract',
   'sloth-agent ask-partner',
+  '<code>publicUrl</code> is their answer page',
+  'Copy it into WhatsApp and send it to your',
+  'uses the single-use link',
+  'stdout remains JSON',
   '--assignment-scope joint',
   '/api/agent/v1/accounts',
   '/api/agent/v1/accounts/:accountRef',
@@ -574,4 +578,10 @@ if (
     .includes('View-only access can also read recorded budget save history')
 ) {
   throw new Error('Privacy copy must disclose read-only budget history access.')
+}
+
+if (developerPage.includes('WhatsApp link')) {
+  throw new Error(
+    'Describe publicUrl as the partner answer page, not a WhatsApp link'
+  )
 }
