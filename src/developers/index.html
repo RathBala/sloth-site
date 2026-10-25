@@ -643,7 +643,7 @@ sloth-agent wealth</code></pre>
                 send through WhatsApp.
               </p>
               <p class="text-gray-600 mb-4">
-                The tools cover the financial operations in CLI 0.31.0. Some
+                The tools cover the financial operations in CLI 0.34.0. Some
                 previews are validation-only: they check input, not current
                 finances. Funding, reset, goal, and scenario previews calculate
                 the effect on your plan. Assignment batches use a stable
@@ -717,7 +717,7 @@ sloth-agent wealth</code></pre>
                 <div class="min-w-0">
                   <h3 class="font-bold text-gray-900">Install the CLI</h3>
                   <p class="text-gray-600">
-                    Install CLI 0.33.1 or newer with Node.js 22 or newer. The
+                    Install CLI 0.34.0 or newer with Node.js 22 or newer. The
                     <code class="site-note bg-white px-1.5 py-0.5 rounded"
                       >sloth-agent</code
                     >
@@ -845,6 +845,127 @@ sloth-agent goals delete --goal-id GOAL_ID --apply</code></pre>
                 <code>projectionThroughMonthKey</code> for the final month
                 tested.
               </p>
+              <section id="household-goals" class="space-y-4 scroll-mt-24">
+                <h3 class="font-bold text-gray-900">
+                  Save toward a household goal
+                </h3>
+                <p class="text-gray-600">
+                  Available in CLI 0.34.0 or newer. Either connected partner can
+                  edit the household total, split, outcome and target month,
+                  mark the goal spent, or delete it. A spending budget prevents
+                  deletion so its history stays available. Each person chooses
+                  their own funding accounts and priority.
+                </p>
+                <p class="text-gray-600">
+                  The household default prefills a new goal once. Existing goals
+                  keep their saved split. A £3,000 goal created at 60/40 keeps
+                  £1,800 and £1,200 shares after the default becomes 50/50. New
+                  goals start at £1,500 each. Explicitly edit the earlier goal
+                  to change its split.
+                </p>
+                <p class="text-gray-600">
+                  Read <code>sloth-agent goals joint list</code> for your
+                  default and saved revisions. Save the reviewed percentage as
+                  <code>viewerShareBasisPoints</code>: 6,000 means 60% for the
+                  signed-in person, including when the partner creates the goal.
+                </p>
+                <p class="text-gray-600">
+                  The returned <code>defaultViewerShareBasisPoints</code> is
+                  only a starting value. If existing partner defaults conflict,
+                  this value is null. Choose and review the split explicitly
+                  before creating the goal.
+                </p>
+                <p class="text-gray-600">
+                  Save this as <code>household-goal.json</code>:
+                </p>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+                ><code>{
+  "name": "Baby preparation",
+  "totalAmount": 3000,
+  "viewerShareBasisPoints": 6000,
+  "goalType": "spend"
+}</code></pre>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+                ><code>sloth-agent goals joint create --input household-goal.json
+sloth-agent goals joint create --input household-goal.json --apply
+sloth-agent goals joint list</code></pre>
+                <p class="text-gray-600">
+                  The preview runs Sloth’s actual calculation without saving.
+                  Funding stays incomplete until each person selects their own
+                  accounts. Use
+                  <code
+                    >goals update --goal-id GOAL_ID --account-ref ACCOUNT_REF
+                    --apply</code
+                  >
+                  with IDs from your goal and account lists. Your contribution
+                  cannot exceed your share. Reducing a share releases
+                  reservations without moving money.
+                </p>
+                <p class="text-gray-600">
+                  To convert an existing personal goal, put only
+                  <code>totalAmount</code> and
+                  <code>viewerShareBasisPoints</code> in
+                  <code>conversion.json</code>, then run
+                  <code
+                    >sloth-agent goals joint convert --goal-id GOAL_ID --input
+                    conversion.json</code
+                  >. Add <code>--apply</code> to save. Conversion preserves its
+                  identity, accounts, priority and history. Shared edits and
+                  deletion require the latest <code>expectedRevision</code>;
+                  omitting the split preserves it.
+                </p>
+                <h4 class="font-bold text-gray-900">
+                  Route existing monthly contributions
+                </h4>
+                <p class="text-gray-600">
+                  Choose the recurring account entries and goals to include.
+                  Sloth uses your existing goal priority and funding accounts,
+                  fills each personal shortfall, and passes the remainder onward
+                  in the same month. Keep reserves refill first when their
+                  priority is highest. Selected contributions stop after every
+                  selected personal share is funded. Other account contributions
+                  continue.
+                </p>
+                <p class="text-gray-600">
+                  Read <code>sloth-agent scenarios routing read</code>, then
+                  save <code>routing.json</code> using its
+                  <code>forecastBasis.activeScenarioRevision</code> as
+                  <code>expectedRevision</code>. Replace both placeholders with
+                  IDs from your goal and account lists:
+                </p>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+                ><code>{
+  "expectedRevision": 1,
+  "routing": {
+    "goalIds": ["GOAL_ID"],
+    "sourceAccountRefs": ["ACCOUNT_REF"]
+  }
+}</code></pre>
+                <pre
+                  class="w-full max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 site-note leading-7 text-gray-100 shadow-lg"
+                ><code>sloth-agent scenarios routing save --input routing.json
+sloth-agent scenarios routing save --input routing.json --apply</code></pre>
+                <p class="text-gray-600">
+                  Dated recurring changes remain in effect. A missing or null
+                  recurring amount inherits the previous amount; zero stops it.
+                  One-offs stay with their assigned account. Missing funding
+                  makes the forecast incomplete. No money is transferred or
+                  rebalanced.
+                </p>
+                <p class="text-gray-600">
+                  The Agent API exposes
+                  <code>/api/agent/v1/joint-goals</code> and
+                  <code>/api/agent/v1/contribution-routing</code>. The Sloth
+                  Money plugin uses the same handlers, including
+                  <code>sloth_joint_goal_convert_preview</code> and matching
+                  apply tools. Partners see shared details and aggregate
+                  progress, never the other person’s private funding account
+                  configuration.
+                </p>
+              </section>
               <section id="multi-account-goals" class="space-y-4 scroll-mt-24">
                 <h3 class="font-bold text-gray-900">
                   Choose your Goal funding
@@ -929,8 +1050,12 @@ sloth-agent transactions --goal-budget-ref PASTE_THE_EXACT_BUDGET_REF_HERE --ass
                   Temporary spending stays in account totals and partner
                   settlement, but leaves monthly category spending. Restore a
                   spent Goal before changing its budget or assignments. The
-                  owner edits the plan in the app; a current partner can read a
-                  joint budget and assign shared spending.
+                  spending budget’s owner edits its categories and planned
+                  category amounts. A current partner can read a joint budget
+                  and assign shared spending. For a household goal, either
+                  partner can edit its shared total and split, mark it spent or
+                  restore it. Category-editing permissions stay unchanged, and
+                  funding accounts stay private.
                 </p>
                 <p class="text-gray-600 leading-relaxed">
                   <code>GET /api/agent/v1/goal-budgets</code> returns the

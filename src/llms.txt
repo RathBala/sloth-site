@@ -17,7 +17,9 @@
 - [Sloth Agent CLI source](https://github.com/RathBala/sloth-agent-cli): MIT-licensed source code and usage documentation.
 
 Hosted MCP / private plugin pilot: https://slothmoney.app/developers/#hosted-mcp
-The Streamable HTTP endpoint is https://budget.slothmoney.app/api/mcp. Public-client OAuth with PKCE S256 and resource binding connects a verified eligible Sloth account. View-only by default; explicit changes permission; fixed 30-day connection with Settings revocation. Supplied pilot plugin bundles workflows. No public directory listing, scheduler, or custom panels. CLI 0.33.0 remains available.
+The Streamable HTTP endpoint is https://budget.slothmoney.app/api/mcp. Public-client OAuth with PKCE S256 and resource binding connects a verified eligible Sloth account. View-only by default; explicit changes permission; fixed 30-day connection with Settings revocation. Supplied pilot plugin bundles workflows. No public directory listing, scheduler, or custom panels. Hosted tools cover CLI 0.34.0 financial operations.
 
 Property and mortgage agent workflows (CLI 0.33.0 or newer with the matching deployed API): https://slothmoney.app/developers/#property-mortgage-wealth
 Private owner records, current net worth and saved-scenario monthly forecasts; PDF/image extraction, transient review and explicit atomic save. Extraction and writes require Allow changes. Equity never funds Goals.
+
+Household goals copy the reviewed split once. Later household-default changes do not change existing goals. A null default split means existing partner settings conflict; choose and review a split explicitly. Each participant controls private funding accounts and priority. Sequential contribution routing uses existing recurring entries and stops after selected personal shares are funded. See /developers/#household-goals.

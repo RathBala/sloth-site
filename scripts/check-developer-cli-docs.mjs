@@ -16,6 +16,19 @@ const privacyPage = fs.readFileSync(
 const llmsText = fs.readFileSync(path.join(root, 'src', 'llms.txt'), 'utf8')
 
 const requiredSnippets = [
+  'id="household-goals"',
+  'sloth-agent goals joint create --input household-goal.json',
+  'sloth-agent scenarios routing save --input routing.json',
+  'viewerShareBasisPoints',
+  'Existing goals keep their saved split.',
+  'defaultViewerShareBasisPoints',
+  'If existing partner defaults conflict, this value is null. Choose and review the split explicitly before creating the goal.',
+  'The spending budget’s owner edits its categories and planned category amounts.',
+  `The tools cover the financial operations in CLI ${expectedCliVersion}.`,
+  '/api/agent/v1/joint-goals',
+  '/api/agent/v1/contribution-routing',
+  'sloth_joint_goal_convert_preview',
+
   'id="property-mortgage-wealth"',
   'Available in CLI 0.33.0 or newer.',
   '/api/agent/v1/wealth/document/extract',

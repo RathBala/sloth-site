@@ -97,7 +97,7 @@ assert.equal(
   'privacy policy should describe view-only Agent API scenario previews'
 )
 assert.equal(
-  /partner can see a shared Goal, but not the personal account assigned to fund it, its label, reference, or balance/.test(
+  /partner can see shared details and aggregate progress, but not the personal account assigned to fund it, its label, reference, or balance/.test(
     normalizedPrivacyPage
   ),
   true,
