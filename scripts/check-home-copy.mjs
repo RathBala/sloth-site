@@ -98,7 +98,7 @@ const everydayGroups = [
     'planning',
     'Plan what’s next',
     'Goals linked to savings accounts',
-    'Track savings and investments',
+    'Track your savings',
   ],
 ]
 

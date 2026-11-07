@@ -158,7 +158,7 @@ The three raster examples switch to their desktop source at 1024 CSS pixels.
 | ------------------ | -------------------------------------- | -------------------------- | ---------------------------- |
 | Categorisation     | 2426 × 526                             | 696 × 914                  | 1086 / 348 CSS px            |
 | Budget suggestions | 1834 × 1300                            | 730 × 1554                 | 862 / 348 CSS px             |
-| Scenarios          | 1518 × 1100                            | 644 × 782                  | 702 / 322 CSS px             |
+| Scenarios          | 1920 × 1440                            | 780 × 1688                 | 702 / 322 CSS px             |
 | CLI                | Native HTML command and output excerpt | Same text, wrapping to fit | 896 CSS px frame             |
 
 Budget captures use the isolated `/__preview/budget-health-review` route from
@@ -167,10 +167,13 @@ Budget captures use the isolated `/__preview/budget-health-review` route from
 the scroll region for capture. Keep the balanced £177 change, both categories,
 and the final save action. The screenshot is illustrative, with no live controls.
 
-Scenario exports use the existing real `benefit four.png` source. Desktop shows
-the scenario branch; mobile crops the two contribution cards at x=708, y=154,
-width=644, height=782 so their values remain readable. Do not add invented forecast
-dates. Keep the original PNGs: the wedding page still owns references to them.
+Scenario exports come from the canonical app demo map through
+`yarn screenshot:marketing-features`, captured after investment tracking was
+retired. Both layouts show account contributions without holding or return
+controls. The homepage and wedding page share these compressed WebP exports.
+The replaced PNGs are removed. Desktop and mobile exports provide at least
+2x density at their maximum rendered widths; metadata is stripped and compression targets 44 KB desktop and 27 KB mobile.
+Both exports are smaller than the replaced files; rendered text must stay readable.
 
 The CLI example uses a verified `sloth-agent budget move` dry run and a JSON
 output excerpt. Omitting `--apply` makes no request and changes no saved data.

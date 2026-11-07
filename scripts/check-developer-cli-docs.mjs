@@ -54,9 +54,8 @@ const requiredSnippets = [
   'sloth-agent accounts',
   'sloth-agent accounts update',
   'sloth-agent accounts remove',
-  'sloth-agent investments',
   'sloth-agent portfolio --view household',
-  '--partner-visibility holdings',
+  '--partner-visibility balance',
   'sloth-agent budget --scope personal',
   'sloth-agent budget status',
   'sloth-agent budget audit --scope personal --limit 20',
@@ -114,7 +113,6 @@ const requiredSnippets = [
   '--assignment-scope joint',
   '/api/agent/v1/accounts',
   '/api/agent/v1/accounts/:accountRef',
-  '/api/agent/v1/investments',
   '/api/agent/v1/portfolio',
   '/api/agent/v1/budgets',
   '/api/agent/v1/budget-status',
@@ -233,10 +231,8 @@ const requiredCopy = [
   'Scenarios change the forecast. They do not move money.',
   'Scenario previews use view-only access and perform zero writes.',
   'Account reads are cache-only and do not contact a bank or refresh balances.',
-  'Investment reads are cache-only and do not contact SnapTrade.',
-  'Partner accounts appear only when their owner shared a balance or linked holdings.',
+  'Partner accounts appear only when their owner shared a balance.',
   'Sharing does not change ownership, transaction access, Goal funding, or who can move money.',
-  'An investment account total and its nested holdings describe the same portfolio, so do not add them together.',
   'Do not add values in different currencies without an explicit conversion.',
   'Manual accounts can change institution, name, currency, and ownership.',
   'DELETE archives an owned manual account without deleting its transaction, import, balance, or categorisation records.',
@@ -341,7 +337,7 @@ if (
   !privacyPage
     .replace(/\s+/g, ' ')
     .includes(
-      'read your account inventory, investment holdings, booked and recent pending transaction data, categories, budgets, goals, household-planning balances or linked holdings explicitly shared by your partner, and read-only partner settlement balance and recorded payment activity'
+      'read your account inventory, manual investment balances, booked and recent pending transaction data, categories, budgets, goals, household-planning balances explicitly shared by your partner, and read-only partner settlement balance and recorded payment activity'
     )
 ) {
   throw new Error(
@@ -352,7 +348,7 @@ if (
   !privacyPage
     .replace(/\s+/g, ' ')
     .includes(
-      'manage account details and which owned accounts share planning balances or holdings, archive manual accounts'
+      'manage account details and which owned accounts share planning balances, archive manual accounts'
     )
 ) {
   throw new Error(

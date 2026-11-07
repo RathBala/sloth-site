@@ -41,7 +41,7 @@ The homepage saver cards stay intentionally light: **Solo** links straight to th
 ## Developers
 
 - **URL:** `https://slothmoney.app/developers/` (Netlify serves [`src/developers/index.html`](../src/developers/index.html))
-- **Purpose:** Public, lightweight developer page for the Sloth Agent API beta. It provides the real npm installation command and public CLI source, then explains how users with full Sloth Money access - including permanent free-beta access - can create a Developer access token, save it with the CLI's native login, inspect accounts and investments, read current or historical budget activity, move assigned budget money, update planned amounts, manage goals, forecast scenarios, and budget taxonomy, create partner clarification links, and apply category assignments with durable interruption recovery.
+- **Purpose:** Public, lightweight developer page for the Sloth Agent API beta. It provides the real npm installation command and public CLI source, then explains how users with full Sloth Money access - including permanent free-beta access - can create a Developer access token, save it with the CLI's native login, inspect accounts and balances, read current or historical budget activity, move assigned budget money, update planned amounts, manage goals, forecast scenarios, and budget taxonomy, create partner clarification links, and apply category assignments with durable interruption recovery.
 - **Public boundary:** Keep this page focused on user-safe setup, examples, endpoint names, query options, operation receipts and recovery, retention, and safety notes. Do not copy internal architecture details from `sloth-budget`, such as Firestore document paths, token hashing implementation, assignment side effects, worker internals, or backend service names.
 - **Account inventory:** Document only opaque account references, saved labels, ownership/source, native balance and currency, balance freshness, and connection state. State that reads are cache-only, partner personal accounts are excluded, and provider identifiers and bank-account details are not returned.
 - **Budget plans:** Document planned and stored funding fields, not transaction-derived spending calculations. State that applying an update overwrites the selected period and every explicit future plan, a later selected period creates the next overwrite boundary, and historical periods stay unchanged.
@@ -53,8 +53,7 @@ The homepage saver cards stay intentionally light: **Solo** links straight to th
   creditor, and raw remittance fields stay private. The existing privacy policy
   already covers transaction counterparties and references, and this change
   adds no processor, retention, logging, or analytics behavior.
-- **Investments:** Account totals and nested holdings overlap. Tell readers not
-  to add them together or silently add values in different currencies.
+- **Investments:** Existing accounts retain manual totals and their last update date. No holdings, trades or provider sync. Keep these totals separate from savings and do not silently combine currencies.
 - **Primary CTA:** `Open Sloth Money`, pointing to `https://budget.slothmoney.app`. The page assumes token creation happens inside the app, not through public token-management API docs.
 - **Canonical path:** `/developers/` is the public canonical page for now. A future `docs.slothmoney.app` or developer subdomain can redirect back here if the API surface grows into versioned docs.
 

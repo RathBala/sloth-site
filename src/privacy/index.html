@@ -159,9 +159,9 @@
                   trader trading as Sloth Money. For UK and EU data protection
                   purposes, this operator is the controller for the personal
                   data described in this policy, except where a provider such as
-                  Stripe, GoCardless, SnapTrade, an authentication provider, or
-                  another integrated service acts as its own controller for
-                  parts of its service.
+                  Stripe, GoCardless, an authentication provider, or another
+                  integrated service acts as its own controller for parts of its
+                  service.
                 </p>
               </div>
             </section>
@@ -182,7 +182,7 @@
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
-                      >Banking and investment data.</strong
+                      >Banking and account data.</strong
                     >
                     If you connect accounts, we may receive institution names,
                     account names, account identifiers, masked local account
@@ -191,8 +191,9 @@
                     transactions, pending transactions, merchant or counterparty
                     details, transaction references, amounts, and dates. Sloth
                     Money currently uses GoCardless Bank Account Data for open
-                    banking connections and SnapTrade for brokerage or exchange
-                    connections such as the Coinbase pilot.
+                    banking connections. Existing manual investment balances
+                    retain an account name, currency, total and last update
+                    date. Sloth does not store holdings or trade history.
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900"
@@ -281,9 +282,9 @@
                     scopes, expiry, revocation status, and secure token hashes.
                     New tokens are view-only by default. You can explicitly
                     allow changes when creating a token. View-only access can
-                    read your account inventory, investment holdings, booked and
-                    recent pending transaction data, categories, budgets, goals,
-                    household-planning balances or linked holdings explicitly
+                    read your account inventory, manual investment balances,
+                    booked and recent pending transaction data, categories,
+                    budgets, goals, household-planning balances explicitly
                     shared by your partner, and read-only partner settlement
                     balance and recorded payment activity, plus confirmed
                     receipt evidence. View-only access can also read recorded
@@ -299,18 +300,18 @@
                     split, manage custom categories and scoped budget line
                     items, move assigned budget money, update planned budget
                     amounts, manage account details and which owned accounts
-                    share planning balances or holdings, archive manual
-                    accounts, extract a receipt draft, manage confirmed receipt
-                    items, save transaction notification rules and temporarily
-                    send a contract PDF to extract a renewal date without
-                    storing the file, request explanations, create, update, or
-                    delete goals, and create, update, activate, or delete
-                    forecast scenarios and contribution routing. Either partner
-                    can edit a household goal’s shared details and split, mark
-                    it spent, or delete it. A partner can see shared details and
-                    aggregate progress, but not the personal account assigned to
-                    fund it, its label, reference, or balance. Archived account
-                    and transaction records are retained. Permissions cannot be
+                    share planning balances, archive manual accounts, extract a
+                    receipt draft, manage confirmed receipt items, save
+                    transaction notification rules and temporarily send a
+                    contract PDF to extract a renewal date without storing the
+                    file, request explanations, create, update, or delete goals,
+                    and create, update, activate, or delete forecast scenarios
+                    and contribution routing. Either partner can edit a
+                    household goal’s shared details and split, mark it spent, or
+                    delete it. A partner can see shared details and aggregate
+                    progress, but not the personal account assigned to fund it,
+                    its label, reference, or balance. Archived account and
+                    transaction records are retained. Permissions cannot be
                     edited later - revoke and reissue the token if its access
                     needs change. Sloth Money keeps the minimum assignment
                     instructions, ownership and progress state, and ordered
@@ -490,13 +491,6 @@
                     >
                     for open banking account, balance, and transaction access
                     when you connect a supported bank.
-                  </li>
-                  <li>
-                    <strong class="font-semibold text-gray-900"
-                      >SnapTrade</strong
-                    >
-                    for brokerage or exchange account access when you connect a
-                    supported provider such as Coinbase.
                   </li>
                   <li>
                     <strong class="font-semibold text-gray-900">Stripe</strong>

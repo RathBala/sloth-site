@@ -118,21 +118,21 @@ assert.equal(
   'privacy policy should describe assignment recovery data and retention'
 )
 assert.equal(
-  /read your account inventory, investment holdings,\s+booked and recent pending transaction data/.test(
+  /read your account inventory, manual investment balances,\s+booked and recent pending transaction data/.test(
     normalizedPrivacyPage
   ),
   true,
-  'privacy policy should describe Agent API investment holdings access'
+  'privacy policy should describe Agent API manual investment balance access'
 )
 assert.equal(
-  /manage\s+account details and\s+which owned accounts share planning balances or holdings,\s+archive manual accounts/.test(
+  /manage\s+account details and\s+which owned accounts share planning balances,\s+archive manual accounts/.test(
     normalizedPrivacyPage
   ),
   true,
   'privacy policy should describe Agent API account changes and archival'
 )
 assert.equal(
-  /read your account inventory, investment holdings,\s+booked and recent pending transaction data, categories, budgets, goals,\s+household-planning balances or linked holdings explicitly\s+shared by your partner, and read-only partner settlement\s+balance and recorded payment activity/.test(
+  /read your account inventory, manual investment balances,\s+booked and recent pending transaction data, categories, budgets, goals,\s+household-planning balances explicitly\s+shared by your partner, and read-only partner settlement\s+balance and recorded payment activity/.test(
     normalizedPrivacyPage
   ),
   true,
