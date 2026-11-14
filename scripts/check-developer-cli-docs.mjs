@@ -26,6 +26,8 @@ const requiredSnippets = [
   'The spending budget’s owner edits its categories and planned category amounts.',
   `The tools cover the financial operations in CLI ${expectedCliVersion}.`,
   '/api/agent/v1/joint-goals',
+  'Idempotency-Key',
+  'Reuse the same key and body when a response is lost.',
   '/api/agent/v1/contribution-routing',
   'sloth_joint_goal_convert_preview',
 

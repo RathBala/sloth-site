@@ -964,6 +964,17 @@ sloth-agent scenarios routing save --input routing.json --apply</code></pre>
                   progress, never the other person’s private funding account
                   configuration.
                 </p>
+                <p class="text-gray-600">
+                  For HTTP household-goal creation, send an optional
+                  <code>Idempotency-Key</code> header with a unique value for
+                  each new goal. Reuse the same key and body when a response is
+                  lost. The retry returns the original goal without creating
+                  another. Keys accept 16–128 letters, digits, periods,
+                  underscores, colons or hyphens. Changed input or a deleted
+                  goal returns <code>409</code>. Preview does not consume the
+                  key. CLI and plugin invocations do not supply this header;
+                  each create invocation remains a separate creation.
+                </p>
               </section>
               <section id="multi-account-goals" class="space-y-4 scroll-mt-24">
                 <h3 class="font-bold text-gray-900">
